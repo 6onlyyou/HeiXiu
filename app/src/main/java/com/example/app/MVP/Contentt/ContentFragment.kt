@@ -15,7 +15,11 @@ import com.example.app.base.BaseFragment
  * A simple [Fragment] subclass.
  */
 class ContentFragment : BaseFragment() {
-    override fun initView(inflater: LayoutInflater?, container: ViewGroup?): View {
+    override fun initView() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun createView(inflater: LayoutInflater?, container: ViewGroup?): View {
         return inflater!!.inflate(R.layout.fragment_content, container, false)
     }
 

@@ -18,11 +18,13 @@ public class MyApplication extends Application {
     private List<Activity> activities = new ArrayList<Activity>();
     //记录需要一次性关闭的页面
     private List<Activity> activitys = new ArrayList<Activity>();
+
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
     }
+
     /**
      * 应用实例
      **/
@@ -35,7 +37,7 @@ public class MyApplication extends Application {
      */
     public static MyApplication getInstance() {
         if (instance == null) {
-            instance = new MyApplication ();
+            instance = new MyApplication();
         }
         return instance;
     }

@@ -15,7 +15,11 @@ import com.example.app.base.BaseFragment
  * A simple [Fragment] subclass.
  */
 class MessageFragment : BaseFragment() {
-    override fun initView(inflater: LayoutInflater?, container: ViewGroup?): View {
+    override fun initView() {
+
+    }
+
+    override fun createView(inflater: LayoutInflater?, container: ViewGroup?): View {
         return inflater!!.inflate(R.layout.fragment_message, container, false)
     }
 

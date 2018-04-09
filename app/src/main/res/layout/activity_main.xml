@@ -1,130 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.example.app.MainActivity"
-        android:clipChildren="false">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    tools:context="com.example.app.MainActivity">
+
     <FrameLayout
         android:id="@+id/fl_container"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-      >
-    </FrameLayout>
-        <LinearLayout
-            android:id="@+id/Ll_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
-            <RelativeLayout
-                android:id="@+id/Rl_homepass"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:layout_weight="1">
-                <ImageView
-                    android:id="@+id/Iv_homepass"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@mipmap/homepass" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/Ll_bottom"></FrameLayout>
 
-                <TextView
-                    android:padding="2dp"
-                    android:textSize="10sp"
-                    android:layout_centerInParent="true"
-                    android:text="首页"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/Iv_homepass"/>
+    <LinearLayout
+        android:id="@+id/Ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
 
-            </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/Rl_homepass"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1">
 
-            <RelativeLayout
-                android:id="@+id/Rl_expressnopass"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:layout_weight="1">
-                <ImageView
-                    android:id="@+id/Iv_expressnopass"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@mipmap/expressnopass" />
-                <TextView
-                    android:padding="2dp"
-                    android:textSize="10sp"
-                    android:layout_centerInParent="true"
-                    android:text="快递"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/Iv_expressnopass"/>
+            <ImageView
+                android:id="@+id/Iv_homepass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/homepass" />
 
-            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Iv_homepass"
+                android:layout_centerInParent="true"
+                android:padding="2dp"
+                android:text="首页"
+                android:textSize="10sp" />
 
-            <RelativeLayout
-                android:id="@+id/Rl_contentt"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom">
+        </RelativeLayout>
 
-                <ImageView
-                    android:id="@+id/Iv_contentt"
-                    android:layout_width="40dp"
-                    android:layout_height="50dp"
-                    android:layout_centerInParent="true"
-                    android:src="@mipmap/contentt" />
+        <RelativeLayout
+            android:id="@+id/Rl_expressnopass"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1">
 
-            </RelativeLayout>
+            <ImageView
+                android:id="@+id/Iv_expressnopass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/expressnopass" />
 
-            <RelativeLayout
-                android:id="@+id/Rl_communitynopass"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:layout_weight="1">
-                <ImageView
-                    android:id="@+id/Iv_communitynopass"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@mipmap/communitynopass" />
-                <TextView
-                    android:padding="2dp"
-                    android:textSize="10sp"
-                    android:layout_centerInParent="true"
-                    android:text="社交"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/Iv_communitynopass"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Iv_expressnopass"
+                android:layout_centerInParent="true"
+                android:padding="2dp"
+                android:text="快递"
+                android:textSize="10sp" />
 
-            </RelativeLayout>
+        </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/Rl_messnopass"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:layout_weight="1">
-                <ImageView
-                    android:id="@+id/Iv_messnopass"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@mipmap/messnopass" />
-                <TextView
-                    android:padding="2dp"
-                    android:textSize="10sp"
-                    android:layout_centerInParent="true"
-                    android:text="我的"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/Iv_messnopass"/>
+        <RelativeLayout
+            android:id="@+id/Rl_contentt"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom">
 
-            </RelativeLayout>>
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/Iv_contentt"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/contentt" />
 
-    </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/Rl_communitynopass"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/Iv_communitynopass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/communitynopass" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Iv_communitynopass"
+                android:layout_centerInParent="true"
+                android:padding="2dp"
+                android:text="社交"
+                android:textSize="10sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/Rl_messnopass"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/Iv_messnopass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/messnopass" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Iv_messnopass"
+                android:layout_centerInParent="true"
+                android:padding="2dp"
+                android:text="我的"
+                android:textSize="10sp" />
+
+        </RelativeLayout>
+        >
+    </LinearLayout>
+
+</RelativeLayout>
 

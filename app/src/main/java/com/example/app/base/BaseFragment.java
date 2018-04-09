@@ -1,6 +1,5 @@
 package com.example.app.base;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -11,13 +10,14 @@ import android.view.ViewGroup;
 /**
  * Created by XY on 2016/9/11.
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends android.support.v4.app.Fragment {
 
-    private View mRootView;
+    protected View mRootView;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = initView(inflater,container);
+        mRootView = createView(inflater, container);
         return mRootView;
     }
 
@@ -28,7 +28,17 @@ public abstract class BaseFragment extends Fragment {
         initData();
     }
 
-    protected abstract View initView(LayoutInflater inflater,ViewGroup container);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initView();
+    }
+
+    protected abstract View createView(LayoutInflater inflater, ViewGroup container);
+
     protected abstract void initListener();
+
     protected abstract void initData();
+
+    protected abstract void initView();
 }

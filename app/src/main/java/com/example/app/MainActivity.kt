@@ -1,8 +1,5 @@
 package com.example.app
 
-import android.app.Fragment
-import android.view.View
-import android.widget.ImageView
 import com.example.app.MVP.Community.CommunityFragment
 import com.example.app.MVP.Contentt.ContentFragment
 import com.example.app.MVP.Express.ExpressFragment
@@ -13,32 +10,33 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : BaseActivity() {
-    private var fragments: ArrayList<Fragment>? = null
+    private var fragments: ArrayList<android.support.v4.app.Fragment>? = null
     override fun findViewById() {
 
-        Rl_homepass.setOnClickListener(View.OnClickListener {
+        Rl_homepass.setOnClickListener({
             switchFragment(0)
-        }) ;
-        Rl_expressnopass.setOnClickListener(View.OnClickListener {
+        });
+        Rl_expressnopass.setOnClickListener({
             switchFragment(1)
-        }) ;
-        Rl_contentt.setOnClickListener(View.OnClickListener {
+        });
+        Rl_contentt.setOnClickListener({
             switchFragment(2)
-        }) ;
-        Rl_communitynopass.setOnClickListener(View.OnClickListener {
+        });
+        Rl_communitynopass.setOnClickListener({
             switchFragment(3)
-        }) ;
-        Rl_messnopass.setOnClickListener(View.OnClickListener {
+        });
+        Rl_messnopass.setOnClickListener({
             switchFragment(4)
-        }) ;
+        });
     }
-
 
 
     override fun loadViewLayout() {
         setContentView(R.layout.activity_main)
         fragments = ArrayList()
         addFragment()
+
+        switchFragment(0)
     }
 
     override fun setListener() {
@@ -64,7 +62,7 @@ class MainActivity : BaseActivity() {
      * @param position
      */
     fun switchFragment(position: Int) {
-        val fragmentTransaction = getFragmentManager().beginTransaction()
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
         for (i in 0 until fragments!!.size) {
             val fragment = fragments!!.get(i)
             if (i == position) {
