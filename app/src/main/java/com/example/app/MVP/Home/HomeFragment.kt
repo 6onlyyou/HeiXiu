@@ -1,6 +1,7 @@
 package com.example.app.MVP.Home
 
 
+import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -17,14 +18,27 @@ import kotlinx.android.synthetic.main.fragment_home.*
  */
 class HomeFragment : BaseFragment() {
 
+    private val homeAdapter by lazy {
+        HomeAdapter(context)
+    }
 
     override fun createView(inflater: LayoutInflater?, container: ViewGroup?): View {
         return inflater!!.inflate(R.layout.fragment_home, container, false)
     }
 
+
     override fun initView() {
         homeRv.layoutManager = LinearLayoutManager(context)
-        homeRv.adapter = HomeAdapter(context)
+        homeAdapter.onItemClick = object : HomeAdapter.OnItemClick {
+            override fun onDetailClick(position: Int) {
+                startActivity(Intent(context, OrderDetailActivity::class.java))
+            }
+
+            override fun onConfirmOrderClick(position: Int) {
+                startActivity(Intent(context, ConfirmOrderActivity::class.java))
+            }
+        }
+        homeRv.adapter = homeAdapter
     }
 
     override fun initListener() {
