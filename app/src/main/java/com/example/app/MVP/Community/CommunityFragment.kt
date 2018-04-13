@@ -13,14 +13,14 @@ import com.example.app.base.BaseFragment
  * A simple [Fragment] subclass.
  */
 class CommunityFragment : BaseFragment() {
-    override fun initView() {
 
-    }
 
     override fun createView(inflater: LayoutInflater?, container: ViewGroup?): View {
         return inflater!!.inflate(R.layout.fragment_community, container, false)
     }
+    override fun initView() {
 
+    }
     override fun initListener() {
     }
 
