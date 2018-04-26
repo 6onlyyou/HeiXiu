@@ -3,6 +3,7 @@ package com.example.app.MVP.Login
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.view.View
 import com.example.app.R
 import com.example.app.base.BaseActivity
 import com.example.app.MVP.Contentt.ContentFragment
@@ -17,6 +18,8 @@ class LoginActivity : BaseActivity() {
     var  fragments:ArrayList<Fragment>? = ArrayList();
     override fun loadViewLayout() {
         setContentView(R.layout.activity_login)
+        initTitle("登入", R.color.colorPrimary, R.color.white)
+        mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
         val fragment1 = PhoneLoginFragment()
         val fragment2 = AccountLoginFragment()
         fragments!!.add(fragment1)

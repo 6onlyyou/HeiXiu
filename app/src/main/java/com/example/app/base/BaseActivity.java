@@ -20,10 +20,14 @@ import android.widget.Toast;
 
 import com.example.app.MyApplication.MyApplication;
 import com.example.app.R;
+import com.example.app.utils.ActivityManager;
 import com.fushuaige.common.widget.TitleBar;
 
 import java.io.Serializable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
@@ -32,7 +36,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private ConnectivityManager manager;
     boolean isNeedFullBar;
     protected TitleBar mTitle;
-    Unbinder mUnbinder;
+
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +45,45 @@ public abstract class BaseActivity extends AppCompatActivity {
             setFullBar();
         }
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);// 锁定竖屏
-        // setTheme(R.style.AnimationActivity);//设置切换动画
-//		mContext = getActivityContext();
         initView();
         initdata();
-        MyApplication.getInstance().addActivity(this);
+        ActivityManager.addActivity(this);
+    }
+    public void initTitle(int id, int bgcolor, int titlecolor) {
+        if (mTitle == null) {
+            mTitle = new TitleBar(this, findViewById(android.R.id.content), id, bgcolor, titlecolor);
+        }
+    }
+
+    /**
+     * initTitle:初始化标题. <br/>
+     *
+     * @param name 标题文本
+     */
+    public void initTitle(String name, int bgcolor, int titlecolor) {
+        if (mTitle == null) {
+            mTitle = new TitleBar(this, findViewById(android.R.id.content), name, bgcolor, titlecolor);
+        }
+    }
+    public void finishWithAnim() {
+        super.finish();
+        int animEnter = R.anim.anim_left_enter;
+        int animExit = R.anim.anim_right_exit;
+        overridePendingTransition(animEnter, animExit);
+    }
+
+    public void finishWithAlpha() {
+        super.finish();
+        int animEnter = R.anim.alpha_enter;
+        int animExit = R.anim.alpha_exit;
+        overridePendingTransition(animEnter, animExit);
+    }
+
+    protected boolean checkPhone(String str) {
+        String pattern = "0?(13|14|15|17|18)[0-9]{9}";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(str);
+        return m.matches();
     }
 
     private void setFullBar() {

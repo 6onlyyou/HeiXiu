@@ -42,14 +42,6 @@ public class MyApplication extends Application {
         return instance;
     }
 
-    /**
-     * 新建了一个activity
-     *
-     * @param activity
-     */
-    public void addActivity(Activity activity) {
-        activities.add(activity);
-    }
 
     /**
      * 结束指定的Activity
