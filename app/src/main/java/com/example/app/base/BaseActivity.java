@@ -2,6 +2,7 @@ package com.example.app.base;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
@@ -18,22 +19,27 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.app.MyApplication.MyApplication;
+import com.example.app.R;
+import com.fushuaige.common.widget.TitleBar;
+
+import java.io.Serializable;
+
+import butterknife.Unbinder;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
     protected Context mContext;
     private ConnectivityManager manager;
     boolean isNeedFullBar;
-
+    protected TitleBar mTitle;
+    Unbinder mUnbinder;
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (isNeedFullBar) {
             setFullBar();
         }
-
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);// 锁定竖屏
         // setTheme(R.style.AnimationActivity);//设置切换动画
 //		mContext = getActivityContext();
@@ -126,7 +132,20 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     protected abstract void processLogic();
 
+    public void startActivity(Class<?> activity) {
+        startActivity(activity, null);
+    }
 
+    public void startActivity(Class<?> activity, Object data) {
+        Intent intent = new Intent();
+        intent.setClass(getApplicationContext(), activity);
+        if (data != null)
+            intent.putExtra("data", (Serializable) data);
+        startActivity(intent);
+        int animEnter = R.anim.anim_right_enter;
+        int animExit = R.anim.anim_left_exit;
+        overridePendingTransition(animEnter, animExit);
+    }
     /**
      * Activity.this
      */
