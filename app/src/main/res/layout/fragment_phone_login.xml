@@ -36,6 +36,9 @@
     <Button
         android:layout_marginTop="30dp"
         android:background="@color/colorPrimary"
+        android:onClick="loginTo"
+        tools:ignore="OnClick"
+        android:clickable="true"
         android:text="登入"
         android:layout_gravity="center"
         android:layout_width="wrap_content"

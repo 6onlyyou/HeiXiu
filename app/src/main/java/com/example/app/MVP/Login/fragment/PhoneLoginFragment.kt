@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.app.MainActivity
 
 import com.example.app.R
 import com.example.app.base.BaseFragment
@@ -25,6 +26,7 @@ class PhoneLoginFragment : BaseFragment() {
     }
 
     override fun initListener() {
+
     }
 
     override fun initData() {
@@ -32,4 +34,5 @@ class PhoneLoginFragment : BaseFragment() {
 
     override fun initView() {
     }
+
 }// Required empty public constructor

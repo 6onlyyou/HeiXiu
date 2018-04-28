@@ -1,10 +1,15 @@
 package com.example.app.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.app.R;
+
+import java.io.Serializable;
 
 
 /**
@@ -41,4 +46,15 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment {
     protected abstract void initData();
 
     protected abstract void initView();
+    public void startActivity(Class<?> activity) {
+        startActivity(activity, null);
+    }
+
+    public void startActivity(Class<?> activity, Object data) {
+        Intent intent = new Intent();
+        intent.setClass(getContext(), activity);
+        if (data != null)
+            intent.putExtra("data", (Serializable) data);
+        startActivity(intent);
+    }
 }

@@ -8,7 +8,10 @@ import java.io.Serializable;
  * Author: fushuaige
  */
 public class DynamicEntity implements Serializable {
-
+    private String headurl;
+    private String nickname;
+    private String praise;
+    private String comment;
     private String pictureUrl;
     private String title;
     private String introduction;
@@ -55,5 +58,35 @@ public class DynamicEntity implements Serializable {
         this.id = id;
     }
 
+    public String getHeadurl() {
+        return headurl;
+    }
 
+    public void setHeadurl(String headurl) {
+        this.headurl = headurl;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getPraise() {
+        return praise;
+    }
+
+    public void setPraise(String praise) {
+        this.praise = praise;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 }

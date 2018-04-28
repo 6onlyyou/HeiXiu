@@ -16,7 +16,6 @@ import com.example.app.base.BaseFragment
  */
 class ContentFragment : BaseFragment() {
     override fun initView() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun createView(inflater: LayoutInflater?, container: ViewGroup?): View {

@@ -9,6 +9,7 @@ import com.example.app.base.BaseActivity
 import com.example.app.MVP.Contentt.ContentFragment
 import com.example.app.MVP.Login.fragment.AccountLoginFragment
 import com.example.app.MVP.Login.fragment.PhoneLoginFragment
+import com.example.app.MainActivity
 import com.example.app.adapter.LoginFragmentAdapter
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -37,5 +38,8 @@ class LoginActivity : BaseActivity() {
 
     override fun processLogic() {
     }
-
+    fun loginTo(view: View) {
+        startActivity(MainActivity::class.java)
+//        homePresenter!!.logOut()
+    }
 }
