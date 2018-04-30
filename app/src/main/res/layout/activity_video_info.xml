@@ -8,6 +8,9 @@
     android:orientation="vertical"
     tools:context="com.example.app.MVP.Community.VideoInfoActivity">
     <include layout="@layout/comm_title" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <com.example.app.widget.ObservableScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,8 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
     <RelativeLayout
         android:layout_marginLeft="20dp"
@@ -120,17 +123,21 @@
         android:layout_height="0.3dp"
         android:background="#aaa"></View>
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/Rv_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
         </LinearLayout>
+        </RelativeLayout>
+    </com.example.app.widget.ObservableScrollView>
             <EditText
+                android:id="@+id/Et_comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/login_bg"
                 android:layout_alignParentBottom="true"
-                android:hint="请输入评论"/>
-        </RelativeLayout>
-    </com.example.app.widget.ObservableScrollView>
+                android:hint="请输入评论"
+                tools:ignore="NotSibling" />
+    </RelativeLayout>
 </LinearLayout>

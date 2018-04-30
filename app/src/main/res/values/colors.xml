@@ -2,6 +2,11 @@
 <resources>
     <color name="colorPrimary">#1DB8A5</color>
     <color name="colorPrimaryDark">#1DB8A5</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#1DB8A5</color>
     <color name="white">#ffffff</color>
+    <color name="text_time">#2ad26f</color>
+    <color name="black">#000000</color>
+    <color name="transParentBlack">#59000000</color>
+    <color name="gray_text">#adadad</color>
+    <color name="transparent">#00000000</color>
 </resources>
