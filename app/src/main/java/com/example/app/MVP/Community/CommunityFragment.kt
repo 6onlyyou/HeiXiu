@@ -2,6 +2,7 @@ package com.example.app.MVP.Community
 
 
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -14,17 +15,28 @@ import com.example.app.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_community.*
 import java.util.ArrayList
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter
-
-
+import com.fushuaige.common.utils.SizeUtils.getMeasuredHeight
+import android.R.attr.y
+import android.R.attr.x
+import android.app.Dialog
+import android.view.Gravity
+import android.widget.LinearLayout
+import android.widget.Toast
+import com.fushuaige.common.utils.ToastUtils
+import com.fushuaige.common.utils.ToastUtils.setGravity
+import kotlinx.android.synthetic.main.issue_dialog.*
+import kotlinx.android.synthetic.main.issue_dialog.view.*
 
 
 /**
  * A simple [Fragment] subclass.
  */
-class CommunityFragment : BaseFragment(), BaseQuickAdapter.RequestLoadMoreListener {
+class CommunityFragment : BaseFragment(), BaseQuickAdapter.RequestLoadMoreListener,View.OnClickListener  {
+
 
 
     var page: Int = 0
+    var mCameraDialog: Dialog? = null
     internal var mRefreshLayout: SwipeRefreshLayout? = null
     internal var commounityAdapter: CommounityAdapter? = null
     private val dynamicEntityList = ArrayList<DynamicEntity>()
@@ -73,7 +85,18 @@ class CommunityFragment : BaseFragment(), BaseQuickAdapter.RequestLoadMoreListen
         commounityAdapter = CommounityAdapter(list)
     }
     override fun initListener() {
-
+        Bt_hot.setOnClickListener{
+            if(mCameraDialog!=null) {
+                mCameraDialog!!.dismiss()
+            }
+            Bt_hot.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            Bt_issue.setTextColor(ContextCompat.getColor(context!!, R.color.gray_text))
+        }
+        Bt_issue.setOnClickListener{
+            Bt_hot.setTextColor(ContextCompat.getColor(context!!, R.color.gray_text))
+            Bt_issue.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            setDialog()
+        }
     }
 
     override fun initData() {
@@ -94,4 +117,48 @@ class CommunityFragment : BaseFragment(), BaseQuickAdapter.RequestLoadMoreListen
         commounityAdapter!!.openLoadMore(2,true);
     }
 
+    private fun setDialog() {
+         mCameraDialog = Dialog(context, R.style.BottomDialogs)
+        val root = LayoutInflater.from(context).inflate(
+                R.layout.issue_dialog, null) as LinearLayout
+        //初始化视图
+        root.Tv_text.setOnClickListener(this)
+        root.Tv_pickup.setOnClickListener(this)
+        root.Tv_pic.setOnClickListener(this)
+        root.Iv_cancel.setOnClickListener(this)
+        mCameraDialog!!.setContentView(root)
+        val dialogWindow = mCameraDialog!!.getWindow()
+        dialogWindow.setGravity(Gravity.BOTTOM)
+        //        dialogWindow.setWindowAnimations(R.style.dialogstyle); // 添加动画
+        val lp = dialogWindow.getAttributes() // 获取对话框当前的参数值
+        lp.x = 0 // 新位置X坐标
+        lp.y = 0 // 新位置Y坐标
+        lp.width = resources.displayMetrics.widthPixels.toInt() // 宽度
+        root.measure(0, 0)
+        lp.height = root.getMeasuredHeight()
+
+        lp.alpha = 9f // 透明度
+        dialogWindow.setAttributes(lp)
+        mCameraDialog!!.show()
+    }
+    override fun onClick(view: View?) {
+        when (view!!.getId()) {
+            R.id.Tv_text ->
+                //弹出对话框
+                ToastUtils.showLong("文字")
+            R.id.Tv_pickup ->
+                //选择照片按钮
+                ToastUtils.showLong("摄像")
+            R.id.Tv_pic ->
+                //拍照按钮
+                ToastUtils.showLong("相册")
+            R.id.Iv_cancel ->
+                //取消按钮
+                if(mCameraDialog!=null) {
+                    mCameraDialog!!.dismiss()
+                    Bt_hot.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                    Bt_issue.setTextColor(ContextCompat.getColor(context!!, R.color.gray_text))
+                }
+        }
+    }
 }// Required empty public constructor
