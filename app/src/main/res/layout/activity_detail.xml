@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.app.MVP.Home.OrderDetailActivity">
+    tools:context="com.heixiu.errand.MVP.Home.OrderDetailActivity">
 
     <include layout="@layout/layout_order_info" />
 

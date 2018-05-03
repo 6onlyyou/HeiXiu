@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.app.MVP.Home.HomeFragment">
+    tools:context="com.heixiu.errand.MVP.Home.HomeFragment">
 
     <TextView
         android:layout_width="match_parent"

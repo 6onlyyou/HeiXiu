@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
-    tools:context="com.example.app.MainActivity">
+    tools:context="com.heixiu.errand.MainActivity">
 
     <FrameLayout
         android:id="@+id/fl_container"

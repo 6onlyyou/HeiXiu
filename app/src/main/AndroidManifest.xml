@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.app">
+    package="com.heixiu.errand">
 
     <!-- 检测网络状态 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -69,6 +69,32 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
+    //百度地图
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
+    <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- 访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <!-- OpenGLES 2.0 -->
+    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -78,7 +104,7 @@
         android:theme="@style/AppTheme.NoActionBar"
         tools:replace="android:icon, android:theme">
         <activity
-            android:name=".MVP.Login.LoginActivity"
+            android:name="com.heixiu.errand.MVP.Login.LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -87,16 +113,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MVP.Home.OrderDetailActivity"
-            android:parentActivityName=".MainActivity">
+            android:name="com.heixiu.errand.MVP.Home.OrderDetailActivity"
+            android:parentActivityName="com.heixiu.errand.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="com.heixiu.errand.MainActivity" />
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".MVP.Home.ConfirmOrderActivity" />
-        <activity android:name=".MVP.Login.RegisterActivity" />
-        <activity android:name=".MVP.Community.VideoInfoActivity"></activity>
+        <activity android:name="com.heixiu.errand.MainActivity" />
+        <activity android:name="com.heixiu.errand.MVP.Home.ConfirmOrderActivity" />
+        <activity android:name="com.heixiu.errand.MVP.Login.RegisterActivity" />
+        <activity android:name="com.heixiu.errand.MVP.Community.VideoInfoActivity"></activity>
+
+
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
+        </service>
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="jccXgSM5b5EjhTOEqtn2fMYfSP1AeAFZ"/>
     </application>
 
 </manifest>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.app.MVP.Login.RegisterActivity">
+    tools:context="com.heixiu.errand.MVP.Login.RegisterActivity">
 
     <include layout="@layout/comm_title" />
     <LinearLayout

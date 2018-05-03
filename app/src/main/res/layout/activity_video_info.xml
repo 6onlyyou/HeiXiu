@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
 
     android:orientation="vertical"
-    tools:context="com.example.app.MVP.Community.VideoInfoActivity">
+    tools:context="com.heixiu.errand.MVP.Community.VideoInfoActivity">
     <include layout="@layout/comm_title" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <com.example.app.widget.ObservableScrollView
+    <com.heixiu.errand.widget.ObservableScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fadingEdge="vertical"
@@ -130,7 +130,7 @@
     </android.support.v7.widget.RecyclerView>
         </LinearLayout>
         </RelativeLayout>
-    </com.example.app.widget.ObservableScrollView>
+    </com.heixiu.errand.widget.ObservableScrollView>
             <EditText
                 android:id="@+id/Et_comment"
                 android:layout_width="match_parent"

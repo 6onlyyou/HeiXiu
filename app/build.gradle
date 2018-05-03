@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.example.app"
+        applicationId "com.heixiu.errand"
         minSdkVersion rootProject.ext.appMinSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
@@ -22,7 +22,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    sourceSets {
+        main {
+            jniLibs.srcDir 'libs'
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -40,4 +47,5 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.android.support:design:26.1.0'
     implementation project(':common')
+    implementation files('libs/BaiduLBS_Android.jar')
 }
