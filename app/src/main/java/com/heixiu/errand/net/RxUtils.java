@@ -2,7 +2,8 @@ package com.heixiu.errand.net;
 
 import android.util.Log;
 
-import com.wwzz.api.bean.ResponseBean;
+
+import com.heixiu.errand.bean.ResponseBean;
 
 import java.util.concurrent.Callable;
 
@@ -23,10 +24,7 @@ public class RxUtils {
                 .flatMap(new Function<ResponseBean<T>, ObservableSource<? extends T>>() {
                     @Override
                     public ObservableSource<? extends T> apply(ResponseBean<T> tResponseBean) throws Exception {
-                        if (tResponseBean.getState() == 0) {
-                            if (tResponseBean.getData()==null){
-                                tResponseBean.setData((T) " ");
-                            }
+                        if (tResponseBean.isIsSuccess()) {
                             return Observable.just(tResponseBean.getData());
                         } else {
                             return Observable.error(new Exception());
