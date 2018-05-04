@@ -36,7 +36,7 @@ public class CommounityAdapter extends BaseQuickAdapter<DynamicEntity> {
 
     @Override
     protected void convert(BaseViewHolder helper, DynamicEntity item) {
-        helper.setText(R.id.video_list_item_text_title,item.getTitle()).setText(R.id.video_list_item_text_context,item.getIntroduction()).setText(R.id.Iv_communityNickName,item.getNickname()).setText(R.id.Tv_communityPraise,item.getPraise()).setText(R.id.Tv_communitySend,item.getComment());
+        helper.setText(R.id.video_list_item_text_context,item.getIntroduction()).setText(R.id.Iv_communityNickName,item.getNickname()).setText(R.id.Tv_communityPraise,item.getPraise());
         //Glide加载图片  并且支持gif动图
         Glide.with(mContext)
                 .load(item.getHeadurl())
@@ -55,11 +55,6 @@ public class CommounityAdapter extends BaseQuickAdapter<DynamicEntity> {
                 .crossFade()
                 .placeholder(R.mipmap.ic_launcher)
                 .into((((JCVideoPlayerStandard) helper.getView(R.id.video_list_item_playr)).thumbImageView));
-        Glide.with(mContext)
-                .load(item.getPictureUrl())
-                .crossFade()
-                .placeholder(R.mipmap.ic_launcher)
-                .into((ImageView) helper.getView(R.id.video_list_item_image));
         LinearLayout linearLayout;
         linearLayout = (LinearLayout) helper.getView(R.id.Ll_into);
         linearLayout.setOnClickListener(new View.OnClickListener() {
