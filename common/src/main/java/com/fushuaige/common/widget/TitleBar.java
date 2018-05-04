@@ -1,6 +1,7 @@
 package com.fushuaige.common.widget;
 
 import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -32,7 +33,7 @@ public class TitleBar {
 
     }
 
-    public TitleBar(Activity act, View rootView, String title, int bgcolor, int titlecolor) {
+    public TitleBar(FragmentActivity act, View rootView, String title, int bgcolor, int titlecolor) {
         this.act = act;
         this.title = title;
         this.rootView = rootView;
@@ -43,7 +44,7 @@ public class TitleBar {
         tv_title.setTextColor(act.getResources().getColor(titlecolor));
     }
 
-    public TitleBar(Activity act, View rootView, int id, int bgcolor, int titlecolor) {
+    public TitleBar(FragmentActivity act, View rootView, int id, int bgcolor, int titlecolor) {
         this.act = act;
         this.title = act.getString(id);
         this.rootView = rootView;

@@ -34,6 +34,10 @@ class MyIssuedFragment : BaseFragment() {
     }
 
     override fun initView() {
+        initTitle("视频", R.color.colorPrimary, R.color.white)
+        mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener {
+
+        })
 //        Rv_issue.setLayoutManager(LinearLayoutManager(activity))
 //        //如果Item高度固定  增加该属性能够提高效率
 //        Rv_issue.setHasFixedSize(true)
