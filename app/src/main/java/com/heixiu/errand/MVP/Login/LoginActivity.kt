@@ -1,6 +1,5 @@
 package com.heixiu.errand.MVP.Login
 
-import android.support.v4.app.Fragment
 import android.view.View
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseActivity
@@ -13,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity() {
     var  adapter:LoginFragmentAdapter? = null;
-    var  fragments:ArrayList<Fragment>? = ArrayList();
+    var  fragments:ArrayList<android.support.v4.app.Fragment>? = ArrayList();
     override fun loadViewLayout() {
         setContentView(R.layout.activity_login)
         initTitle("登入", R.color.colorPrimary, R.color.white)
