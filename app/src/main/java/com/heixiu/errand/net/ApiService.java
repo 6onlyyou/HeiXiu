@@ -127,7 +127,7 @@ public interface ApiService {
      *
      * @return
      */
-    @POST("/queryCreatedOrderInfo")
+    @POST("queryCreatedOrderInfo")
     Observable<ResponseBean<List<OrderInfo>>> queryCreatedOrderInfo();
 
     /**
@@ -135,7 +135,7 @@ public interface ApiService {
      *
      * @return
      */
-    @POST("/queryOneOrderInfo")
+    @POST("queryOneOrderInfo")
     Observable<ResponseBean<List<OrderInfo>>> queryOneOrderInfo(@Query("orderNum") String orderNum);
 
     /**
@@ -148,7 +148,7 @@ public interface ApiService {
      *
      * @return
      */
-    @POST("/changeOrderStatus")
+    @POST("changeOrderStatus")
     Observable<ResponseBean<List<OrderInfo>>> changeOrderStatus(@Query("orderNum") String orderNum
             , @Query("orderStatus") String orderStatus);
 

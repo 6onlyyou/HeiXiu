@@ -1,10 +1,12 @@
 package com.heixiu.errand.net;
 
+import java.io.Serializable;
+
 /**
  * Created by YuanGang on 2018/5/4.
  */
 
-public class OrderInfo {
+public class OrderInfo implements Serializable {
 
 
     /**

@@ -42,7 +42,7 @@
                 android:id="@+id/detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableRight="@mipmap/ic_location"
+                android:drawableRight="@mipmap/ic_next"
                 android:text="详 情 "
                 android:textColor="@color/colorPrimary" />
         </LinearLayout>
@@ -51,7 +51,7 @@
             android:id="@+id/start_location_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/ic_location"
+            android:drawableLeft="@mipmap/ic_start_address"
             android:text="开始"
             android:textColor="@color/colorPrimary" />
 
@@ -59,7 +59,7 @@
             android:id="@+id/end_location_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/ic_location"
+            android:drawableLeft="@mipmap/ic_end_address"
             android:text="结束"
             android:textColor="@color/colorPrimary" />
 
@@ -79,7 +79,7 @@
                     android:id="@+id/type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/ic_location"
+                    android:drawableLeft="@mipmap/ic_package"
                     android:text="电子产品"
                     android:textSize="12sp" />
 
@@ -88,23 +88,20 @@
                     android:id="@+id/weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/ic_location"
+                    android:drawableLeft="@mipmap/ic_weight"
                     android:text="0.2公斤"
                     android:textColor="@color/colorPrimary"
                     android:textSize="12sp" />
             </LinearLayout>
 
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:background="@color/colorPrimary"
-                android:gravity="center"
-                android:text="立即接单"
+            <ImageView
                 android:id="@+id/confirmOrder"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@mipmap/btn_take_order"
+                android:textColor="@color/white" />
         </LinearLayout>
 
     </LinearLayout>

@@ -3,6 +3,9 @@ package com.heixiu.errand.MyApplication;
 import android.app.Activity;
 import android.app.Application;
 
+import com.fushuaige.common.utils.Utils;
+import com.heixiu.errand.net.AndroidBase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,21 +17,14 @@ import java.util.List;
  *  */
 
 public class MyApplication extends Application {
-    //记录当前栈里所有activity
-    private List<Activity> activities = new ArrayList<Activity>();
-    //记录需要一次性关闭的页面
-    private List<Activity> activitys = new ArrayList<Activity>();
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        instance = this;
-    }
-
     /**
      * 应用实例
      **/
     private static MyApplication instance;
+    //记录当前栈里所有activity
+    private List<Activity> activities = new ArrayList<Activity>();
+    //记录需要一次性关闭的页面
+    private List<Activity> activitys = new ArrayList<Activity>();
 
     /**
      * 获得实例
@@ -42,6 +38,14 @@ public class MyApplication extends Application {
         return instance;
     }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        instance = this;
+
+        AndroidBase.init(this, "http://heixiuapp.cn/api/", "http://heixiuapp.cn/api/");
+        Utils.init(this);
+    }
 
     /**
      * 结束指定的Activity
