@@ -11,8 +11,8 @@ import com.heixiu.errand.R
 import com.heixiu.errand.adapter.HomeAdapter
 import com.heixiu.errand.base.BaseFragment
 import com.heixiu.errand.net.OrderInfo
+import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
-import com.wwzz.androidbase.net.RetrofitFactory
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
