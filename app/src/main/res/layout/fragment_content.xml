@@ -2,12 +2,169 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.heixiu.errand.MVP.Contentt.ContentFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="中间" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="发布任务"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+    </FrameLayout>
+
+    <!--<com.baidu.mapapi.map.MapView-->
+        <!--android:id="@+id/mmap"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginTop="40dp" />-->
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:cardCornerRadius="6dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/receiveAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/ic_start_address"
+                android:drawablePadding="6dp"
+                android:hint="取 件 地 址"
+                android:textColorHint="@color/hint_text"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/line" />
+
+            <TextView
+                android:id="@+id/sendAddress"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/ic_end_address"
+                android:drawablePadding="6dp"
+                android:hint="送 达 地 址"
+                android:textColorHint="@color/hint_text"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/line" />
+
+            <TextView
+                android:id="@+id/sendTime"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/ic_time"
+                android:drawablePadding="6dp"
+                android:hint="送 达 时 间"
+                android:textColorHint="@color/hint_text"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/package_type_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="10sp"
+                    android:drawablePadding="4dp"
+                    android:drawableTop="@mipmap/ic_package_publish"
+                    android:gravity="center"
+                    android:text="物品类型" />
+
+                <TextView
+                    android:id="@+id/package_weight_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="4dp"
+                    android:textSize="10sp"
+                    android:drawableTop="@mipmap/ic_weight_publish"
+                    android:gravity="center"
+                    android:text="物品重量" />
+
+                <TextView
+                    android:id="@+id/discount_coupon_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="4dp"
+                    android:textSize="10sp"
+                    android:drawableTop="@mipmap/ic_discount_coupon"
+                    android:gravity="center"
+                    android:text="优惠券" />
+
+                <TextView
+                    android:id="@+id/add_price_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="4dp"
+                    android:textSize="10sp"
+                    android:drawableTop="@mipmap/ic_add_price_publish"
+                    android:gravity="center"
+                    android:text="我要加价" />
+
+                <TextView
+                    android:id="@+id/keep_price_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="10sp"
+                    android:drawablePadding="4dp"
+                    android:drawableTop="@mipmap/ic_keep_price"
+                    android:gravity="center"
+                    android:text="我要保价" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/submit"
+                android:layout_marginTop="12dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/btn_submit_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
 </FrameLayout>

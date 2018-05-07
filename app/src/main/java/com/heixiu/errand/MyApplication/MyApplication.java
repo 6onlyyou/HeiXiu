@@ -43,7 +43,7 @@ public class MyApplication extends Application {
         super.onCreate();
         instance = this;
 
-        AndroidBase.init(this, "http://heixiuapp.cn/api/", "http://heixiuapp.cn/api/");
+        AndroidBase.init(this, "http://app.heixiuapp.cn/api/", "http://app.heixiuapp.cn/api/");
         Utils.init(this);
     }
 
