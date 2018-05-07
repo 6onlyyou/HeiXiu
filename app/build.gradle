@@ -1,7 +1,15 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+// 添加插件
+apply plugin: 'com.mob.sdk'
+// 在MobSDK的扩展中注册SMSSDK的相关信息
+MobSDK {
+    appKey "25a0b69acc65e"
+    appSecret "516c88557674912b643f9be4482ad23a"
 
+    SMSSDK {}
+}
 android {
     compileSdkVersion 26
     defaultConfig {

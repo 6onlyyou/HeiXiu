@@ -27,15 +27,15 @@ class LoginActivity : BaseActivity() {
     }
 
     override fun findViewById() {
+
     }
 
     override fun setListener() {
+
     }
 
     override fun processLogic() {
+
     }
-    fun loginTo(view: View) {
-        startActivity(MainActivity::class.java)
-//        homePresenter!!.logOut()
-    }
+
 }

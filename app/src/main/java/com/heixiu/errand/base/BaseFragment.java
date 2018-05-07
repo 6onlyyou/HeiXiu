@@ -21,6 +21,7 @@ public abstract class BaseFragment extends Fragment {
 
     protected View mRootView;
     protected TitleBar mTitle;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

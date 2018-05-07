@@ -4,9 +4,6 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.wwzz.androidbase.net.OkHttpFactory;
-import com.wwzz.androidbase.net.RetrofitFactory;
-
 import org.jetbrains.annotations.NotNull;
 
 
