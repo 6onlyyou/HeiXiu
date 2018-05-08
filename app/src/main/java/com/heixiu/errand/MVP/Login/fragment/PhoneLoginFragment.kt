@@ -51,12 +51,12 @@ class PhoneLoginFragment : BaseFragment() {
             }
         }
         Bt_login.setOnClickListener{
-//            if(Et_phone.text.toString().equals("")||Et_code.text.toString().equals("")){
-//                ToastUtils.showLong("账号密码不能为空")
-//            }else {
-//                submitCode("86", Et_phone.text.toString(), Et_code.text.toString())
-//            }
-            startActivity(MainActivity::class.java)
+            if(Et_phone.text.toString().equals("")||Et_code.text.toString().equals("")){
+                ToastUtils.showLong("账号密码不能为空")
+            }else {
+                submitCode("86", Et_phone.text.toString(), Et_code.text.toString())
+            }
+//            startActivity(MainActivity::class.java)
 
         }
         Tv_sign.setOnClickListener {

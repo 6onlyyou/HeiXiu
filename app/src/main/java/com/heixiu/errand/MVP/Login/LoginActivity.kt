@@ -85,8 +85,8 @@ class LoginActivity : BaseActivity() {
 //            builder.create().show()
 //        }
 
-
         startLocate();
+
     }
 
     override fun findViewById() {
@@ -105,7 +105,9 @@ class LoginActivity : BaseActivity() {
     if(event.limit.equals("1")){
         getAppDetailSettingIntent(this)
     }else{
+
         if(!event.city.equals("")&&event.city!=null) {
+
             SPUtil.saveString("city", event.city)
         }
     }

@@ -28,6 +28,7 @@
         <EditText
             android:id="@+id/Et_inPass"
             android:maxLength="10"
+            android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
             android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="35dp"
@@ -40,6 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_marginTop="20dp"
+            android:digits="0123456789"
             android:background="@drawable/login_bg"
             android:hint="请输入手机号码" />
 
@@ -52,6 +54,7 @@
                 android:id="@+id/Tv_inCode"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
+                android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:background="@drawable/login_bg"
                 android:hint="请输入验证码" />
 

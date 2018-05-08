@@ -34,7 +34,7 @@ public interface ApiService {
      * @return
      */
     @POST("user/loginByAccount")
-    Observable<ResponseBean<PhoneToken>> loginByAccount(@Query("userName") String userName, @Query("password") String password,@Query("password") String city );
+    Observable<ResponseBean<PhoneToken>> loginByAccount(@Query("userName") String userName, @Query("password") String password,@Query("city") String city );
 
     /**
      * 用户注册
