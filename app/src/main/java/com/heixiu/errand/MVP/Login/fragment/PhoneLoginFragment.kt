@@ -17,11 +17,18 @@ import cn.smssdk.SMSSDK.RESULT_COMPLETE
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.MVP.Login.RegisterActivity
 import com.heixiu.errand.MainActivity
+import com.heixiu.errand.net.RetrofitFactory
+import com.heixiu.errand.net.RxUtils
+import com.heixiu.errand.utils.SPUtil
+import com.heixiu.errand.listener.MyLocationListener
+import com.baidu.location.BDLocationListener
+import com.baidu.location.LocationClient
+
+
 
 
 class PhoneLoginFragment : BaseFragment() {
     var mCountDownTimerUtils: CountDownTimerUtils? =null
-
     override fun createView(inflater: LayoutInflater?, container: ViewGroup?): View {
         return inflater!!.inflate(R.layout.fragment_phone_login, container, false)
     }
@@ -77,7 +84,13 @@ class PhoneLoginFragment : BaseFragment() {
         SMSSDK.registerEventHandler(object : EventHandler() {
             override fun afterEvent(event: Int, result: Int, data: Any?) {
                 if (result == SMSSDK.RESULT_COMPLETE) {
-                    startActivity(MainActivity::class.java)
+                    RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().loginByPhone(phone,SPUtil.getString("city").toString())).subscribe({
+                            SPUtil.saveString("token",it.token)
+                            startActivity(MainActivity::class.java)
+                    },{
+                        ToastUtils.showLong(it.message)
+                    })
+
                 } else {
                     ToastUtils.showLong("验证码错误")
                 }
