@@ -22,10 +22,10 @@
     </FrameLayout>
 
     <!--<com.baidu.mapapi.map.MapView-->
-        <!--android:id="@+id/mmap"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_marginTop="40dp" />-->
+    <!--android:id="@+id/mmap"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginTop="40dp" />-->
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"

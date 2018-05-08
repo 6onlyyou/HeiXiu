@@ -42,7 +42,6 @@ public class PackageTypeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_package_type);
         ButterKnife.bind(this);
-
         packageTypeRv.setLayoutManager(new GridLayoutManager(this,4));
         adapter = new PackageTypeAdapter(this);
         packageTypeRv.setAdapter(adapter);

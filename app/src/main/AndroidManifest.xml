@@ -132,10 +132,8 @@
             android:value="jccXgSM5b5EjhTOEqtn2fMYfSP1AeAFZ" />
 
         <activity android:name=".MVP.Home.StartOrderDetailActivity" />
-        <activity android:name=".MVP.Home.OrderMapActivity" />
-        <activity
-            android:name=".MVP.Contentt.PackageTypeActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".MVP.Home.OrderMapActivity"></activity>
+        <activity android:name=".MVP.Contentt.PackageTypeActivity"></activity>
     </application>
 
 </manifest>

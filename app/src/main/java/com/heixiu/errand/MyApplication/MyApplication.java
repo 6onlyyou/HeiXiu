@@ -5,6 +5,7 @@ import android.app.Application;
 
 import com.fushuaige.common.utils.Utils;
 import com.heixiu.errand.net.AndroidBase;
+import com.mob.MobSDK;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-
+        MobSDK.init(this);
         AndroidBase.init(this, "http://app.heixiuapp.cn/api/", "http://app.heixiuapp.cn/api/");
         Utils.init(this);
     }

@@ -1,4 +1,4 @@
-package com.wwzz.androidbase.net
+package com.heixiu.errand.net
 
 import com.heixiu.errand.net.AndroidBase
 import com.heixiu.errand.net.ApiService

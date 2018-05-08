@@ -4,4 +4,16 @@
         <attr name="border_width" format="dimension" />
         <attr name="border_color" format="color" />
     </declare-styleable>
+
+    <string-array name="package_type">
+        <item>文件</item>
+        <item>证件</item>
+        <item>食品</item>
+        <item>蛋糕</item>
+        <item>生活用品</item>
+        <item>手机</item>
+        <item>电脑</item>
+        <item>鲜花</item>
+        <item>其他</item>
+    </string-array>
 </resources>

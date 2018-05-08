@@ -68,7 +68,8 @@ public class MyLocationListener implements BDLocationListener {
             sb.append("\ndescribe : ");
             sb.append("无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机");
         }
-        if(location.getAddress()==null){
+        String k = location.getAddrStr();
+        if(location.getAddrStr()==null){
             EventBus.getDefault().post(new MessageEvent("1",""));
         }else{
             EventBus.getDefault().post(new MessageEvent("0",location.getCity()));
