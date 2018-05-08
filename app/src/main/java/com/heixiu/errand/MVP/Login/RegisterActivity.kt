@@ -23,7 +23,11 @@ class RegisterActivity : BaseActivity() {
     var handler: Handler = object : Handler() {
        override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
-           ToastUtils.showLong("验证码错误")
+           if(msg.what==1) {
+               ToastUtils.showLong("验证码错误")
+           }else{
+               ToastUtils.showLong("服务器链接失败")
+           }
         }
     }
     override fun loadViewLayout() {
@@ -82,12 +86,11 @@ class RegisterActivity : BaseActivity() {
         SMSSDK.registerEventHandler(object : EventHandler() {
             override fun afterEvent(event: Int, result: Int, data: Any?) {
                 if (result == SMSSDK.RESULT_COMPLETE) {
-                    RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().register(Et_inUsername.text.toString(),Et_inPass.text.toString(),phone)).subscribe({
+                    RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().register(phone,Et_inUsername.text.toString(),Et_inPass.text.toString())).subscribe({
                         ToastUtils.showLong(it+"注册成功");
-
                         startActivity(LoginActivity::class.java)
                     },{
-                        ToastUtils.showLong(it.message)
+                        handler.sendEmptyMessage(2);
                     })
 
                 } else {

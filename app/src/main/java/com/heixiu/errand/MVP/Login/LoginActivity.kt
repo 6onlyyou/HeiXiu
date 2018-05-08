@@ -17,6 +17,7 @@ import android.support.v4.app.ActivityCompat.startActivityForResult
 import android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS
 import android.support.v4.view.accessibility.AccessibilityEventCompat.setAction
 import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.app.AlertDialog
 import android.content.Context
 import android.location.LocationManager.GPS_PROVIDER
 import android.content.Context.LOCATION_SERVICE
@@ -30,6 +31,11 @@ import com.heixiu.errand.utils.SPUtil
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import android.support.v4.app.ActivityCompat.shouldShowRequestPermissionRationale
+import com.fushuaige.common.utils.ToastUtils
+import com.tbruyelle.rxpermissions2.Permission
+import com.tbruyelle.rxpermissions2.RxPermissions
+import io.reactivex.functions.Consumer
 
 
 class LoginActivity : BaseActivity() {
@@ -54,41 +60,38 @@ class LoginActivity : BaseActivity() {
         adapter = LoginFragmentAdapter(supportFragmentManager, fragments)
         viewpager.setAdapter(adapter)
         tablayout.setupWithViewPager(viewpager)
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-//                != PackageManager.PERMISSION_GRANTED){
-//            ActivityCompat.requestPermissions(this,  String{Manifest.permission.CAMERA}, 0 );
-//        }else{
-//
-//        }
-//        if(SPUtil.getString("limit").equals("1")){
-//            val builder = AlertDialog.Builder(this)
-//            builder.setTitle("通知")
-//                    .setMessage("您尚未开启通知权限，将会错过我们的重要通知,请开启通知栏推送。")
-//                    .setPositiveButton("去开启") { dialog, id ->
-////                        val intent =  Intent();
-////                        intent.setAction(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-////                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-////                            startActivity(intent);
-//                        val localIntent = Intent()
-//                        localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                        if (Build.VERSION.SDK_INT >= 9) {
-//                            localIntent.action = "android.settings.APPLICATION_DETAILS_SETTINGS"
-//                            localIntent.data = Uri.fromParts("package", packageName, null)
-//                        } else if (Build.VERSION.SDK_INT <= 8) {
-//                            localIntent.action = Intent.ACTION_VIEW
-//                            localIntent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails")
-//                            localIntent.putExtra("com.android.settings.ApplicationPkgName", packageName)
-//                        }
-//                        startActivity(localIntent)
-//                    }
-//                    .setNegativeButton("取消") { dialog, id -> }
-//            builder.create().show()
-//        }
+        getPermissions()
 
-        startLocate();
 
     }
+fun getPermissions(){
+    val rxPermissions = RxPermissions(this)
+    rxPermissions.requestEach(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.RECEIVE_SMS)
+            .subscribe(object : Consumer<Permission> {
+                @Throws(Exception::class)
+                override fun accept(permission: Permission) {
+                    if (permission.granted) {
+                        // 用户已经同意该权限
+                        startLocate()
+                    } else if (permission.shouldShowRequestPermissionRationale) {
+                        // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
 
+                        val builder = AlertDialog.Builder(this@LoginActivity)
+                    builder.setTitle("通知")
+                    .setMessage("您尚未开启通知权限，获取不到地址和接收短信服务不能得到服务请开启。")
+                    .setPositiveButton("去开启") { dialog, id ->
+                        getPermissions()
+                    }
+                    .setNegativeButton("取消") { dialog, id -> }
+                     builder.create().show()
+                    } else {
+                        // 用户拒绝了该权限，并且选中『不再询问』，提醒用户手动打开权限
+//                        ToastUtils.showLong("权限被拒绝，请在设置里面开启相应权限，若无相应权限会影响使用")
+//                            getAppDetailSettingIntent(this@LoginActivity)
+                    }
+                }
+            })
+}
     override fun findViewById() {
 
     }
@@ -102,15 +105,9 @@ class LoginActivity : BaseActivity() {
     }
 @Subscribe(threadMode = ThreadMode.MAIN)
     fun messageEventBus(event: MessageEvent){
-    if(event.limit.equals("1")){
-        getAppDetailSettingIntent(this)
-    }else{
-
-        if(!event.city.equals("")&&event.city!=null) {
 
             SPUtil.saveString("city", event.city)
-        }
-    }
+    ToastUtils.showLong(""+event.city)
 }
     private fun getAppDetailSettingIntent(context: Context) {
         val localIntent = Intent()
