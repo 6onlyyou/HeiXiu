@@ -168,6 +168,7 @@
     <orderEntry type="library" name="com.squareup.okio:okio:1.13.0@jar" level="project" />
     <orderEntry type="library" name="com.squareup.retrofit2:converter-gson:2.1.0@jar" level="project" />
     <orderEntry type="library" name="com.squareup.retrofit2:retrofit:2.3.0@jar" level="project" />
+    <orderEntry type="library" name="com.tbruyelle.rxpermissions2:rxpermissions-0.9.4" level="project" />
     <orderEntry type="library" name="io.reactivex.rxjava2:rxandroid-2.0.2" level="project" />
     <orderEntry type="library" name="com.mob:MobGUI:2018.0419.1211@jar" level="project" />
     <orderEntry type="library" name="org.reactivestreams:reactive-streams:1.0.2@jar" level="project" />

@@ -56,8 +56,6 @@ class PhoneLoginFragment : BaseFragment() {
             }else {
                 submitCode("86", Et_phone.text.toString(), Et_code.text.toString())
             }
-//            startActivity(MainActivity::class.java)
-
         }
         Tv_sign.setOnClickListener {
             startActivity(RegisterActivity::class.java)
