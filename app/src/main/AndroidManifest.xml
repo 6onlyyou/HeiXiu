@@ -133,6 +133,7 @@
 
         <activity android:name=".MVP.Home.StartOrderDetailActivity" />
         <activity android:name=".MVP.Home.OrderMapActivity"></activity>
+        <activity android:name=".MVP.Contentt.PackageTypeActivity"></activity>
     </application>
 
 </manifest>
