@@ -5,36 +5,46 @@
     tools:context="com.heixiu.errand.MVP.Login.fragment.PhoneLoginFragment">
 
 <LinearLayout
+    android:background="@color/white"
+    android:layout_marginTop="15dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
     <EditText
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:id="@+id/Et_userName"
+        android:hint="请输入用户名"
+        android:layout_marginLeft="57dp"
+        android:layout_marginRight="57dp"
+        android:layout_height="34dp"
         android:layout_width="match_parent"
         android:background="@drawable/login_bg"
-        android:layout_height="50dp" />
+         />
     <RelativeLayout
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="57dp"
+        android:layout_marginRight="57dp"
+        android:layout_height="34dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+     >
     <EditText
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:id="@+id/Et_passWord"
+        android:hint="请输入密码"
+        android:layout_height="34dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
         android:background="@drawable/login_bg"
         />
 
     </RelativeLayout>
     <Button
-        android:layout_marginTop="30dp"
+        android:id="@+id/Bt_zlogin"
+        android:layout_marginTop="36dp"
         android:background="@color/colorPrimary"
         android:text="登入"
         android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="71dp"
+        android:layout_height="26dp" />
     <LinearLayout
+        android:layout_marginTop="9dp"
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_width="match_parent"
@@ -44,6 +54,7 @@
             android:layout_height="wrap_content"
             android:text="还没有账号，快来"/>
         <TextView
+            android:id="@+id/Tv_signAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimary"

@@ -5,45 +5,56 @@
     tools:context="com.heixiu.errand.MVP.Login.fragment.PhoneLoginFragment">
 
 <LinearLayout
+    android:background="@color/white"
+    android:layout_marginTop="15dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
     <EditText
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+
+        android:id="@+id/Et_phone"
+        android:layout_marginLeft="57dp"
+        android:layout_marginRight="57dp"
         android:layout_width="match_parent"
         android:background="@drawable/login_bg"
-        android:layout_height="50dp" />
+        android:hint="请输入电话号"
+        android:layout_height="34dp" />
     <RelativeLayout
+        android:layout_marginLeft="57dp"
+        android:layout_marginRight="57dp"
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="34dp">
     <EditText
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:id="@+id/Et_code"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="34dp"
+        android:hint="请输入验证码"
         android:background="@drawable/login_bg"
         />
         <TextView
-            android:layout_marginRight="40dp"
+            android:id="@+id/Tv_code"
+            android:onClick="getCode"
+            tools:ignore="OnClick"
+            android:clickable="true"
+            android:layout_marginRight="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
             android:text="获取验证码"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"/>
     </RelativeLayout>
     <Button
-        android:layout_marginTop="30dp"
+        android:id="@+id/Bt_login"
+        android:layout_marginTop="36dp"
         android:background="@color/colorPrimary"
-        android:onClick="loginTo"
-        tools:ignore="OnClick"
-        android:clickable="true"
         android:text="登入"
         android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="71dp"
+        android:layout_height="26dp" />
     <LinearLayout
+        android:layout_marginTop="9dp"
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_width="match_parent"
@@ -53,6 +64,7 @@
             android:layout_height="wrap_content"
             android:text="还没有账号，快来"/>
         <TextView
+            android:id="@+id/Tv_sign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimary"
