@@ -116,18 +116,18 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            detail.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onItemClick.onDetailClick(getLayoutPosition());
-                }
-            });
-            confirmOrder.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onItemClick.onConfirmOrderClick(getLayoutPosition());
-                }
-            });
+//            detail.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    onItemClick.onDetailClick(getLayoutPosition());
+//                }
+//            });
+//            confirmOrder.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    onItemClick.onConfirmOrderClick(getLayoutPosition());
+//                }
+//            });
         }
     }
 }
