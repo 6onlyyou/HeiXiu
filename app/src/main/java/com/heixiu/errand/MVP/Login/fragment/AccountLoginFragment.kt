@@ -29,7 +29,6 @@ class AccountLoginFragment : BaseFragment() {
             if(Et_userName.text.toString().equals("")||Et_passWord.text.toString().equals("")){
                 ToastUtils.showLong("账号密码不能为空")
             }else{
-
                 startActivity(MainActivity::class.java)
             }
         }

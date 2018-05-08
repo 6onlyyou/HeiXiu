@@ -26,7 +26,7 @@ public interface ApiService {
      * @return
      */
     @POST("user/loginByPhone")
-    Observable<ResponseBean<PhoneToken>> loginByPhone(@Query("userId") String phone,@Query("city") String city);
+    Observable<ResponseBean<PhoneToken>> loginByPhone(@Query("userId") String phone);
 
     /**
      * 帐号密码登录
@@ -34,7 +34,7 @@ public interface ApiService {
      * @return
      */
     @POST("user/loginByAccount")
-    Observable<ResponseBean<PhoneToken>> loginByAccount(@Query("userName") String userName, @Query("password") String password,@Query("password") String city );
+    Observable<ResponseBean<PhoneToken>> loginByAccount(@Query("userName") String userName, @Query("password") String password);
 
     /**
      * 用户注册
@@ -78,7 +78,7 @@ public interface ApiService {
      *
      * @param publishId
      * @return
-city     */
+     */
     @POST("/userAdmire")
     Observable<ResponseBean<String>> userAdmire(@Query("admireUserId") String admireUserId,
                                                 @Query("publishId") String publishId

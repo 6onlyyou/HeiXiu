@@ -83,8 +83,8 @@ class RegisterActivity : BaseActivity() {
             override fun afterEvent(event: Int, result: Int, data: Any?) {
                 if (result == SMSSDK.RESULT_COMPLETE) {
                     RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().register(Et_inUsername.text.toString(),Et_inPass.text.toString(),phone)).subscribe({
-                        ToastUtils.showLong(it+"注册成功");
-
+                        ToastUtils.showLong(it+"");
+                        if(it.equals("注册成功"))
                         startActivity(LoginActivity::class.java)
                     },{
                         ToastUtils.showLong(it.message)
