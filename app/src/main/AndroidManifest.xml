@@ -129,7 +129,8 @@
         <activity android:name=".MVP.Home.OrderMapActivity" />
         <activity android:name=".MVP.Contentt.PackageTypeActivity" />
         <activity android:name=".MVP.Contentt.ConfirmPublishOrderActivity" />
-        <activity android:name=".MVP.common.TicketActivity"></activity>
+        <activity android:name=".MVP.common.TicketActivity" />
+        <activity android:name=".MVP.ImgActivity"></activity>
     </application>
 
 </manifest>

@@ -6,20 +6,18 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
-import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener
-import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.bigkoo.pickerview.view.OptionsPickerView
 import com.heixiu.errand.MVP.common.TicketActivity
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseFragment
 import com.heixiu.errand.dialog.AddPriceDialog
 import com.heixiu.errand.dialog.ChooseWeightDialog
+import com.heixiu.errand.dialog.InputAddressDialog
 import com.heixiu.errand.dialog.KeepPriceDialog
 import kotlinx.android.synthetic.main.fragment_content.*
-import java.util.ArrayList
+import java.util.*
 
 
 /**
@@ -31,18 +29,41 @@ class ContentFragment : BaseFragment() {
     private val hour = ArrayList<String>()
     private val mintnues = ArrayList<String>()
 
+
+    companion object {
+        var receiveAddress: String = ""
+        var sendAddress: String = ""
+        var recieveTime: String = ""
+        var packageType: String = ""
+        var packageWeight: String = ""
+        var discountCoupon: String = ""
+        var addPrice: String = ""
+        var keepPrice: String = ""
+    }
+
     override fun initView() {
     }
 
     override fun createView(inflater: LayoutInflater?, container: ViewGroup?): View {
+        days.add("今天")
+        days.add("明天")
+
+        (0..24 step 1).mapTo(hour) { it.toString() }
+        (1..60 step 1).mapTo(mintnues) { it.toString() }
+
+
         return inflater!!.inflate(R.layout.fragment_content, container, false)
     }
+
+    private val food = ArrayList<String>()
+    private val clothes = ArrayList<String>()
+    private val computer = ArrayList<String>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //取货地址
         receiveAddress.setOnClickListener({
-
+            InputAddressDialog(context!!).show()
         })
         //送货地址
         sendAddress.setOnClickListener({
@@ -55,9 +76,9 @@ class ContentFragment : BaseFragment() {
 
                 }
             }).build()
-
-
+            pvNoLinkOptions.setNPicker(days as List<Any>?, hour as List<Any>?, mintnues as List<Any>?);
             pvNoLinkOptions.setSelectOptions(0, 1, 1)
+            pvNoLinkOptions.show()
         })
         //物品类型
         package_type_tv.setOnClickListener({

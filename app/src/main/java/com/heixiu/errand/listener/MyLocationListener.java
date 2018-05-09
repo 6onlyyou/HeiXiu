@@ -1,14 +1,11 @@
 package com.heixiu.errand.listener;
 
-import android.app.AlertDialog;
-import android.net.Uri;
 import android.util.Log;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.Poi;
 import com.heixiu.errand.MVP.Login.entity.MessageEvent;
-import com.heixiu.errand.utils.SPUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -20,6 +17,7 @@ import java.util.List;
  * Author: fushuaige
  */
 public class MyLocationListener implements BDLocationListener {
+
     @Override
     public void onReceiveLocation(BDLocation location) {
         StringBuffer sb = new StringBuffer(256);
@@ -69,10 +67,10 @@ public class MyLocationListener implements BDLocationListener {
             sb.append("无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机");
         }
         String k = location.getAddrStr();
-        if(location.getAddrStr()==null){
-            EventBus.getDefault().post(new MessageEvent("1",""));
-        }else{
-            EventBus.getDefault().post(new MessageEvent("0",location.getCity()));
+        if (location.getAddrStr() == null) {
+            EventBus.getDefault().post(new MessageEvent("1", ""));
+        } else {
+            EventBus.getDefault().post(new MessageEvent("0", location.getCity()));
         }
         sb.append("\nlocationdescribe : ");
         sb.append(location.getLocationDescribe());// 位置语义化信息
