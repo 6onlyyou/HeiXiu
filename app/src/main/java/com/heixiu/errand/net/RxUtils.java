@@ -27,7 +27,7 @@ public class RxUtils {
                         if (tResponseBean.isIsSuccess()) {
                             return Observable.just(tResponseBean.getData());
                         } else {
-                            return Observable.error(new Exception());
+                            return Observable.error(new MyException(tResponseBean.getMessage()));
                         }
                     }
                 }, new Function<Throwable, ObservableSource<? extends T>>() {

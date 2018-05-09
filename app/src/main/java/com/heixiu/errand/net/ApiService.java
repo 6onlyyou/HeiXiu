@@ -43,7 +43,7 @@ public interface ApiService {
      * @return
      */
     @POST("user/register")
-    Observable<ResponseBean<String>> register(@Query("phone") String phone, @Query("userName") String userName, @Query("password") String password);
+    Observable<ResponseBean> register(@Query("phone") String phone, @Query("userName") String userName, @Query("password") String password);
 
     /**
      * 首页所有用户的动态展示

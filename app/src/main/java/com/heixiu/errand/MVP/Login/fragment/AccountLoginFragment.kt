@@ -1,5 +1,7 @@
 package com.heixiu.errand.MVP.Login.fragment
 
+import android.os.Handler
+import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +28,16 @@ class AccountLoginFragment : BaseFragment() {
     override fun createView(inflater: LayoutInflater?, container: ViewGroup?): View {
         return inflater!!.inflate(R.layout.fragment_account_login, container, false)
     }
-
+    var handler: Handler = object : Handler() {
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            if(msg.what==1) {
+                ToastUtils.showLong("验证码错误")
+            }else{
+                ToastUtils.showLong(msg.obj.toString())
+            }
+        }
+    }
     override fun initListener() {
         Bt_zlogin.setOnClickListener{
             if(Et_userName.text.toString().equals("")||Et_passWord.text.toString().equals("")){
@@ -36,9 +47,10 @@ class AccountLoginFragment : BaseFragment() {
                     SPUtil.saveString("token",it.token)
                     startActivity(MainActivity::class.java)
                 },{
-                    ToastUtils.showLong(it.message)
+                    var message:Message = Message()
+                    message.obj = it.message
+                    handler.sendMessage(message);
                 })
-                startActivity(MainActivity::class.java)
             }
         }
         Tv_signAccount.setOnClickListener {

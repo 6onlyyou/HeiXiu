@@ -26,7 +26,7 @@ class RegisterActivity : BaseActivity() {
            if(msg.what==1) {
                ToastUtils.showLong("验证码错误")
            }else{
-               ToastUtils.showLong("服务器链接失败")
+               ToastUtils.showLong(msg.obj.toString())
            }
         }
     }
@@ -46,15 +46,25 @@ class RegisterActivity : BaseActivity() {
             }
         }
         Bt_signIn.setOnClickListener {
-            if(Et_inPass.length()<6){
-                ToastUtils.showLong("密码太短");
-                return@setOnClickListener
-            }
-            if(Et_inUsername.text.toString().equals("")||Et_inPass.text.toString().equals("")||Et_inPhone.text.toString().equals("")||Tv_inCode.text.toString().equals("")){
-                ToastUtils.showLong("不能为空");
-            }else {
-                submitCode("86", Et_inPhone.text.toString(), Tv_inCode.text.toString())
-            }
+            RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().register(Et_inPhone.text.toString(),Et_inUsername.text.toString(),Et_inPass.text.toString())).subscribe({
+                var message:Message = Message()
+                message.obj ="注册成功"
+                handler.sendMessage(message);
+                startActivity(LoginActivity::class.java)
+            },{
+                var message:Message = Message()
+                message.obj = it.message
+                handler.sendMessage(message);
+            })
+//            if(Et_inPass.length()<6){
+//                ToastUtils.showLong("密码太短");
+//                return@setOnClickListener
+//            }
+//            if(Et_inUsername.text.toString().equals("")||Et_inPass.text.toString().equals("")||Et_inPhone.text.toString().equals("")||Tv_inCode.text.toString().equals("")){
+//                ToastUtils.showLong("不能为空");
+//            }else {
+//                submitCode("86", Et_inPhone.text.toString(), Tv_inCode.text.toString())
+//            }
         }
     }
 
@@ -87,10 +97,14 @@ class RegisterActivity : BaseActivity() {
             override fun afterEvent(event: Int, result: Int, data: Any?) {
                 if (result == SMSSDK.RESULT_COMPLETE) {
                     RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().register(phone,Et_inUsername.text.toString(),Et_inPass.text.toString())).subscribe({
-                        ToastUtils.showLong(it+"注册成功");
+                        var message:Message = Message()
+                        message.obj = "注册成功"
+                        handler.sendMessage(message);
                         startActivity(LoginActivity::class.java)
                     },{
-                        handler.sendEmptyMessage(2);
+                        var message:Message = Message()
+                        message.obj = it.message
+                        handler.sendMessage(message);
                     })
 
                 } else {

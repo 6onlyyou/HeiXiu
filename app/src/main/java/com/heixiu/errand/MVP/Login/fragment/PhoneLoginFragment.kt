@@ -32,7 +32,16 @@ class PhoneLoginFragment : BaseFragment() {
     override fun createView(inflater: LayoutInflater?, container: ViewGroup?): View {
         return inflater!!.inflate(R.layout.fragment_phone_login, container, false)
     }
-
+    var handler: Handler = object : Handler() {
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            if(msg.what==1) {
+                ToastUtils.showLong("验证码错误")
+            }else{
+                ToastUtils.showLong(msg.obj.toString())
+            }
+        }
+    }
     override fun initListener() {
 
     }
@@ -51,13 +60,18 @@ class PhoneLoginFragment : BaseFragment() {
             }
         }
         Bt_login.setOnClickListener{
+            RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().loginByPhone(Et_phone.text.toString(),SPUtil.getString("city").toString())).subscribe({
+                SPUtil.saveString("token",it.token)
+                startActivity(MainActivity::class.java)
+            },{
+                ToastUtils.showLong(it.message)
+            })
+//
 //            if(Et_phone.text.toString().equals("")||Et_code.text.toString().equals("")){
 //                ToastUtils.showLong("账号密码不能为空")
 //            }else {
 //                submitCode("86", Et_phone.text.toString(), Et_code.text.toString())
 //            }
-            startActivity(MainActivity::class.java)
-
         }
         Tv_sign.setOnClickListener {
             startActivity(RegisterActivity::class.java)
@@ -73,7 +87,7 @@ class PhoneLoginFragment : BaseFragment() {
                     mCountDownTimerUtils!!.start()
                     // 请注意，此时只是完成了发送验证码的请求，验证码短信还需要几秒钟之后才送达
                 } else {
-                    ToastUtils.showLong("验证码获取错误"+result)
+                    handler.sendEmptyMessage(1);
                 }
             }
         })
@@ -94,7 +108,7 @@ class PhoneLoginFragment : BaseFragment() {
                     })
 
                 } else {
-                    ToastUtils.showLong("验证码错误")
+                    handler.sendEmptyMessage(1);
                 }
             }
         })
