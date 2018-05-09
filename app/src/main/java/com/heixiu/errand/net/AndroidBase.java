@@ -25,12 +25,14 @@ public class AndroidBase {
 
     public static void init(Context context, String baseHttpUrl, String baseHttpsUrl) {
         String errorMessage = checkStatus();
-        if (!TextUtils.isEmpty(errorMessage)) {
-                    Log.e(TAG,errorMessage);
-        }
         mContext = context;
         BASE_HTTP_URL = baseHttpUrl;
         BASE_HTTPS_URL = baseHttpsUrl;
+
+        if (!TextUtils.isEmpty(errorMessage)) {
+                    Log.e(TAG,errorMessage);
+        }
+
         OkHttpFactory.INSTANCE.init(context);
         RetrofitFactory.INSTANCE.init();
     }

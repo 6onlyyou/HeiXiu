@@ -17,9 +17,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
  * Created by PVer on 2018/4/9.
  */
@@ -62,12 +59,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         if (false) {
             OrderInfo orderInfo = data.get(i);
-            viewHolder.startLocationTv.setText(orderInfo.getReceiveAddress());
-            viewHolder.endLocationTv.setText(orderInfo.getSendAddress());
-            viewHolder.type.setText(orderInfo.getName());
-            viewHolder.weight.setText(orderInfo.getWeight());
+//            viewHolder.startLocationTv.setText(orderInfo.getReceiveAddress());
+//            viewHolder.endLocationTv.setText(orderInfo.getSendAddress());
+//            viewHolder.type.setText(orderInfo.getName());
+//            viewHolder.weight.setText(orderInfo.getWeight());
         }
-
     }
 
     @Override
@@ -98,36 +94,35 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.distance)
-        TextView distance;
-        @BindView(R.id.detail)
-        TextView detail;
-        @BindView(R.id.start_location_tv)
-        TextView startLocationTv;
-        @BindView(R.id.end_location_tv)
-        TextView endLocationTv;
-        @BindView(R.id.type)
-        TextView type;
-        @BindView(R.id.weight)
-        TextView weight;
-        @BindView(R.id.confirmOrder)
-        ImageView confirmOrder;
+//        @BindView(R.id.distance)
+//        TextView distance;
+//        @BindView(R.id.detail)
+//        TextView detail;
+//        @BindView(R.id.start_location_tv)
+//        TextView startLocationTv;
+//        @BindView(R.id.end_location_tv)
+//        TextView endLocationTv;
+//        @BindView(R.id.type)
+//        TextView type;
+//        @BindView(R.id.weight)
+//        TextView weight;
+//        @BindView(R.id.confirmOrder)
+//        ImageView confirmOrder;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
-            detail.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onItemClick.onDetailClick(getLayoutPosition());
-                }
-            });
-            confirmOrder.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onItemClick.onConfirmOrderClick(getLayoutPosition());
-                }
-            });
+//            detail.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    onItemClick.onDetailClick(getLayoutPosition());
+//                }
+//            });
+//            confirmOrder.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    onItemClick.onConfirmOrderClick(getLayoutPosition());
+//                }
+//            });
         }
     }
 }
