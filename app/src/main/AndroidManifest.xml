@@ -130,7 +130,8 @@
         <activity android:name=".MVP.Contentt.PackageTypeActivity" />
         <activity android:name=".MVP.Contentt.ConfirmPublishOrderActivity" />
         <activity android:name=".MVP.common.TicketActivity" />
-        <activity android:name=".MVP.ImgActivity"></activity>
+        <activity android:name=".MVP.ImgActivity" />
+        <activity android:name=".MVP.Community.PostTextActivity"></activity>
     </application>
 
 </manifest>

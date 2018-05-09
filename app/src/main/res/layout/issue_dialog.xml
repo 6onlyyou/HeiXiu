@@ -10,30 +10,30 @@
     android:orientation="horizontal">
     <TextView
         android:id="@+id/Tv_text"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:drawablePadding="6dp"
         android:text="文字"
-        android:drawableTop="@mipmap/ic_launcher"/>
+        android:drawableTop="@mipmap/issue_text"/>
     <TextView
         android:id="@+id/Tv_pickup"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:drawablePadding="6dp"
         android:layout_marginLeft="@dimen/dp_10"
         android:text="拍摄"
-        android:drawableTop="@mipmap/ic_launcher"/>
+        android:drawableTop="@mipmap/issue_pic"/>
     <TextView
         android:id="@+id/Tv_pic"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:drawablePadding="6dp"
         android:layout_marginLeft="@dimen/dp_10"
         android:text="相册"
-        android:drawableTop="@mipmap/ic_launcher"/>
+        android:drawableTop="@mipmap/issue_photo"/>
 </LinearLayout>
     <ImageView
         android:id="@+id/Iv_cancel"
