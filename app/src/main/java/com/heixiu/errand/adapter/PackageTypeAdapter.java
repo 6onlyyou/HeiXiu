@@ -11,19 +11,13 @@ import com.heixiu.errand.R;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
  * Created by PVer on 2018/4/9.
  */
 
 public class PackageTypeAdapter extends RecyclerView.Adapter<PackageTypeAdapter.ViewHolder> {
 
-    public String[] data ;
+    public String[] data;
     public int selectPosition = -1;
     Context mContext;
 
@@ -33,13 +27,12 @@ public class PackageTypeAdapter extends RecyclerView.Adapter<PackageTypeAdapter.
         data = context.getResources().getStringArray(R.array.package_type);
     }
 
+    public int getSelectPosition() {
+        return selectPosition;
+    }
 
     public void setSelectPosition(int position) {
         this.selectPosition = position;
-    }
-
-    public int getSelectPosition() {
-        return selectPosition;
     }
 
     @Override
@@ -50,9 +43,9 @@ public class PackageTypeAdapter extends RecyclerView.Adapter<PackageTypeAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        if (position == selectPosition){
+        if (position == selectPosition) {
             viewHolder.packageTypeTv.setSelected(true);
-        }else {
+        } else {
             viewHolder.packageTypeTv.setSelected(false);
         }
         viewHolder.packageTypeTv.setText(data[position]);
@@ -73,11 +66,11 @@ public class PackageTypeAdapter extends RecyclerView.Adapter<PackageTypeAdapter.
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.package_type_tv)
         TextView packageTypeTv;
+
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            packageTypeTv = itemView.findViewById(R.id.package_type_tv);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

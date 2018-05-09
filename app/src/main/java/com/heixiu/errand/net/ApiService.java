@@ -1,5 +1,6 @@
 package com.heixiu.errand.net;
 
+import com.heixiu.errand.bean.CouponTicketBean;
 import com.heixiu.errand.bean.PhoneToken;
 import com.heixiu.errand.bean.PubLishInfo;
 import com.heixiu.errand.bean.PublishInfoDetail;
@@ -151,6 +152,13 @@ city     */
     @POST("changeOrderStatus")
     Observable<ResponseBean<List<OrderInfo>>> changeOrderStatus(@Query("orderNum") String orderNum
             , @Query("orderStatus") String orderStatus);
+
+    /**
+     * 获取优惠券列表
+     * @return
+     */
+    @POST("coupon/list")
+    Observable<ResponseBean<List<CouponTicketBean>>> couponList();
 
 
 }

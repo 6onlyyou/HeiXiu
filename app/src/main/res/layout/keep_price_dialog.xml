@@ -5,7 +5,7 @@
 
         <variable
             name="dialog"
-            type="com.heixiu.errand.dialog.ChooseWeightDialog" />
+            type="com.heixiu.errand.dialog.KeepPriceDialog" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -23,12 +23,22 @@
                 android:id="@+id/cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:text="取消" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="保价" />
+
+
+            <TextView
                 android:id="@+id/confirm"
                 android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="@color/colorPrimary"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="确定" />
@@ -39,35 +49,23 @@
             android:layout_height="1dp"
             android:background="@color/line" />
 
-        <LinearLayout
-            android:id="@+id/moreWeightLayout"
+        <EditText
+            android:id="@+id/real_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="请填写您的物品实际价值"
+            android:textSize="14sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:text="续重费:"
-                android:textColor="@color/gray_text" />
-
-
-            <TextView
-                android:id="@+id/price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="0元"
-                android:textColor="@color/colorPrimary" />
-        </LinearLayout>
-
-        <NumberPicker
-            android:background="@color/white"
-            android:id="@+id/weightNp"
+        <EditText
+            android:id="@+id/need_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp" />
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="预计收取费用"
+            android:textSize="14sp" />
+
     </LinearLayout>
 </layout>

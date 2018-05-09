@@ -50,6 +50,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <EditText
+            android:id="@+id/other"
+            android:textColorHint="@color/gray_text"
+            android:paddingRight="4dp"
+            android:paddingLeft="4dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:textSize="14sp"
+            android:hint="请填写物品信息"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/bg_package_type_unchecked"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

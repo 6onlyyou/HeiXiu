@@ -24,6 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
                 android:text="取消" />
 
             <TextView
@@ -31,7 +32,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="确定" />
+                android:layout_centerVertical="true"
+                android:text="确定"
+                android:textColor="@color/colorPrimary" />
         </RelativeLayout>
 
         <View
@@ -39,35 +42,12 @@
             android:layout_height="1dp"
             android:background="@color/line" />
 
-        <LinearLayout
-            android:id="@+id/moreWeightLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:text="续重费:"
-                android:textColor="@color/gray_text" />
-
-
-            <TextView
-                android:id="@+id/price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="0元"
-                android:textColor="@color/colorPrimary" />
-        </LinearLayout>
 
         <NumberPicker
-            android:background="@color/white"
             android:id="@+id/weightNp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp" />
+            android:layout_marginTop="12dp"
+            android:background="@color/white" />
     </LinearLayout>
 </layout>

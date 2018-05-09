@@ -44,7 +44,7 @@ public class MyApplication extends Application {
         super.onCreate();
         instance = this;
         MobSDK.init(this);
-        AndroidBase.init(this, "http://app.heixiuapp.cn/api/", "http://app.heixiuapp.cn/api/");
+        AndroidBase.init(this, "http://app.heixiuapp.cn:8080/api/", "http://app.heixiuapp.cn:8080/api/");
         Utils.init(this);
     }
 
