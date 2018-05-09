@@ -20,28 +20,25 @@ import com.heixiu.errand.MainActivity
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.SPUtil
-import com.heixiu.errand.listener.MyLocationListener
-import com.baidu.location.BDLocationListener
-import com.baidu.location.LocationClient
-
-
 
 
 class PhoneLoginFragment : BaseFragment() {
-    var mCountDownTimerUtils: CountDownTimerUtils? =null
+    var mCountDownTimerUtils: CountDownTimerUtils? = null
     override fun createView(inflater: LayoutInflater?, container: ViewGroup?): View {
         return inflater!!.inflate(R.layout.fragment_phone_login, container, false)
     }
+
     var handler: Handler = object : Handler() {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
-            if(msg.what==1) {
+            if (msg.what == 1) {
                 ToastUtils.showLong("验证码错误")
-            }else{
+            } else {
                 ToastUtils.showLong(msg.obj.toString())
             }
         }
     }
+
     override fun initListener() {
 
     }
@@ -51,22 +48,21 @@ class PhoneLoginFragment : BaseFragment() {
     }
 
     override fun initView() {
-         mCountDownTimerUtils = CountDownTimerUtils(Tv_code, 60000, 1000)
-        Tv_code.setOnClickListener{
-            if(Et_phone.text.toString().equals("")){
+        mCountDownTimerUtils = CountDownTimerUtils(Tv_code, 60000, 1000)
+        Tv_code.setOnClickListener {
+            if (Et_phone.text.toString().equals("")) {
                 ToastUtils.showLong("电话号不能为空")
-            }else{
-            sendCode("86",Et_phone.text.toString())
+            } else {
+                sendCode("86", Et_phone.text.toString())
             }
         }
-        Bt_login.setOnClickListener{
-            RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().loginByPhone(Et_phone.text.toString(),SPUtil.getString("city").toString())).subscribe({
-                SPUtil.saveString("token",it.token)
+        Bt_login.setOnClickListener {
+            RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().loginByPhone(Et_phone.text.toString(), SPUtil.getString("city").toString())).subscribe({
+                SPUtil.saveString("token", it.token)
                 startActivity(MainActivity::class.java)
-            },{
+            }, {
                 ToastUtils.showLong(it.message)
             })
-//
 //            if(Et_phone.text.toString().equals("")||Et_code.text.toString().equals("")){
 //                ToastUtils.showLong("账号密码不能为空")
 //            }else {
@@ -82,7 +78,7 @@ class PhoneLoginFragment : BaseFragment() {
     fun sendCode(country: String, phone: String) {
         // 注册一个事件回调，用于处理发送验证码操作的结果
         SMSSDK.registerEventHandler(object : EventHandler() {
-          override  fun afterEvent(event: Int, result: Int, data: Any) {
+            override fun afterEvent(event: Int, result: Int, data: Any) {
                 if (result == SMSSDK.RESULT_COMPLETE) {
                     mCountDownTimerUtils!!.start()
                     // 请注意，此时只是完成了发送验证码的请求，验证码短信还需要几秒钟之后才送达
@@ -94,28 +90,30 @@ class PhoneLoginFragment : BaseFragment() {
         // 触发操作
         SMSSDK.getVerificationCode(country, phone)
     }
+
     // 提交验证码，其中的code表示验证码，如“1357”
     fun submitCode(country: String, phone: String, code: String) {
         // 注册一个事件回调，用于处理提交验证码操作的结果
         SMSSDK.registerEventHandler(object : EventHandler() {
             override fun afterEvent(event: Int, result: Int, data: Any?) {
                 if (result == SMSSDK.RESULT_COMPLETE) {
-                    RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().loginByPhone(phone,SPUtil.getString("city").toString())).subscribe({
-                            SPUtil.saveString("token",it.token)
-                            startActivity(MainActivity::class.java)
-                    },{
+                    RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().loginByPhone(phone, SPUtil.getString("city").toString())).subscribe({
+                        SPUtil.saveString("token", it.token)
+                        startActivity(MainActivity::class.java)
+                    }, {
                         ToastUtils.showLong(it.message)
                     })
 
                 } else {
-                    handler.sendEmptyMessage(1);
+                    handler.sendEmptyMessage(1)
                 }
             }
         })
         // 触发操作
         SMSSDK.submitVerificationCode(country, phone, code)
     }
-     override fun onDestroy() {
+
+    override fun onDestroy() {
         super.onDestroy()
         //用完回调要注销掉，否则可能会出现内存泄露
         SMSSDK.unregisterAllEventHandler()
