@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="5dp"
+    android:orientation="vertical">
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="7dp"
+        android:layout_marginLeft="5.5dp"
+        android:layout_marginRight="5.5dp"
+        android:layout_marginTop="7dp"
 
+
+        app:cardCornerRadius="19dp"
+        app:cardElevation="8dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="vertical">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -16,16 +34,20 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerInParent="true"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/Iv_communityHead"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp" />
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp" />
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="12dp"
                     android:orientation="vertical">
                 <TextView
                     android:id="@+id/Iv_communityNickName"
@@ -37,6 +59,7 @@
                         android:id="@+id/Iv_communityTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/gray_text"
                         android:layout_gravity="center_vertical"
                         android:text="@string/app_name" />
                 </LinearLayout>
@@ -50,8 +73,9 @@
                 android:layout_centerInParent="true"
                 android:orientation="horizontal">
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
                     android:text="关注"
                     android:background="@drawable/video_bg"/>
                 <!--<TextView-->
@@ -85,16 +109,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginRight="10dp"
         android:orientation="vertical">
         <TextView
             android:id="@+id/video_list_item_text_context"
             android:layout_width="wrap_content"
             android:layout_marginTop="5dp"
-            android:textColor="#999999"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp"
             android:textSize="13dp"
             android:text="内我说的萨达萨达是撒大大大大大大大大大大大大大大大大大大"
             android:ellipsize="end"
@@ -108,6 +131,7 @@
             android:id="@+id/iv_ngrid_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_marginTop="8dp"/>
 
         <com.heixiu.errand.MVP.Community.widget.CustomImageView
@@ -120,13 +144,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:padding="5dp"
+            android:layout_marginTop="11dp"
             android:gravity="center_vertical">
             <ImageView
                 android:layout_width="13dp"
                 android:layout_height="13dp"
                 android:src="@mipmap/ic_launcher"/>
             <TextView
+                android:layout_marginLeft="7dp"
                 android:id="@+id/Tv_communityPraise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -136,9 +161,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:padding="5dp"
+        android:layout_marginTop="@dimen/dp_10"
         android:gravity="center_vertical">
         <EditText
+
             android:id="@+id/Et_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -147,4 +173,7 @@
             android:hint="请输入评论"
             tools:ignore="NotSibling" />
     </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
     </LinearLayout>
