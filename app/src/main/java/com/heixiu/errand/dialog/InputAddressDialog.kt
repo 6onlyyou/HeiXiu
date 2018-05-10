@@ -33,7 +33,5 @@ class InputAddressDialog(context: Context) : Dialog(context, R.style.CustomDialo
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.input_address_dialog, null, false)
         setContentView(binding.root)
 
-//        binding.cancel.setOnclick
-
     }
 }
