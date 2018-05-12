@@ -55,9 +55,6 @@ class ContentFragment : BaseFragment() {
         return inflater!!.inflate(R.layout.fragment_content, container, false)
     }
 
-    private val food = ArrayList<String>()
-    private val clothes = ArrayList<String>()
-    private val computer = ArrayList<String>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
