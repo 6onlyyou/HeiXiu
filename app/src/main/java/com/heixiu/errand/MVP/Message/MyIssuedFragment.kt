@@ -29,6 +29,7 @@ import java.util.ArrayList
  * A simple [Fragment] subclass.
  */
 class MyIssuedFragment : BaseActivity()  {
+    internal var myIssuedAdapter: MyIssuedAdapter? = null
     override fun loadViewLayout() {
         setContentView(R.layout.fragment_my_issued)
     }
@@ -36,8 +37,7 @@ class MyIssuedFragment : BaseActivity()  {
     override fun findViewById() {
         initTitle("我的发布", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener {
-
-
+        finishWithAlpha()
         })
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().MyIssued(SPUtil.getString("userid"))).subscribe({
             Rv_issue.setLayoutManager(LinearLayoutManager(this))
@@ -65,7 +65,7 @@ class MyIssuedFragment : BaseActivity()  {
     }
 
 
-    internal var myIssuedAdapter: MyIssuedAdapter? = null
+
 
 
 

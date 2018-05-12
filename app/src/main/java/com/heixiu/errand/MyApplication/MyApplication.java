@@ -10,6 +10,8 @@ import com.mob.MobSDK;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.rong.imkit.RongIM;
+
 
 
 /*
@@ -36,6 +38,7 @@ public class MyApplication extends Application {
         if (instance == null) {
             instance = new MyApplication();
         }
+
         return instance;
     }
 
@@ -43,11 +46,12 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        RongIM.init(this);
+        RongIM.getInstance().setMessageAttachedUserInfo(true);
         MobSDK.init(this);
         AndroidBase.init(this, "http://app.heixiuapp.cn:8080/api/", "http://app.heixiuapp.cn:8080/api/");
         Utils.init(this);
     }
-
     /**
      * 结束指定的Activity
      *

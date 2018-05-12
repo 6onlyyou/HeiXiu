@@ -131,7 +131,72 @@
         <activity android:name=".MVP.Contentt.ConfirmPublishOrderActivity" />
         <activity android:name=".MVP.common.TicketActivity" />
         <activity android:name=".MVP.ImgActivity" />
-        <activity android:name=".MVP.Community.PostTextActivity"></activity>
+        <activity android:name=".MVP.Community.PostTextActivity" />
+
+        <!-- 会话列表融云 -->
+        <activity
+            android:name=".activity.ConversationListActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.huadong.heixiu"
+                    android:path="/conversationlist"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.ConversationActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.huadong.heixiu"
+                    android:pathPrefix="/conversation/"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="ccom.huadong.heixiu.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/rc_file_path" />
+        </provider>
+
+        <service
+            android:name="io.rong.imlib.ipc.RongService"
+            android:exported="true"
+            android:process=":ipc" />
+        <service
+            android:name="io.rong.imlib.ReConnectService"
+            android:exported="true" />
+
+        <receiver
+            android:name="io.rong.imlib.ConnectChangeReceiver"
+            android:exported="true" />
+        <receiver
+            android:name="io.rong.imlib.HeartbeatReceiver"
+            android:process=":ipc" />
+
+        <meta-data
+            android:name="RONG_CLOUD_APP_KEY"
+            android:value="vnroth0kv8q0o" />
+
+        <activity android:name=".MVP.Message.EditProfileActivity"></activity>
     </application>
 
 </manifest>

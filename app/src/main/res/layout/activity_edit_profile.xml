@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.heixiu.errand.MVP.Message.EditProfileActivity">
+
+    <include layout="@layout/comm_title" />
+
+    <ImageView
+        android:id="@+id/profile_hard"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="17dp"
+        android:text="付搜索"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="7dp"
+        android:text="付搜索"
+        android:textColor="#b3b3b3"
+        android:textSize="11sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:textColor="#e9e9e9" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="昵称"
+            android:textColor="@color/black"
+            android:textSize="11sp" />
+
+        <EditText
+            android:id="@+id/profile_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="left"
+            android:hint="请输入姓名"
+            android:paddingLeft="59dp"
+            android:paddingRight="14dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="11sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:textColor="#e9e9e9" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="性别"
+            android:textColor="@color/black"
+            android:textSize="11sp" />
+
+        <EditText
+            android:id="@+id/profile_sex"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="left"
+            android:hint="请选择性别"
+            android:paddingLeft="59dp"
+            android:paddingRight="14dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="11sp" />
+
+        <ImageView
+            android:layout_width="5dp"
+            android:layout_height="8dp"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/ic_launcher" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:textColor="#e9e9e9" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="生日"
+            android:textColor="@color/black"
+            android:textSize="11sp" />
+
+        <EditText
+            android:id="@+id/profile_birdday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="left"
+            android:hint="请选择生日"
+            android:paddingLeft="59dp"
+            android:paddingRight="14dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="11sp" />
+
+        <ImageView
+            android:layout_width="5dp"
+            android:layout_height="8dp"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/ic_launcher" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:textColor="#e9e9e9" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="个性签名"
+            android:textColor="@color/black"
+            android:textSize="11sp" />
+
+        <EditText
+            android:id="@+id/profile_sign"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="left"
+            android:hint="您还没设置签名"
+            android:paddingLeft="39dp"
+            android:paddingRight="14dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="11sp" />
+
+        <ImageView
+            android:layout_width="5dp"
+            android:layout_height="8dp"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/ic_launcher" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:textColor="#e9e9e9" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="实名认证"
+            android:textColor="@color/black"
+            android:textSize="11sp" />
+
+        <EditText
+            android:id="@+id/profile_attestation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="left"
+            android:hint="还未实名认证"
+            android:paddingLeft="39dp"
+            android:paddingRight="14dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="11sp" />
+
+        <ImageView
+            android:layout_width="5dp"
+            android:layout_height="8dp"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/ic_launcher" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:textColor="#e9e9e9" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="账号绑定"
+            android:textColor="@color/black"
+            android:textSize="11sp" />
+
+        <EditText
+            android:id="@+id/profile_bind"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="left"
+            android:hint="支付宝还为绑定"
+            android:paddingLeft="39dp"
+            android:paddingRight="14dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="11sp" />
+
+        <ImageView
+            android:layout_width="5dp"
+            android:layout_height="8dp"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/ic_launcher" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:textColor="#e9e9e9" />
+</LinearLayout>
