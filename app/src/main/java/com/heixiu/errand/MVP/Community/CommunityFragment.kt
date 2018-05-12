@@ -70,7 +70,7 @@ class CommunityFragment : BaseFragment(), BaseQuickAdapter.RequestLoadMoreListen
         //设置加载动画
         commounityAdapter!!.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         //设置是否自动加载以及加载个数
-        commounityAdapter!!.openLoadMore(2, true)
+        commounityAdapter!!.openLoadMore(1, true)
         //将适配器添加到RecyclerView
         rv_list.setAdapter(commounityAdapter)
         //设置自动加载监听
@@ -108,7 +108,7 @@ class CommunityFragment : BaseFragment(), BaseQuickAdapter.RequestLoadMoreListen
         dynamicEntity!!.title="标题"
         dynamicEntityList.add(dynamicEntity);
         commounityAdapter!!.setNewData(dynamicEntityList);//新增数据
-        commounityAdapter!!.openLoadMore(2,true);
+//        commounityAdapter!!.openLoadMore(2,true);
     }
 
     private fun setDialog() {

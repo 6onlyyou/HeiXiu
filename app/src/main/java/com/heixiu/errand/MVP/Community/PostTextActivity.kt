@@ -15,9 +15,11 @@ class PostTextActivity : BaseActivity() {
     }
 
     override fun findViewById() {
+
     }
 
     override fun setListener() {
+
     }
 
     override fun processLogic() {

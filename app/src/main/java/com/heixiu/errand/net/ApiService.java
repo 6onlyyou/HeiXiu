@@ -159,6 +159,10 @@ city     */
      */
     @POST("coupon/list")
     Observable<ResponseBean<List<CouponTicketBean>>> couponList();
-
-
+    /**
+     * 我发布的
+     * @return
+     */
+    @POST("queryMyPublishOrderInfos")
+    Observable<ResponseBean<List<OrderInfo>>> MyIssued(@Query("userId") String userId);
 }
