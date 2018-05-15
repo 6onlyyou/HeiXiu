@@ -2,18 +2,14 @@ package com.heixiu.errand.MVP.Message
 
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
+import android.widget.EditText
 import android.widget.Toast
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseActivity
-import com.mob.MobSDK.getUser
+import kotlinx.android.synthetic.main.activity_edit_profile.*
 import org.feezu.liuli.timeselector.TimeSelector
 import java.text.SimpleDateFormat
 import java.util.*
-import android.databinding.adapters.TextViewBindingAdapter.setText
-import android.widget.EditText
-import kotlinx.android.synthetic.main.activity_edit_profile.*
 
 
 class EditProfileActivity : BaseActivity() {
@@ -38,16 +34,18 @@ class EditProfileActivity : BaseActivity() {
         profile_sign.setOnClickListener {
             val inputServer = EditText(this)
             val builder = AlertDialog.Builder(this)
-            builder.setTitle("Server").setIcon(android.R.drawable.ic_dialog_info).setView(inputServer)
-                    .setNegativeButton("Cancel", null)
-            builder.setPositiveButton("Ok") { dialog, which ->
-                //            textView3.setText(inputServer.getText().toString())
+            builder.setTitle("设置签名").setView(inputServer)
+                    .setNegativeButton("取消", null)
+            builder.setPositiveButton("确定") { dialog, which ->
+
             }
             builder.show()
         }
+        profile_attestation
     }
 
     override fun setListener() {
+
     }
 
     override fun processLogic() {

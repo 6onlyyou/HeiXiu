@@ -197,7 +197,8 @@
             android:value="vnroth0kv8q0o" />
 
         <activity android:name=".MVP.Message.EditProfileActivity" />
-        <activity android:name=".MVP.Message.PersonalPageActivity"></activity>
+        <activity android:name=".MVP.Message.PersonalPageActivity" />
+        <activity android:name=".MVP.Message.AutonymActivity"></activity>
     </application>
 
 </manifest>

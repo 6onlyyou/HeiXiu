@@ -93,18 +93,17 @@
             android:textColor="@color/black"
             android:textSize="11sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/profile_sex"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@null"
             android:gravity="left"
-            android:hint="请选择性别"
+            android:text="请选择性别"
             android:paddingLeft="59dp"
             android:paddingRight="14dp"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="@color/hint_text"
             android:textSize="11sp" />
 
         <ImageView
@@ -134,18 +133,18 @@
             android:textColor="@color/black"
             android:textSize="11sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/profile_birdday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"
             android:gravity="left"
-            android:hint="请选择生日"
+            android:text="请选择生日"
             android:paddingLeft="59dp"
             android:paddingRight="14dp"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="@color/hint_text"
             android:textSize="11sp" />
 
         <ImageView
@@ -175,18 +174,18 @@
             android:textColor="@color/black"
             android:textSize="11sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/profile_sign"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"
             android:gravity="left"
-            android:hint="您还没设置签名"
+            android:text="您还没设置签名"
             android:paddingLeft="39dp"
             android:paddingRight="14dp"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="@color/hint_text"
             android:textSize="11sp" />
 
         <ImageView
@@ -216,18 +215,17 @@
             android:textColor="@color/black"
             android:textSize="11sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/profile_attestation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@null"
             android:gravity="left"
-            android:hint="还未实名认证"
+            android:text="还未实名认证"
             android:paddingLeft="39dp"
             android:paddingRight="14dp"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="@color/hint_text"
             android:textSize="11sp" />
 
         <ImageView
@@ -257,18 +255,17 @@
             android:textColor="@color/black"
             android:textSize="11sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/profile_bind"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@null"
             android:gravity="left"
-            android:hint="支付宝还为绑定"
+            android:text="支付宝还为绑定"
             android:paddingLeft="39dp"
             android:paddingRight="14dp"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="@color/hint_text"
             android:textSize="11sp" />
 
         <ImageView
