@@ -28,6 +28,7 @@
             android:text="个人中心" />
 
         <com.heixiu.errand.widget.CircleImageView
+            android:id="@+id/message_hard"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"

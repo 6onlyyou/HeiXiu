@@ -35,16 +35,16 @@ class EditProfileActivity : BaseActivity() {
             timeSelector.setMode(TimeSelector.MODE.YMD);//只显示 年月日
             timeSelector.show();
         }
-        val inputServer = EditText(this)
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Server").setIcon(android.R.drawable.ic_dialog_info).setView(inputServer)
-                .setNegativeButton("Cancel", null)
-        builder.setPositiveButton("Ok") { dialog, which ->
-//            textView3.setText(inputServer.getText().toString())
+        profile_sign.setOnClickListener {
+            val inputServer = EditText(this)
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Server").setIcon(android.R.drawable.ic_dialog_info).setView(inputServer)
+                    .setNegativeButton("Cancel", null)
+            builder.setPositiveButton("Ok") { dialog, which ->
+                //            textView3.setText(inputServer.getText().toString())
+            }
+            builder.show()
         }
-        builder.show()
-
-
     }
 
     override fun setListener() {

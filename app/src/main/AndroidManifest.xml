@@ -196,7 +196,8 @@
             android:name="RONG_CLOUD_APP_KEY"
             android:value="vnroth0kv8q0o" />
 
-        <activity android:name=".MVP.Message.EditProfileActivity"></activity>
+        <activity android:name=".MVP.Message.EditProfileActivity" />
+        <activity android:name=".MVP.Message.PersonalPageActivity"></activity>
     </application>
 
 </manifest>

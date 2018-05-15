@@ -8,6 +8,7 @@ import android.view.ViewGroup
 
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseFragment
+import kotlinx.android.synthetic.main.fragment_message.*
 import java.util.*
 
 
@@ -29,7 +30,9 @@ class MessageFragment : BaseFragment() {
     }
 
     override fun initListener() {
-
+        message_hard.setOnClickListener {
+            startActivity(PersonalPageActivity::class.java)
+        }
     }
 
     override fun initData() {
