@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.NumberPicker
+import com.heixiu.errand.MVP.Contentt.ContentFragment
 import com.heixiu.errand.R
 import com.heixiu.errand.databinding.ChooseWeightDialogBinding
 
@@ -31,7 +32,8 @@ class ChooseWeightDialog(context: Context) : BottomDialog(context) {
         })
 
         binding.confirm.setOnClickListener({
-            binding.weightNp.verticalScrollbarPosition
+            ContentFragment.packageWeight = numbers[binding.weightNp.verticalScrollbarPosition]
+            dismiss()
         })
 
         //设置需要显示的内容数组
@@ -44,4 +46,5 @@ class ChooseWeightDialog(context: Context) : BottomDialog(context) {
         binding.weightNp.wrapSelectorWheel = false
         binding.weightNp.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
     }
+
 }

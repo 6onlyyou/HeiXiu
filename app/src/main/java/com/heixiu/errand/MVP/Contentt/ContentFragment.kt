@@ -12,6 +12,7 @@ import com.bigkoo.pickerview.view.OptionsPickerView
 import com.heixiu.errand.MVP.common.TicketActivity
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseFragment
+import com.heixiu.errand.base.Contants
 import com.heixiu.errand.dialog.AddPriceDialog
 import com.heixiu.errand.dialog.ChooseWeightDialog
 import com.heixiu.errand.dialog.InputAddressDialog
@@ -23,7 +24,17 @@ import java.util.*
 /**
  * A simple [Fragment] subclass.
  */
-class ContentFragment : BaseFragment() {
+class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
+
+    override fun addressConfirm(address: String, type: String) {
+        if (type.equals(Contants.RECEIVER)) {
+            ContentFragment.receiveAddress = address
+        }
+
+        if (type.equals(Contants.SEND)) {
+            ContentFragment.sendAddress = address
+        }
+    }
 
     private val days = ArrayList<String>()
     private val hour = ArrayList<String>()
@@ -36,6 +47,7 @@ class ContentFragment : BaseFragment() {
         var recieveTime: String = ""
         var packageType: String = ""
         var packageWeight: String = ""
+        var ticketId: String = ""
         var discountCoupon: String = ""
         var addPrice: String = ""
         var keepPrice: String = ""
@@ -60,11 +72,11 @@ class ContentFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         //取货地址
         receiveAddress.setOnClickListener({
-            InputAddressDialog(context!!).show()
+            InputAddressDialog(context!!, this, Contants.RECEIVER).show()
         })
         //送货地址
         sendAddress.setOnClickListener({
-
+            InputAddressDialog(context!!, this, Contants.SEND).show()
         })
         //送货时间
         sendTime.setOnClickListener({
@@ -98,6 +110,9 @@ class ContentFragment : BaseFragment() {
             KeepPriceDialog(context!!).show()
         })
 
+        submit.setOnClickListener({
+
+        })
     }
 
     override fun initListener() {

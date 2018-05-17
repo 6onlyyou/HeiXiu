@@ -17,6 +17,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
@@ -24,6 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:layout_marginLeft="16dp"
                 android:text="取消" />
 
             <TextView
@@ -31,6 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
                 android:text="确定" />
         </RelativeLayout>
 
@@ -64,10 +67,10 @@
         </LinearLayout>
 
         <NumberPicker
-            android:background="@color/white"
             android:id="@+id/weightNp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp" />
+            android:layout_marginTop="12dp"
+            android:background="@color/white" />
     </LinearLayout>
 </layout>
