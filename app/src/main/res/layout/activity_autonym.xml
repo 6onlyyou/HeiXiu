@@ -104,4 +104,10 @@
             android:layout_marginBottom="16dp"
             android:src="@mipmap/autonym_add"/>
     </LinearLayout>
+    <ImageView
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/autonym_submit"/>
 </LinearLayout>
