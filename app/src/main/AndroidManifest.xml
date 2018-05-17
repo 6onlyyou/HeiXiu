@@ -199,7 +199,8 @@
         <activity android:name=".MVP.Message.EditProfileActivity" />
         <activity android:name=".MVP.Message.PersonalPageActivity" />
         <activity android:name=".MVP.Message.AutonymActivity" />
-        <activity android:name=".MVP.Message.AliBindActivity"></activity>
+        <activity android:name=".MVP.Message.AliBindActivity" />
+        <activity android:name=".MVP.Message.MyFansActivity"></activity>
     </application>
 
 </manifest>

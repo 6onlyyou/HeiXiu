@@ -6,18 +6,16 @@ import android.view.View
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseActivity
 
-class AutonymActivity : BaseActivity() {
+class MyFansActivity : BaseActivity() {
     override fun loadViewLayout() {
-        setContentView(R.layout.activity_autonym)
-    }
-
-    override fun findViewById() {
-        initTitle("身份认证", R.color.colorPrimary, R.color.white)
+        setContentView(R.layout.activity_my_fans)
+        initTitle("我的粉丝", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener {
             finishWithAlpha()
         })
+    }
 
-//        autonym_inname
+    override fun findViewById() {
     }
 
     override fun setListener() {

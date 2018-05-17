@@ -2,6 +2,7 @@ package com.heixiu.errand.MVP.Message
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import com.heixiu.errand.R
@@ -18,6 +19,10 @@ class EditProfileActivity : BaseActivity() {
     }
 
     override fun findViewById() {
+        initTitle("编辑资料", R.color.colorPrimary, R.color.white)
+        mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener {
+            finishWithAlpha()
+        })
         profile_sex.setOnClickListener {
             change_sex()
         }
