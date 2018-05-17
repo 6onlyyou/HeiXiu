@@ -17,16 +17,22 @@ class PackageTypeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_package_type)
+
         package_type_Rv!!.layoutManager = GridLayoutManager(this, 4)
         adapter = PackageTypeAdapter(this)
         package_type_Rv!!.adapter = adapter
+
+
     }
 
     companion object {
-
         fun startSelf(context: Context) {
             val intent = Intent(context, PackageTypeActivity::class.java)
             context.startActivity(intent)
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }
