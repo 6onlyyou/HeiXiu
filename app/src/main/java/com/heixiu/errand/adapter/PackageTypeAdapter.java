@@ -19,8 +19,8 @@ public class PackageTypeAdapter extends RecyclerView.Adapter<PackageTypeAdapter.
 
     public String[] data;
     public int selectPosition = -1;
+    public PackageTypeItemClick typeItemClick;
     Context mContext;
-
 
     public PackageTypeAdapter(@Nullable Context context) {
         this.mContext = context;
@@ -33,6 +33,7 @@ public class PackageTypeAdapter extends RecyclerView.Adapter<PackageTypeAdapter.
 
     public void setSelectPosition(int position) {
         this.selectPosition = position;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -64,6 +65,9 @@ public class PackageTypeAdapter extends RecyclerView.Adapter<PackageTypeAdapter.
         this.mContext = mContext;
     }
 
+    public interface PackageTypeItemClick {
+        void click(int position);
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView packageTypeTv;
@@ -75,7 +79,9 @@ public class PackageTypeAdapter extends RecyclerView.Adapter<PackageTypeAdapter.
                 @Override
                 public void onClick(View v) {
                     setSelectPosition(getLayoutPosition());
-                    notifyDataSetChanged();
+                    if (typeItemClick != null) {
+                        typeItemClick.click(getLayoutPosition());
+                    }
                 }
             });
         }

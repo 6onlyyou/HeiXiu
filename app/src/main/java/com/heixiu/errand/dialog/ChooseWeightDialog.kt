@@ -20,7 +20,6 @@ class ChooseWeightDialog(context: Context) : BottomDialog(context) {
             , "27", "28", "29", "30"
     )
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.choose_weight_dialog, null, false)
@@ -32,7 +31,11 @@ class ChooseWeightDialog(context: Context) : BottomDialog(context) {
         })
 
         binding.confirm.setOnClickListener({
-            ContentFragment.packageWeight = numbers[binding.weightNp.verticalScrollbarPosition]
+            if (binding.weightNp.verticalScrollbarPosition == 0) {
+                ContentFragment.packageWeight = "1"
+            } else {
+                ContentFragment.packageWeight = numbers[binding.weightNp.verticalScrollbarPosition]
+            }
             dismiss()
         })
 

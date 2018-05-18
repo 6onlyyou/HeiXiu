@@ -17,10 +17,9 @@ import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
-import com.baidu.mapapi.map.UiSettings;
 import com.heixiu.errand.MyApplication.MyApplication;
 import com.heixiu.errand.R;
-import com.heixiu.errand.net.OrderInfo;
+import com.heixiu.errand.bean.OrderInfo;
 
 public class OrderMapActivity extends AppCompatActivity {
 

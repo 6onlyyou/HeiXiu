@@ -57,12 +57,11 @@ class InputAddressDialog(context: Context, contentFragment: OnAddressConfirm, ty
         })
 
         binding.cancel.setOnClickListener({
-            if ("取消".equals(binding.cancel.text)) {
-                dismiss()
-            } else if ("确认".equals(binding.cancel.text)) {
+            if ("取消" == binding.cancel.text) {
+            } else if ("确认" == binding.cancel.text) {
                 addressConfirm.addressConfirm(binding.inputAddressEt.text.toString(), type)
             }
-
+            dismiss()
         })
     }
 

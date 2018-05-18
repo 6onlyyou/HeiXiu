@@ -1,4 +1,4 @@
-package com.heixiu.errand.net;
+package com.heixiu.errand.bean;
 
 import java.io.Serializable;
 

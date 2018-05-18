@@ -5,12 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.heixiu.errand.R;
-import com.heixiu.errand.net.OrderInfo;
+import com.heixiu.errand.bean.OrderInfo;
 
 import org.jetbrains.annotations.Nullable;
 

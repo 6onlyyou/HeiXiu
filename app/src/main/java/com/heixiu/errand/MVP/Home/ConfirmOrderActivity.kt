@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.heixiu.errand.R
-import com.heixiu.errand.net.OrderInfo
+import com.heixiu.errand.bean.OrderInfo
 import kotlinx.android.synthetic.main.activity_confirm_order.*
 
 class ConfirmOrderActivity : AppCompatActivity() {

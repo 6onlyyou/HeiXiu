@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.NumberPicker
+import com.heixiu.errand.MVP.Contentt.ContentFragment
 import com.heixiu.errand.R
 import com.heixiu.errand.databinding.ChooseWeightDialogBinding
 
@@ -23,7 +24,6 @@ class AddPriceDialog(context: Context) : BottomDialog(context) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.choose_weight_dialog, null, false)
         setContentView(binding.root)
 
-
         binding.moreWeightLayout.visibility = View.GONE
 
         binding.cancel.setOnClickListener({
@@ -31,7 +31,8 @@ class AddPriceDialog(context: Context) : BottomDialog(context) {
         })
 
         binding.confirm.setOnClickListener({
-            binding.weightNp.verticalScrollbarPosition
+            ContentFragment.addPrice = numbers[binding.weightNp.verticalScrollbarPosition]
+            dismiss()
         })
 
         //设置需要显示的内容数组

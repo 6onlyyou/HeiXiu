@@ -10,7 +10,7 @@ import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.R
 import com.heixiu.errand.adapter.HomeAdapter
 import com.heixiu.errand.base.BaseFragment
-import com.heixiu.errand.net.OrderInfo
+import com.heixiu.errand.bean.OrderInfo
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import kotlinx.android.synthetic.main.fragment_home.*

@@ -1,6 +1,7 @@
 package com.heixiu.errand.net;
 
 import com.heixiu.errand.bean.CouponTicketBean;
+import com.heixiu.errand.bean.OrderInfo;
 import com.heixiu.errand.bean.PhoneToken;
 import com.heixiu.errand.bean.PubLishInfo;
 import com.heixiu.errand.bean.PublishInfoDetail;
@@ -108,14 +109,14 @@ city     */
             @Query("sendAddress") String sendAddress,
             @Query("receiveAddress") String receiveAddress,
             @Query("name") String name,
-            @Query("weight") String weight,
-            @Query("addPrice") String addPrice,
+            @Query("weight") int weight,
+            @Query("addPrice") int addPrice,
             @Query("description") String description,
             @Query("receiveName") String receiveName,
             @Query("receiveNum") String receiveNum,
             @Query("courierNum") String courierNum,
-            @Query("supportPrice") String supportPrice,
-            @Query("payment") String payment,
+            @Query("supportPrice") int supportPrice,
+            @Query("payment") int payment,
             @Query("originsLatitude") String originsLatitude,
             @Query("originsLongitude") String originsLongitude,
             @Query("destinationsLatitude") String destinationsLatitude,

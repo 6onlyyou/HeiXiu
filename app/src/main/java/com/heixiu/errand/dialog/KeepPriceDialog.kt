@@ -4,6 +4,7 @@ import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.LayoutInflater
+import com.heixiu.errand.MVP.Contentt.ContentFragment
 import com.heixiu.errand.R
 import com.heixiu.errand.databinding.KeepPriceDialogBinding
 
@@ -29,8 +30,8 @@ class KeepPriceDialog(context: Context) : BottomDialog(context) {
         })
 
         binding.confirm.setOnClickListener({
+            ContentFragment.keepPrice = binding.needPrice.text.toString()
             dismiss()
         })
-
     }
 }

@@ -3,9 +3,8 @@ package com.heixiu.errand.adapter;
 import android.view.View;
 import android.widget.Button;
 
-import com.heixiu.errand.MVP.Community.entity.DynamicEntity;
 import com.heixiu.errand.R;
-import com.heixiu.errand.net.OrderInfo;
+import com.heixiu.errand.bean.OrderInfo;
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter;
 import com.xiaochao.lcrapiddeveloplibrary.BaseViewHolder;
 
