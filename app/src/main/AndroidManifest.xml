@@ -200,7 +200,9 @@
         <activity android:name=".MVP.Message.PersonalPageActivity" />
         <activity android:name=".MVP.Message.AutonymActivity" />
         <activity android:name=".MVP.Message.AliBindActivity" />
-        <activity android:name=".MVP.Message.MyFansActivity"></activity>
+        <activity android:name=".MVP.Message.MyFansActivity" />
+        <activity android:name=".MVP.Seting.SetingMainActivity" />
+        <activity android:name=".MVP.Seting.AccountActivity"></activity>
     </application>
 
 </manifest>
