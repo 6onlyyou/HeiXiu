@@ -202,7 +202,13 @@
         <activity android:name=".MVP.Message.AliBindActivity" />
         <activity android:name=".MVP.Message.MyFansActivity" />
         <activity android:name=".MVP.Seting.SetingMainActivity" />
-        <activity android:name=".MVP.Seting.AccountActivity"></activity>
+        <activity android:name=".MVP.Seting.AccountActivity" />
+        <activity android:name=".MVP.Seting.ChangePasswordActivity" />
+        <activity android:name=".MVP.Seting.AuthenticationActivity" />
+        <activity android:name=".MVP.Seting.AliPayBindActivity" />
+        <activity android:name=".MVP.Seting.SoundActivity" />
+        <activity android:name=".MVP.Message.wallet.WalletMainActivity" />
+        <activity android:name=".MVP.Message.wallet.EarningsActivity"></activity>
     </application>
 
 </manifest>

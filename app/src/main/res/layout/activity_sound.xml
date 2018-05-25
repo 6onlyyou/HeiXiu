@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.heixiu.errand.MVP.Seting.SoundActivity">
+    <include layout="@layout/comm_title" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:text="接受新消息通知"
+            android:textColor="@color/black"
+            android:textSize="11sp" />
+        <CheckBox
+            android:layout_width="48dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="13dp"
+            android:background="@drawable/switch_bg"
+            android:button="@null" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:text="震动提醒"
+            android:textColor="@color/black"
+            android:textSize="11sp" />
+        <CheckBox
+            android:layout_width="48dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="13dp"
+            android:background="@drawable/switch_bg"
+            android:button="@null" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="71dp"
+        android:layout_height="26dp"
+        android:background="@color/colorAccent"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:text="确定"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        />
+</LinearLayout>
