@@ -2,6 +2,9 @@ package com.heixiu.errand.MyApplication;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.fushuaige.common.utils.Utils;
 import com.heixiu.errand.net.AndroidBase;
@@ -19,7 +22,7 @@ import io.rong.imkit.RongIM;
  * 用于初始化各种数据以及服务
  *  */
 
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
     /**
      * 应用实例
      **/
@@ -104,4 +107,9 @@ public class MyApplication extends Application {
         System.exit(0);
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 }

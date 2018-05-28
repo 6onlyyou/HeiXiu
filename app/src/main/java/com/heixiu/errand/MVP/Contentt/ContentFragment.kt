@@ -4,22 +4,28 @@ package com.heixiu.errand.MVP.Contentt
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.baidu.mapapi.SDKInitializer
+import com.baidu.mapapi.search.sug.SuggestionResult
+import com.baidu.mapapi.search.sug.SuggestionSearch
+import com.baidu.mapapi.search.sug.SuggestionSearchOption
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener
 import com.bigkoo.pickerview.view.OptionsPickerView
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.MVP.common.TicketActivity
+import com.heixiu.errand.MyApplication.MyApplication
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseFragment
 import com.heixiu.errand.base.Contants
+import com.heixiu.errand.bean.OrderInfo
 import com.heixiu.errand.dialog.AddPriceDialog
 import com.heixiu.errand.dialog.ChooseWeightDialog
 import com.heixiu.errand.dialog.InputAddressDialog
 import com.heixiu.errand.dialog.KeepPriceDialog
-import com.heixiu.errand.bean.OrderInfo
 import kotlinx.android.synthetic.main.fragment_content.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -177,8 +183,30 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
 
     }
 
+    var mSuggestionSearch: SuggestionSearch? = null
+
     override fun initData() {
+        SDKInitializer.initialize((MyApplication.getInstance()))
+        //  mMapView = (MapView) findViewById(R.id.bmapView);
+        mSuggestionSearch = SuggestionSearch.newInstance()
+        //  tv= (TextView) findViewById(R.id.editText1);
+        mSuggestionSearch?.setOnGetSuggestionResultListener {
+            if (it == null || it.getAllSuggestions() == null) {
+                //未找到相关结果
+            } else {
+                var resl: List<SuggestionResult.SuggestionInfo> = it.getAllSuggestions();
+                for (suggestionInfo in resl) {
+                    Log.i("result: ", "city" + suggestionInfo.city + " dis " + suggestionInfo.district + "key " + suggestionInfo.key);
+                }
+
+            }
+            //获取在线建议检索结果
+        }
+        mSuggestionSearch?.requestSuggestion(SuggestionSearchOption()
+                .keyword("同济大学")
+                .city("上海"))
     }
+
 
 
 }
