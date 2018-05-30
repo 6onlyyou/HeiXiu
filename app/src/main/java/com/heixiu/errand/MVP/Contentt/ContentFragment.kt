@@ -157,7 +157,6 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-
             }
         })
     }

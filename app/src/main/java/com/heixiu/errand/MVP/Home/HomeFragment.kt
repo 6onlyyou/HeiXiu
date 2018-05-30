@@ -58,6 +58,7 @@ class HomeFragment : BaseFragment() {
                 orderInfo.description = "2"
                 orderInfo.name = "111"
                 orderInfo.weight = 11
+                orderInfo.sendTime = "2018.1.1"
                 orderInfo.payment = 222
                 orderInfo.receiveAddress = "bbbbb"
                 orderInfo.sendAddress = "aaaaa"
@@ -66,7 +67,10 @@ class HomeFragment : BaseFragment() {
                 orderInfo.courierNum = 1385555.toString()
                 orderInfo.receiveNum = 1367744444.toString()
                 orderInfo.receiveName = "黎明"
-//                orderInfo.destinationsLatitude =
+                orderInfo.id = 1
+
+                orderInfo.destinationsLatitude = 30.28
+                orderInfo.destinationsLongitude = 120.28
                 ConfirmOrderActivity.startSelf(context!!, orderInfo)
             }
         }
