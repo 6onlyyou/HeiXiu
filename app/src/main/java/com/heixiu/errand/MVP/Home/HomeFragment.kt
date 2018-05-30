@@ -66,7 +66,7 @@ class HomeFragment : BaseFragment() {
                 orderInfo.courierNum = 1385555.toString()
                 orderInfo.receiveNum = 1367744444.toString()
                 orderInfo.receiveName = "黎明"
-
+//                orderInfo.destinationsLatitude =
                 ConfirmOrderActivity.startSelf(context!!, orderInfo)
             }
         }

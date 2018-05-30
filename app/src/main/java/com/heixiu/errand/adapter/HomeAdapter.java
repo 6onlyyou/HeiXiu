@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.heixiu.errand.R;
 import com.heixiu.errand.bean.OrderInfo;
@@ -56,10 +58,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         if (false) {
             OrderInfo orderInfo = data.get(i);
-//            viewHolder.startLocationTv.setText(orderInfo.getReceiveAddress());
-//            viewHolder.endLocationTv.setText(orderInfo.getSendAddress());
-//            viewHolder.type.setText(orderInfo.getName());
-//            viewHolder.weight.setText(orderInfo.getWeight());
+            viewHolder.startLocationTv.setText(orderInfo.getReceiveAddress());
+            viewHolder.endLocationTv.setText(orderInfo.getSendAddress());
+            viewHolder.type.setText(orderInfo.getName());
+            viewHolder.weight.setText(orderInfo.getWeight());
         }
     }
 
@@ -91,35 +93,35 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-//        @BindView(R.id.distance)
-//        TextView distance;
-//        @BindView(R.id.detail)
-//        TextView detail;
-//        @BindView(R.id.start_location_tv)
-//        TextView startLocationTv;
-//        @BindView(R.id.end_location_tv)
-//        TextView endLocationTv;
-//        @BindView(R.id.type)
-//        TextView type;
-//        @BindView(R.id.weight)
-//        TextView weight;
-//        @BindView(R.id.confirmOrder)
-//        ImageView confirmOrder;
+        TextView distance;
+        TextView detail;
+        TextView startLocationTv;
+        TextView endLocationTv;
+        TextView type;
+        TextView weight;
+        ImageView confirmOrder;
 
         public ViewHolder(View itemView) {
             super(itemView);
-//            detail.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    onItemClick.onDetailClick(getLayoutPosition());
-//                }
-//            });
-//            confirmOrder.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    onItemClick.onConfirmOrderClick(getLayoutPosition());
-//                }
-//            });
+            distance = itemView.findViewById(R.id.distance);
+            detail = itemView.findViewById(R.id.detail);
+            startLocationTv = itemView.findViewById(R.id.start_location_tv);
+            endLocationTv = itemView.findViewById(R.id.end_location_tv);
+            type = itemView.findViewById(R.id.type);
+            weight = itemView.findViewById(R.id.weight);
+            confirmOrder = itemView.findViewById(R.id.confirmOrder);
+            detail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onItemClick.onDetailClick(getLayoutPosition());
+                }
+            });
+            confirmOrder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onItemClick.onConfirmOrderClick(getLayoutPosition());
+                }
+            });
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.heixiu.errand
 
+import android.content.Intent
 import com.heixiu.errand.MVP.Community.CommunityFragment
 import com.heixiu.errand.MVP.Contentt.ContentFragment
 import com.heixiu.errand.MVP.Express.ExpressFragment
@@ -79,5 +80,10 @@ class MainActivity : BaseActivity() {
         }
         //提交事务
         fragmentTransaction.commit()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
     }
 }
