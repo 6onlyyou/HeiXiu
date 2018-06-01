@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.heixiu.errand">
 
+    <!-- 从sdcard中读取数据的权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 往sdcard中写入数据的权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 检测网络状态 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- 获取mac地址作为用户的备用唯一标识 -->
@@ -96,11 +100,10 @@
         android:theme="@style/AppTheme.NoActionBar"
         tools:replace="android:icon, android:theme">
         <activity
-            android:name=".MVP.Login.LoginActivity"
+            android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -111,7 +114,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.heixiu.errand.MainActivity" />
         </activity>
-        <activity android:name=".MainActivity" />
+        <!--<activity android:name=".MainActivity" />-->
         <activity android:name=".MVP.Home.ConfirmOrderActivity" />
         <activity android:name=".MVP.Login.RegisterActivity" />
         <activity android:name=".MVP.Community.VideoInfoActivity" />

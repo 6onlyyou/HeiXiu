@@ -52,7 +52,7 @@ public class MyApplication extends MultiDexApplication {
         RongIM.init(this);
         RongIM.getInstance().setMessageAttachedUserInfo(true);
         MobSDK.init(this);
-        AndroidBase.init(this, "http://app.heixiuapp.cn:8080/api/", "http://app.heixiuapp.cn:8080/api/");
+        AndroidBase.init(this, "http://app.heixiuapp.cn/api/", "http://app.heixiuapp.cn/api/");
         Utils.init(this);
     }
     /**

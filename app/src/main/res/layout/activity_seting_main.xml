@@ -10,6 +10,7 @@
 
 
     <LinearLayout
+        android:id="@+id/setting_account"
         android:layout_width="match_parent"
         android:layout_height="41dp"
         android:background="@color/white"
@@ -69,6 +70,7 @@
         android:textColor="#e9e9e9" />
 
     <LinearLayout
+        android:id="@+id/setting_notification"
         android:layout_width="match_parent"
         android:layout_height="41dp"
         android:background="@color/white"
@@ -98,6 +100,7 @@
         android:textColor="#e9e9e9" />
 
     <LinearLayout
+        android:id="@+id/setting_common"
         android:layout_width="match_parent"
         android:layout_height="41dp"
         android:background="@color/white"

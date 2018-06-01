@@ -17,8 +17,19 @@
         android:minHeight="200dp"/>
 
 <ImageView
+    android:id="@+id/text_addImage"
     android:layout_width="48dp"
     android:layout_height="48dp"
     android:src="@mipmap/ic_launcher"
     android:layout_marginLeft="24dp"/>
+    <LinearLayout
+        android:id="@+id/llContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
+
+    </LinearLayout>
 </LinearLayout>

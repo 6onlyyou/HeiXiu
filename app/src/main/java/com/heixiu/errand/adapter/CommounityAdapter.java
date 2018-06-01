@@ -1,13 +1,19 @@
 package com.heixiu.errand.adapter;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.heixiu.errand.MVP.Community.VideoInfoActivity;
 import com.heixiu.errand.MVP.Community.entity.DynamicEntity;
+import com.heixiu.errand.MVP.Community.widget.PictureGridView;
 import com.heixiu.errand.R;
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter;
 import com.xiaochao.lcrapiddeveloplibrary.BaseViewHolder;
@@ -20,8 +26,9 @@ import java.util.List;
  * Data：2018/4/12-10:44
  * Author: fushuaige
  */
-public class CommounityAdapter extends BaseQuickAdapter<DynamicEntity> {
 
+public class CommounityAdapter extends BaseQuickAdapter<DynamicEntity> {
+    private List<DynamicEntity> datalist;
     public CommounityAdapter(int layoutResId, List<DynamicEntity> data) {
         super(layoutResId, data);
     }
@@ -32,10 +39,39 @@ public class CommounityAdapter extends BaseQuickAdapter<DynamicEntity> {
 
     public CommounityAdapter(View contentView, List<DynamicEntity> data) {
         super(contentView, data);
+        datalist = data;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, DynamicEntity item) {
+        PictureGridView gridview;
+        gridview = (PictureGridView) helper.getView(R.id.gridView);
+        int num =  datalist.size();//获取当前的图片数目
+        int col = 1;//默认列数
+        Log.i("tag", "num" + num);
+        if (num == 1) {
+            gridview.setNumColumns(1);
+            col = 1;
+        } else if (num == 2 || num == 4) {
+            gridview.setNumColumns(2);
+            col = 2;
+        } else {
+            gridview.setNumColumns(3);
+            col = 3;
+        }
+
+        gridview.setNumColumns(3);
+        gridview.setAdapter(new MyGridViewAdapter(mContext, num, col,datalist));
+
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1,
+                                    int position, long arg3) {
+
+//                DlgForBigPhto(data.get(position).toString());
+//                Toast.makeText(context, "dongtai" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
         helper.setText(R.id.video_list_item_text_context,item.getIntroduction()).setText(R.id.Iv_communityNickName,item.getNickname()).setText(R.id.Tv_communityPraise,item.getPraise());
         //Glide加载图片  并且支持gif动图
         Glide.with(mContext)
@@ -67,4 +103,5 @@ public class CommounityAdapter extends BaseQuickAdapter<DynamicEntity> {
         });
 
     }
+
 }
