@@ -15,7 +15,15 @@ class SetingMainActivity : BaseActivity() {
     override fun findViewById() {
         initTitle("设置", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
-        setting_account.
+        setting_account.setOnClickListener {
+            startActivity(AccountActivity::class.java)
+        }
+        setting_notification.setOnClickListener {
+            startActivity(SoundActivity::class.java)
+        }
+//        setting_common.setOnClickListener {
+//            startActivity(SoundActivity::class.java)
+//        }
     }
 
     override fun setListener() {
