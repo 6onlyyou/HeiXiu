@@ -56,10 +56,10 @@ public class OrderInfo implements Serializable {
     private String description;
     private String sendAddress;
     private String receiveAddress;
-    private int originsLatitude;
-    private int originsLongitude;
-    private int destinationsLatitude;
-    private int destinationsLongitude;
+    private double originsLatitude;
+    private double originsLongitude;
+    private double destinationsLatitude;
+    private double destinationsLongitude;
     private long createTime;
     private long updateTime;
 
@@ -215,7 +215,7 @@ public class OrderInfo implements Serializable {
         this.receiveAddress = receiveAddress;
     }
 
-    public int getOriginsLatitude() {
+    public double getOriginsLatitude() {
         return originsLatitude;
     }
 
@@ -223,27 +223,27 @@ public class OrderInfo implements Serializable {
         this.originsLatitude = originsLatitude;
     }
 
-    public int getOriginsLongitude() {
+    public double getOriginsLongitude() {
         return originsLongitude;
     }
 
-    public void setOriginsLongitude(int originsLongitude) {
+    public void setOriginsLongitude(double originsLongitude) {
         this.originsLongitude = originsLongitude;
     }
 
-    public int getDestinationsLatitude() {
+    public double getDestinationsLatitude() {
         return destinationsLatitude;
     }
 
-    public void setDestinationsLatitude(int destinationsLatitude) {
+    public void setDestinationsLatitude(double destinationsLatitude) {
         this.destinationsLatitude = destinationsLatitude;
     }
 
-    public int getDestinationsLongitude() {
+    public double getDestinationsLongitude() {
         return destinationsLongitude;
     }
 
-    public void setDestinationsLongitude(int destinationsLongitude) {
+    public void setDestinationsLongitude(double destinationsLongitude) {
         this.destinationsLongitude = destinationsLongitude;
     }
 

@@ -9,6 +9,7 @@ import android.support.multidex.MultiDexApplication;
 import com.fushuaige.common.utils.Utils;
 import com.heixiu.errand.net.AndroidBase;
 import com.mob.MobSDK;
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,7 @@ public class MyApplication extends MultiDexApplication {
         MobSDK.init(this);
         AndroidBase.init(this, "http://app.heixiuapp.cn/api/", "http://app.heixiuapp.cn/api/");
         Utils.init(this);
+        ZXingLibrary.initDisplayOpinion(this);
     }
     /**
      * 结束指定的Activity

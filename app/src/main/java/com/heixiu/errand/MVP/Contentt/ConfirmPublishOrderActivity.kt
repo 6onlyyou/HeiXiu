@@ -34,6 +34,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
 //        orderNo.text = "订单编号： " + orderInfo.orderNum
         start.text = orderInfo.sendAddress
         end.text = orderInfo.receiveAddress
+        time.text = orderInfo.sendTime
         type.text = orderInfo.name
         weight.text = orderInfo.weight.toString() + "斤"
         add_money.text = orderInfo.addPrice.toString() + "元"
@@ -52,7 +53,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
         })
     }
 
-    public fun submitOrder() {
+    fun submitOrder() {
         orderInfo.courierNum = "110"
         orderInfo.payment = 1100
 

@@ -157,7 +157,6 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-
             }
         })
     }
@@ -186,27 +185,23 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
     var mSuggestionSearch: SuggestionSearch? = null
 
     override fun initData() {
-        SDKInitializer.initialize((MyApplication.getInstance()))
-        //  mMapView = (MapView) findViewById(R.id.bmapView);
-        mSuggestionSearch = SuggestionSearch.newInstance()
-        //  tv= (TextView) findViewById(R.id.editText1);
-        mSuggestionSearch?.setOnGetSuggestionResultListener {
-            if (it == null || it.getAllSuggestions() == null) {
-                //未找到相关结果
-            } else {
-                var resl: List<SuggestionResult.SuggestionInfo> = it.getAllSuggestions();
-                for (suggestionInfo in resl) {
-                    Log.i("result: ", "city" + suggestionInfo.city + " dis " + suggestionInfo.district + "key " + suggestionInfo.key);
-                }
-
-            }
-            //获取在线建议检索结果
-        }
-        mSuggestionSearch?.requestSuggestion(SuggestionSearchOption()
-                .keyword("同济大学")
-                .city("上海"))
+//        SDKInitializer.initialize((MyApplication.getInstance()))
+//        mSuggestionSearch = SuggestionSearch.newInstance()
+//        mSuggestionSearch?.setOnGetSuggestionResultListener {
+//            if (it == null || it.getAllSuggestions() == null) {
+//                Log.i("result: ", "未找到相关结果\n")
+//            } else {
+//                var resl: List<SuggestionResult.SuggestionInfo> = it.getAllSuggestions();
+//                for (suggestionInfo in resl) {
+//                    Log.i("result: ", "city" + suggestionInfo.city + " dis " + suggestionInfo.district + "key " + suggestionInfo.key);
+//                }
+//
+//            }
+//            //获取在线建议检索结果
+//        }
+//        mSuggestionSearch?.requestSuggestion(SuggestionSearchOption()
+//                .keyword("百度"))
     }
-
 
 
 }
