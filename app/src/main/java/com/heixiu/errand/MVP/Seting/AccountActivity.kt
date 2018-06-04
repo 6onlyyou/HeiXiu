@@ -21,6 +21,12 @@ class AccountActivity : BaseActivity() {
         account_password.setOnClickListener {
             startActivity(ChangePasswordActivity::class.java)
         }
+        accoun_approve.setOnClickListener {
+            startActivity(AuthenticationActivity::class.java)
+        }
+        acconnt_alibind.setOnClickListener {
+            startActivity(AliPayBindActivity::class.java)
+        }
     }
 
     override fun processLogic() {

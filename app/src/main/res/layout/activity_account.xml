@@ -59,6 +59,7 @@
             android:src="@mipmap/ic_next" />
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/accoun_approve"
         android:layout_width="match_parent"
         android:layout_height="41dp"
         android:background="@color/white"
@@ -85,6 +86,7 @@
              />
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/acconnt_alibind"
         android:layout_width="match_parent"
         android:layout_height="41dp"
         android:background="@color/white"

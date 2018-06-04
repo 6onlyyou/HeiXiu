@@ -12,6 +12,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/message_setting"
             android:layout_gravity="center_vertical"
             android:layout_width="23dp"
             android:layout_height="23dp"
@@ -153,6 +154,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/message_issued"
             android:layout_width="match_parent"
             android:layout_height="42dp"
             android:background="@drawable/corners_bg"
@@ -176,6 +178,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/message_mytasks"
             android:layout_width="match_parent"
             android:layout_height="42dp"
             android:background="@drawable/corners_bg"
@@ -243,6 +246,7 @@
                 android:textSize="14sp" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/message_coupons"
             android:layout_width="match_parent"
             android:layout_height="42dp"
             android:background="@drawable/corners_bg"
@@ -257,7 +261,7 @@
                 android:src="@mipmap/coupon" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="83dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="优惠劵"
