@@ -43,6 +43,13 @@ class MessageFragment : BaseFragment() {
         message_mytasks.setOnClickListener{
             startActivity(MyTaskActicity::class.java)
         }
+        message_address.setOnClickListener{
+            startActivity(AddressListActivity::class.java)
+        }
+        message_coupons.setOnClickListener {
+            startActivity(TicketActivity::class.java)
+        }
+
     }
 
 

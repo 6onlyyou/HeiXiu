@@ -9,7 +9,9 @@ import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.R
 import com.heixiu.errand.adapter.DeliveryAddressAdapter
 import com.heixiu.errand.adapter.MyIssuedAdapter
+import com.heixiu.errand.base.AppConstant
 import com.heixiu.errand.base.BaseActivity
+import com.heixiu.errand.bean.MyAddressInfo
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.SPUtil
@@ -44,28 +46,22 @@ class AddressListActivity : BaseActivity() {
         },{
             ToastUtils.showLong(it.message)
         })
-//        val list = ArrayList<AddressEntity>()
-//        mAdapter = DeliveryAddressAdapter(list)
-//        mDeliverAddressRv.setAdapter(mAdapter)
+        val list = ArrayList<MyAddressInfo>()
+        myIssuedAdapter = DeliveryAddressAdapter(list)
+        address_rv.setAdapter(myIssuedAdapter)
 
-//        mIsSelectAddress = intent.getBooleanExtra(AppConstant.DATA, false)
-//        mAdapter.setOnItemClickListener(object : BaseQuickAdapter.OnItemClickListener() {
-//            fun onItemClick(adapter: BaseQuickAdapter, view: View, position: Int) {
-//                if (mIsSelectAddress) {
-//                    val intent = Intent()
-//                    intent.putExtra(AppConstant.DATA, mAdapter.getItem(position))
-//                    setResult(AppConstant.ADDRESS_SELECT_RESULT, intent)
-//                    finishWithAnim()
-//                } else {
-//                    val addressEntity = adapter.getItem(position) as AddressEntity
-//                    val editorEntity = AddressEditorEntity()
-//                    editorEntity.setFirstAdd(false)
-//                    editorEntity.setEditType(AppConstant.EDIT)
-//                    editorEntity.setAddressEntity(addressEntity)
-//                    startActivity(PersonalAddressActivity::class.java, editorEntity)
-//                }
-//            }
-//        })
+        myIssuedAdapter!!.setOnRecyclerViewItemClickListener { view, position ->
+            val addressEntity = myIssuedAdapter!!.getItem(position) as MyAddressInfo
+            var editorEntity = MyAddressInfo()
+            editorEntity = addressEntity;
+            editorEntity.setEditType(AppConstant.EDIT)
+            startActivity(PersonalAddressActivity::class.java, editorEntity)
+        }
+        deliver_address_add_btn.setOnClickListener {
+            val editorEntity = MyAddressInfo()
+            editorEntity.setEditType(AppConstant.ADD)
+            startActivity(PersonalAddressActivity::class.java, editorEntity)
+        }
     }
 
     override fun setListener() {

@@ -8,12 +8,16 @@ import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 
+import com.fushuaige.common.utils.ToastUtils;
 import com.google.gson.Gson;
 import com.heixiu.errand.MVP.Message.PersonalAddressActivity;
 import com.heixiu.errand.R;
 import com.heixiu.errand.base.AppConstant;
 import com.heixiu.errand.base.BaseActivity;
 import com.heixiu.errand.bean.MyAddressInfo;
+import com.heixiu.errand.net.RetrofitFactory;
+import com.heixiu.errand.net.RxUtils;
+import com.heixiu.errand.utils.SPUtil;
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter;
 import com.xiaochao.lcrapiddeveloplibrary.BaseViewHolder;
 
@@ -94,12 +98,12 @@ public class DeliveryAddressAdapter extends BaseQuickAdapter<MyAddressInfo> {
             chk.setChecked(true);
 //            chkTv.setText("默认地址");
 //            chkTv.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
-            item.setDefaultAddress(true);
+//            item.setDefaultAddress(true);
         } else {
             chk.setChecked(false);
 //            chkTv.setText("设为默认");
 //            chkTv.setTextColor(mContext.getResources().getColor(R.color.gray_text));
-            item.setDefaultAddress(false);
+//            item.setDefaultAddress(false);
         }
     }
 
@@ -107,65 +111,50 @@ public class DeliveryAddressAdapter extends BaseQuickAdapter<MyAddressInfo> {
         showLoading();
         List<Integer> list = new ArrayList<>();
         list.add(mData.get(position).getId());
-        for (AddressEntity entity : mData) {
+        MyAddressInfo myAddressInfo = mData.get(position);
+        for (MyAddressInfo entity : mData) {
             if (!list.contains(entity.getId())) {
                 list.add(entity.getId());
             }
         }
-        AddressSortEntity entity = new AddressSortEntity();
-        entity.setIds(list);
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), new Gson().toJson(entity));
-        RetrofitFactory.INSTANCE.getRetrofit(AddressService.class).setDefaultAddress(body)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ResponseBean>() {
-                    @Override
-                    public void accept(ResponseBean responseBean) throws Exception {
-                        dismissLoading();
-                        ToastUtils.showShort("设置默认地址成功");
-                        notifyDataSetChanged();
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        dismissLoading();
-                    }
-                });
+        RxUtils.wrapRestCall(RetrofitFactory.INSTANCE.getRetrofit().updateAddress(SPUtil.getString("userid"),myAddressInfo.getId()+"",myAddressInfo.getReceiveName(),myAddressInfo.getReceiveNum(),myAddressInfo.getArea(),"",myAddressInfo.getDetail(),1)).subscribe(new Consumer<String>() {
+            @Override
+            public void accept(String s) throws Exception {
+                dismissLoading();
+                ToastUtils.showShort("设置默认地址成功");
+            }
+        });
 
     }
 
-    private void deleteAddress(final int position) {
-        showLoading();
-        RetrofitFactory.INSTANCE.getRetrofit(AddressService.class).deleteAddress(mData.get(position).getId())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ResponseBean>() {
-                    @Override
-                    public void accept(ResponseBean responseBean) throws Exception {
-                        dismissLoading();
-                        L.e("selectedPosition:" + selectedPosition + "position:" + position);
-                        remove(position);
-                        if (position == selectedPosition && mData.size() >= 1 && position < mData.size() - 1) {
-                            setDefaultAddress(position);
-                            setSelectedPosition(position);
-                            L.e("selectedPosition:" + selectedPosition + "position:" + position);
-                        } else if (position == selectedPosition && mData.size() >= 1 && position == mData.size()) {
-                            setDefaultAddress(position - 1);
-                            setSelectedPosition(position - 1);
-                            L.e("selectedPosition:" + selectedPosition + "position:" + position);
-                        }
-                        if (position == 0) {
-                            setSelectedPosition(0);
-                            L.e("selectedPosition:" + selectedPosition + "position:" + position);
-                        }
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        dismissLoading();
-                    }
-                });
-    }
+//    private void deleteAddress(final int position) {
+//        showLoading();
+//        RetrofitFactory.INSTANCE.getRetrofit(AddressService.class).deleteAddress(mData.get(position).getId())
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Consumer<ResponseBean>() {
+//                    @Override
+//                    public void accept(ResponseBean responseBean) throws Exception {
+//                        dismissLoading();
+//                        remove(position);
+//                        if (position == selectedPosition && mData.size() >= 1 && position < mData.size() - 1) {
+//                            setDefaultAddress(position);
+//                            setSelectedPosition(position);
+//                        } else if (position == selectedPosition && mData.size() >= 1 && position == mData.size()) {
+//                            setDefaultAddress(position - 1);
+//                            setSelectedPosition(position - 1);
+//                        }
+//                        if (position == 0) {
+//                            setSelectedPosition(0);
+//                        }
+//                    }
+//                }, new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(Throwable throwable) throws Exception {
+//                        dismissLoading();
+//                    }
+//                });
+//    }
 
     public void showLoading() {
         if (dialog != null && dialog.isShowing()) return;

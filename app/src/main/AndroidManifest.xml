@@ -140,7 +140,7 @@
         <activity android:name=".MVP.common.TicketActivity" />
         <activity android:name=".MVP.ImgActivity" />
         <activity android:name=".MVP.Community.PostTextActivity" />
-
+        <activity android:name=".MVP.Message.MyIssuedFragment" />
         <!-- 会话列表融云 -->
         <activity
             android:name=".activity.ConversationListActivity"

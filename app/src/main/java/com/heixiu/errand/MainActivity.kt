@@ -7,12 +7,14 @@ import com.heixiu.errand.MVP.Express.ExpressFragment
 import com.heixiu.errand.MVP.Home.HomeFragment
 import com.heixiu.errand.MVP.Message.MessageFragment
 import com.heixiu.errand.base.BaseActivity
+import com.heixiu.errand.utils.SPUtil
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : BaseActivity() {
     private var fragments: ArrayList<android.support.v4.app.Fragment>? = null
     override fun findViewById() {
+        SPUtil.saveString("userid","15632617141")
 
         Rl_homepass.setOnClickListener({
             switchFragment(0)

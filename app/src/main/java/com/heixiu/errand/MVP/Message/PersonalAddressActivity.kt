@@ -11,6 +11,9 @@ import com.heixiu.errand.base.AppConstant
 import com.heixiu.errand.base.BaseActivity
 import com.heixiu.errand.bean.MyAddressInfo
 import com.heixiu.errand.dialog.CommomDialog
+import com.heixiu.errand.net.RetrofitFactory
+import com.heixiu.errand.net.RxUtils
+import com.heixiu.errand.utils.SPUtil
 import kotlinx.android.synthetic.main.activity_personal_address.*
 
 class PersonalAddressActivity : BaseActivity() {
@@ -46,9 +49,23 @@ class PersonalAddressActivity : BaseActivity() {
             entity.detail=detail
             if (AppConstant.ADD.equals(mEditorEntity!!.getEditType())) {
                 dell_address_ll.setVisibility(View.GONE)
+                RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().createAddress(SPUtil.getString("userid"),name,phone,city,"",detail,0)).subscribe({
+
+                    ToastUtils.showShort(it)
+                    setResult(AppConstant.ADDRESS_EDIT_RESULT)
+                    finishWithAnim()
+                },{
+                    ToastUtils.showLong(it.message)
+                })
 //                personalAddressPresenter.addAddress(entity)
             } else if (AppConstant.EDIT.equals(mEditorEntity!!.getEditType())) {
-
+                RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().updateAddress(SPUtil.getString("userid"),mEditorEntity!!.id.toString(),name,phone,city,"",detail,0)).subscribe({
+                    ToastUtils.showShort(it)
+                    setResult(AppConstant.ADDRESS_EDIT_RESULT)
+                    finishWithAnim()
+                },{
+                    ToastUtils.showLong(it.message)
+                })
 //                entity.setId(mEditorEntity.getAddressEntity().getId())
 //                personalAddressPresenter.editAddress(entity)
             }
@@ -62,6 +79,13 @@ class PersonalAddressActivity : BaseActivity() {
             CommomDialog(mContext, R.style.dialog, "确认删除该地址么？", object : CommomDialog.OnCloseListener {
                override fun onClick(dialog: Dialog, confirm: Boolean) {
                     if (confirm) {
+                        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().removeAddress(SPUtil.getString("userid"),mEditorEntity!!.id.toString())).subscribe({
+                            ToastUtils.showShort(it)
+                            setResult(AppConstant.ADDRESS_EDIT_RESULT)
+                            finishWithAnim()
+                        },{
+                            ToastUtils.showLong(it.message)
+                        })
 //                        deleteAddress(mEditorEntity.getAddressEntity().getId())
                         dialog.dismiss()
                     }

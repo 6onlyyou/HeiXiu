@@ -174,4 +174,62 @@ city     */
      */
     @POST("queryListOfMyAddressInfos")
     Observable<ResponseBean<List<MyAddressInfo>>> queryListOfMyAddressInfos(@Query("userId") String userId);
+
+
+    /**
+     * 新增收货地址
+     * userId	用户id
+     receiveName	收件人
+     receiveNum	收件人电话
+     area	区
+     street	街道
+     detail	详情
+     addressStatus	状态   0-常规地址
+     1-默认地址
+     */
+    @POST("createAddress")
+    Observable<ResponseBean<String>> createAddress(
+            @Query("userId") String userId,
+            @Query("receiveName") String receiveName,
+            @Query("receiveNum") String receiveNum,
+            @Query("area") String area,
+            @Query("street") String street,
+            @Query("detail") String detail,
+            @Query("addressStatus") int addressStatus
+    );
+    /**
+     * 修改收货地址
+     userId	用户id
+     receiveName	收件人
+     receiveNum	收件人电话
+     area	区
+     street	街道
+     detail	详情
+     addressStatus	状态   0-常规地址
+     1-默认地址
+     */
+    @POST("updateAddress")
+    Observable<ResponseBean<String>> updateAddress(
+            @Query("userId") String userId,
+            @Query("id") String id,
+            @Query("receiveName") String receiveName,
+            @Query("receiveNum") String receiveNum,
+            @Query("area") String area,
+            @Query("street") String street,
+            @Query("detail") String detail,
+            @Query("addressStatus") int addressStatus
+    );
+    /**
+     * 修改收货地址
+     * userId	用户id
+     id	收货地址id
+     *
+     */
+
+    @POST("removeAddress")
+    Observable<ResponseBean<String>> removeAddress(
+            @Query("userId") String userId,
+            @Query("id") String id
+    );
 }
+
