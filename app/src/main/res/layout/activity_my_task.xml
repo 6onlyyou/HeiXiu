@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.heixiu.errand.MVP.Message.MyIssuedFragment">
+    tools:context="com.heixiu.errand.MVP.Message.MyTaskActicity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

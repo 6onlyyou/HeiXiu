@@ -108,6 +108,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -118,7 +119,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.heixiu.errand.MainActivity" />
         </activity>
-        <!--<activity android:name=".MainActivity" />-->
+        <!-- <activity android:name=".MainActivity" /> -->
         <activity android:name=".MVP.Home.ConfirmOrderActivity" />
         <activity android:name=".MVP.Login.RegisterActivity" />
         <activity android:name=".MVP.Community.VideoInfoActivity" />
@@ -215,7 +216,9 @@
         <activity android:name=".MVP.Seting.AliPayBindActivity" />
         <activity android:name=".MVP.Seting.SoundActivity" />
         <activity android:name=".MVP.Message.wallet.WalletMainActivity" />
-        <activity android:name=".MVP.Message.wallet.EarningsActivity"></activity>
+        <activity android:name=".MVP.Message.wallet.EarningsActivity" />
+        <activity android:name=".MVP.Message.AddressListActivity" />
+        <activity android:name=".MVP.Message.PersonalAddressActivity"></activity>
     </application>
 
 </manifest>

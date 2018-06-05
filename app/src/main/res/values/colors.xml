@@ -5,7 +5,7 @@
     <color name="colorAccent">#1DB8A5</color>
     <color name="white">#ffffff</color>
     <color name="text_time">#2ad26f</color>
-    <color name="black">#000000</color>
+    <color name="black">#3c3c3c</color>
     <color name="transParentBlack">#59000000</color>
     <color name="gray_text">#adadad</color>
     <color name="transparent">#00000000</color>
@@ -13,4 +13,7 @@
     <color name="hint_text">#999999</color>
     <color name="activity_bg">#f2f2f2</color>
     <color name="red">#FD4E4E</color>
+    <color name="color_separator">#e5e5e5</color>
+    <color name="split_line">#d8d8d8</color>
+    <color name="rad_color">#ff5a60</color>
 </resources>

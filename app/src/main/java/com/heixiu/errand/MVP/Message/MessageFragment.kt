@@ -40,7 +40,9 @@ class MessageFragment : BaseFragment() {
         message_issued.setOnClickListener{
             startActivity(MyIssuedFragment::class.java)
         }
-
+        message_mytasks.setOnClickListener{
+            startActivity(MyTaskActicity::class.java)
+        }
     }
 
 

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="3dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="8dp"
+        android:paddingTop="8dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_marginTop="23dp"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/ic_location" />
+
+             <TextView
+                android:id="@+id/Tv_deliveryTime"
+                android:layout_marginTop="23dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="11sp"
+                android:text="距离"
+                android:textColor="@color/colorPrimary" />
+            <ImageView
+                android:layout_marginTop="23dp"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/ic_location" />
+
+            <TextView
+                android:id="@+id/Tv_Time"
+                android:layout_marginTop="23dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textSize="11sp"
+                android:text="送达时间"
+                android:textColor="@color/colorPrimary" />
+            <TextView
+                android:layout_marginTop="21dp"
+                android:textSize="11sp"
+                android:id="@+id/Tv_unOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="订单未完成"
+                android:textColor="@color/colorPrimary" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/Tv_proceed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_gravity="right"
+            android:textSize="11sp"
+            android:text="进行中"
+            android:textColor="@color/colorPrimary" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/Tv_startingPart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="5dp"
+                    android:drawableLeft="@mipmap/ic_start_address"
+                    android:text="北京市朝阳区朝阳公园"
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:drawablePadding="5dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/Tv_endingPart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/ic_end_address"
+                    android:text="河北南方"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/Bt_details"
+                android:layout_width="71dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:text="查看详情"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

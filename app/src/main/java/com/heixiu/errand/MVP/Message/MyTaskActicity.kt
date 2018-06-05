@@ -9,6 +9,7 @@ import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.SPUtil
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter
+import kotlinx.android.synthetic.main.activity_my_task.*
 
 /**
  * A simple [Fragment] subclass.
@@ -20,7 +21,7 @@ class MyTaskActicity : BaseActivity()  {
     }
 
     override fun findViewById() {
-        initTitle("我的发布", R.color.colorPrimary, R.color.white)
+        initTitle("我的任务", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener {
         finishWithAlpha()
         })

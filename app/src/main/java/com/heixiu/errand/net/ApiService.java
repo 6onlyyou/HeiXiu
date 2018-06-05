@@ -1,6 +1,7 @@
 package com.heixiu.errand.net;
 
 import com.heixiu.errand.bean.CouponTicketBean;
+import com.heixiu.errand.bean.MyAddressInfo;
 import com.heixiu.errand.bean.OrderInfo;
 import com.heixiu.errand.bean.PhoneToken;
 import com.heixiu.errand.bean.PubLishInfo;
@@ -166,4 +167,11 @@ city     */
      */
     @POST("queryMyPublishOrderInfos")
     Observable<ResponseBean<List<OrderInfo>>> MyIssued(@Query("userId") String userId);
+
+    /**
+     * 查看所有收货地址
+     * @return
+     */
+    @POST("queryListOfMyAddressInfos")
+    Observable<ResponseBean<List<MyAddressInfo>>> queryListOfMyAddressInfos(@Query("userId") String userId);
 }
