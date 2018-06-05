@@ -9,11 +9,15 @@ import com.heixiu.errand.bean.PublishInfoDetail;
 import com.heixiu.errand.bean.ResponseBean;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 
@@ -231,5 +235,22 @@ city     */
             @Query("userId") String userId,
             @Query("id") String id
     );
+    /**
+     * 发布动态
+     file
+     上传的文件
+     userId	用户名(手机号)
+     type	文件类型
+     0-图片,1-视频
+     content	内容
+     title	标题
+     */
+    @Multipart
+    @POST("publish")
+    Observable<ResponseBean<String>> publish(@PartMap Map<String, RequestBody> params, @Query("userId") String userId,
+                               @Query("type") int type,
+                               @Query("content") String content,
+                               @Query("title") String title
+                               );
 }
 

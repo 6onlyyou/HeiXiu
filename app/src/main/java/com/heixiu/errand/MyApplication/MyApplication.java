@@ -11,10 +11,15 @@ import com.heixiu.errand.net.AndroidBase;
 import com.mob.MobSDK;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.rong.imkit.RongIM;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 
 
@@ -108,7 +113,14 @@ public class MyApplication extends MultiDexApplication {
         }
         System.exit(0);
     }
-
+    public static Map<String, RequestBody> getp(ArrayList<File> fileList){
+        Map<String, RequestBody> paramsMap = new HashMap<>();
+        for (int i = 0; i < fileList.size(); i++) {
+            RequestBody fileBody = RequestBody.create(MediaType.parse("image/png"), fileList.get(i));
+            paramsMap.put("file\";filename=\""+fileList.get(i).getName(), fileBody);
+        }
+return paramsMap;
+    }
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);

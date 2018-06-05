@@ -15,8 +15,17 @@ import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.SPUtil
 import kotlinx.android.synthetic.main.activity_personal_address.*
+import android.databinding.adapters.TextViewBindingAdapter.setText
 
-class PersonalAddressActivity : BaseActivity() {
+
+
+
+
+
+
+class PersonalAddressActivity : BaseActivity()  {
+
+
     private var mCountyId = ""
     private var mEditorEntity: MyAddressInfo? = null
     override fun loadViewLayout() {
@@ -27,6 +36,7 @@ class PersonalAddressActivity : BaseActivity() {
 
         initTitle("编辑地址", R.color.colorAccent, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn) { finishWithAnim() }
+
         mTitle.setTv_Right("提交", R.color.white, View.OnClickListener {
             val name = personal_address_name.getText().toString()
             val phone = personal_address_phone.getText().toString()
@@ -42,6 +52,7 @@ class PersonalAddressActivity : BaseActivity() {
                 ToastUtils.showShort("请输入正确手机号")
                 return@OnClickListener
             }
+
             val entity = MyAddressInfo()
             entity.setReceiveName(name)
             entity.receiveNum=phone
@@ -72,7 +83,7 @@ class PersonalAddressActivity : BaseActivity() {
         })
             dell_address_ll.setOnClickListener(View.OnClickListener {
             //公共弹框调用
-            if (mEditorEntity!!.id == null) {
+            if (mEditorEntity!!.id == 0) {
                 ToastUtils.showLong("没有可以删除的地址")
                 return@OnClickListener
             }
@@ -107,15 +118,27 @@ class PersonalAddressActivity : BaseActivity() {
             personal_address_city_tv.setText(entity.area)
             personal_address_detail.setText(mEditorEntity!!.detail)
             personal_address_detail.setSelection(entity.detail.length)
+
 //            mCountyId = "" + entity.area().getId()
         }
 
     }
 
     override fun setListener() {
+        personal_address_city.setOnClickListener{
+        }
     }
 
     override fun processLogic() {
     }
 
+
+//    override fun onAddressSelected(province: Province?, city: City?, county: County?, street: Street?) {
+//        val s = (if (province == null) "" else province.name) +
+//                (if (city == null) "" else "\n" + city.name) +
+//                (if (county == null) "" else "\n" + county.name) +
+//                if (street == null) "" else "\n" + street.name
+//        personal_address_city_tv.text = ""+province!!.name+city!!.name+county!!.name+street!!.name
+//        T.showShort(this, s)
+//    }
 }

@@ -2,27 +2,35 @@ package com.heixiu.errand.MVP.Community
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
+import android.os.Environment
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
+import android.text.TextUtils
 import android.view.View
-import android.widget.LinearLayout
+import com.fushuaige.common.utils.ToastUtils
+import com.heixiu.errand.MyApplication.MyApplication
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseActivity
+import com.heixiu.errand.net.RetrofitFactory
+import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.GlideLoader
+import com.heixiu.errand.utils.SPUtil
 import com.jaiky.imagespickers.ImageConfig
 import com.jaiky.imagespickers.ImageSelector
 import com.jaiky.imagespickers.ImageSelectorActivity
 import kotlinx.android.synthetic.main.activity_post_text.*
-import java.util.ArrayList
-import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-import android.app.AlertDialog
-import android.content.DialogInterface
-import android.content.pm.PackageManager
-import android.os.Build
-import android.support.v4.app.ActivityCompat.shouldShowRequestPermissionRationale
-import android.os.Build.VERSION.SDK_INT
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import android.widget.Toast
+import okhttp3.MediaType
+import okhttp3.RequestBody
+import top.zibin.luban.CompressionPredicate
+import top.zibin.luban.Luban
+import top.zibin.luban.OnCompressListener
+import java.io.File
+import java.util.*
 
 
 class PostTextActivity : BaseActivity() {
@@ -30,11 +38,16 @@ class PostTextActivity : BaseActivity() {
         setContentView(R.layout.activity_post_text)
         initTitle("图片动态", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
-        mTitle.setTv_Right("发送",R.color.white, View.OnClickListener { finishWithAnim() })
+        mTitle.setTv_Right("发表", R.color.white, View.OnClickListener {
+            publish()
+
+            finishWithAnim()
+        })
     }
 
     val REQUEST_CODE = 123
     private val path = ArrayList<String>()
+    private val fileList = ArrayList<File>()
     private var imageConfig: ImageConfig? = null
     override fun findViewById() {
         text_addImage.setOnClickListener {
@@ -42,7 +55,6 @@ class PostTextActivity : BaseActivity() {
 
         }
     }
-
 
 
     override fun setListener() {
@@ -54,7 +66,6 @@ class PostTextActivity : BaseActivity() {
 
     private fun startAlbum() {
         val PERMISSIONS_STORAGE = arrayOf("android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE")
-
         //检查权限
         //检查版本是否大于M
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -66,12 +77,12 @@ class PostTextActivity : BaseActivity() {
                     builder.setCancelable(false)
                             .setMessage("应用需要存储权限来让您选择手机中的相片！")
                             .setNegativeButton("取消", object : DialogInterface.OnClickListener {
-                               override fun onClick(dialog: DialogInterface, which: Int) {
+                                override fun onClick(dialog: DialogInterface, which: Int) {
 //                                    Toast.makeText(this, "点击了取消按钮", Toast.LENGTH_LONG).show()
                                 }
                             })
                             .setPositiveButton("确定", object : DialogInterface.OnClickListener {
-                                override    fun onClick(dialog: DialogInterface, which: Int) {
+                                override fun onClick(dialog: DialogInterface, which: Int) {
                                     ActivityCompat.requestPermissions(this@PostTextActivity, PERMISSIONS_STORAGE, REQUEST_CODE)
                                 }
                             }).show()
@@ -103,19 +114,91 @@ class PostTextActivity : BaseActivity() {
             }
         }
     }
+
+    fun publish() {
+      val  paramsMap: Map<String, RequestBody> =  MyApplication.getp(fileList)
+//        val paramsMap: Map<String, RequestBody> = HashMap<>();
+//        for ( i in fileList.indices ) {
+//           val  fileBody:RequestBody = RequestBody.create(MediaType.parse("image/png"), fileList.get(i));
+//            paramsMap.put("file", fileBody);
+//        }
+//        val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), fileName)
+//        val body = MultipartBody.Part.createFormData("picture", fileName.getName(), requestFile)
+//
+//        val descriptionString = "picture"
+//
+//        val description = RequestBody.create(MediaType.parse("multipart/form-data"), descriptionString)
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().publish(paramsMap, SPUtil.getString("userid"),0,text_content.text.toString(),"")).subscribe({
+            ToastUtils.showShort(it)
+            finishWithAnim()
+        },{
+            ToastUtils.showLong(it.message)
+        })
+//        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit()
+//                .publish(paramsMap, SPUtil.getString("userid"),0,text_content.text,""))
+//                .subscribe(object : Consumer<String>() {
+//                    @Throws(Exception::class)
+//                    fun accept(s: String) {
+//                        picAddress.add(s)
+//                        if (picAddress.size() === getView()!!.getFiles().size()) {
+//                            if (TextUtils.isEmpty(getView()!!.getVideoPath())) {
+//                                addRecord(picAddress)
+//                            } else {
+//                                requestVideo(File(getView()!!.getVideoPath()))
+//                            }
+//                        }
+//                    }
+//                }, object : Consumer<Throwable>() {
+//                    @Throws(Exception::class)
+//                    fun accept(throwable: Throwable) {
+//                        Toast.makeText(getView(), throwable.message, Toast.LENGTH_LONG).show()
+//                        Log.e(FragmentActivity.TAG, "accept: " + throwable.message)
+//                    }
+//                })
+
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
             val pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT)
-
-//            tv1.setText("")
-//            for (path in pathList) {
-//                tv1.append(path)
-//                tv1.append("\n")
-//            }
-
             path.clear()
             path.addAll(pathList)
+            Luban.with(this)
+                    .load(pathList)
+                    .ignoreBy(100)
+                    .setTargetDir(getPath())
+                    .filter(object : CompressionPredicate {
+                        override fun apply(path: String?): Boolean {
+
+                            return !(TextUtils.isEmpty(path) || path!!.toLowerCase().endsWith(".gif"));
+                        }
+
+
+                    })
+                    .setCompressListener(object : OnCompressListener {
+                        override fun onError(e: Throwable?) {
+                            ToastUtils.showLong(e.toString())
+                        }
+
+                        override fun onStart() {
+
+                        }
+
+                        override fun onSuccess(file: File) {
+                            fileList.add(file)
+                        }
+
+                    }).launch();
         }
+    }
+
+    fun getPath(): String {
+        val path = Environment.getExternalStorageDirectory().toString() + "/Heixiu/image/";
+        val file: File = File(path);
+        if (file.mkdirs()) {
+            return path;
+        }
+        return path;
     }
 }

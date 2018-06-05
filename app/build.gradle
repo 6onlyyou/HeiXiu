@@ -68,5 +68,6 @@ dependencies {
     //图片选择器
     compile 'com.jaikydota.imagespickers:imagespickers:1.0.6'
     compile 'cn.yipianfengye.android:zxing-library:2.2'
-//    implementation files('libs/core-3.3.2.jar')
+    implementation 'top.zibin:Luban:1.1.5'
+    //    implementation files('libs/core-3.3.2.jar')
 }

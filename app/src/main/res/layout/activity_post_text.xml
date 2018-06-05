@@ -8,6 +8,7 @@
     tools:context="com.heixiu.errand.MVP.Community.PostTextActivity">
     <include layout="@layout/comm_title" />
     <EditText
+        android:id="@+id/text_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="请输入您想分享的"
