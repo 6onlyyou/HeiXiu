@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.heixiu.errand.MVP.Message.RankListActivity">
+    <include layout="@layout/comm_title" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:background="@mipmap/message_bg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/layout_border"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginLeft="49dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="今日榜單"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="13"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/layout_border"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginLeft="34dp"
+                android:layout_marginRight="34dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="今日榜單"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="13"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/layout_border"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginRight="49dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="今日榜單"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="13"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/dollStateTb"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:tabTextColor="@color/gray_text"
+        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabIndicatorColor="@color/colorAccent"/>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/my_doll_swipe"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/my_doll_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+
+            android:layout_marginTop="14dp" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

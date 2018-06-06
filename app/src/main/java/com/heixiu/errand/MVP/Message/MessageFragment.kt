@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.heixiu.errand.MVP.Message.wallet.WalletMainActivity
 import com.heixiu.errand.MVP.Seting.SetingMainActivity
 import com.heixiu.errand.MVP.common.TicketActivity
 
@@ -48,6 +49,12 @@ class MessageFragment : BaseFragment() {
         }
         message_coupons.setOnClickListener {
             startActivity(TicketActivity::class.java)
+        }
+        message_ranking.setOnClickListener {
+            startActivity(RankListActivity::class.java)
+        }
+        message_wallet.setOnClickListener {
+            startActivity(WalletMainActivity::class.java)
         }
 
     }

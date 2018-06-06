@@ -5,19 +5,15 @@ import android.os.Bundle
 import android.view.View
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_earnings.*
 
-class EarningsActivity : BaseActivity() {
+class WithdrawActivity : BaseActivity() {
     override fun loadViewLayout() {
-        setContentView(R.layout.activity_earnings)
-        initTitle("我的收益", R.color.colorPrimary, R.color.white)
+        setContentView(R.layout.activity_withdraw)
+        initTitle("提现", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
     }
 
     override fun findViewById() {
-        earn_goearn.setOnClickListener {
-            startActivity(WithdrawActivity::class.java)
-        }
     }
 
     override fun setListener() {

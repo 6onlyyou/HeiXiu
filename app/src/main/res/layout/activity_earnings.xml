@@ -11,5 +11,33 @@
 <ImageView
     android:layout_width="78dp"
     android:layout_height="78dp"
-    android:src="@mipmap/ic_launcher"/>
+    android:layout_marginTop="30dp"
+    android:src="@mipmap/earn_bg"/>
+    <TextView
+        android:layout_gravity="center_horizontal"
+        android:text="我的收益"
+        android:textSize="13sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="27dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_gravity="center_horizontal"
+        android:text="￥13233"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/earn_goearn"
+        android:layout_width="71dp"
+        android:layout_height="26dp"
+        android:background="@color/colorAccent"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:text="提现"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        />
 </LinearLayout>

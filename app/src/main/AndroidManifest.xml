@@ -218,7 +218,9 @@
         <activity android:name=".MVP.Message.wallet.WalletMainActivity" />
         <activity android:name=".MVP.Message.wallet.EarningsActivity" />
         <activity android:name=".MVP.Message.AddressListActivity" />
-        <activity android:name=".MVP.Message.PersonalAddressActivity"></activity>
+        <activity android:name=".MVP.Message.PersonalAddressActivity" />
+        <activity android:name=".MVP.Message.RankListActivity" />
+        <activity android:name=".MVP.Message.wallet.WithdrawActivity"></activity>
     </application>
 
 </manifest>

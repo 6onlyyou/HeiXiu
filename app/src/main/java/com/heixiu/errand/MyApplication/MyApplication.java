@@ -1,7 +1,6 @@
 package com.heixiu.errand.MyApplication;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
@@ -62,6 +61,7 @@ public class MyApplication extends MultiDexApplication {
         Utils.init(this);
         ZXingLibrary.initDisplayOpinion(this);
     }
+
     /**
      * 结束指定的Activity
      *
@@ -113,14 +113,16 @@ public class MyApplication extends MultiDexApplication {
         }
         System.exit(0);
     }
-    public static Map<String, RequestBody> getp(ArrayList<File> fileList){
+
+    public static Map<String, RequestBody> getp(ArrayList<File> fileList) {
         Map<String, RequestBody> paramsMap = new HashMap<>();
         for (int i = 0; i < fileList.size(); i++) {
-            RequestBody fileBody = RequestBody.create(MediaType.parse("image/png"), fileList.get(i));
-            paramsMap.put("file\";filename=\""+fileList.get(i).getName(), fileBody);
+            RequestBody fileBody = RequestBody.create(MediaType.parse("multipart/form-data"), fileList.get(i));
+            paramsMap.put("file\";filename=\"" + fileList.get(i).getName(), fileBody);
         }
-return paramsMap;
+        return paramsMap;
     }
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
