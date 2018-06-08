@@ -203,7 +203,7 @@
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
             android:value="vnroth0kv8q0o" />
-
+        <activity android:name=".MVP.Message.MyTaskActicity" />
         <activity android:name=".MVP.Message.EditProfileActivity" />
         <activity android:name=".MVP.Message.PersonalPageActivity" />
         <activity android:name=".MVP.Message.AutonymActivity" />
@@ -220,7 +220,9 @@
         <activity android:name=".MVP.Message.AddressListActivity" />
         <activity android:name=".MVP.Message.PersonalAddressActivity" />
         <activity android:name=".MVP.Message.RankListActivity" />
-        <activity android:name=".MVP.Message.wallet.WithdrawActivity"></activity>
+        <activity android:name=".MVP.Message.wallet.WithdrawActivity" />
+        <activity android:name=".MVP.Message.wallet.WithdrawalSuccessActivity" />
+        <activity android:name=".MVP.Message.wallet.WithdrawalRecordActivity"></activity>
     </application>
 
 </manifest>

@@ -1,17 +1,10 @@
 package com.heixiu.errand.adapter;
 
-import android.content.Intent;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
-import com.bumptech.glide.Glide;
-import com.heixiu.errand.MVP.Community.VideoInfoActivity;
-import com.heixiu.errand.R;
-import com.heixiu.errand.bean.MyFansBean;
+import com.heixiu.errand.MVP.Community.entity.DynamicEntity;
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter;
 import com.xiaochao.lcrapiddeveloplibrary.BaseViewHolder;
-import com.xiaochao.lcrapiddeveloplibrary.Video.JCVideoPlayerStandard;
 
 import java.util.List;
 
@@ -20,22 +13,22 @@ import java.util.List;
  * Data：2018/4/12-10:44
  * Author: fushuaige
  */
-public class FansAdapter extends BaseQuickAdapter<MyFansBean> {
+public class WithdrawalRecordAdapter extends BaseQuickAdapter<DynamicEntity> {
 
-    public FansAdapter(int layoutResId, List<MyFansBean> data) {
+    public WithdrawalRecordAdapter(int layoutResId, List<DynamicEntity> data) {
         super(layoutResId, data);
     }
 
-    public FansAdapter(List<MyFansBean> data) {
+    public WithdrawalRecordAdapter(List<DynamicEntity> data) {
         super(data);
     }
 
-    public FansAdapter(View contentView, List<MyFansBean> data) {
+    public WithdrawalRecordAdapter(View contentView, List<DynamicEntity> data) {
         super(contentView, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, MyFansBean item) {
+    protected void convert(BaseViewHolder helper, DynamicEntity item) {
 //        helper.setText(R.id.video_list_item_text_context,item.getIntroduction()).setText(R.id.Iv_communityNickName,item.getNickname()).setText(R.id.Tv_communityPraise,item.getPraise());
 //        //Glide加载图片  并且支持gif动图
 //        Glide.with(mContext)

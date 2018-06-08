@@ -34,6 +34,7 @@
             android:src="@mipmap/ic_next" />
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/wallet_record"
         android:layout_width="match_parent"
         android:layout_height="41dp"
         android:background="@color/white"
@@ -57,6 +58,7 @@
             android:src="@mipmap/ic_next" />
     </LinearLayout>
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="41dp"
         android:background="@color/white"

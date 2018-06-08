@@ -19,6 +19,7 @@
         android:src="@mipmap/ic_launcher" />
 
     <TextView
+        android:id="@+id/profile_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -29,11 +30,14 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/profile_signshow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="7dp"
-        android:text="付搜索"
+        android:layout_marginLeft="19dp"
+        android:layout_marginRight="19dp"
+        android:text="签名"
         android:textColor="#b3b3b3"
         android:textSize="11sp" />
 
@@ -201,6 +205,7 @@
         android:textColor="#e9e9e9" />
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/white"
@@ -241,6 +246,7 @@
         android:textColor="#e9e9e9" />
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/white"

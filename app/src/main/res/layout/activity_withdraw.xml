@@ -103,6 +103,7 @@ android:background="@color/white"
             />
     </RelativeLayout>
     <Button
+        android:id="@+id/withdraw_doit"
         android:layout_width="71dp"
         android:layout_height="26dp"
         android:background="@color/colorAccent"

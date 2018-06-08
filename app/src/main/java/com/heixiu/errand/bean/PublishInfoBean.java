@@ -1,43 +1,27 @@
 package com.heixiu.errand.bean;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
- * Created by YuanGang on 2018/5/4.
+ * Description:
+ * Data：2018/6/8-10:39
+ * Author: fushuaige
  */
-
-public class PublishInfoDetail implements Serializable {
-
-    /**
-     * id : 5
-     * userId : 22
-     * publishId : b716f6c547ee4fc388bc0f7254ce7961
-     * title : 00
-     * content : 00
-     * type : 0
-     * contentImg : null
-     * contentVideo : http://app.chemide.com/dateimg/img/15243735249781.jpg
-     * admireCount : 2
-     * commentCount : 2
-     * nickName : rr
-     * userImg : www.ww
-     * listCommentInfo : [{"id":1,"userId":"22","commentId":"","admireId":null,"publishId":"b716f6c547ee4fc388bc0f7254ce7961","content":"sbsbsbbsbsb","nickName":"rr","userImg":"www.ww"},{"id":2,"userId":"45454","commentId":null,"admireId":null,"publishId":"b716f6c547ee4fc388bc0f7254ce7961","content":"nfjnjejfnjk","nickName":null,"userImg":null}]
-     */
-
+public class PublishInfoBean implements Serializable {
     private int id;
     private String userId;
     private String publishId;
     private String title;
     private String content;
     private String type;
-    private Object contentImg;
+    private String contentImg;
     private String contentVideo;
     private int admireCount;
     private int commentCount;
     private String nickName;
     private String userImg;
-    private List<ListCommentInfoBean> listCommentInfo;
+    private String contentImgList;
+    private String listCommentInfo;
 
     public int getId() {
         return id;
@@ -87,11 +71,11 @@ public class PublishInfoDetail implements Serializable {
         this.type = type;
     }
 
-    public Object getContentImg() {
+    public String getContentImg() {
         return contentImg;
     }
 
-    public void setContentImg(Object contentImg) {
+    public void setContentImg(String contentImg) {
         this.contentImg = contentImg;
     }
 
@@ -135,12 +119,19 @@ public class PublishInfoDetail implements Serializable {
         this.userImg = userImg;
     }
 
-    public List<ListCommentInfoBean> getListCommentInfo() {
+    public String getContentImgList() {
+        return contentImgList;
+    }
+
+    public void setContentImgList(String contentImgList) {
+        this.contentImgList = contentImgList;
+    }
+
+    public String getListCommentInfo() {
         return listCommentInfo;
     }
 
-    public void setListCommentInfo(List<ListCommentInfoBean> listCommentInfo) {
+    public void setListCommentInfo(String listCommentInfo) {
         this.listCommentInfo = listCommentInfo;
     }
-
 }

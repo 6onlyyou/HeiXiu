@@ -41,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="230dp"
         android:layout_marginTop="44dp"
-        android:background="@mipmap/ic_launcher">
+        android:background="@mipmap/message_bg">
 
         <LinearLayout
 
@@ -64,15 +64,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="今日榜單"
+                    android:text="今日榜单"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/message_tadayRank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:text="13"
+                    android:textColor="@color/white"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -90,10 +91,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="今日榜單"
+                    android:text="今日净赚"
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/message_todayMenoy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
@@ -114,10 +116,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="今日榜單"
+                    android:text="好友排行"
                     android:textSize="13sp" />
 
                 <TextView
+                    android:id="@+id/message_friendRank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"

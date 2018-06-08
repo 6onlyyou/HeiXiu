@@ -1,10 +1,12 @@
 package com.heixiu.errand.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by YuanGang on 2018/5/4.
  */
 
-public  class ListCommentInfoBean {
+public  class ListCommentInfoBean implements Serializable {
     /**
      * id : 1
      * userId : 22

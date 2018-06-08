@@ -13,8 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.fushuaige.common.utils.GlideUtil;
-import com.heixiu.errand.MVP.Community.entity.DynamicEntity;
 import com.heixiu.errand.R;
+import com.heixiu.errand.bean.PublishInfoDetail;
 import com.heixiu.errand.dialog.DialogShowPic;
 import com.heixiu.errand.dialog.DialogShowPicP;
 import com.heixiu.errand.utils.WindowSize;
@@ -30,9 +30,9 @@ public class MyGridViewAdapter extends BaseAdapter {
 //    public DynamicBean dynamicBean;
     int num;
     int col;
-    List<DynamicEntity> list;
+    List<PublishInfoDetail> list;
 
-    public MyGridViewAdapter(Context context, int num, int col, List<DynamicEntity> list) {
+    public MyGridViewAdapter(Context context, int num, int col, List<PublishInfoDetail> list) {
         this.context = context;
         this.num = num;
         this.col = col;

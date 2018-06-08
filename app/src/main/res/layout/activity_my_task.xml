@@ -4,11 +4,12 @@
     android:layout_height="match_parent"
     tools:context="com.heixiu.errand.MVP.Message.MyTaskActicity">
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <include layout="@layout/comm_title" />
 <android.support.v7.widget.RecyclerView
-    android:id="@+id/Rv_issue"
+    android:id="@+id/Rv_task"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 </android.support.v7.widget.RecyclerView>

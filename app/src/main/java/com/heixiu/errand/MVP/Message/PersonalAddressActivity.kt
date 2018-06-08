@@ -16,7 +16,18 @@ import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.SPUtil
 import kotlinx.android.synthetic.main.activity_personal_address.*
 import android.databinding.adapters.TextViewBindingAdapter.setText
-
+import android.databinding.adapters.TextViewBindingAdapter.setText
+import android.graphics.Color.parseColor
+import android.R.attr.textColor
+import android.graphics.Color
+import com.lljjcoder.style.citylist.Toast.ToastUtils.showLongToast
+import android.databinding.adapters.TextViewBindingAdapter.setText
+import com.lljjcoder.bean.DistrictBean
+import com.lljjcoder.bean.ProvinceBean
+import com.lljjcoder.Interface.OnCityItemClickListener
+import com.lljjcoder.bean.CityBean
+import com.lljjcoder.citywheel.CityConfig
+import com.lljjcoder.style.citypickerview.CityPickerView
 
 
 
@@ -25,11 +36,12 @@ import android.databinding.adapters.TextViewBindingAdapter.setText
 
 class PersonalAddressActivity : BaseActivity()  {
 
-
+    var mCityPickerView = CityPickerView()
     private var mCountyId = ""
     private var mEditorEntity: MyAddressInfo? = null
     override fun loadViewLayout() {
         setContentView(R.layout.activity_personal_address)
+        mCityPickerView.init(this);
     }
 
     override fun findViewById() {
@@ -87,7 +99,7 @@ class PersonalAddressActivity : BaseActivity()  {
                 ToastUtils.showLong("没有可以删除的地址")
                 return@OnClickListener
             }
-            CommomDialog(mContext, R.style.dialog, "确认删除该地址么？", object : CommomDialog.OnCloseListener {
+            CommomDialog(this, R.style.dialog, "确认删除该地址么？", object : CommomDialog.OnCloseListener {
                override fun onClick(dialog: Dialog, confirm: Boolean) {
                     if (confirm) {
                         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().removeAddress(SPUtil.getString("userid"),mEditorEntity!!.id.toString())).subscribe({
@@ -124,21 +136,44 @@ class PersonalAddressActivity : BaseActivity()  {
 
     }
 
+    private fun selectAddress() {
+        val cityConfig = CityConfig.Builder().title("选择城市")//标题
+                .build()
+        mCityPickerView.setConfig(cityConfig)
+        mCityPickerView.setOnCityItemClickListener(object : OnCityItemClickListener() {
+        override    fun onSelected(province: ProvinceBean?, city: CityBean?, district: DistrictBean?) {
+                val sb = StringBuilder()
+                if (province != null) {
+                    sb.append(province.name + "," )
+                }
+
+                if (city != null) {
+                    sb.append(city!!.getName() + "," )
+                }
+
+                if (district != null) {
+                    sb.append(district.name + "," )
+                }
+
+            personal_address_city_tv.setText("" + sb.toString())
+
+            }
+
+            override fun onCancel() {
+//                ToastUtils.showLongToast(this@PersonalAddressActivity, "已取消")
+            }
+        })
+        mCityPickerView.showCityPicker()
+    }
     override fun setListener() {
         personal_address_city.setOnClickListener{
+            selectAddress()
         }
     }
 
     override fun processLogic() {
+
     }
 
 
-//    override fun onAddressSelected(province: Province?, city: City?, county: County?, street: Street?) {
-//        val s = (if (province == null) "" else province.name) +
-//                (if (city == null) "" else "\n" + city.name) +
-//                (if (county == null) "" else "\n" + county.name) +
-//                if (street == null) "" else "\n" + street.name
-//        personal_address_city_tv.text = ""+province!!.name+city!!.name+county!!.name+street!!.name
-//        T.showShort(this, s)
-//    }
 }

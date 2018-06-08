@@ -19,6 +19,7 @@ import android.app.Dialog
 import android.view.Gravity
 import android.widget.LinearLayout
 import com.fushuaige.common.utils.ToastUtils
+import com.heixiu.errand.bean.PublishInfoDetail
 import kotlinx.android.synthetic.main.issue_dialog.view.*
 
 
@@ -33,15 +34,15 @@ class CommunityFragment : BaseFragment(), BaseQuickAdapter.RequestLoadMoreListen
     var mCameraDialog: Dialog? = null
     internal var mRefreshLayout: SwipeRefreshLayout? = null
     internal var commounityAdapter: CommounityAdapter? = null
-    private val dynamicEntityList = ArrayList<DynamicEntity>()
+    private val dynamicEntityList = ArrayList<PublishInfoDetail>()
     override fun createView(inflater: LayoutInflater?, container: ViewGroup?): View {
         return inflater!!.inflate(R.layout.fragment_community, container, false)
 
     }
     override fun initView() {
-//        rv_list.setLayoutManager(LinearLayoutManager(activity))
-//        //如果Item高度固定  增加该属性能够提高效率
-//        rv_list.setHasFixedSize(true)
+        rv_list.setLayoutManager(LinearLayoutManager(activity))
+        //如果Item高度固定  增加该属性能够提高效率
+        rv_list.setHasFixedSize(true)
 //        var dynamicEntity:DynamicEntity? = DynamicEntity()
 //        dynamicEntity!!.comment="232"
 //        dynamicEntity!!.headurl="https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=1216917597,333247716&fm=85&s=FDA58F54CD227724227918C00300E0BC"
@@ -64,19 +65,23 @@ class CommunityFragment : BaseFragment(), BaseQuickAdapter.RequestLoadMoreListen
 //        dynamicEntity!!.viodeoUrl=""
 //        dynamicEntity!!.title="标题的撒大"
 //        dynamicEntityList.add(dynamicEntity);
-//
-//        //设置适配器
-//        commounityAdapter = CommounityAdapter(R.layout.community_item, dynamicEntityList)
-//        //设置加载动画
-//        commounityAdapter!!.openLoadAnimation(BaseQuickAdapter.SCALEIN)
-//        //设置是否自动加载以及加载个数
-//        commounityAdapter!!.openLoadMore(1, true)
-//        //将适配器添加到RecyclerView
-//        rv_list.setAdapter(commounityAdapter)
-//        //设置自动加载监听
-//        commounityAdapter!!.setOnLoadMoreListener(this)
-//        val list = ArrayList<DynamicEntity>()
-//        commounityAdapter = CommounityAdapter(list)
+
+        //设置适配器
+        commounityAdapter = CommounityAdapter(R.layout.community_item, dynamicEntityList)
+        //设置加载动画
+        commounityAdapter!!.openLoadAnimation(BaseQuickAdapter.SCALEIN)
+        //设置是否自动加载以及加载个数
+        commounityAdapter!!.openLoadMore(1, true)
+        //将适配器添加到RecyclerView
+        rv_list.setAdapter(commounityAdapter)
+        //设置自动加载监听
+        commounityAdapter!!.setOnLoadMoreListener(this)
+        val list = ArrayList<DynamicEntity>()
+        commounityAdapter = CommounityAdapter(list)
+        commounityAdapter.setOnRecyclerViewItemClickListener { view, position ->
+            ToastUtils.showLong(position.toString())
+            startActivity(VideoInfoActivity::class.java,dynamicEntityList.get(position))
+        }
     }
     override fun initListener() {
         Bt_hot.setOnClickListener{
@@ -96,18 +101,19 @@ class CommunityFragment : BaseFragment(), BaseQuickAdapter.RequestLoadMoreListen
     override fun initData() {
     }
     override fun onLoadMoreRequested() {
-        var dynamicEntity:DynamicEntity? = DynamicEntity()
-        dynamicEntity!!.comment="232"
-        dynamicEntity!!.headurl="https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=1216917597,333247716&fm=85&s=FDA58F54CD227724227918C00300E0BC"
-        dynamicEntity!!.id=1
-        dynamicEntity!!.introduction="好的好啊大家的计算机数据介绍"
-        dynamicEntity!!.nickname="fushaige"
-        dynamicEntity!!.pictureUrl="http://221.228.226.23/11/t/j/v/b/tjvbwspwhqdmgouolposcsfafpedmb/sh.yinyuetai.com/691201536EE4912BF7E4F1E2C67B8119.mp4"
-        dynamicEntity!!.praise="2322"
-        dynamicEntity!!.viodeoUrl=""
+        var dynamicEntity:PublishInfoDetail? = PublishInfoDetail()
+//        dynamicEntity!!.comment="232"
+//        dynamicEntity!!.headurl="https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=1216917597,333247716&fm=85&s=FDA58F54CD227724227918C00300E0BC"
+//        dynamicEntity!!.id=1
+//        dynamicEntity!!.introduction="好的好啊大家的计算机数据介绍"
+//        dynamicEntity!!.nickname="fushaige"
+//        dynamicEntity!!.pictureUrl="http://221.228.226.23/11/t/j/v/b/tjvbwspwhqdmgouolposcsfafpedmb/sh.yinyuetai.com/691201536EE4912BF7E4F1E2C67B8119.mp4"
+//        dynamicEntity!!.praise="2322"
+//        dynamicEntity!!.viodeoUrl=""
         dynamicEntity!!.title="标题"
         dynamicEntityList.add(dynamicEntity);
         commounityAdapter!!.setNewData(dynamicEntityList);//新增数据
+
 //        commounityAdapter!!.openLoadMore(2,true);
     }
 

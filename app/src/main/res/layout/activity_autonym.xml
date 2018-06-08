@@ -97,12 +97,23 @@
             android:layout_marginTop="15dp"
             android:textColor="@color/black"
             android:textSize="13sp"/>
+        <LinearLayout
+            android:id="@+id/llContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+        </LinearLayout>
         <ImageView
+            android:id="@+id/autonym_uploading"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="16dp"
             android:src="@mipmap/autonym_add"/>
+
     </LinearLayout>
     <ImageView
         android:layout_gravity="center"

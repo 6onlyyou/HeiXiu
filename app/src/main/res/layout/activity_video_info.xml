@@ -43,11 +43,13 @@
                 android:layout_gravity="center"/>
         </LinearLayout>
         <Button
+            android:id="@+id/video_info_attention"
             android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
             android:background="@drawable/video_bg"
             android:text="关注"
+            android:textSize="12sp"
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
     <TextView

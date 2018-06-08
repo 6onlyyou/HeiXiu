@@ -15,7 +15,7 @@ class MainActivity : BaseActivity() {
     private var fragments: ArrayList<android.support.v4.app.Fragment>? = null
     override fun findViewById() {
         SPUtil.saveString("userid","15632617141")
-
+        SPUtil.saveString("city","杭州")
         Rl_homepass.setOnClickListener({
             switchFragment(0)
         });

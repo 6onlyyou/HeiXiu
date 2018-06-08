@@ -117,11 +117,17 @@ public class DeliveryAddressAdapter extends BaseQuickAdapter<MyAddressInfo> {
                 list.add(entity.getId());
             }
         }
-        RxUtils.wrapRestCall(RetrofitFactory.INSTANCE.getRetrofit().updateAddress(SPUtil.getString("userid"),myAddressInfo.getId()+"",myAddressInfo.getReceiveName(),myAddressInfo.getReceiveNum(),myAddressInfo.getArea(),"",myAddressInfo.getDetail(),1)).subscribe(new Consumer<String>() {
+        RxUtils.wrapRestCall(RetrofitFactory.INSTANCE.getRetrofit().updateDefaultAddress(myAddressInfo.getId()+"")).subscribe(new Consumer<String>() {
             @Override
             public void accept(String s) throws Exception {
                 dismissLoading();
                 ToastUtils.showShort("设置默认地址成功");
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                dismissLoading();
+                ToastUtils.showShort(throwable.getMessage());
             }
         });
 

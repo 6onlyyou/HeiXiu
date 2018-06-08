@@ -30,22 +30,7 @@ class AddressListActivity : BaseActivity() {
         mTitle.setIv_left(R.mipmap.back_btn) { finishWithAnim() }
 
         address_rv.setLayoutManager(LinearLayoutManager(mContext))
-        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryListOfMyAddressInfos(SPUtil.getString("userid"))).subscribe({
-            address_rv.setLayoutManager(LinearLayoutManager(this))
-//        如果Item高度固定  增加该属性能够提高效率
-            address_rv.setHasFixedSize(true)
-//        设置适配器
-            myIssuedAdapter = DeliveryAddressAdapter( it)
-            //设置加载动画
-            myIssuedAdapter!!.openLoadAnimation(BaseQuickAdapter.SCALEIN)
-            //设置是否自动加载以及加载个数
-            //将适配器添加到RecyclerView
-            address_rv.setAdapter(myIssuedAdapter)
-            //设置自动加载监听
-            myIssuedAdapter = DeliveryAddressAdapter(it)
-        },{
-            ToastUtils.showLong(it.message)
-        })
+
         val list = ArrayList<MyAddressInfo>()
         myIssuedAdapter = DeliveryAddressAdapter(list)
         address_rv.setAdapter(myIssuedAdapter)
@@ -69,5 +54,26 @@ class AddressListActivity : BaseActivity() {
 
     override fun processLogic() {
     }
-
+    fun updata(){
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryListOfMyAddressInfos(SPUtil.getString("userid"))).subscribe({
+            address_rv.setLayoutManager(LinearLayoutManager(this))
+//        如果Item高度固定  增加该属性能够提高效率
+            address_rv.setHasFixedSize(true)
+//        设置适配器
+            myIssuedAdapter = DeliveryAddressAdapter( it)
+            //设置加载动画
+            myIssuedAdapter!!.openLoadAnimation(BaseQuickAdapter.SCALEIN)
+            //设置是否自动加载以及加载个数
+            //将适配器添加到RecyclerView
+            address_rv.setAdapter(myIssuedAdapter)
+            //设置自动加载监听
+            myIssuedAdapter = DeliveryAddressAdapter(it)
+        },{
+            ToastUtils.showLong(it.message)
+        })
+    }
+    override fun onResume() {
+        super.onResume()
+        updata()
+    }
 }

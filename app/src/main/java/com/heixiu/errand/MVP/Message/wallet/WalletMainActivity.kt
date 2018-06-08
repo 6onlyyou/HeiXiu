@@ -1,7 +1,5 @@
 package com.heixiu.errand.MVP.Message.wallet
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseActivity
@@ -17,6 +15,9 @@ class WalletMainActivity : BaseActivity() {
     override fun findViewById() {
         wallet_earn.setOnClickListener {
             startActivity(EarningsActivity::class.java)
+        }
+        wallet_record.setOnClickListener {
+            startActivity(WithdrawalRecordActivity::class.java)
         }
     }
 
