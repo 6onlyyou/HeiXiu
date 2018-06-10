@@ -8,6 +8,7 @@ import com.heixiu.errand.bean.OrderInfo;
 import com.heixiu.errand.bean.PhoneToken;
 import com.heixiu.errand.bean.PubLishInfo;
 import com.heixiu.errand.bean.PublishInfoDetail;
+import com.heixiu.errand.bean.QueryMyIncomeBean;
 import com.heixiu.errand.bean.QueryPersonalBean;
 import com.heixiu.errand.bean.ResponseBean;
 import com.heixiu.errand.bean.SelectDataByIdBean;
@@ -58,7 +59,7 @@ public interface ApiService {
      *
      * @return
      */
-    @POST("/showAllPublishInfo")
+    @POST("showAllPublishInfo")
     Observable<ResponseBean<List<PubLishInfo>>> showAllPublishInfo();
 
     /**
@@ -66,15 +67,16 @@ public interface ApiService {
      *
      * @return
      */
-    @POST("/showOnePublishInfoDetail")
+    @POST("showOnePublishInfoDetail")
     Observable<ResponseBean<PublishInfoDetail>> showOnePublishInfoDetail(@Query("publishId") String publishId);
+
 
     /**
      * 发布动态
      *
      * @return
      */
-    @POST("/publish")
+    @POST("publish")
     Observable<ResponseBean<String>> publish(@Url String url,
                                              @Part MultipartBody.Part avatar,
                                              @Query("userId") String userid,
@@ -87,20 +89,23 @@ public interface ApiService {
      * @param publishId
      * @return city
      */
-    @POST("/userAdmire")
+    @POST("userAdmire")
     Observable<ResponseBean<String>> userAdmire(@Query("admireUserId") String admireUserId,
                                                 @Query("publishId") String publishId
     );
 
     /**
      * 评论
-     *
-     * @param publishId
+     *userId	当前用户id(评论人)
+     content	评论内容
+     publishId	动态id
+
      * @return
      */
-    @POST("/createComment")
-    Observable<ResponseBean<String>> createComment(@Query("admireUserId") String admireUserId,
-                                                   @Query("publishId") String publishId
+    @POST("createComment")
+    Observable<ResponseBean<String>> createComment(@Query("userId") String userId,
+                                                   @Query("content") String content,
+                                                      @Query("publishId") String publishId
     );
 
     /**
@@ -109,7 +114,7 @@ public interface ApiService {
      * @param
      * @return
      */
-    @POST("/createOrder")
+    @POST("createOrder")
     Observable<ResponseBean<String>> createOrder(
             @Query("userId") String userId,
             @Query("sendAddress") String sendAddress,
@@ -384,22 +389,23 @@ public interface ApiService {
     /**
      * 我的粉丝
      * userId	用户id
-     * followId	被关注id
      */
 
     @POST("fansList")
     Observable<ResponseBean<List<MyFansBean>>> fansList(
             @Query("userId") String userId
     );
+
     /**
-     * 点赞接口
+     * 我的收益
      * userId	用户id
-     * followId	被关注id
      */
 
-    @POST("userAdmire")
-    Observable<ResponseBean<List<MyFansBean>>> userAdmire(
+    @POST("queryMyIncome")
+    Observable<ResponseBean<QueryMyIncomeBean>> queryMyIncome(
             @Query("userId") String userId
     );
+
+
 }
 

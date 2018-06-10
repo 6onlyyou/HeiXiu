@@ -53,7 +53,6 @@ class MyFansActivity : BaseActivity() {
                 //将适配器添加到RecyclerView
                 fans_list.setAdapter(fansAdapter)
                 //设置自动加载监听
-                fansAdapter = FansAdapter(it)
             }
         },{
             ToastUtils.showLong(it.message)

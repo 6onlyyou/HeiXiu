@@ -22,7 +22,8 @@ public class MyIssuedAdapter extends BaseQuickAdapter<OrderInfo> {
     }
 
     public MyIssuedAdapter(List<OrderInfo> data) {
-        super(data);
+
+        super(R.layout.item_issued,data);
     }
 
     public MyIssuedAdapter(View contentView, List<OrderInfo> data) {

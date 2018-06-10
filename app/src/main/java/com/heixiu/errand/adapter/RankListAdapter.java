@@ -3,6 +3,7 @@ package com.heixiu.errand.adapter;
 import android.view.View;
 
 import com.heixiu.errand.MVP.Community.entity.DynamicEntity;
+import com.heixiu.errand.R;
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter;
 import com.xiaochao.lcrapiddeveloplibrary.BaseViewHolder;
 
@@ -20,7 +21,8 @@ public class RankListAdapter extends BaseQuickAdapter<DynamicEntity> {
     }
 
     public RankListAdapter(List<DynamicEntity> data) {
-        super(data);
+
+        super(R.layout.item_rank,data);
     }
 
     public RankListAdapter(View contentView, List<DynamicEntity> data) {

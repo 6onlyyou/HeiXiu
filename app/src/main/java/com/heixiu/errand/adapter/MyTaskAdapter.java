@@ -22,7 +22,7 @@ public class MyTaskAdapter extends BaseQuickAdapter<OrderInfo> {
     }
 
     public MyTaskAdapter(List<OrderInfo> data) {
-        super(data);
+        super(R.layout.item_task,data);
     }
 
     public MyTaskAdapter(View contentView, List<OrderInfo> data) {

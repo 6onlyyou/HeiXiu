@@ -30,9 +30,9 @@ public class MyGridViewAdapter extends BaseAdapter {
 //    public DynamicBean dynamicBean;
     int num;
     int col;
-    List<PublishInfoDetail> list;
+    List<String> list;
 
-    public MyGridViewAdapter(Context context, int num, int col, List<PublishInfoDetail> list) {
+    public MyGridViewAdapter(Context context, int num, int col, List<String> list) {
         this.context = context;
         this.num = num;
         this.col = col;
@@ -68,14 +68,12 @@ public class MyGridViewAdapter extends BaseAdapter {
         height = width;
         for(int i=0;i<list.size();i++){
             img.setLayoutParams(new AbsListView.LayoutParams(width, height));
-            GlideUtil.load(img.getContext(), "https://img-blog.csdn.net/20170428175617391?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveWVjaGFvYQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center", img);
+            GlideUtil.load(img.getContext(), list.get(i), img);
 
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-//                    DlgForBigPhto(dynamicBean.getImageUrl()[position].toString());
-                    Toast.makeText(context, "mygridviewadapter" + position, Toast.LENGTH_SHORT).show();
+                    DlgForBigPhto(list.get(position));
                 }
             });
         }
@@ -94,7 +92,7 @@ public class MyGridViewAdapter extends BaseAdapter {
                 dialog6LlBckgrnd = (LinearLayout)pDialog.findViewById(R.id.dialog6LlBckgrnd);
                 dialog6LlBckgrnd.setOnClickListener(pDialogMy);
                 dialog6IvPic = (ImageView)pDialog.findViewById(R.id.dialog6IvPic);
-                GlideUtil.load(dialog6IvPic.getContext(), "https://img-blog.csdn.net/20170428175617391?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveWVjaGFvYQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center", dialog6IvPic);
+                GlideUtil.load(dialog6IvPic.getContext(), url, dialog6IvPic);
 
 //				WindowManager wm = getWindowManager();
 //				int nScreenWidth = wm.getDefaultDisplay().getWidth();

@@ -1,5 +1,7 @@
 package com.heixiu.errand.bean;
 
+import java.util.List;
+
 /**
  * Created by YuanGang on 2018/5/4.
  */
@@ -35,6 +37,16 @@ public class PubLishInfo {
     private String nickName;
     private String userImg;
     private Object listCommentInfo;
+
+    public List<String> getContentImgList() {
+        return contentImgList;
+    }
+
+    public void setContentImgList(List<String> contentImgList) {
+        this.contentImgList = contentImgList;
+    }
+
+    private List<String> contentImgList;
 
     public int getId() {
         return id;

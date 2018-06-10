@@ -2,6 +2,7 @@ package com.heixiu.errand.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Description:
@@ -15,7 +16,15 @@ public class MessageInfoBean implements Serializable {
     private int orderInfoReceiveCount;
     private int orderInfoPublishCount;
     private int followStatus;
-    private ArrayList<PublishInfoBean> publishInfos;
+
+    public List<PubLishInfo> getPublishInfos() {
+        return publishInfos;
+    }
+    public void setPublishInfos(List<PubLishInfo> publishInfos) {
+        this.publishInfos = publishInfos;
+    }
+
+    private List<PubLishInfo> publishInfos;
 
     public UserInfo getUserInfo() {
         return userInfo;
@@ -65,11 +74,4 @@ public class MessageInfoBean implements Serializable {
         this.followStatus = followStatus;
     }
 
-    public ArrayList<PublishInfoBean> getPublishInfos() {
-        return publishInfos;
-    }
-
-    public void setPublishInfos(ArrayList<PublishInfoBean> publishInfos) {
-        this.publishInfos = publishInfos;
-    }
 }

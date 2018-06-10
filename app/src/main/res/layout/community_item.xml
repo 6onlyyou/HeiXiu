@@ -71,8 +71,9 @@
                 android:layout_centerInParent="true"
                 android:orientation="horizontal">
                 <Button
+                    android:id="@+id/community_attention"
                     android:layout_width="60dp"
-                    android:layout_height="30dp"
+                    android:layout_height="25dp"
                     android:layout_marginTop="10dp"
                     android:text="关注"
                     android:background="@drawable/video_bg"/>
@@ -123,17 +124,20 @@
     </LinearLayout>
         <com.xiaochao.lcrapiddeveloplibrary.Video.JCVideoPlayerStandard
             android:id="@+id/video_list_item_playr"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="200dp"/>
         <com.heixiu.errand.MVP.Community.widget.PictureGridView
             android:verticalSpacing="5dp"
             android:horizontalSpacing="5dp"
+            android:visibility="gone"
             android:id="@+id/gridView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/community_prias"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_marginTop="11dp"
@@ -141,7 +145,7 @@
             <ImageView
                 android:layout_width="13dp"
                 android:layout_height="13dp"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@mipmap/praise"/>
             <TextView
                 android:layout_marginLeft="7dp"
                 android:id="@+id/Tv_communityPraise"
@@ -156,7 +160,6 @@
         android:layout_marginTop="@dimen/dp_10"
         android:gravity="center_vertical">
         <EditText
-
             android:id="@+id/Et_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

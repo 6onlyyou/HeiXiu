@@ -1,12 +1,15 @@
 package com.heixiu.errand
 
 import android.content.Intent
+import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.MVP.Community.CommunityFragment
 import com.heixiu.errand.MVP.Contentt.ContentFragment
 import com.heixiu.errand.MVP.Express.ExpressFragment
 import com.heixiu.errand.MVP.Home.HomeFragment
 import com.heixiu.errand.MVP.Message.MessageFragment
 import com.heixiu.errand.base.BaseActivity
+import com.heixiu.errand.net.RetrofitFactory
+import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.SPUtil
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -15,7 +18,7 @@ class MainActivity : BaseActivity() {
     private var fragments: ArrayList<android.support.v4.app.Fragment>? = null
     override fun findViewById() {
         SPUtil.saveString("userid","15632617141")
-        SPUtil.saveString("city","杭州")
+        SPUtil.saveString("city","杭州市")
         Rl_homepass.setOnClickListener({
             switchFragment(0)
         });
@@ -33,7 +36,15 @@ class MainActivity : BaseActivity() {
         });
     }
 
+    fun getUserMessage(){
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().selectDataById(SPUtil.getString("userid"))).subscribe({
+            SPUtil.saveString("headurl",it.userInfo.userImg)
+            SPUtil.saveString("nickname",it.userInfo.nickName)
+        },{
+            ToastUtils.showLong(it.message)
+        })
 
+    }
     override fun loadViewLayout() {
         setContentView(R.layout.activity_main)
         fragments = ArrayList()

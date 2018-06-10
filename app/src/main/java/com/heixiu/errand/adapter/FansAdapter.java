@@ -27,7 +27,7 @@ public class FansAdapter extends BaseQuickAdapter<MyFansBean> {
     }
 
     public FansAdapter(List<MyFansBean> data) {
-        super(data);
+        super(R.layout.fans_item,data);
     }
 
     public FansAdapter(View contentView, List<MyFansBean> data) {

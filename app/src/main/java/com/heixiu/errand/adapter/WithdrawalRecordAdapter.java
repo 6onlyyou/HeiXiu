@@ -3,6 +3,7 @@ package com.heixiu.errand.adapter;
 import android.view.View;
 
 import com.heixiu.errand.MVP.Community.entity.DynamicEntity;
+import com.heixiu.errand.R;
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter;
 import com.xiaochao.lcrapiddeveloplibrary.BaseViewHolder;
 
@@ -20,7 +21,7 @@ public class WithdrawalRecordAdapter extends BaseQuickAdapter<DynamicEntity> {
     }
 
     public WithdrawalRecordAdapter(List<DynamicEntity> data) {
-        super(data);
+        super(R.layout.item_withdrawalrecord,data);
     }
 
     public WithdrawalRecordAdapter(View contentView, List<DynamicEntity> data) {

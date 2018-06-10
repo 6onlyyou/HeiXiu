@@ -31,7 +31,16 @@ public class PublishInfoDetail implements Serializable {
     private String title;
     private String content;
     private String type;
-    private Object contentImg;
+
+    public List<String> getContentImg() {
+        return contentImg;
+    }
+
+    public void setContentImg(List<String> contentImg) {
+        this.contentImg = contentImg;
+    }
+
+    private List<String> contentImg;
     private String contentVideo;
     private int admireCount;
     private int commentCount;
@@ -87,13 +96,6 @@ public class PublishInfoDetail implements Serializable {
         this.type = type;
     }
 
-    public Object getContentImg() {
-        return contentImg;
-    }
-
-    public void setContentImg(Object contentImg) {
-        this.contentImg = contentImg;
-    }
 
     public String getContentVideo() {
         return contentVideo;

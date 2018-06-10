@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.heixiu.errand.R
 import com.heixiu.errand.adapter.MyIssuedAdapter
+import com.heixiu.errand.adapter.MyTaskAdapter
 import com.heixiu.errand.base.BaseActivity
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
@@ -15,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_my_task.*
  * A simple [Fragment] subclass.
  */
 class MyTaskActicity : BaseActivity()  {
-    internal var myIssuedAdapter: MyIssuedAdapter? = null
+    internal var myIssuedAdapter: MyTaskAdapter? = null
     override fun loadViewLayout() {
         setContentView(R.layout.activity_my_task)
         initTitle("我的任务", R.color.colorPrimary, R.color.white)
@@ -30,14 +31,14 @@ class MyTaskActicity : BaseActivity()  {
 //        如果Item高度固定  增加该属性能够提高效率
             Rv_task.setHasFixedSize(true)
 //        设置适配器
-            myIssuedAdapter = MyIssuedAdapter(R.layout.activity_my_task, null)
+            myIssuedAdapter = MyTaskAdapter(R.layout.activity_my_task, null)
             //设置加载动画
             myIssuedAdapter!!.openLoadAnimation(BaseQuickAdapter.SCALEIN)
             //设置是否自动加载以及加载个数
             //将适配器添加到RecyclerView
             Rv_task.setAdapter(myIssuedAdapter)
             //设置自动加载监听
-            myIssuedAdapter = MyIssuedAdapter(it)
+            myIssuedAdapter = MyTaskAdapter(it)
         },{
 
         })

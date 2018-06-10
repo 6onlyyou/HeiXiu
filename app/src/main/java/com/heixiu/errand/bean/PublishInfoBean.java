@@ -1,6 +1,7 @@
 package com.heixiu.errand.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Description:
@@ -14,13 +15,22 @@ public class PublishInfoBean implements Serializable {
     private String title;
     private String content;
     private String type;
-    private String contentImg;
     private String contentVideo;
     private int admireCount;
     private int commentCount;
     private String nickName;
     private String userImg;
-    private String contentImgList;
+
+
+    public List<String> getContentImgList() {
+        return contentImgList;
+    }
+
+    public void setContentImgList(List<String> contentImgList) {
+        this.contentImgList = contentImgList;
+    }
+
+    private List<String> contentImgList;
     private String listCommentInfo;
 
     public int getId() {
@@ -71,13 +81,6 @@ public class PublishInfoBean implements Serializable {
         this.type = type;
     }
 
-    public String getContentImg() {
-        return contentImg;
-    }
-
-    public void setContentImg(String contentImg) {
-        this.contentImg = contentImg;
-    }
 
     public String getContentVideo() {
         return contentVideo;
@@ -119,13 +122,6 @@ public class PublishInfoBean implements Serializable {
         this.userImg = userImg;
     }
 
-    public String getContentImgList() {
-        return contentImgList;
-    }
-
-    public void setContentImgList(String contentImgList) {
-        this.contentImgList = contentImgList;
-    }
 
     public String getListCommentInfo() {
         return listCommentInfo;
