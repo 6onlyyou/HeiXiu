@@ -10,6 +10,8 @@
     <color name="gray_text">#adadad</color>
     <color name="transparent">#00000000</color>
     <color name="line">#a9a9a9</color>
+    <color name="borderColor">#b1b1b1</color>
+
     <color name="hint_text">#999999</color>
     <color name="activity_bg">#f2f2f2</color>
     <color name="red">#FD4E4E</color>

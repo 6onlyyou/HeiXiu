@@ -219,7 +219,7 @@ public class OrderInfo implements Serializable {
         return originsLatitude;
     }
 
-    public void setOriginsLatitude(int originsLatitude) {
+    public void setOriginsLatitude(double originsLatitude) {
         this.originsLatitude = originsLatitude;
     }
 

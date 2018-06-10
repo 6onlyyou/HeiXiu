@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.fushuaige.common.utils.Utils;
 import com.heixiu.errand.net.AndroidBase;
 import com.mob.MobSDK;
@@ -50,6 +51,15 @@ public class MyApplication extends MultiDexApplication {
         return instance;
     }
 
+    public static Map<String, RequestBody> getp(ArrayList<File> fileList) {
+        Map<String, RequestBody> paramsMap = new HashMap<>();
+        for (int i = 0; i < fileList.size(); i++) {
+            RequestBody fileBody = RequestBody.create(MediaType.parse("multipart/form-data"), fileList.get(i));
+            paramsMap.put("file\";filename=\"" + fileList.get(i).getName(), fileBody);
+        }
+        return paramsMap;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -60,6 +70,8 @@ public class MyApplication extends MultiDexApplication {
         AndroidBase.init(this, "http://app.heixiuapp.cn/api/", "http://app.heixiuapp.cn/api/");
         Utils.init(this);
         ZXingLibrary.initDisplayOpinion(this);
+        SDKInitializer.initialize(this);
+
     }
 
     /**
@@ -112,15 +124,6 @@ public class MyApplication extends MultiDexApplication {
             }
         }
         System.exit(0);
-    }
-
-    public static Map<String, RequestBody> getp(ArrayList<File> fileList) {
-        Map<String, RequestBody> paramsMap = new HashMap<>();
-        for (int i = 0; i < fileList.size(); i++) {
-            RequestBody fileBody = RequestBody.create(MediaType.parse("multipart/form-data"), fileList.get(i));
-            paramsMap.put("file\";filename=\"" + fileList.get(i).getName(), fileBody);
-        }
-        return paramsMap;
     }
 
     @Override
