@@ -16,6 +16,7 @@ import com.heixiu.errand.MVP.Community.VideoInfoActivity;
 import com.heixiu.errand.MVP.Community.callback.DialogFragmentDataCallback;
 import com.heixiu.errand.MVP.Community.fragment.CommentFragment;
 import com.heixiu.errand.MVP.Community.widget.PictureGridView;
+import com.heixiu.errand.MVP.Message.OtherPersonalPageActivity;
 import com.heixiu.errand.R;
 import com.heixiu.errand.bean.PubLishInfo;
 import com.heixiu.errand.bean.PublishInfoDetail;
@@ -126,7 +127,17 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> implements 
                 CommentFragment.getInstance().show(fragmentManager, "danmakuFragment");
             }
         });
-
+        LinearLayout personal_inonclick = (LinearLayout) helper.getView(R.id.personal_inonclick);
+        personal_inonclick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, OtherPersonalPageActivity.class);
+                intent.putExtra("friendid", item.getUserId());
+                // startActivity(intent);
+                // 启动需要监听返回值的Activity，并设置请求码：requestCode
+                mContext.startActivity(intent);
+            }
+        });
         LinearLayout community_prias = (LinearLayout) helper.getView(R.id.community_prias);
         community_prias.setOnClickListener(new View.OnClickListener() {
             @Override

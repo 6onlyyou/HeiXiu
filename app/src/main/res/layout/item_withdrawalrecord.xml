@@ -12,12 +12,14 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
     <TextView
+        android:id="@+id/withdraw_numbers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12sp"
         android:textColor="@color/black"
         android:text="我发布的单号：2饿3122344"/>
     <TextView
+        android:id="@+id/withdraw_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="11sp"
@@ -29,6 +31,7 @@
         android:layout_weight="1"
         android:layout_height="match_parent" />
     <TextView
+        android:id="@+id/withdraw_pay"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center"

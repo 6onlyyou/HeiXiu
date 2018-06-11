@@ -4,6 +4,7 @@ import com.heixiu.errand.bean.CouponTicketBean;
 import com.heixiu.errand.bean.MessageInfoBean;
 import com.heixiu.errand.bean.MyAddressInfo;
 import com.heixiu.errand.bean.MyFansBean;
+import com.heixiu.errand.bean.MyPublishOrderBean;
 import com.heixiu.errand.bean.OrderInfo;
 import com.heixiu.errand.bean.PhoneToken;
 import com.heixiu.errand.bean.PubLishInfo;
@@ -13,6 +14,7 @@ import com.heixiu.errand.bean.QueryPersonalBean;
 import com.heixiu.errand.bean.ResponseBean;
 import com.heixiu.errand.bean.SelectDataByIdBean;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -350,14 +352,14 @@ public interface ApiService {
      * 1.1.31	绑定支付宝
      * userId	用户id
      * zfbId	支付宝账户
-     * zfbPassword	支付宝密码
+     * zfbPassword	支付宝姓名
      */
 
     @POST("bindZfb")
     Observable<ResponseBean<String>> bindZfb(
             @Query("userId") String userId,
             @Query("zfbId") String zfbId,
-            @Query("zfbPassword") String zfbPassword
+            @Query("zfbName") String zfbName
     );
 
     /**
@@ -370,9 +372,8 @@ public interface ApiService {
 
     @POST("uploadIdCard")
     Observable<ResponseBean<String>> uploadIdCard(@Body RequestBody file, @Query("userId") String userId,
-                                                  @Query("relaName") int relaName,
-                                                  @Query("cardNumId") String cardNumId,
-                                                  @Query("title") String title
+                                                  @Query("relaName") String relaName,
+                                                  @Query("cardNumId") String cardNumId
     );
 
     /**
@@ -406,6 +407,26 @@ public interface ApiService {
             @Query("userId") String userId
     );
 
+    /**
+     * 提现
+     userId	用户id
+     cash	提现金额
+     */
 
+    @POST("withdrawCash")
+    Observable<ResponseBean<String>> withdrawCash(
+            @Query("userId") String userId,
+            @Query("cash") BigDecimal cash
+    );
+
+    /**
+     * 交易记录
+     userId	用户id
+     */
+
+    @POST("queryMyTransactionRecords")
+    Observable<ResponseBean<MyPublishOrderBean>> queryMyTransactionRecords(
+            @Query("userId") String userId
+    );
 }
 

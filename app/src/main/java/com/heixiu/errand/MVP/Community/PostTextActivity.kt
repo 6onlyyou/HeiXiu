@@ -106,7 +106,7 @@ class PostTextActivity : BaseActivity() {
                         // 多选时的最大数量   （默认 9 张）
                         .mutiSelectMaxSize(9)
                         //设置图片显示容器，参数：、（容器，每行显示数量，是否可删除）
-                        .setContainer(llContainer, 4, true)
+                        .setContainer(llContainer, 4, false)
                         // 已选择的图片路径
                         .pathList(path)
                         // 拍照后存放的图片路径（默认 /temp/picture）
@@ -193,6 +193,7 @@ class PostTextActivity : BaseActivity() {
             val pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT)
             path.clear()
             path.addAll(pathList)
+            fileList.clear()
             Luban.with(this)
                     .load(pathList)
                     .ignoreBy(100)

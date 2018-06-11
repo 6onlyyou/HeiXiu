@@ -1,11 +1,13 @@
 package com.heixiu.errand.bean;
 
+import java.io.Serializable;
+
 /**
  * Description:
  * Data：2018/6/10-10:03
  * Author: fushuaige
  */
-public class QueryMyIncomeBean {
+public class QueryMyIncomeBean  implements Serializable{
     private String id;
     private String userId;
     private String relaName;
@@ -31,7 +33,16 @@ public class QueryMyIncomeBean {
 
     private Double amountAll;
     private String zfbId;
-    private String zfbStatus;
+
+    public int getZfbStatus() {
+        return zfbStatus;
+    }
+
+    public void setZfbStatus(int zfbStatus) {
+        this.zfbStatus = zfbStatus;
+    }
+
+    private int zfbStatus;
     private Long createTime;
     private Long updateTime;
 
@@ -84,13 +95,6 @@ public class QueryMyIncomeBean {
         this.zfbId = zfbId;
     }
 
-    public String getZfbStatus() {
-        return zfbStatus;
-    }
-
-    public void setZfbStatus(String zfbStatus) {
-        this.zfbStatus = zfbStatus;
-    }
 
     public Long getCreateTime() {
         return createTime;

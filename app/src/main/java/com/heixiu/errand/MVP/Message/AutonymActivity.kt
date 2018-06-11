@@ -17,11 +17,17 @@ import android.view.View
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseActivity
+import com.heixiu.errand.net.RetrofitFactory
+import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.GlideLoader
+import com.heixiu.errand.utils.SPUtil
 import com.jaiky.imagespickers.ImageConfig
 import com.jaiky.imagespickers.ImageSelector
 import com.jaiky.imagespickers.ImageSelectorActivity
 import kotlinx.android.synthetic.main.activity_autonym.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import top.zibin.luban.CompressionPredicate
 import top.zibin.luban.Luban
 import top.zibin.luban.OnCompressListener
@@ -42,10 +48,33 @@ class AutonymActivity : BaseActivity() {
             finishWithAlpha()
         })
 
-//        autonym_inname
     }
 
     override fun setListener() {
+        autonym_submit.setOnClickListener {
+            if (autonym_inname.text.equals("") || autonym_sfz.text.equals("") || fileList.size < 1) {
+                ToastUtils.showLong("姓名和身份证号和身份证图片不能为空")
+            } else {
+                val builder: MultipartBody.Builder =  MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                //注意，file是后台约定的参数，如果是多图，file[]，如果是单张图片，file就行
+                for ( i in fileList.indices ) {
+
+                    //这里上传的是多图
+                    builder.addFormDataPart("file", fileList.get(i).getName(), RequestBody.create(MediaType.parse("image/*"), fileList.get(i)));
+                }
+                val requestBody: RequestBody = builder.build();
+                RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().uploadIdCard(requestBody, SPUtil.getString("userid"), autonym_inname.text.toString(), autonym_sfz.text.toString())).subscribe({
+                    ToastUtils.showLong("保存成功")
+                    finishWithAlpha()
+                }, {
+                    ToastUtils.showLong(it.message)
+                })
+            }
+        }
+        autonym_uploading.setOnClickListener {
+            startAlbum()
+        }
     }
 
     override fun processLogic() {
@@ -87,7 +116,7 @@ class AutonymActivity : BaseActivity() {
                         // 多选时的最大数量   （默认 9 张）
                         .mutiSelectMaxSize(9)
                         //设置图片显示容器，参数：、（容器，每行显示数量，是否可删除）
-                        .setContainer(llContainer, 4, true)
+                        .setContainer(llContainer, 4, false)
                         // 已选择的图片路径
                         .pathList(path)
                         // 拍照后存放的图片路径（默认 /temp/picture）
@@ -106,6 +135,7 @@ class AutonymActivity : BaseActivity() {
             val pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT)
             path.clear()
             path.addAll(pathList)
+            fileList.clear()
             Luban.with(this)
                     .load(pathList)
                     .ignoreBy(100)

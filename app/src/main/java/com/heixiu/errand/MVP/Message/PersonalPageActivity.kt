@@ -38,6 +38,9 @@ class PersonalPageActivity : BaseActivity() {
     }
 
     override fun setListener() {
+        page_fansonclick.setOnClickListener {
+            startActivity(MyFansActivity::class.java)
+        }
 
     }
 

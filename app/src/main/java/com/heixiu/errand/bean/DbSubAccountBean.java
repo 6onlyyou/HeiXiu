@@ -19,7 +19,16 @@ public class DbSubAccountBean implements Serializable {
     private String amountDay;
     private String amountAll;
     private String zfbId;
-    private String zfbPassword;
+
+    public String getZfbName() {
+        return zfbName;
+    }
+
+    public void setZfbName(String zfbName) {
+        this.zfbName = zfbName;
+    }
+
+    private String zfbName;
     private String zfbStatus;
     private Long createTime;
     private Long updateTime;
@@ -96,13 +105,6 @@ public class DbSubAccountBean implements Serializable {
         this.zfbId = zfbId;
     }
 
-    public String getZfbPassword() {
-        return zfbPassword;
-    }
-
-    public void setZfbPassword(String zfbPassword) {
-        this.zfbPassword = zfbPassword;
-    }
 
     public String getZfbStatus() {
         return zfbStatus;

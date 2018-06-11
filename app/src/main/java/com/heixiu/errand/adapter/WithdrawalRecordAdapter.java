@@ -4,6 +4,9 @@ import android.view.View;
 
 import com.heixiu.errand.MVP.Community.entity.DynamicEntity;
 import com.heixiu.errand.R;
+import com.heixiu.errand.bean.MyPublishOrderBean;
+import com.heixiu.errand.bean.MyReciecedOrderBean;
+import com.heixiu.errand.utils.TimeUtils;
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter;
 import com.xiaochao.lcrapiddeveloplibrary.BaseViewHolder;
 
@@ -14,23 +17,24 @@ import java.util.List;
  * Data：2018/4/12-10:44
  * Author: fushuaige
  */
-public class WithdrawalRecordAdapter extends BaseQuickAdapter<DynamicEntity> {
+public class WithdrawalRecordAdapter extends BaseQuickAdapter<MyReciecedOrderBean> {
 
-    public WithdrawalRecordAdapter(int layoutResId, List<DynamicEntity> data) {
+    public WithdrawalRecordAdapter(int layoutResId, List<MyReciecedOrderBean> data) {
         super(layoutResId, data);
     }
 
-    public WithdrawalRecordAdapter(List<DynamicEntity> data) {
+    public WithdrawalRecordAdapter(List<MyReciecedOrderBean> data) {
         super(R.layout.item_withdrawalrecord,data);
     }
 
-    public WithdrawalRecordAdapter(View contentView, List<DynamicEntity> data) {
+    public WithdrawalRecordAdapter(View contentView, List<MyReciecedOrderBean> data) {
         super(contentView, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, DynamicEntity item) {
-//        helper.setText(R.id.video_list_item_text_context,item.getIntroduction()).setText(R.id.Iv_communityNickName,item.getNickname()).setText(R.id.Tv_communityPraise,item.getPraise());
+    protected void convert(BaseViewHolder helper, MyReciecedOrderBean item) {
+
+        helper.setText(R.id.withdraw_numbers,"我发布的单号："+item.getOrderNum()).setText(R.id.withdraw_time, TimeUtils.getFriendlyTimeArticleByNow(item.getCreateTime(),null)).setText(R.id.withdraw_pay,item.getAddPrice()+"");
 //        //Glide加载图片  并且支持gif动图
 //        Glide.with(mContext)
 //                .load(item.getHeadurl())
