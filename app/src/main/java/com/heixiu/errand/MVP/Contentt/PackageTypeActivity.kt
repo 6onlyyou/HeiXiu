@@ -18,7 +18,7 @@ class PackageTypeActivity : AppCompatActivity() {
     var name = ""
     var receiverName = ""
     var receiverNum = ""
-    var deliversName = ""
+    var deliverNums = ""
     var descriptions = ""
 
     private lateinit var adapter: PackageTypeAdapter
@@ -77,6 +77,18 @@ class PackageTypeActivity : AppCompatActivity() {
             }
 
         })
+        deliverNum.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                deliverNums = deliverNum.text.toString()
+            }
+
+        })
 
         package_type_Rv!!.adapter = adapter
 
@@ -89,6 +101,7 @@ class PackageTypeActivity : AppCompatActivity() {
                 ContentFragment.descriptions = descriptions
                 ContentFragment.receiverName = receiverName
                 ContentFragment.receiverNum = receiverNum
+                ContentFragment.courierNum = deliverNums
             }
             finish()
         })

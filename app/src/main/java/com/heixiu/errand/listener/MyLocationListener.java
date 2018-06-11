@@ -5,7 +5,10 @@ import android.util.Log;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.Poi;
+import com.heixiu.errand.Event.MyLocationEvent;
 import com.heixiu.errand.MVP.Login.entity.MessageEvent;
+import com.heixiu.errand.MyApplication.MyApplication;
+import com.heixiu.errand.utils.RxBus;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -83,6 +86,11 @@ public class MyLocationListener implements BDLocationListener {
                 sb.append(p.getId() + " " + p.getName() + " " + p.getRank());
             }
         }
+        MyApplication.getInstance().localLat = location.getLatitude();
+
+        MyApplication.getInstance().localLong = location.getLongitude();
+
+        RxBus.getDefault().post(new MyLocationEvent());
         Log.e("描述：", sb.toString());
     }
 }

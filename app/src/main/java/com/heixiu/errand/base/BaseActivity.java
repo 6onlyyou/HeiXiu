@@ -131,7 +131,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 初始activity方法
      */
-    private void initView() {
+    public void initView() {
         loadViewLayout();
     }
 

@@ -96,12 +96,11 @@
             android:textSize="14sp" />
 
         <EditText
-            android:id="@+id/deliverName"
+            android:id="@+id/deliverNum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:hint="快递员电话"
-            android:visibility="gone"
             android:singleLine="true"
             android:textSize="14sp" />
 

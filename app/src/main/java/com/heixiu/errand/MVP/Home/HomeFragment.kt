@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.fushuaige.common.utils.ToastUtils
+import com.heixiu.errand.Event.MyLocationEvent
 import com.heixiu.errand.R
 import com.heixiu.errand.adapter.HomeAdapter
 import com.heixiu.errand.base.BaseFragment
-import com.heixiu.errand.bean.OrderInfo
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
+import com.heixiu.errand.utils.RxBus
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -42,36 +44,27 @@ class HomeFragment : BaseFragment() {
         })
     }
 
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    fun messageEventBus(event: MyLocationEvent) {
+//        homeAdapter.notifyDataSetChanged()
+//    }
+
+    var subscribe: Disposable? = null
     override fun initView() {
+        subscribe = RxBus.getDefault().toObservable(MyLocationEvent::class.java).subscribe({
+            homeAdapter.notifyDataSetChanged()
+        }, {
+            homeAdapter.notifyDataSetChanged()
+        })
+
         homeRv.layoutManager = LinearLayoutManager(context)
         homeAdapter.onItemClick = object : HomeAdapter.OnItemClick {
             override fun onDetailClick(position: Int) {
-//                OrderDetailActivity.startSelf(context!!, homeAdapter.data[position])
-                OrderDetailActivity.startSelf(context!!, OrderInfo())
+                OrderDetailActivity.startSelf(context!!, homeAdapter.data[position])
             }
 
             override fun onConfirmOrderClick(position: Int) {
-//                ConfirmOrderActivity.startSelf(context!!, homeAdapter.data[position])
-                var orderInfo = OrderInfo()
-                orderInfo.addPrice = 1
-                orderInfo.courierNum = "1"
-                orderInfo.description = "2"
-                orderInfo.name = "111"
-                orderInfo.weight = 11
-                orderInfo.sendTime = "2018.1.1"
-                orderInfo.payment = 222
-                orderInfo.receiveAddress = "bbbbb"
-                orderInfo.sendAddress = "aaaaa"
-                orderInfo.supportPrice = 11
-                orderInfo.orderNum = "12312321"
-                orderInfo.courierNum = 1385555.toString()
-                orderInfo.receiveNum = 1367744444.toString()
-                orderInfo.receiveName = "黎明"
-                orderInfo.id = 1
-
-                orderInfo.destinationsLatitude = 30.28
-                orderInfo.destinationsLongitude = 120.28
-                ConfirmOrderActivity.startSelf(context!!, orderInfo)
+                ConfirmOrderActivity.startSelf(context!!, homeAdapter.data[position])
             }
         }
         homeRv.adapter = homeAdapter
@@ -81,6 +74,13 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun initData() {
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (subscribe != null) {
+            subscribe?.dispose()
+        }
     }
 
 }

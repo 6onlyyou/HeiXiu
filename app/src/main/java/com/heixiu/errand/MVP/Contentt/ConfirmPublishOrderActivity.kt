@@ -9,7 +9,7 @@ import com.heixiu.errand.R
 import com.heixiu.errand.bean.OrderInfo
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
-import io.reactivex.functions.Consumer
+import com.heixiu.errand.utils.SPUtil
 import kotlinx.android.synthetic.main.activity_confirm_publish_order.*
 
 class ConfirmPublishOrderActivity : AppCompatActivity() {
@@ -54,11 +54,10 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
     }
 
     fun submitOrder() {
-        orderInfo.courierNum = "110"
         orderInfo.payment = 1100
 
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().createOrder(
-                "1",
+                SPUtil.getString("userid"),
                 orderInfo.sendAddress,
                 orderInfo.receiveAddress,
                 orderInfo.name,
@@ -70,13 +69,13 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
                 orderInfo.courierNum,
                 orderInfo.supportPrice,
                 orderInfo.payment,
-                "",
-                "",
-                "",
-                ""
-        )).subscribe(Consumer {
+                orderInfo.originsLatitude.toString(),
+                orderInfo.originsLongitude.toString(),
+                orderInfo.destinationsLatitude.toString(),
+                orderInfo.destinationsLongitude.toString()
+        )).subscribe({
             Log.i("createOrder", it)
-        }, Consumer {
+        }, {
             Log.i("createOrder", it.message)
         })
     }

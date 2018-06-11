@@ -8,11 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.utils.DistanceUtil;
+import com.heixiu.errand.MyApplication.MyApplication;
 import com.heixiu.errand.R;
 import com.heixiu.errand.bean.OrderInfo;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,18 +26,18 @@ import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
+    private static final String TAG = "HomeAdapter";
     public List<OrderInfo> data = new ArrayList<>();
     Context mContext;
     OnItemClick onItemClick;
-
 
     public HomeAdapter(@Nullable Context context) {
         this.mContext = context;
     }
 
-    public void setData(List<OrderInfo> data) {
+    public void setData(List<OrderInfo> datas) {
         data.clear();
-        this.data.addAll(data);
+        data.addAll(datas);
         notifyDataSetChanged();
     }
 
@@ -47,7 +51,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_home, viewGroup, false);
@@ -56,18 +59,38 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        if (false) {
-            OrderInfo orderInfo = data.get(i);
-            viewHolder.startLocationTv.setText(orderInfo.getReceiveAddress());
-            viewHolder.endLocationTv.setText(orderInfo.getSendAddress());
-            viewHolder.type.setText(orderInfo.getName());
-            viewHolder.weight.setText(orderInfo.getWeight());
+        OrderInfo orderInfo = data.get(i);
+
+        viewHolder.startLocationTv.setText(orderInfo.getReceiveAddress());
+        viewHolder.endLocationTv.setText(orderInfo.getSendAddress());
+        viewHolder.type.setText(orderInfo.getName());
+        viewHolder.weight.setText(orderInfo.getWeight() + "公斤");
+
+        if (MyApplication.getInstance().localLat == 0) {
+            viewHolder.distance.setText("暂时未获取到您的定位");
+        } else {
+            DecimalFormat df = new DecimalFormat("#.0");
+            String distanceFormat = "";
+            double distance = DistanceUtil.getDistance(
+                    new LatLng(MyApplication.getInstance().localLat, MyApplication.getInstance().localLong)
+                    , new LatLng(orderInfo.getOriginsLatitude(), orderInfo.getOriginsLongitude()));
+            if ((distance) >= 1000 && distance < 1000000000) {
+                distanceFormat = df.format(distance / 1000);
+                viewHolder.distance.setText("距您" + distanceFormat + "公里");
+            } else if (distance < 1000) {
+                distanceFormat = df.format(distance);
+                viewHolder.distance.setText("距您" + distanceFormat + "米");
+            }else {
+
+            }
+
         }
     }
 
+
     @Override
     public int getItemCount() {
-        return /*data.size()*/ 10;
+        return data.size();
     }
 
     public Context getmContext() {
