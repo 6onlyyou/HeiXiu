@@ -1,41 +1,32 @@
 package com.heixiu.errand.MVP.Login
 
 import android.Manifest
-import android.view.View
-import com.baidu.location.BDLocationListener
-import com.baidu.location.LocationClient
-import com.heixiu.errand.R
-import com.heixiu.errand.base.BaseActivity
-import com.heixiu.errand.MVP.Login.fragment.AccountLoginFragment
-import com.heixiu.errand.MVP.Login.fragment.PhoneLoginFragment
-import com.heixiu.errand.MainActivity
-import com.heixiu.errand.adapter.LoginFragmentAdapter
-import com.heixiu.errand.listener.MyLocationListener
-import kotlinx.android.synthetic.main.activity_login.*
-import com.baidu.location.LocationClientOption
-import android.support.v4.app.ActivityCompat.startActivityForResult
-import android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS
-import android.support.v4.view.accessibility.AccessibilityEventCompat.setAction
-import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.app.AlertDialog
 import android.content.Context
-import android.location.LocationManager.GPS_PROVIDER
-import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
-import com.heixiu.errand.MVP.Login.entity.MessageEvent
-import com.heixiu.errand.utils.SPUtil
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
-import android.support.v4.app.ActivityCompat.shouldShowRequestPermissionRationale
+import android.view.View
+import com.baidu.location.BDLocationListener
+import com.baidu.location.LocationClient
+import com.baidu.location.LocationClientOption
 import com.fushuaige.common.utils.ToastUtils
+import com.heixiu.errand.MVP.Login.entity.MessageEvent
+import com.heixiu.errand.MVP.Login.fragment.AccountLoginFragment
+import com.heixiu.errand.MVP.Login.fragment.PhoneLoginFragment
+import com.heixiu.errand.R
+import com.heixiu.errand.adapter.LoginFragmentAdapter
+import com.heixiu.errand.base.BaseActivity
+import com.heixiu.errand.listener.MyLocationListener
+import com.heixiu.errand.utils.SPUtil
 import com.tbruyelle.rxpermissions2.Permission
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.functions.Consumer
+import kotlinx.android.synthetic.main.activity_login.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 class LoginActivity : BaseActivity() {
@@ -43,11 +34,12 @@ class LoginActivity : BaseActivity() {
         super.onDestroy()
         EventBus.getDefault().unregister(this);
     }
+
     private var lm: LocationManager? = null//【位置管理】
     var mLocationClient: LocationClient? = null
     var myListener: BDLocationListener = MyLocationListener()
-    var  adapter:LoginFragmentAdapter? = null;
-    var  fragments:ArrayList<android.support.v4.app.Fragment>? = ArrayList();
+    var adapter: LoginFragmentAdapter? = null;
+    var fragments: ArrayList<android.support.v4.app.Fragment>? = ArrayList();
     override fun loadViewLayout() {
         setContentView(R.layout.activity_login)
         EventBus.getDefault().register(this);
@@ -62,37 +54,39 @@ class LoginActivity : BaseActivity() {
         tablayout.setupWithViewPager(viewpager)
         getPermissions()
     }
-fun getPermissions(){
-    var falg = 0
-    val rxPermissions = RxPermissions(this)
-    rxPermissions.requestEach(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.RECEIVE_SMS)
-            .subscribe(object : Consumer<Permission> {
-                @Throws(Exception::class)
-                override fun accept(permission: Permission) {
-                    if (permission.granted) {
-                        // 用户已经同意该权限
-                        if(falg==0){
-                            startLocate()
-                        }
-                        falg++
-                    } else if (permission.shouldShowRequestPermissionRationale) {
-                        // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
-                        val builder = AlertDialog.Builder(this@LoginActivity)
-                    builder.setTitle("通知")
-                    .setMessage("您尚未开启通知权限，获取不到地址和接收短信服务不能得到服务请开启。")
-                    .setPositiveButton("去开启") { dialog, id ->
-                        getPermissions()
-                    }
-                    .setNegativeButton("取消") { dialog, id -> }
-                     builder.create().show()
-                    } else {
-                        // 用户拒绝了该权限，并且选中『不再询问』，提醒用户手动打开权限
+
+    fun getPermissions() {
+        var falg = 0
+        val rxPermissions = RxPermissions(this)
+        rxPermissions.requestEach(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.RECEIVE_SMS)
+                .subscribe(object : Consumer<Permission> {
+                    @Throws(Exception::class)
+                    override fun accept(permission: Permission) {
+                        if (permission.granted) {
+                            // 用户已经同意该权限
+                            if (falg == 0) {
+                                startLocate()
+                            }
+                            falg++
+                        } else if (permission.shouldShowRequestPermissionRationale) {
+                            // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
+                            val builder = AlertDialog.Builder(this@LoginActivity)
+                            builder.setTitle("通知")
+                                    .setMessage("您尚未开启通知权限，获取不到地址和接收短信服务不能得到服务请开启。")
+                                    .setPositiveButton("去开启") { dialog, id ->
+                                        getPermissions()
+                                    }
+                                    .setNegativeButton("取消") { dialog, id -> }
+                            builder.create().show()
+                        } else {
+                            // 用户拒绝了该权限，并且选中『不再询问』，提醒用户手动打开权限
 //                        ToastUtils.showLong("权限被拒绝，请在设置里面开启相应权限，若无相应权限会影响使用")
 //                            getAppDetailSettingIntent(this@LoginActivity)
+                        }
                     }
-                }
-            })
-}
+                })
+    }
+
     override fun findViewById() {
 
     }
@@ -104,12 +98,14 @@ fun getPermissions(){
     override fun processLogic() {
 
     }
-@Subscribe(threadMode = ThreadMode.MAIN)
-    fun messageEventBus(event: MessageEvent){
 
-            SPUtil.saveString("city", event.city)
-    ToastUtils.showLong(""+event.city)
-}
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun messageEventBus(event: MessageEvent) {
+
+        SPUtil.saveString("city", event.city)
+        ToastUtils.showLong("" + event.city)
+    }
+
     private fun getAppDetailSettingIntent(context: Context) {
         val localIntent = Intent()
         localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -123,6 +119,7 @@ fun getPermissions(){
         }
         startActivity(localIntent)
     }
+
     /**
      * 定位
      */

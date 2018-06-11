@@ -33,6 +33,10 @@ public class MyApplication extends MultiDexApplication {
      * 应用实例
      **/
     private static MyApplication instance;
+
+    public double localLat = 0.0;
+
+    public double localLong = 0.0;
     //记录当前栈里所有activity
     private List<Activity> activities = new ArrayList<Activity>();
     //记录需要一次性关闭的页面
@@ -47,7 +51,6 @@ public class MyApplication extends MultiDexApplication {
         if (instance == null) {
             instance = new MyApplication();
         }
-
         return instance;
     }
 
