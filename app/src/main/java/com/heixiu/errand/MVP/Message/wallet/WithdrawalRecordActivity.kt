@@ -36,12 +36,18 @@ class WithdrawalRecordActivity : BaseActivity() {
         dollStateTb.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 if (tab.tag == "1") {
+                    if(myReciecedOrderBean!!.size<1){
+                        return
+                    }
                     my_doll_rv.setLayoutManager(LinearLayoutManager(this@WithdrawalRecordActivity))
                     my_doll_rv.setAdapter(withdrawalRecordAdapter)
                     withdrawalRecordAdapter!!.setNewData(myReciecedOrderBean)
 //                    setSelect(false)
                 }
                 if (tab.tag == "2") {
+                    if(myReciecedOrderBean2!!.size<1){
+                        return
+                    }
                     my_doll_rv.setLayoutManager(LinearLayoutManager(this@WithdrawalRecordActivity))
                     my_doll_rv.setAdapter(withdrawalRecordAdapter)
                     withdrawalRecordAdapter!!.setNewData(myReciecedOrderBean2)

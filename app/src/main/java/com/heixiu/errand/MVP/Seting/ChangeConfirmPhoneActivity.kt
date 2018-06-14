@@ -1,7 +1,6 @@
 package com.heixiu.errand.MVP.Seting
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
+import android.content.Intent
 import android.os.Handler
 import android.os.Message
 import android.view.View
@@ -14,18 +13,20 @@ import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.CountDownTimerUtils
 import com.heixiu.errand.utils.SPUtil
-import kotlinx.android.synthetic.main.activity_change_password.*
+import kotlinx.android.synthetic.main.activity_change_confirmphone.*
 
-class ChangePasswordActivity : BaseActivity() {
+class ChangeConfirmPhoneActivity : BaseActivity() {
     var mCountDownTimerUtils: CountDownTimerUtils? = null
     override fun loadViewLayout() {
-        setContentView(R.layout.activity_change_password)
+        setContentView(R.layout.activity_change_confirmphone)
     }
-
+    var bindphone:String = ""
     override fun findViewById() {
         initTitle("密码设置", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
-        change_phone.text = "设置密码需要验证绑定的手机号"+SPUtil.getString("userid")
+
+         bindphone = intent.getStringExtra("bindphone")
+        change_phone.text = "重置电话号需要验证下手机号"+ bindphone
     }
     var handler: Handler = object : Handler() {
         override fun handleMessage(msg: Message) {
@@ -39,15 +40,15 @@ class ChangePasswordActivity : BaseActivity() {
     }
     override fun setListener() {
         mCountDownTimerUtils = CountDownTimerUtils(Tv_getCode, 60000, 1000)
-        Tv_getCode.setOnClickListener {
-            if (SPUtil.getString("userid").equals("")) {
+        Tv_inCodes.setOnClickListener {
+            if (bindphone.equals("")) {
                 ToastUtils.showLong("电话号不能为空")
             } else {
-                sendCode("86", SPUtil.getString("userid"))
+                sendCode("86", bindphone)
             }
         }
         change_submit.setOnClickListener {
-            submitCode("86",SPUtil.getString("userid"),Tv_inCode.text.toString());
+            submitCode("86", bindphone,Tv_inCodes.text.toString());
         }
     }
 
@@ -73,13 +74,12 @@ class ChangePasswordActivity : BaseActivity() {
         SMSSDK.registerEventHandler(object : EventHandler() {
             override fun afterEvent(event: Int, result: Int, data: Any?) {
                 if (result == SMSSDK.RESULT_COMPLETE) {
-                    RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().passwordSetting(SPUtil.getString("userid"), change_password.text.toString())).subscribe({
+                    RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().updatePhoneNumber(SPUtil.getString("userid"), bindphone)).subscribe({
                         ToastUtils.showLong("修改成功")
                         finishWithAlpha()
                     }, {
                         ToastUtils.showLong(it.message)
                     })
-
                 } else {
                     handler.sendEmptyMessage(1)
                 }

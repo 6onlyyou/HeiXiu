@@ -14,18 +14,22 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:drawablePadding="6dp"
+        android:textColor="@color/white"
         android:text="文字"
         android:drawableTop="@mipmap/issue_text"/>
     <TextView
+        android:visibility="gone"
         android:id="@+id/Tv_pickup"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:drawablePadding="6dp"
+        android:textColor="@color/white"
         android:layout_marginLeft="@dimen/dp_10"
         android:text="拍摄"
         android:drawableTop="@mipmap/issue_pic"/>
     <TextView
+        android:visibility="gone"
         android:id="@+id/Tv_pic"
         android:layout_width="40dp"
         android:layout_height="wrap_content"

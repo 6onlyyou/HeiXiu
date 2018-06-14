@@ -57,20 +57,14 @@ class PhoneLoginFragment : BaseFragment() {
             }
         }
         Bt_login.setOnClickListener {
-            RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().loginByPhone(Et_phone.text.toString(), SPUtil.getString("city").toString())).subscribe({
-                SPUtil.saveString("token", it.token)
-                SPUtil.saveString("userid",Et_phone.text.toString())
-                startActivity(MainActivity::class.java)
-            }, {
-                ToastUtils.showLong(it.message)
-            })
-//            if(Et_phone.text.toString().equals("")||Et_code.text.toString().equals("")){
-//                ToastUtils.showLong("账号密码不能为空")
-//            }else {
-//                submitCode("86", Et_phone.text.toString(), Et_code.text.toString())
-//            }
-            startActivity(MainActivity::class.java)
-            activity?.finish()
+
+
+            if(Et_phone.text.toString().equals("")||Et_code.text.toString().equals("")){
+                ToastUtils.showLong("账号密码不能为空")
+            }else {
+                submitCode("86", Et_phone.text.toString(), Et_code.text.toString())
+            }
+
         }
         Tv_sign.setOnClickListener {
             startActivity(RegisterActivity::class.java)
@@ -100,9 +94,11 @@ class PhoneLoginFragment : BaseFragment() {
         SMSSDK.registerEventHandler(object : EventHandler() {
             override fun afterEvent(event: Int, result: Int, data: Any?) {
                 if (result == SMSSDK.RESULT_COMPLETE) {
-                    RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().loginByPhone(phone, SPUtil.getString("city").toString())).subscribe({
+                    RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().loginByPhone(Et_phone.text.toString(), SPUtil.getString("city").toString())).subscribe({
                         SPUtil.saveString("token", it.token)
+                        SPUtil.saveString("userid",Et_phone.text.toString())
                         startActivity(MainActivity::class.java)
+                        activity?.finish()
                     }, {
                         ToastUtils.showLong(it.message)
                     })

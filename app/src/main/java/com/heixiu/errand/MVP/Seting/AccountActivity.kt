@@ -18,6 +18,9 @@ class AccountActivity : BaseActivity() {
     }
 
     override fun setListener() {
+        account_phone.setOnClickListener{
+
+        }
         account_password.setOnClickListener {
             startActivity(ChangePasswordActivity::class.java)
         }

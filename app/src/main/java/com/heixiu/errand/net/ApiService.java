@@ -62,7 +62,7 @@ public interface ApiService {
      * @return
      */
     @POST("showAllPublishInfo")
-    Observable<ResponseBean<List<PubLishInfo>>> showAllPublishInfo();
+    Observable<ResponseBean<List<PubLishInfo>>> showAllPublishInfo(@Query("userId") String phone);
 
     /**
      * 查询一条动态详情
@@ -70,7 +70,7 @@ public interface ApiService {
      * @return
      */
     @POST("showOnePublishInfoDetail")
-    Observable<ResponseBean<PublishInfoDetail>> showOnePublishInfoDetail(@Query("publishId") String publishId);
+    Observable<ResponseBean<PublishInfoDetail>> showOnePublishInfoDetail(@Query("publishId") String publishId, @Query("userId") String userid);
 
 
     /**
@@ -88,6 +88,7 @@ public interface ApiService {
 
     /**
      * 点赞
+     *
      * @param publishId
      * @return city
      */
@@ -98,16 +99,18 @@ public interface ApiService {
 
     /**
      * 评论
-     *userId	当前用户id(评论人)
-     content	评论内容
-     publishId	动态id
-
+     * userId	当前用户id(评论人)
+     * content	评论内容
+     * publishId	动态id
+     * admireId	被评论用户id
+     *
      * @return
      */
     @POST("createComment")
     Observable<ResponseBean<String>> createComment(@Query("userId") String userId,
+                                                   @Query("admireId") String admireId,
                                                    @Query("content") String content,
-                                                      @Query("publishId") String publishId
+                                                   @Query("publishId") String publishId
     );
 
     /**
@@ -387,6 +390,7 @@ public interface ApiService {
             @Query("userId") String userId,
             @Query("followId") String followId
     );
+
     /**
      * 我的粉丝
      * userId	用户id
@@ -409,8 +413,8 @@ public interface ApiService {
 
     /**
      * 提现
-     userId	用户id
-     cash	提现金额
+     * userId	用户id
+     * cash	提现金额
      */
 
     @POST("withdrawCash")
@@ -421,12 +425,38 @@ public interface ApiService {
 
     /**
      * 交易记录
-     userId	用户id
+     * userId	用户id
      */
 
     @POST("queryMyTransactionRecords")
     Observable<ResponseBean<MyPublishOrderBean>> queryMyTransactionRecords(
             @Query("userId") String userId
     );
+
+
+    /**
+     * 修改密码
+     * userId	用户id
+     * password	密码
+     */
+
+    @POST("passwordSetting")
+    Observable<ResponseBean<String>> passwordSetting(
+            @Query("userId") String userId,
+            @Query("password") String password
+    );
+
+    /**
+     * 修改手机号
+     * phone	手机号码
+     * id	主键id
+     */
+
+    @POST("updatePhoneNumber")
+    Observable<ResponseBean<String>> updatePhoneNumber(
+            @Query("userId") String userId,
+            @Query("password") String password
+    );
+
 }
 

@@ -1,7 +1,6 @@
 package com.heixiu.errand.MVP.Seting
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
+import android.content.Intent
 import android.os.Handler
 import android.os.Message
 import android.view.View
@@ -14,18 +13,18 @@ import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.CountDownTimerUtils
 import com.heixiu.errand.utils.SPUtil
-import kotlinx.android.synthetic.main.activity_change_password.*
+import kotlinx.android.synthetic.main.activity_change_phone.*
 
-class ChangePasswordActivity : BaseActivity() {
+class ChangePhoneActivity : BaseActivity() {
     var mCountDownTimerUtils: CountDownTimerUtils? = null
     override fun loadViewLayout() {
-        setContentView(R.layout.activity_change_password)
+        setContentView(R.layout.activity_change_phone)
     }
 
     override fun findViewById() {
         initTitle("密码设置", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
-        change_phone.text = "设置密码需要验证绑定的手机号"+SPUtil.getString("userid")
+        change_phone.text = "设置密码需要验证绑定的手机号"+ SPUtil.getString("userid")
     }
     var handler: Handler = object : Handler() {
         override fun handleMessage(msg: Message) {
@@ -47,7 +46,7 @@ class ChangePasswordActivity : BaseActivity() {
             }
         }
         change_submit.setOnClickListener {
-            submitCode("86",SPUtil.getString("userid"),Tv_inCode.text.toString());
+            submitCode("86", SPUtil.getString("userid"),Tv_inCode.text.toString());
         }
     }
 
@@ -73,13 +72,15 @@ class ChangePasswordActivity : BaseActivity() {
         SMSSDK.registerEventHandler(object : EventHandler() {
             override fun afterEvent(event: Int, result: Int, data: Any?) {
                 if (result == SMSSDK.RESULT_COMPLETE) {
-                    RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().passwordSetting(SPUtil.getString("userid"), change_password.text.toString())).subscribe({
-                        ToastUtils.showLong("修改成功")
-                        finishWithAlpha()
-                    }, {
-                        ToastUtils.showLong(it.message)
-                    })
-
+//                    RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().passwordSetting(SPUtil.getString("userid"), change_phones.text.toString())).subscribe({
+//                        ToastUtils.showLong("修改成功")
+//                        finishWithAlpha()
+//                    }, {
+//                        ToastUtils.showLong(it.message)
+//                    })
+                    val intent = Intent(mContext,ChangeConfirmPhoneActivity::class.java)
+                    intent.putExtra("bindphone", change_phones.text.toString())
+                    mContext.startActivity(intent)
                 } else {
                     handler.sendEmptyMessage(1)
                 }

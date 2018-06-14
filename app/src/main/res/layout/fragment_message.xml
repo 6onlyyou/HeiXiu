@@ -232,6 +232,7 @@
                 android:textSize="14sp" />
         </LinearLayout>
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/message_address"
             android:layout_width="match_parent"
             android:layout_height="42dp"

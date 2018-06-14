@@ -20,22 +20,23 @@ import kotlinx.android.synthetic.main.activity_video_info.*
 class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
     var publishId:String = ""
     var publishInfoDetail: PublishInfoDetail? = null
+    var commentAdapter: CommentAdapter? = null
     override fun addDanmakuToView(content: String?) {
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit()
-                .createComment(SPUtil.getString("userid"), content, publishInfoDetail!!.getId().toString() + ""))
+                .createComment(SPUtil.getString("userid"),publishInfoDetail!!.userId, content, publishInfoDetail!!.getId().toString() + ""))
                 .subscribe { s ->
                     ToastUtils.showLong(s)
                     commentAdapter!!.addData(publishInfoDetail!!.listCommentInfo.size, content)
                 }
     }
 
-    var commentAdapter: CommentAdapter? = null
+
     override fun loadViewLayout() {
         setContentView(R.layout.activity_video_info);
-        initTitle("视频", R.color.colorPrimary, R.color.white)
+        initTitle("动态详情", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
         publishId = intent.getStringExtra("publishId").toString()
-        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().showOnePublishInfoDetail(publishId)).subscribe({
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().showOnePublishInfoDetail(publishId,SPUtil.getString("userid"))).subscribe({
             publishInfoDetail = it
             info_nickname.text = publishInfoDetail!!.nickName.toString()
             info_content.text = publishInfoDetail!!.content
@@ -56,7 +57,7 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
             //设置自动加载监听
             if (publishInfoDetail!!.getType() == "0") {
                 gridView.setVisibility(View.VISIBLE)
-                val num = publishInfoDetail!!.getContentImg().size//获取当前的图片数目
+                val num = publishInfoDetail!!.contentImgList.size//获取当前的图片数目
                 var col = 1//默认列数
                 if (num == 1) {
                     gridView.setNumColumns(1)
@@ -70,7 +71,7 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
                 }
 
 //            gridView.setNumColumns(3)
-                gridView.setAdapter(MyGridViewAdapter(mContext, num, col, publishInfoDetail!!.contentImg))
+                gridView.setAdapter(MyGridViewAdapter(this, num, col, publishInfoDetail!!.contentImgList))
 
 //            gridView.setOnItemClickListener(object : AdapterView.OnItemClickListener {
 //                override fun onItemClick(arg0: AdapterView<*>, arg1: View,

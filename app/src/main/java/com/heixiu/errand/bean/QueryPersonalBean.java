@@ -43,13 +43,6 @@ public class QueryPersonalBean implements Serializable {
         this.userImg = userImg;
     }
 
-    public String getDayAmount() {
-        return dayAmount;
-    }
-
-    public void setDayAmount(String dayAmount) {
-        this.dayAmount = dayAmount;
-    }
 
     public String getRankPlatInfoList() {
         return rankPlatInfoList;
@@ -60,6 +53,15 @@ public class QueryPersonalBean implements Serializable {
     }
 
     private String userImg;
-    private String dayAmount;
+
+    public int getDayAmount() {
+        return dayAmount;
+    }
+
+    public void setDayAmount(int dayAmount) {
+        this.dayAmount = dayAmount;
+    }
+
+    private int dayAmount;
     private String rankPlatInfoList;
 }

@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.fushuaige.common.utils.ToastUtils
+import com.heixiu.errand.MVP.Login.LoginActivity
 import com.heixiu.errand.MVP.Message.wallet.WalletMainActivity
 import com.heixiu.errand.MVP.Seting.SetingMainActivity
 import com.heixiu.errand.MVP.common.TicketActivity
@@ -73,9 +74,11 @@ class MessageFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
+
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryPersonal(SPUtil.getString("userid"),SPUtil.getString("city"))).subscribe({
             message_tadayRank.text=it.platRank.toString()
-            message_todayMenoy.text=it.dayAmount.toString()
+                message_todayMenoy.text=it.dayAmount.toString()
+
             message_friendRank.text = it.friendRank.toString()
             Glide.with(this)
                 .load(it.userImg)

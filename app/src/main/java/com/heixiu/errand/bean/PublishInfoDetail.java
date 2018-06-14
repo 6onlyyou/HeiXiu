@@ -32,15 +32,20 @@ public class PublishInfoDetail implements Serializable {
     private String content;
     private String type;
 
-    public List<String> getContentImg() {
-        return contentImg;
+
+
+//    private int contentImg;
+
+    public List<String> getContentImgList() {
+        return contentImgList;
     }
 
-    public void setContentImg(List<String> contentImg) {
-        this.contentImg = contentImg;
+    public void setContentImgList(List<String> contentImgList) {
+        this.contentImgList = contentImgList;
     }
 
-    private List<String> contentImg;
+    private List<String> contentImgList;
+
     private String contentVideo;
     private int admireCount;
     private int commentCount;

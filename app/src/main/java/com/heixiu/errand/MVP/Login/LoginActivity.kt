@@ -32,7 +32,6 @@ import org.greenrobot.eventbus.ThreadMode
 class LoginActivity : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
-        EventBus.getDefault().unregister(this);
     }
 
     private var lm: LocationManager? = null//【位置管理】
@@ -42,7 +41,6 @@ class LoginActivity : BaseActivity() {
     var fragments: ArrayList<android.support.v4.app.Fragment>? = ArrayList();
     override fun loadViewLayout() {
         setContentView(R.layout.activity_login)
-        EventBus.getDefault().register(this);
         initTitle("登入", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
         val fragment1 = PhoneLoginFragment()
@@ -52,7 +50,7 @@ class LoginActivity : BaseActivity() {
         adapter = LoginFragmentAdapter(supportFragmentManager, fragments)
         viewpager.setAdapter(adapter)
         tablayout.setupWithViewPager(viewpager)
-        getPermissions()
+//        getPermissions()
     }
 
     fun getPermissions() {
@@ -99,12 +97,7 @@ class LoginActivity : BaseActivity() {
 
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun messageEventBus(event: MessageEvent) {
 
-        SPUtil.saveString("city", event.city)
-        ToastUtils.showLong("" + event.city)
-    }
 
     private fun getAppDetailSettingIntent(context: Context) {
         val localIntent = Intent()
