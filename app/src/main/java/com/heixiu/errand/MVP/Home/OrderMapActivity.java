@@ -134,9 +134,9 @@ public class OrderMapActivity extends AppCompatActivity {
                     if (result.error == SearchResult.ERRORNO.NO_ERROR) {
                         if (result.getRouteLines().size() >= 1) {
                             route = result.getRouteLines().get(0);
-                            DrivingRouteOverlay overlay = new DrivingRouteOverlay(mBaiduMap);
+                            DrivingRouteOverlay overlay = new MyDrivingRouteOverlay(mBaiduMap);
                             routeOverlay = overlay;
-//                            mBaiduMap.setOnMarkerClickListener(overlay);
+                            mBaiduMap.setOnMarkerClickListener(overlay);
                             overlay.setData(result.getRouteLines().get(0));
                             overlay.addToMap();
                             overlay.zoomToSpan();
