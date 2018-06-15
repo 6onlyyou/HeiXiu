@@ -105,7 +105,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo>{
         Glide.with(mContext)
                 .load(item.getUserImg())
                 .crossFade()
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.mipmap.defaulthead)
                 .into((ImageView) helper.getView(R.id.Iv_communityHead));
         community_attention = (Button) helper.getView(R.id.community_attention);
         community_attention.setOnClickListener(new View.OnClickListener() {

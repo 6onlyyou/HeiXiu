@@ -40,7 +40,7 @@ public class CommentAdapter extends BaseQuickAdapter<ListCommentInfoBean> {
         Glide.with(mContext)
                 .load(item.getUserImg())
                 .crossFade()
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.mipmap.defaulthead)
                 .into((ImageView) helper.getView(R.id.comment_head));
 
     }

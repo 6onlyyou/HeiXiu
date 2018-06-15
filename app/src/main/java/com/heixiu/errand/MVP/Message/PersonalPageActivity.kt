@@ -57,7 +57,11 @@ class PersonalPageActivity : BaseActivity() {
             page_attention.text = it.userFollowsCount.toString()
             page_orderInfoPublishCount.text = "发单任务数："+it.orderInfoPublishCount.toString()
             page_orderInfoReceiveCount.text = "接单数："+it.orderInfoReceiveCount.toString()
-
+            Glide.with(this)
+                    .load(it.userInfo.userImg)
+                    .crossFade()
+                    .placeholder(R.mipmap.defaulthead)
+                    .into(page_headimg);
             if (it.userInfo.sex.equals("男")){
                 Glide.with(this)
                         .load(R.mipmap.ic_launcher)
@@ -71,6 +75,7 @@ class PersonalPageActivity : BaseActivity() {
                         .placeholder(R.mipmap.ic_launcher)
                         .into(page_sex);
             }
+
 
             if(it.publishInfos.size>0){
 

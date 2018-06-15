@@ -3,7 +3,6 @@ package com.heixiu.errand.MVP.Message
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.heixiu.errand.R
-import com.heixiu.errand.adapter.MyIssuedAdapter
 import com.heixiu.errand.adapter.MyTaskAdapter
 import com.heixiu.errand.base.BaseActivity
 import com.heixiu.errand.net.RetrofitFactory
@@ -13,9 +12,9 @@ import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter
 import kotlinx.android.synthetic.main.activity_my_task.*
 
 /**
- * A simple [Fragment] subclass.
+ * 我的任务
  */
-class MyTaskActicity : BaseActivity()  {
+class MyTaskActicity : BaseActivity() {
     internal var myIssuedAdapter: MyTaskAdapter? = null
     override fun loadViewLayout() {
         setContentView(R.layout.activity_my_task)
@@ -39,7 +38,7 @@ class MyTaskActicity : BaseActivity()  {
             Rv_task.setAdapter(myIssuedAdapter)
             //设置自动加载监听
             myIssuedAdapter = MyTaskAdapter(it)
-        },{
+        }, {
 
         })
     }
@@ -50,11 +49,6 @@ class MyTaskActicity : BaseActivity()  {
 
     override fun processLogic() {
     }
-
-
-
-
-
 
 
 //        mMyDollRv.setLayoutManager(GridLayoutManager(mContext, 2))
@@ -80,7 +74,6 @@ class MyTaskActicity : BaseActivity()  {
 //                }
 //            }
 //        })
-
 
 
 }// Required empty public constructor

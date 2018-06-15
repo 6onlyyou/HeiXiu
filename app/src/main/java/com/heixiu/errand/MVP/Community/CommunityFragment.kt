@@ -129,7 +129,7 @@ class CommunityFragment : BaseFragment(), BaseQuickAdapter.RequestLoadMoreListen
 //                ToastUtils.showLong("文字")
             R.id.Tv_pickup ->
                 //选择照片按钮
-                ToastUtils.showLong("摄像")
+                startActivity(PostVideoActivity::class.java)
             R.id.Tv_pic ->
                 //拍照按钮
                 ToastUtils.showLong("相册")

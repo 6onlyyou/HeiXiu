@@ -9,6 +9,7 @@ import com.heixiu.errand.bean.OrderInfo;
 import com.heixiu.errand.bean.PhoneToken;
 import com.heixiu.errand.bean.PubLishInfo;
 import com.heixiu.errand.bean.PublishInfoDetail;
+import com.heixiu.errand.bean.QueryCertificationStatusBean;
 import com.heixiu.errand.bean.QueryMyIncomeBean;
 import com.heixiu.errand.bean.QueryPersonalBean;
 import com.heixiu.errand.bean.ResponseBean;
@@ -457,6 +458,15 @@ public interface ApiService {
             @Query("userId") String userId,
             @Query("password") String password
     );
+    /**
+     * 账号与安全
+     * phone	手机号码
+     * id	主键id
+     */
 
+    @POST("queryCertificationStatus")
+    Observable<ResponseBean<QueryCertificationStatusBean>> queryCertificationStatus(
+            @Query("userId") String userId
+    );
 }
 

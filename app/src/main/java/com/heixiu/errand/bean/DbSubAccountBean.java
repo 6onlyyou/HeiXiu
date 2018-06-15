@@ -30,8 +30,24 @@ public class DbSubAccountBean implements Serializable {
 
     private String zfbName;
     private String zfbStatus;
-    private Long createTime;
-    private Long updateTime;
+    private String createTime;
+    private String updateTime;
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
 
     public int getId() {
         return id;
@@ -112,21 +128,5 @@ public class DbSubAccountBean implements Serializable {
 
     public void setZfbStatus(String zfbStatus) {
         this.zfbStatus = zfbStatus;
-    }
-
-    public Long getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Long createTime) {
-        this.createTime = createTime;
-    }
-
-    public Long getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Long updateTime) {
-        this.updateTime = updateTime;
     }
 }

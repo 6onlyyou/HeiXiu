@@ -23,6 +23,11 @@
     android:layout_height="48dp"
     android:src="@mipmap/ic_launcher"
     android:layout_marginLeft="24dp"/>
+    <VideoView
+        android:visibility="gone"
+        android:id="@+id/mainIvVido"
+        android:layout_width="200dp"
+        android:layout_height="200dp" />
     <LinearLayout
         android:id="@+id/llContainer"
         android:layout_width="match_parent"

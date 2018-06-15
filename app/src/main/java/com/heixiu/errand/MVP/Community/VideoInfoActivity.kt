@@ -1,11 +1,13 @@
 package com.heixiu.errand.MVP.Community
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.bumptech.glide.Glide
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.MVP.Community.callback.DialogFragmentDataCallback
 import com.heixiu.errand.MVP.Community.fragment.CommentFragment
+import com.heixiu.errand.MVP.Login.LoginActivity
 import com.heixiu.errand.R
 import com.heixiu.errand.adapter.CommentAdapter
 import com.heixiu.errand.adapter.MyGridViewAdapter
@@ -18,12 +20,12 @@ import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter
 import kotlinx.android.synthetic.main.activity_video_info.*
 
 class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
-    var publishId:String = ""
+    var publishId: String = ""
     var publishInfoDetail: PublishInfoDetail? = null
     var commentAdapter: CommentAdapter? = null
     override fun addDanmakuToView(content: String?) {
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit()
-                .createComment(SPUtil.getString("userid"),publishInfoDetail!!.userId, content, publishInfoDetail!!.getId().toString() + ""))
+                .createComment(SPUtil.getString("userid"), publishInfoDetail!!.userId, content, publishInfoDetail!!.getId().toString() + ""))
                 .subscribe { s ->
                     ToastUtils.showLong(s)
                     commentAdapter!!.addData(publishInfoDetail!!.listCommentInfo.size, content)
@@ -36,7 +38,7 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
         initTitle("动态详情", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
         publishId = intent.getStringExtra("publishId").toString()
-        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().showOnePublishInfoDetail(publishId,SPUtil.getString("userid"))).subscribe({
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().showOnePublishInfoDetail(publishId, SPUtil.getString("userid"))).subscribe({
             publishInfoDetail = it
             info_nickname.text = publishInfoDetail!!.nickName.toString()
             info_content.text = publishInfoDetail!!.content
@@ -92,9 +94,9 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
             Glide.with(mContext)
                     .load(publishInfoDetail!!.getUserImg())
                     .crossFade()
-                    .placeholder(R.mipmap.ic_launcher)
+                    .placeholder(R.mipmap.defaulthead)
                     .into(info_headimg)
-        },{
+        }, {
             ToastUtils.showLong(it.message)
         })
 
@@ -110,7 +112,16 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
         Et_comment.setOnClickListener {
             CommentFragment.getInstance().show(fragmentManager, "danmakuFragment")
         }
+        info_praise.setOnClickListener {
+            if (SPUtil.getString("userid") == "" || SPUtil.getString("userid") == "1") {
 
+                val intent = Intent(mContext, LoginActivity::class.java)
+                mContext.startActivity(intent)
+
+            } else {
+                RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().userAdmire(SPUtil.getString("userid"), publishInfoDetail!!.getPublishId() + "")).subscribe({ s -> ToastUtils.showLong(s) }) { throwable -> ToastUtils.showLong(throwable.message) }
+            }
+        }
     }
 
     override fun findViewById() {

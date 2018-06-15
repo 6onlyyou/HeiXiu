@@ -31,6 +31,10 @@ class MainActivity : BaseActivity() {
     private var fragments: ArrayList<android.support.v4.app.Fragment>? = null
     var mLocationClient: LocationClient? = null
     private val myListener = MyLocationListener()
+    override fun onResume() {
+        super.onResume()
+        getUserMessage()
+    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -41,15 +45,29 @@ class MainActivity : BaseActivity() {
 //        SPUtil.saveString("userid","15632617141")
 //        SPUtil.saveString("city","杭州市")
         Rl_homepass.setOnClickListener({
+            Iv_homepass.setImageResource(R.mipmap.homepass)
+            Iv_expressnopass.setImageResource(R.mipmap.expressnopass)
+            Iv_communitynopass.setImageResource(R.mipmap.communitynopass)
+            Iv_messnopass.setImageResource(R.mipmap.messnopass)
             switchFragment(0)
         });
         Rl_expressnopass.setOnClickListener({
+            Iv_homepass.setImageResource(R.mipmap.homenopass)
+            Iv_expressnopass.setImageResource(R.mipmap.expresspass)
+            Iv_communitynopass.setImageResource(R.mipmap.communitynopass)
+            Iv_messnopass.setImageResource(R.mipmap.messnopass)
             switchFragment(1)
         });
         Rl_contentt.setOnClickListener({
+
             switchFragment(2)
         });
         Rl_communitynopass.setOnClickListener({
+            Iv_homepass.setImageResource(R.mipmap.homenopass)
+            Iv_expressnopass.setImageResource(R.mipmap.expressnopass)
+            Iv_communitynopass.setImageResource(R.mipmap.communitypass)
+            Iv_messnopass.setImageResource(R.mipmap.messnopass)
+
             switchFragment(3)
         });
         Rl_messnopass.setOnClickListener({
@@ -58,6 +76,10 @@ class MainActivity : BaseActivity() {
                 startActivity(LoginActivity::class.java)
                 return@setOnClickListener
             }
+            Iv_homepass.setImageResource(R.mipmap.homenopass)
+            Iv_expressnopass.setImageResource(R.mipmap.expressnopass)
+            Iv_communitynopass.setImageResource(R.mipmap.communitynopass)
+            Iv_messnopass.setImageResource(R.mipmap.messagepass)
             switchFragment(4)
         });
     }
@@ -66,6 +88,7 @@ class MainActivity : BaseActivity() {
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().selectDataById(SPUtil.getString("userid"))).subscribe({
             SPUtil.saveString("headurl",it.userInfo.userImg)
             SPUtil.saveString("nickname",it.userInfo.nickName)
+            SPUtil.saveString("bindzfb",it.dbSubAccount.zfbId)
         },{
             ToastUtils.showLong(it.message)
         })
@@ -109,7 +132,6 @@ class MainActivity : BaseActivity() {
 //        可选，设置发起定位请求的间隔，int类型，单位ms
 //        如果设置为0，则代表单次定位，即仅定位一次，默认为0
 //        如果设置非0，需设置1000ms以上才有效
-
         option.isOpenGps = true
 //        可选，设置是否使用gps，默认false
 //        使用高精度和仅用设备两种定位模式的，参数必须设置为true
@@ -181,7 +203,6 @@ class MainActivity : BaseActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun messageEventBus(event: MessageEvent) {
         if(event.city.equals("")){
-            ToastUtils.showLong("" + event.city)
         }else{
             SPUtil.saveString("city", event.city)
             mLocationClient!!.stop()

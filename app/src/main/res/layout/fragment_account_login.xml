@@ -29,6 +29,7 @@
     <EditText
         android:id="@+id/Et_passWord"
         android:hint="请输入密码"
+        android:inputType="textPassword"
         android:layout_height="34dp"
         android:layout_width="match_parent"
         android:background="@drawable/login_bg"

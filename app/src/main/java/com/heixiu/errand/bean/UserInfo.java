@@ -91,21 +91,6 @@ public class UserInfo implements Serializable {
         this.loginType = loginType;
     }
 
-    public Long getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Long createTime) {
-        this.createTime = createTime;
-    }
-
-    public Long getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Long updateTime) {
-        this.updateTime = updateTime;
-    }
 
     public String getCity() {
         return city;
@@ -123,7 +108,24 @@ public class UserInfo implements Serializable {
     private String birthday;
     private String userImg;
     private String loginType;
-    private Long createTime;
-    private Long updateTime;
+    private String createTime;
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    private String updateTime;
     private String city;
 }

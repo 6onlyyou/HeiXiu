@@ -43,8 +43,25 @@ public class QueryMyIncomeBean  implements Serializable{
     }
 
     private int zfbStatus;
-    private Long createTime;
-    private Long updateTime;
+    private String createTime;
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    private String updateTime;
 
     public String getId() {
         return id;
@@ -96,19 +113,4 @@ public class QueryMyIncomeBean  implements Serializable{
     }
 
 
-    public Long getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Long createTime) {
-        this.createTime = createTime;
-    }
-
-    public Long getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Long updateTime) {
-        this.updateTime = updateTime;
-    }
 }

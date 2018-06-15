@@ -83,7 +83,7 @@ class MessageFragment : BaseFragment() {
             Glide.with(this)
                 .load(it.userImg)
                 .crossFade()
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.mipmap.defaulthead)
                 .into(message_hard);
         },{
             ToastUtils.showLong(it.message)

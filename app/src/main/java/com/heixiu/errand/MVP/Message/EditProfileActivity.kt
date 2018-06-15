@@ -46,7 +46,7 @@ class EditProfileActivity : BaseActivity() {
             val d = Date()
             val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
             val timeSelector = TimeSelector(this, TimeSelector.ResultHandler { time ->
-                Toast.makeText(this, time, Toast.LENGTH_SHORT).show()
+                profile_birdday.text=time
             }, "1888-01-01 00:00", sdf.format(d))
             timeSelector.setIsLoop(false);//设置不循环,true循环
             timeSelector.setMode(TimeSelector.MODE.YMD);//只显示 年月日
@@ -92,7 +92,7 @@ class EditProfileActivity : BaseActivity() {
             Glide.with(this)
                     .load(it.userInfo.userImg)
                     .crossFade()
-                    .placeholder(R.mipmap.ic_launcher)
+                    .placeholder(R.mipmap.defaulthead)
                     .into(profile_hard);
 
         },{

@@ -36,13 +36,14 @@ public class FansAdapter extends BaseQuickAdapter<MyFansBean> {
 
     @Override
     protected void convert(BaseViewHolder helper, MyFansBean item) {
-//        helper.setText(R.id.video_list_item_text_context,item.getIntroduction()).setText(R.id.Iv_communityNickName,item.getNickname()).setText(R.id.Tv_communityPraise,item.getPraise());
+
+        helper.setText(R.id.fans_nickname,item.getUserName());
 //        //Glide加载图片  并且支持gif动图
-//        Glide.with(mContext)
-//                .load(item.getHeadurl())
-//                .crossFade()
-//                .placeholder(R.mipmap.ic_launcher)
-//                .into((ImageView) helper.getView(R.id.Iv_communityHead));
+        Glide.with(mContext)
+                .load(item.getUserImg())
+                .crossFade()
+                .placeholder(R.mipmap.defaulthead)
+                .into((ImageView) helper.getView(R.id.fans_img));
 //        //对视频的赋值 添加视频播放地址(使用原地址  .mp4之类的  这个要注意)和标题
 //        if(item.getViodeoUrl().equals("")||item.getViodeoUrl()==null){
 //            helper.getView(R.id.video_list_item_playr).setVisibility(View.GONE);

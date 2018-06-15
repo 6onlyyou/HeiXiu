@@ -52,6 +52,7 @@ class MyFansActivity : BaseActivity() {
                 //设置是否自动加载以及加载个数
                 //将适配器添加到RecyclerView
                 fans_list.setAdapter(fansAdapter)
+                fansAdapter = FansAdapter(it)
                 //设置自动加载监听
             }
         },{
