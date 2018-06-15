@@ -4,8 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
+import com.fushuaige.common.utils.ToastUtils
+import com.heixiu.errand.MVP.Login.LoginActivity
 import com.heixiu.errand.R
 import com.heixiu.errand.bean.OrderInfo
+import com.heixiu.errand.net.RetrofitFactory
+import com.heixiu.errand.net.RxUtils
+import com.heixiu.errand.utils.SPUtil
+import kotlinx.android.synthetic.main.activity_confirm_order.*
+import kotlinx.android.synthetic.main.activity_detail.*
 
 class OrderDetailActivity : AppCompatActivity() {
 
@@ -23,5 +31,42 @@ class OrderDetailActivity : AppCompatActivity() {
         supportActionBar?.title = "接单大厅"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        var orderInfo = intent.getSerializableExtra("data") as OrderInfo
+
+        orderNo.text = "订单编号： " + orderInfo.orderNum
+        start.text = orderInfo.sendAddress
+        end.text = orderInfo.receiveAddress
+        time.text = orderInfo.sendTime
+        type.text = orderInfo.name
+        weight.text = orderInfo.weight.toString() + "斤"
+        add_money.text = orderInfo.addPrice.toString() + "元"
+        price.text = "总价" + orderInfo.payment
+        tips.text = orderInfo.description
+        recipientsame.text = orderInfo.receiveName
+        recipientsNum.text = orderInfo.receiveNum
+        courierNum.text = orderInfo.courierNum
+
+        backDetail.setOnClickListener({
+            finish()
+        })
+        confirmOrder.setOnClickListener {
+            if (TextUtils.isEmpty(SPUtil.getString("userid"))) {
+                startActivity(Intent(this@OrderDetailActivity, LoginActivity::class.java))
+            } else {
+                takeOrder(orderInfo)
+            }
+
+        }
+    }
+
+    fun takeOrder(orderInfo: OrderInfo) {
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().changeOrderStatus(orderInfo.orderNum, SPUtil.getString("userid"), "1"))
+                .subscribe({
+                    StartOrderDetailActivity.startSelf(this@OrderDetailActivity, orderInfo)
+                    finish()
+                }, {
+                    ToastUtils.showShort(it.message)
+                })
     }
 }

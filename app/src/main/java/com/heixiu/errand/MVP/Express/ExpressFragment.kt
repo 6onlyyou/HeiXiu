@@ -4,13 +4,19 @@ package com.heixiu.errand.MVP.Express
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Toast
+import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.R
+import com.heixiu.errand.adapter.SpinnerAdapter
 import com.heixiu.errand.base.BaseFragment
+import com.heixiu.errand.net.RetrofitFactory
+import com.heixiu.errand.net.RxUtils
 import com.uuzuche.lib_zxing.activity.CaptureActivity
 import com.uuzuche.lib_zxing.activity.CodeUtils
 import kotlinx.android.synthetic.main.fragment_express.*
@@ -34,6 +40,8 @@ class ExpressFragment : BaseFragment() {
     override fun initData() {
     }
 
+    var choosePosition = -1;
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         zxing.setOnTouchListener(View.OnTouchListener { v, event ->
@@ -46,8 +54,48 @@ class ExpressFragment : BaseFragment() {
                 val intent = Intent(context, CaptureActivity::class.java)
                 startActivityForResult(intent, 111)
             }
-//            https://m.kuaidi100.com/index_all.html?type=quanfengkuaidi&postid=123456#result
             false
+        })
+
+        var spinnerAdapter = SpinnerAdapter(context)
+        spinnerAdapter.setDatas(resources.getStringArray(R.array.package_name).toList())
+        spinner.adapter = spinnerAdapter
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                ToastUtils.showShort("请选择")
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                choosePosition = position
+            }
+        }
+
+        zxing.setText("3364392718983")
+
+        search.setOnClickListener({
+            startSearch()
+        })
+    }
+
+    private fun startSearch() {
+        if (choosePosition == -1) {
+            ToastUtils.showShort("请选择快递公司名称")
+            return
+        }
+        if (TextUtils.isEmpty(zxing.text)) {
+            ToastUtils.showShort("未输入快递单号")
+            return
+        }
+
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryLogisticalInformation(
+                resources.getStringArray(R.array.package_id)[choosePosition],
+                zxing.text.toString()
+        )).subscribe({
+            var intent = Intent(context, ExpressMessageActivity::class.java)
+            intent.putExtra("data", it)
+            startActivity(intent)
+        }, {
+            ToastUtils.showShort(it.message)
         })
     }
 
@@ -67,5 +115,4 @@ class ExpressFragment : BaseFragment() {
             }
         }
     }
-
 }

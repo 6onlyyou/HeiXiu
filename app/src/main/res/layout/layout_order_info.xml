@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical">
 
-
     <TextView
         android:id="@+id/orderNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="13dp"
+        android:textColor="@color/black_no"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="13dp"
         android:textSize="12sp" />
-
 
     <View
         android:layout_width="match_parent"
@@ -24,15 +25,20 @@
         android:id="@+id/start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="13dp"
         android:drawableLeft="@mipmap/ic_start_address"
-        android:textColor="@color/colorPrimary"
+        android:drawablePadding="8dp"
+        android:textColor="@color/black"
         android:textSize="12sp" />
 
     <TextView
         android:id="@+id/end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="13dp"
         android:drawableLeft="@mipmap/ic_end_address"
+        android:drawablePadding="8dp"
+        android:textColor="@color/black"
         android:textSize="12sp" />
 
 
@@ -40,8 +46,10 @@
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="13dp"
         android:drawableLeft="@mipmap/ic_time"
-        android:textColor="@color/colorPrimary"
+        android:drawablePadding="8dp"
+        android:textColor="@color/black"
         android:textSize="12sp" />
 
     <View
@@ -65,8 +73,10 @@
                 android:id="@+id/type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="13dp"
                 android:drawableLeft="@mipmap/ic_package"
-                android:text="电子产品"
+                android:drawablePadding="8dp"
+                android:textColor="@color/gray_text"
                 android:textSize="12sp" />
 
 
@@ -74,18 +84,20 @@
                 android:id="@+id/weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
                 android:drawableLeft="@mipmap/ic_weight"
-                android:text="0.2公斤"
-                android:textColor="@color/colorPrimary"
+                android:drawablePadding="8dp"
+                android:textColor="@color/gray_text"
                 android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/add_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="13dp"
                 android:drawableLeft="@mipmap/ic_money"
-                android:text="加价5元"
-                android:textColor="@color/colorPrimary"
+                android:drawablePadding="8dp"
+                android:textColor="@color/gray_text"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -95,9 +107,11 @@
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_gravity="center"
+            android:layout_marginRight="13dp"
             android:gravity="center"
-            android:text="本单总价25"
-            android:textSize="14sp" />
+            android:text="1111"
+            android:textColor="@color/gray_text"
+            android:textSize="12sp" />
     </LinearLayout>
 
     <View
@@ -106,9 +120,12 @@
         android:background="@color/colorPrimary" />
 
     <TextView
+        android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="13dp"
         android:text="备注信息："
+        android:textColor="@color/black"
         android:textSize="12sp" />
 
 
@@ -116,8 +133,9 @@
         android:id="@+id/tips"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="送达后请发短信，会议中勿打扰"
-        android:textColor="@color/colorPrimary"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="13dp"
+        android:textColor="@color/gray_text"
         android:textSize="12sp" />
 
 
@@ -135,33 +153,37 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="8dp"
             android:text="快递信息"
+            android:textColor="@color/black"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/recipientsame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="收件人姓名"
+            android:layout_marginLeft="13dp"
             android:textSize="12sp" />
-
+        <!--"收件人姓名"-->
 
         <TextView
             android:id="@+id/recipientsNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="收件人电话"
-            android:textColor="@color/colorPrimary"
+            android:layout_marginLeft="13dp"
             android:textSize="12sp" />
-
+        <!--"收件人电话"+-->
         <TextView
             android:id="@+id/courierNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="快递员电话"
-            android:textColor="@color/colorPrimary"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="13dp"
             android:textSize="12sp" />
+        <!--"快递员电话"+-->
     </LinearLayout>
 
 
 </LinearLayout>
+

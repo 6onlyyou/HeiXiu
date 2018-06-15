@@ -18,7 +18,6 @@ class ConfirmOrderActivity : AppCompatActivity() {
         }
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_confirm_order)
@@ -35,10 +34,12 @@ class ConfirmOrderActivity : AppCompatActivity() {
         recipientsame.text = orderInfo.receiveName
         recipientsNum.text = orderInfo.receiveNum
         courierNum.text = orderInfo.courierNum
+        time.text = orderInfo.sendTime
 
         back.setOnClickListener({
             finish()
         })
+
         startOrder.setOnClickListener {
             StartOrderDetailActivity.startSelf(this@ConfirmOrderActivity, orderInfo)
             finish()

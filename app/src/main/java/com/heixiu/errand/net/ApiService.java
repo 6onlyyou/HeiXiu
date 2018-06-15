@@ -6,6 +6,7 @@ import com.heixiu.errand.bean.MyAddressInfo;
 import com.heixiu.errand.bean.MyFansBean;
 import com.heixiu.errand.bean.MyPublishOrderBean;
 import com.heixiu.errand.bean.OrderInfo;
+import com.heixiu.errand.bean.PackageInformationBean;
 import com.heixiu.errand.bean.PhoneToken;
 import com.heixiu.errand.bean.PubLishInfo;
 import com.heixiu.errand.bean.PublishInfoDetail;
@@ -168,8 +169,8 @@ public interface ApiService {
      * @return
      */
     @POST("changeOrderStatus")
-    Observable<ResponseBean<List<OrderInfo>>> changeOrderStatus(@Query("orderNum") String orderNum
-            , @Query("orderStatus") String orderStatus);
+    Observable<ResponseBean<String>> changeOrderStatus(@Query("orderNum") String orderNum
+            , @Query("receiveId") String receiveId, @Query("orderStatus") String orderStatus);
 
     /**
      * 获取优惠券列表
@@ -468,5 +469,12 @@ public interface ApiService {
     Observable<ResponseBean<QueryCertificationStatusBean>> queryCertificationStatus(
             @Query("userId") String userId
     );
+    @POST("queryLogisticalInformation")
+    Observable<ResponseBean<PackageInformationBean>> queryLogisticalInformation(
+            @Query("expCode") String expCode,
+            @Query("expNo") String expNo
+    );
+
+
 }
 

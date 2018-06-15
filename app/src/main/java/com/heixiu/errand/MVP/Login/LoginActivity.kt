@@ -36,7 +36,7 @@ class LoginActivity : BaseActivity() {
 
     private var lm: LocationManager? = null//【位置管理】
     var mLocationClient: LocationClient? = null
-    var myListener: BDLocationListener = MyLocationListener()
+    var myListener = MyLocationListener()
     var adapter: LoginFragmentAdapter? = null;
     var fragments: ArrayList<android.support.v4.app.Fragment>? = ArrayList();
     override fun loadViewLayout() {
