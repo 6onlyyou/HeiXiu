@@ -8,10 +8,11 @@ import android.support.v7.widget.LinearLayoutManager
 import com.heixiu.errand.R
 import com.heixiu.errand.adapter.TicketAdapter
 import com.heixiu.errand.bean.CouponTicketBean
+import com.heixiu.errand.net.RetrofitFactory
+import com.heixiu.errand.net.RxUtils
 import kotlinx.android.synthetic.main.activity_ticket.*
 
 class TicketActivity : AppCompatActivity() {
-
 
     companion object {
         fun startSelf(context: Context) {
@@ -31,10 +32,19 @@ class TicketActivity : AppCompatActivity() {
 
         var arrayList = ArrayList<CouponTicketBean>()
 
-        arrayList.add(CouponTicketBean())
+//        arrayList.add(CouponTicketBean())
 
         adapter = TicketAdapter(arrayList)
         ticketRv.adapter = adapter
 
+        requestTicket()
+    }
+
+    fun requestTicket() {
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().couponList()).subscribe({
+            adapter.setNewData(it)
+        }, {
+
+        })
     }
 }

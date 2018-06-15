@@ -24,6 +24,10 @@ public class TicketAdapter extends BaseQuickAdapter<CouponTicketBean> {
 
     @Override
     protected void convert(BaseViewHolder helper, final CouponTicketBean item) {
+
+        helper.setText(R.id.price, item.getCouponPrice() + "")
+                .setText(R.id.description, item.getDescription());
+
         helper.setOnClickListener(R.id.use_ticket, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
