@@ -21,6 +21,11 @@ android {
         flavorDimensions "default"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
     }
     dataBinding {
         enabled = true
@@ -45,9 +50,14 @@ android {
     }
 
 }
-
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+//    implementation fileTree(includes: ['*.jar'], dir: 'src/main/jniLibs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
@@ -71,6 +81,5 @@ dependencies {
     implementation 'top.zibin:Luban:1.1.5'
 
     compile 'liji.library.dev:citypickerview:3.1.8'
-
     //    implementation files('libs/core-3.3.2.jar')
 }

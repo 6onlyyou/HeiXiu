@@ -2,6 +2,7 @@ package com.heixiu.errand.listener;
 
 import android.util.Log;
 
+import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.Poi;
@@ -19,7 +20,7 @@ import java.util.List;
  * Data：2018/5/7-17:08
  * Author: fushuaige
  */
-public class MyLocationListener implements BDLocationListener {
+public class MyLocationListener extends BDAbstractLocationListener {
 
     @Override
     public void onReceiveLocation(BDLocation location) {
@@ -91,6 +92,6 @@ public class MyLocationListener implements BDLocationListener {
         MyApplication.getInstance().localLong = location.getLongitude();
 
         RxBus.getDefault().post(new MyLocationEvent());
-        Log.e("描述：", sb.toString());
+//        Log.e("描述：", sb.toString());
     }
 }

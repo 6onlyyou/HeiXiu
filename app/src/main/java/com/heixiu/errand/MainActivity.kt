@@ -2,10 +2,11 @@ package com.heixiu.errand
 
 import android.Manifest
 import android.app.AlertDialog
-import android.content.Intent
-import com.fushuaige.common.utils.ToastUtils
+import android.content.pm.PackageManager
+import android.os.Build
 import com.baidu.location.LocationClient
 import com.baidu.location.LocationClientOption
+import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.MVP.Community.CommunityFragment
 import com.heixiu.errand.MVP.Contentt.ContentFragment
 import com.heixiu.errand.MVP.Express.ExpressFragment
@@ -36,6 +37,7 @@ class MainActivity : BaseActivity() {
         super.onDestroy()
         EventBus.getDefault().unregister(this);
     }
+
     override fun findViewById() {
         EventBus.getDefault().register(this);
 //        SPUtil.saveString("userid","15632617141")
@@ -53,7 +55,7 @@ class MainActivity : BaseActivity() {
             switchFragment(3)
         });
         Rl_messnopass.setOnClickListener({
-            if(SPUtil.getString("userid").equals("")||SPUtil.getString("userid").equals("1")){
+            if (SPUtil.getString("userid").equals("") || SPUtil.getString("userid").equals("1")) {
 
                 startActivity(LoginActivity::class.java)
                 return@setOnClickListener
@@ -62,21 +64,22 @@ class MainActivity : BaseActivity() {
         });
     }
 
-    fun getUserMessage(){
+    fun getUserMessage() {
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().selectDataById(SPUtil.getString("userid"))).subscribe({
-            SPUtil.saveString("headurl",it.userInfo.userImg)
-            SPUtil.saveString("nickname",it.userInfo.nickName)
-        },{
+            SPUtil.saveString("headurl", it.userInfo.userImg)
+            SPUtil.saveString("nickname", it.userInfo.nickName)
+        }, {
             ToastUtils.showLong(it.message)
         })
 
     }
+
     override fun loadViewLayout() {
         setContentView(R.layout.activity_main)
 
         mLocationClient = LocationClient(applicationContext)
         //声明LocationClient类
-        mLocationClient?.registerNotifyLocationListener(myListener)
+        mLocationClient?.registerLocationListener(myListener)
         //注册监听函数
         initLocationConfig()
         mLocationClient?.start()
@@ -154,6 +157,43 @@ class MainActivity : BaseActivity() {
         fragments!!.add(MessageFragment())
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val permissions = java.util.ArrayList<String>()
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.ACCESS_FINE_LOCATION)
+            }
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+            }
+            if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.RECORD_AUDIO)
+            }
+
+            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.CAMERA)
+            }
+
+            if (permissions.size != 0) {
+                requestPermissionsForM(permissions)
+            }
+        }
+    }
+
+    private fun requestPermissionsForM(per: java.util.ArrayList<String>) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(per.toTypedArray(), 1)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
+                                            grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
     /**
      * 点击切换fragment
      *
@@ -178,18 +218,17 @@ class MainActivity : BaseActivity() {
         //提交事务
         fragmentTransaction.commit()
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun messageEventBus(event: MessageEvent) {
-        if(event.city.equals("")){
-            ToastUtils.showLong("" + event.city)
-        }else{
+        if (event.city.equals("")) {
+//            ToastUtils.showLong("" + event.city)
+        } else {
             SPUtil.saveString("city", event.city)
             mLocationClient!!.stop()
         }
-
-
-
     }
+
     /**
      * 定位
      */
@@ -212,6 +251,7 @@ class MainActivity : BaseActivity() {
         //开启定位
         mLocationClient!!.start()
     }
+
     fun getPermissions() {
         var falg = 0
         val rxPermissions = RxPermissions(this)
