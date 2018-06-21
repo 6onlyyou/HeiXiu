@@ -459,6 +459,7 @@ public interface ApiService {
             @Query("userId") String userId,
             @Query("password") String password
     );
+
     /**
      * 账号与安全
      * phone	手机号码
@@ -469,8 +470,9 @@ public interface ApiService {
     Observable<ResponseBean<QueryCertificationStatusBean>> queryCertificationStatus(
             @Query("userId") String userId
     );
-    @POST("queryLogisticalInformation")
-    Observable<ResponseBean<PackageInformationBean>> queryLogisticalInformation(
+
+    @POST("queryLogisticalInfomation")
+    Observable<PackageInformationBean> queryLogisticalInformation(
             @Query("expCode") String expCode,
             @Query("expNo") String expNo
     );

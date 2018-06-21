@@ -27,7 +27,6 @@ import com.heixiu.errand.bean.OrderInfo
 import com.heixiu.errand.dialog.AddPriceDialog
 import com.heixiu.errand.dialog.ChooseWeightDialog
 import com.heixiu.errand.dialog.InputAddressDialog
-import com.heixiu.errand.dialog.KeepPriceDialog
 import kotlinx.android.synthetic.main.fragment_content.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -61,7 +60,6 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
         var ticketId: String = "1"
         var discountCoupon: String = "5"
         var addPrice: String = ""
-        var keepPrice: String = ""
         var receiverName = ""
         var receiverNum = ""
         var descriptions = ""
@@ -98,6 +96,8 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
     var addressType = -1
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        city
 
         inputAddressEt.threshold = 1
         inputAddressEt.addTextChangedListener(object : TextWatcher {
@@ -165,10 +165,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
         add_price_tv.setOnClickListener({
             AddPriceDialog(context!!).show()
         })
-        //保价
-        keep_price_tv.setOnClickListener({
-            KeepPriceDialog(context!!).show()
-        })
+
 
         submit.setOnClickListener({
             if (TextUtils.isEmpty(ContentFragment.receiveAddress) ||
@@ -179,7 +176,6 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
                     TextUtils.isEmpty(ContentFragment.ticketId)
                     || TextUtils.isEmpty(ContentFragment.discountCoupon)
                     || TextUtils.isEmpty(ContentFragment.addPrice)
-                    || TextUtils.isEmpty(ContentFragment.keepPrice)
                     || TextUtils.isEmpty(ContentFragment.receiverName)
                     || TextUtils.isEmpty(ContentFragment.receiverNum)
                     || TextUtils.isEmpty(ContentFragment.descriptions)) {
@@ -192,7 +188,6 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
                     orderInfo.sendTime = ContentFragment.receiveTime
                     orderInfo.name = ContentFragment.packageType
                     orderInfo.addPrice = ContentFragment.addPrice.toInt()
-                    orderInfo.supportPrice = ContentFragment.keepPrice.toInt()
                     orderInfo.receiveName = ContentFragment.receiverName
                     orderInfo.receiveNum = ContentFragment.receiverNum
                     orderInfo.weight = ContentFragment.packageWeight.toInt()

@@ -32,8 +32,6 @@ class TicketActivity : AppCompatActivity() {
 
         var arrayList = ArrayList<CouponTicketBean>()
 
-//        arrayList.add(CouponTicketBean())
-
         adapter = TicketAdapter(arrayList)
         ticketRv.adapter = adapter
 
