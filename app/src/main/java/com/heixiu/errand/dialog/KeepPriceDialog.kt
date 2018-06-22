@@ -30,7 +30,6 @@ class KeepPriceDialog(context: Context) : BottomDialog(context) {
         })
 
         binding.confirm.setOnClickListener({
-            ContentFragment.keepPrice = binding.needPrice.text.toString()
             dismiss()
         })
     }

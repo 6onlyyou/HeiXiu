@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.baidu.mapapi.search.geocode.*
 import com.baidu.mapapi.search.sug.SuggestionResult
@@ -21,6 +22,7 @@ import com.bigkoo.pickerview.view.OptionsPickerView
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.MVP.common.TicketActivity
 import com.heixiu.errand.R
+import com.heixiu.errand.adapter.SpinnerAdapter
 import com.heixiu.errand.base.BaseFragment
 import com.heixiu.errand.base.Contants
 import com.heixiu.errand.bean.OrderInfo
@@ -69,7 +71,6 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
         var receiveLon = 0.00
     }
 
-
     private val days = ArrayList<String>()
     private val hour = ArrayList<Int>()
     private val mintnues = ArrayList<Int>()
@@ -87,6 +88,8 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
         (0..24 step 1).mapTo(hour) { it }
         (1..60 step 1).mapTo(mintnues) { it }
 
+        addressData.add("杭州市")
+
         return inflater!!.inflate(R.layout.fragment_content, container, false)
     }
 
@@ -94,10 +97,11 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
     var sendAddressType: Int = 0
     var receiveAddressType: Int = 1
     var addressType = -1
+    var choosePosition = -1
+    private var addressData: MutableList<String> = ArrayList()
+    var spinnerAdapter: SpinnerAdapter? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        city
 
         inputAddressEt.threshold = 1
         inputAddressEt.addTextChangedListener(object : TextWatcher {
@@ -119,10 +123,20 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
         inputAddressEt.setAdapter(sugAdapter)
         inputAddressEt.setOnItemClickListener { parent, view, position, id ->
             ToastUtils.showShort(suggest?.get(position))
-            sugAdapter.clear()
-            sugAdapter.notifyDataSetInvalidated()
-            addressLayout.visibility = View.GONE
             getLocationPosition(suggest?.get(position)!!)
+        }
+
+        spinnerAdapter = SpinnerAdapter(context)
+        spinnerAdapter?.setDatas(addressData)
+        city.adapter = spinnerAdapter
+        city.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                ToastUtils.showShort("请选择")
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                choosePosition = position
+            }
         }
 
         //取货地址
@@ -238,26 +252,27 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
             } else {
                 //获取在线建议检索结果
                 var resl: List<SuggestionResult.SuggestionInfo> = it.allSuggestions
+                suggest?.clear()
                 for (suggestionInfo in resl) {
-                    suggest?.clear()
                     Log.i("result: ", "city" + suggestionInfo.city + " dis " + suggestionInfo.district + "key " + suggestionInfo.key)
                     if (suggestionInfo.key != null) {
                         suggest?.add(suggestionInfo.key)
                     }
                 }
-                sugAdapter.clear()
-                sugAdapter.addAll(suggest)
+                sugAdapter = ArrayAdapter(context, R.layout.item_auto_text, R.id.address_name, suggest)
+                inputAddressEt.setAdapter(sugAdapter)
                 sugAdapter.notifyDataSetChanged()
             }
         }
     }
 
     fun searchAddress() {
-        if (TextUtils.isEmpty(city.text.toString())) {
-            ToastUtils.showShort("请输入城市")
+        if (choosePosition == -1) {
+            ToastUtils.showShort("请选择城市")
             return
         }
-        mSuggestionSearch?.requestSuggestion(SuggestionSearchOption().keyword(inputAddressEt.text.toString()).city(city.text.toString()))
+
+        mSuggestionSearch?.requestSuggestion(SuggestionSearchOption().keyword(inputAddressEt.text.toString()).city(addressData[choosePosition]))
     }
 
     private fun getLocationPosition(address: String) {
@@ -270,8 +285,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
                             ContentFragment.sendAddress = address
                             ContentFragment.sendLon = result.location.longitude
                             ContentFragment.sendLat = result.location.latitude
-                            receiveAddress.text = address
-
+                            sendAddress.text = address
                         }
                         receiveAddressType -> {
                             ContentFragment.receiveAddress = address
@@ -281,6 +295,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
                         }
                     }
                     inputAddressEt.setText("")
+                    addressLayout.visibility = View.GONE
                 }
             }
 
@@ -289,7 +304,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
             }
         })
         mSearch?.geocode(GeoCodeOption().city(
-                city.getText().toString()).address(address))
+                addressData[choosePosition]).address(address))
     }
 
     internal var mSearch: GeoCoder? = null

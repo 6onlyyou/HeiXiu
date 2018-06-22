@@ -96,7 +96,6 @@ class InputAddressDialog(context: Context, contentFragment: OnAddressConfirm, ty
     }
 
     fun searchAddress() {
-        mSuggestionSearch?.requestSuggestion(SuggestionSearchOption().keyword(binding.inputAddressEt.text.toString()).city(city.text.toString()))
     }
 
     interface OnAddressConfirm {

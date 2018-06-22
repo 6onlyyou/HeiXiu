@@ -27,7 +27,7 @@
         android:layout_marginTop="40dp"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <Spinner
             android:id="@+id/city"
@@ -50,7 +50,6 @@
             android:background="@drawable/bg_package_type_unchecked"
             android:hint="输入地址"
             android:paddingLeft="6dp"
-            android:singleLine="true"
             android:textSize="12sp" />
 
         <TextView
@@ -91,9 +90,10 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@mipmap/ic_start_address"
                 android:drawablePadding="6dp"
-                android:hint="取 件 地 址"
+                android:hint="取件地址"
+                android:textColor="@color/black"
                 android:textColorHint="@color/hint_text"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -109,9 +109,10 @@
                 android:layout_marginTop="15dp"
                 android:drawableLeft="@mipmap/ic_end_address"
                 android:drawablePadding="6dp"
-                android:hint="送 达 地 址"
+                android:hint="送达地址"
+                android:textColor="@color/black"
                 android:textColorHint="@color/hint_text"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -127,9 +128,11 @@
                 android:layout_marginTop="15dp"
                 android:drawableLeft="@mipmap/ic_time"
                 android:drawablePadding="6dp"
-                android:hint="送 达 时 间"
+                android:hint="送达时间"
+                android:lineSpacingExtra="2dp"
+                android:textColor="@color/black"
                 android:textColorHint="@color/hint_text"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <View
                 android:layout_width="match_parent"

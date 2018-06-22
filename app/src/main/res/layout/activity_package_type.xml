@@ -18,11 +18,11 @@
             android:background="@color/colorPrimary">
 
             <ImageView
-                android:layout_marginLeft="8dp"
                 android:id="@+id/back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
                 android:padding="8dp"
                 android:src="@mipmap/ic_back" />
 
@@ -46,26 +46,28 @@
             android:textSize="12sp" />
 
         <android.support.v7.widget.RecyclerView
-            android:layout_marginTop="12dp"
             android:id="@+id/package_type_Rv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp" />
 
         <EditText
             android:id="@+id/other"
-            android:textColorHint="@color/gray_text"
-            android:paddingRight="4dp"
-            android:paddingLeft="4dp"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:textSize="14sp"
-            android:visibility="gone"
-            android:hint="请填写物品信息"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
-            android:background="@drawable/bg_package_type_unchecked"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/bg_package_type_unchecked"
+            android:hint="请填写物品信息"
+            android:paddingBottom="8dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingTop="8dp"
+            android:textColorHint="@color/gray_text"
+            android:textSize="14sp"
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -81,28 +83,61 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
+            android:layout_marginRight="@dimen/layout_verticaldistance12_worlduc_dp"
+            android:layout_marginTop="14dp"
+            android:background="@null"
             android:hint="收件人姓名"
             android:singleLine="true"
-            android:textSize="14sp" />
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="7dp"
+            android:background="@color/line" />
 
         <EditText
             android:id="@+id/receiveNum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="14dp"
+            android:background="@null"
             android:hint="收件人电话"
             android:inputType="number"
             android:singleLine="true"
-            android:textSize="14sp" />
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="6dp"
+            android:background="@color/line" />
 
         <EditText
             android:id="@+id/deliverNum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="14dp"
+            android:background="@null"
             android:hint="快递员电话"
             android:singleLine="true"
-            android:textSize="14sp" />
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="6dp"
+            android:background="@color/line" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -117,6 +152,7 @@
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="108dp"
+            android:background="@drawable/bg_edittext_normal"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
@@ -126,8 +162,7 @@
             android:id="@+id/confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_confirm_unclick"
             android:layout_gravity="center_horizontal"
-            />
+            android:src="@mipmap/ic_confirm_unclick" />
     </LinearLayout>
 </ScrollView>
