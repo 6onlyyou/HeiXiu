@@ -108,7 +108,7 @@ class PackageTypeActivity : AppCompatActivity() {
     }
 
     private fun checkHasNullMessage(): Boolean {
-        if (TextUtils.isEmpty(receiverName) || TextUtils.isEmpty(receiverNum) || TextUtils.isEmpty(descriptions)) {
+        if (TextUtils.isEmpty(receiverName) || TextUtils.isEmpty(receiverNum)) {
             return true
         }
         return false

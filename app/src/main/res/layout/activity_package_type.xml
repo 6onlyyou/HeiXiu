@@ -152,17 +152,22 @@
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="108dp"
-            android:background="@drawable/bg_edittext_normal"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginTop="12dp" />
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_edittext_normal"
+            android:gravity="top|left"
+            android:hint="如有特殊需求请输入备注信息"
+            android:padding="12dp"
+            android:textSize="12sp" />
 
         <ImageView
             android:id="@+id/confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:src="@mipmap/ic_confirm_unclick" />
+            android:layout_marginTop="16dp"
+            android:src="@mipmap/btn_submit_order" />
     </LinearLayout>
 </ScrollView>

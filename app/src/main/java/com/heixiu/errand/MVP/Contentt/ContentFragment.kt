@@ -55,7 +55,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
     companion object {
         var receiveAddress: String = ""
         var sendAddress: String = ""
-        var receiveTime: String = ""
+        var sendTime: String = ""
         var packageType: String = ""
         var packageWeight: String = ""
         var courierNum: String = ""
@@ -184,7 +184,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
         submit.setOnClickListener({
             if (TextUtils.isEmpty(ContentFragment.receiveAddress) ||
                     TextUtils.isEmpty(ContentFragment.sendAddress) ||
-                    TextUtils.isEmpty(ContentFragment.receiveTime) ||
+                    TextUtils.isEmpty(ContentFragment.sendTime) ||
                     TextUtils.isEmpty(ContentFragment.packageType) ||
                     TextUtils.isEmpty(ContentFragment.packageWeight) ||
                     TextUtils.isEmpty(ContentFragment.ticketId)
@@ -199,7 +199,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
                     var orderInfo = OrderInfo()
                     orderInfo.receiveAddress = ContentFragment.receiveAddress
                     orderInfo.sendAddress = ContentFragment.sendAddress
-                    orderInfo.sendTime = ContentFragment.receiveTime
+                    orderInfo.sendTime = ContentFragment.sendTime
                     orderInfo.name = ContentFragment.packageType
                     orderInfo.addPrice = ContentFragment.addPrice.toInt()
                     orderInfo.receiveName = ContentFragment.receiverName
@@ -234,8 +234,8 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
             c.add(Calendar.DAY_OF_YEAR, 1)
             c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH), hour[options2], mintnues[options3])
         }
-        ContentFragment.receiveTime = c.timeInMillis.toString()
         sendTime.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(c.timeInMillis)
+        ContentFragment.sendTime = sendTime.text.toString()
     }
 
     override fun initListener() {
