@@ -16,9 +16,10 @@ import com.heixiu.errand.R
 import com.heixiu.errand.adapter.SpinnerAdapter
 import com.heixiu.errand.base.BaseFragment
 import com.heixiu.errand.net.RetrofitFactory
-import com.heixiu.errand.net.RxUtils
 import com.uuzuche.lib_zxing.activity.CaptureActivity
 import com.uuzuche.lib_zxing.activity.CodeUtils
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_express.*
 
 
@@ -70,7 +71,7 @@ class ExpressFragment : BaseFragment() {
             }
         }
 
-        zxing.setText("3364392718983")
+        zxing.setText("70227030686938")
 
         search.setOnClickListener({
             startSearch()
@@ -87,16 +88,23 @@ class ExpressFragment : BaseFragment() {
             return
         }
 
-        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryLogisticalInformation(
+        RetrofitFactory.getRetrofit().queryLogisticalInformation(
                 resources.getStringArray(R.array.package_id)[choosePosition],
-                zxing.text.toString()
-        )).subscribe({
-            var intent = Intent(context, ExpressMessageActivity::class.java)
-            intent.putExtra("data", it)
-            startActivity(intent)
-        }, {
-            ToastUtils.showShort(it.message)
-        })
+                zxing.text.toString())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    if (it.isSuccess) {
+                        var intent = Intent(context, ExpressMessageActivity::class.java)
+                        intent.putExtra("data", it)
+                        intent.putExtra("name", resources.getStringArray(R.array.package_name)[choosePosition])
+                        startActivity(intent)
+                    } else {
+                        ToastUtils.showShort("暂无信息")
+                    }
+                }, {
+                    ToastUtils.showShort(it.message)
+                })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/activity_bg"
     android:orientation="vertical"
     tools:context="com.heixiu.errand.MVP.Express.ExpressMessageActivity">
 
@@ -31,36 +31,63 @@
 
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/package_code"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="21dp"
-        android:text="快递单号：111111"
-        android:textColor="@color/black" />
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="16dp">
 
-    <TextView
-        android:id="@+id/package_company"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="12dp"
-        android:text="配送公司：111111"
-        android:textColor="@color/black" />
+        <TextView
+            android:id="@+id/package_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="21dp"
+            android:text="快递单号：111111"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/package_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="12dp"
+            android:text="配送公司：111111"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2px"
-        android:layout_marginTop="18dp"
         android:background="@color/grayLine" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/package_message"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="14dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp" />
+        android:paddingRight="20dp"
+        android:paddingTop="16dp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/grayLine" />
+
+    <TextView
+        android:id="@+id/package_state"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="40dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:text="订单状态："
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp" />
 </LinearLayout>

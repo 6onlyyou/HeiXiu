@@ -38,7 +38,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
         type.text = orderInfo.name
         weight.text = orderInfo.weight.toString() + "斤"
         add_money.text = orderInfo.addPrice.toString() + "元"
-        price.text = "总价" + orderInfo.payment
+        all_order_price.text = "总价" + orderInfo.payment
         tips.text = orderInfo.description
         recipientsame.text = orderInfo.receiveName
         recipientsNum.text = orderInfo.receiveNum

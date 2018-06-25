@@ -24,12 +24,12 @@
         android:id="@+id/addressLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:visibility="gone"
         android:layout_marginTop="40dp"
         android:background="@color/white"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
-        <EditText
+        <Spinner
             android:id="@+id/city"
             android:layout_width="70dp"
             android:layout_height="36dp"
@@ -50,7 +50,6 @@
             android:background="@drawable/bg_package_type_unchecked"
             android:hint="输入地址"
             android:paddingLeft="6dp"
-            android:singleLine="true"
             android:textSize="12sp" />
 
         <TextView
@@ -91,9 +90,10 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@mipmap/ic_start_address"
                 android:drawablePadding="6dp"
-                android:hint="取 件 地 址"
+                android:hint="取件地址"
+                android:textColor="@color/black"
                 android:textColorHint="@color/hint_text"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -109,9 +109,10 @@
                 android:layout_marginTop="15dp"
                 android:drawableLeft="@mipmap/ic_end_address"
                 android:drawablePadding="6dp"
-                android:hint="送 达 地 址"
+                android:hint="送达地址"
+                android:textColor="@color/black"
                 android:textColorHint="@color/hint_text"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -127,9 +128,11 @@
                 android:layout_marginTop="15dp"
                 android:drawableLeft="@mipmap/ic_time"
                 android:drawablePadding="6dp"
-                android:hint="送 达 时 间"
+                android:hint="送达时间"
+                android:lineSpacingExtra="2dp"
+                android:textColor="@color/black"
                 android:textColorHint="@color/hint_text"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -188,16 +191,6 @@
                     android:text="我要加价"
                     android:textSize="10sp" />
 
-                <TextView
-                    android:id="@+id/keep_price_tv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawablePadding="4dp"
-                    android:drawableTop="@mipmap/ic_keep_price"
-                    android:gravity="center"
-                    android:text="我要保价"
-                    android:textSize="10sp" />
             </LinearLayout>
 
             <ImageView
