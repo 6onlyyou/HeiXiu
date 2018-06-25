@@ -22,6 +22,9 @@ class WithdrawalRecordActivity : BaseActivity() {
         setContentView(R.layout.activity_withdrawal_record)
         initTitle("交易记录", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
+        my_doll_rv.setLayoutManager(LinearLayoutManager(mContext))
+        val list = ArrayList<MyReciecedOrderBean>()
+        withdrawalRecordAdapter = WithdrawalRecordAdapter(list)
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryMyTransactionRecords(SPUtil.getString("userid"))).subscribe({
             myReciecedOrderBean=it.myReciecedOrderInfos
             myReciecedOrderBean2 = it.myPublishOrderInfos

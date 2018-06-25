@@ -21,27 +21,45 @@ class WithdrawActivity : BaseActivity() {
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
         queryMyIncomeBean = intent.getSerializableExtra("data") as QueryMyIncomeBean
         withdraw_tailnumber.text = queryMyIncomeBean!!.zfbId
-        withdraw_allmoney.text = queryMyIncomeBean!!.amountAll.toString()
-        withdraw_allget.setOnClickListener {
-            withdrwa_intomoeny.setText(queryMyIncomeBean!!.amountAll.toString())
+        if(queryMyIncomeBean!!.amountAll==null){
+            withdraw_allmoney.text = "0"
+        }else{
+            withdraw_allmoney.text = queryMyIncomeBean!!.amountAll.toString()
         }
 
+        withdraw_allget.setOnClickListener {
+            if(queryMyIncomeBean!!.amountAll==null){
+                withdrwa_intomoeny.setText("0")
+            }else{
+                withdrwa_intomoeny.setText(queryMyIncomeBean!!.amountAll.toString())
+            }
+        }
     }
 
     override fun findViewById() {
+
+
         withdraw_doit.setOnClickListener {
-            if((withdrwa_intomoeny.text) as Long>queryMyIncomeBean!!.amountAll){
+            if(withdrwa_intomoeny.text.toString().equals("")){
+                ToastUtils.showLong("请输入提现金额！")
+                return@setOnClickListener
+            }
+            var pieceall:Double = withdrwa_intomoeny.text.toString().toDouble()
+            if(pieceall >queryMyIncomeBean!!.amountAll){
                 ToastUtils.showLong("提取金额大于拥有金额！")
+                return@setOnClickListener
             }else {
-                RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().withdrawCash(SPUtil.getString("userid"),withdrwa_intomoeny.text as BigDecimal)).subscribe({
+                withdraw_doit.isEnabled = false
+                RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().withdrawCash(SPUtil.getString("userid"),pieceall)).subscribe({
                     ToastUtils.showLong(it)
+
                     startActivity(WithdrawalSuccessActivity::class.java)
                     finishWithAlpha()
+                    withdraw_doit.isEnabled = true
                 },{
+                    withdraw_doit.isEnabled = true
                     ToastUtils.showLong(it.message)
                 })
-
-
             }
         }
     }

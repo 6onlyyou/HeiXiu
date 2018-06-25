@@ -42,6 +42,7 @@ class MyFansActivity : BaseActivity() {
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().fansList(SPUtil.getString("userid"))).subscribe({
             if(it.size>0){
                 fans_no.visibility=View.GONE
+                fans_list.visibility=View.VISIBLE
                 fans_list.setLayoutManager(LinearLayoutManager(this))
 //        如果Item高度固定  增加该属性能够提高效率
                 fans_list.setHasFixedSize(true)
@@ -52,7 +53,7 @@ class MyFansActivity : BaseActivity() {
                 //设置是否自动加载以及加载个数
                 //将适配器添加到RecyclerView
                 fans_list.setAdapter(fansAdapter)
-                fansAdapter = FansAdapter(it)
+                fansAdapter!!.setNewData(it)
                 //设置自动加载监听
             }
         },{

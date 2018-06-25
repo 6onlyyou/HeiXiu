@@ -44,14 +44,14 @@ class MyIssuedFragment : BaseActivity()  {
 //        如果Item高度固定  增加该属性能够提高效率
             Rv_issue.setHasFixedSize(true)
 //        设置适配器
-            myIssuedAdapter = MyIssuedAdapter(R.layout.item_issued, null)
+            myIssuedAdapter = MyIssuedAdapter(it)
             //设置加载动画
             myIssuedAdapter!!.openLoadAnimation(BaseQuickAdapter.SCALEIN)
             //设置是否自动加载以及加载个数
             //将适配器添加到RecyclerView
             Rv_issue.setAdapter(myIssuedAdapter)
             //设置自动加载监听
-            myIssuedAdapter = MyIssuedAdapter(it)
+            myIssuedAdapter!!.setNewData(it)
         },{
 
         })

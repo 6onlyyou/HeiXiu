@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.fushuaige.common.utils.ToastUtils
+import com.heixiu.errand.MVP.Message.AliBindActivity
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseActivity
 import com.heixiu.errand.bean.QueryMyIncomeBean
@@ -26,7 +27,14 @@ class EarningsActivity : BaseActivity() {
     override fun findViewById() {
         earn_goearn.setOnClickListener {
             if(bindStute==1) {
-                startActivity(WithdrawActivity::class.java,queryMyIncomeBean)
+                if(queryMyIncomeBean!!.amountAll==null){
+                    ToastUtils.showLong("还没有可以提现的金额")
+                }else {
+                    startActivity(WithdrawActivity::class.java, queryMyIncomeBean)
+                }
+            }else{
+                startActivity(AliBindActivity::class.java)
+
             }
         }
     }
@@ -40,8 +48,13 @@ class EarningsActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryMyIncome(SPUtil.getString("userid"))).subscribe({
+           if(it.amountAll==null){
+               earn_menoy.text = "￥0"
+           }else{
+               earn_menoy.text = "￥"+it.amountAll.toString()
+           }
             queryMyIncomeBean = it
-            earn_menoy.text = it.amountAll.toString()
+
             if(it.zfbStatus==1){
                 bindStute = 1
             }

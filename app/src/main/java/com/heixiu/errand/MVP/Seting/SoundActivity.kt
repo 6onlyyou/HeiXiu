@@ -24,11 +24,11 @@ class SoundActivity : BaseActivity() {
                 SPUtil.saveboolean("soundInform", b)
             }
         })
-        val shakeState  = SPUtil.getBoolean("soundInform")
+        val shakeState  = SPUtil.getBoolean("shakeInform")
         shake_inform.setChecked(shakeState)
         shake_inform.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
             override fun onCheckedChanged(compoundButton: CompoundButton, b: Boolean) {
-                SPUtil.saveboolean("soundInform", b)
+                SPUtil.saveboolean("shakeInform", b)
             }
         })
     }

@@ -25,7 +25,7 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
     var commentAdapter: CommentAdapter? = null
     override fun addDanmakuToView(content: String?) {
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit()
-                .createComment(SPUtil.getString("userid"), publishInfoDetail!!.userId, content, publishInfoDetail!!.getId().toString() + ""))
+                .createComment(SPUtil.getString("userid"), publishInfoDetail!!.userId, content, publishInfoDetail!!.publishId.toString() + ""))
                 .subscribe { s ->
                     ToastUtils.showLong(s)
                     commentAdapter!!.addData(publishInfoDetail!!.listCommentInfo.size, content)
@@ -44,9 +44,21 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
             info_content.text = publishInfoDetail!!.content
             info_praise.text = publishInfoDetail!!.admireCount.toString()
             info_comment.text = publishInfoDetail!!.commentCount.toString()
-
-
             Rv_comment.setLayoutManager(LinearLayoutManager(this))
+                if(publishInfoDetail!!.admireStatus==0){
+                    val drawableLeft = resources.getDrawable(
+                            R.mipmap.nopraise)
+                    info_praise.setCompoundDrawablesWithIntrinsicBounds(drawableLeft, null, null, null)
+                }else{
+                    val drawableLeft = resources.getDrawable(R.mipmap.praise)
+                    info_praise.setCompoundDrawablesWithIntrinsicBounds(drawableLeft, null, null, null)
+                }
+            if(publishInfoDetail!!.followStatus==0){
+                video_info_attention.setText("关注")
+            }else{
+                video_info_attention.setText("已关注")
+            }
+
 //        如果Item高度固定  增加该属性能够提高效率
             Rv_comment.setHasFixedSize(true)
 //        设置适配器
@@ -103,8 +115,11 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
 
         video_info_attention.setOnClickListener {
             RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().addFollow(SPUtil.getString("userid"), publishInfoDetail!!.userId)).subscribe({
-                ToastUtils.showLong("关注成功")
-                finishWithAlpha()
+                if(video_info_attention.text.toString().equals("已关注")){
+                    video_info_attention.setText("关注")
+                }else{
+                    video_info_attention.setText("已关注")
+                }
             }, {
                 ToastUtils.showLong(it.message)
             })
@@ -114,17 +129,27 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
         }
         info_praise.setOnClickListener {
             if (SPUtil.getString("userid") == "" || SPUtil.getString("userid") == "1") {
-
                 val intent = Intent(mContext, LoginActivity::class.java)
                 mContext.startActivity(intent)
-
             } else {
-                RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().userAdmire(SPUtil.getString("userid"), publishInfoDetail!!.getPublishId() + "")).subscribe({ s -> ToastUtils.showLong(s) }) { throwable -> ToastUtils.showLong(throwable.message) }
+                RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().userAdmire(publishInfoDetail!!.userId, publishInfoDetail!!.getPublishId() + "",SPUtil.getString("userid"))).subscribe({ s ->
+                    if(publishInfoDetail!!.admireStatus==0){
+                        val drawableLeft = resources.getDrawable(
+                                R.mipmap.praise)
+                        info_praise.setCompoundDrawablesWithIntrinsicBounds(drawableLeft, null, null, null)
+                    }else{
+                        val drawableLeft = resources.getDrawable(
+                                R.mipmap.nopraise)
+                        info_praise.setCompoundDrawablesWithIntrinsicBounds(drawableLeft, null, null, null)
+                    }
+                })
+                { throwable -> ToastUtils.showLong(throwable.message) }
             }
         }
     }
 
     override fun findViewById() {
+
     }
 
     override fun setListener() {

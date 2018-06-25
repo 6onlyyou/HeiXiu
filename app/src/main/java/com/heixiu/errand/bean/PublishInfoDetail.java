@@ -47,11 +47,29 @@ public class PublishInfoDetail implements Serializable {
     private List<String> contentImgList;
 
     private String contentVideo;
+    private int followStatus;
+    private int admireStatus;
     private int admireCount;
     private int commentCount;
     private String nickName;
     private String userImg;
     private List<ListCommentInfoBean> listCommentInfo;
+
+    public int getFollowStatus() {
+        return followStatus;
+    }
+
+    public void setFollowStatus(int followStatus) {
+        this.followStatus = followStatus;
+    }
+
+    public int getAdmireStatus() {
+        return admireStatus;
+    }
+
+    public void setAdmireStatus(int admireStatus) {
+        this.admireStatus = admireStatus;
+    }
 
     public int getId() {
         return id;

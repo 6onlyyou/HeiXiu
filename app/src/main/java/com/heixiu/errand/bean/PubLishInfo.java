@@ -25,6 +25,8 @@ public class PubLishInfo {
      */
 
     private int id;
+    private int followStatus;
+    private int admireStatus;
     private String userId;
     private String publishId;
     private String title;
@@ -44,6 +46,22 @@ public class PubLishInfo {
 
     public void setContentImgList(List<String> contentImgList) {
         this.contentImgList = contentImgList;
+    }
+
+    public int getFollowStatus() {
+        return followStatus;
+    }
+
+    public void setFollowStatus(int followStatus) {
+        this.followStatus = followStatus;
+    }
+
+    public int getAdmireStatus() {
+        return admireStatus;
+    }
+
+    public void setAdmireStatus(int admireStatus) {
+        this.admireStatus = admireStatus;
     }
 
     private List<String> contentImgList;

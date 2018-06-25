@@ -91,7 +91,6 @@ class MainActivity : BaseActivity() {
         },{
             ToastUtils.showLong(it.message)
         })
-
     }
 
     override fun loadViewLayout() {

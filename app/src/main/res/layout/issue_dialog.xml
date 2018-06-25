@@ -19,7 +19,6 @@
         android:drawableTop="@mipmap/issue_text"/>
     <TextView
         android:id="@+id/Tv_pickup"
-        android:visibility="gone"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:gravity="center"

@@ -1,5 +1,6 @@
 package com.heixiu.errand.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.util.Log;
@@ -39,7 +40,7 @@ import io.reactivex.functions.Consumer;
  */
 
 public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo>{
-    Button community_attention;
+
     FragmentManager fragmentManager;
     private List<PubLishInfo> datalist;
     private PubLishInfo publishInfoDetail;
@@ -57,6 +58,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo>{
         datalist = data;
     }
 
+    @SuppressLint("ResourceType")
     @Override
     protected void convert(BaseViewHolder helper, final PubLishInfo item) {
         publishInfoDetail = item;
@@ -107,7 +109,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo>{
                 .crossFade()
                 .placeholder(R.mipmap.defaulthead)
                 .into((ImageView) helper.getView(R.id.Iv_communityHead));
-        community_attention = (Button) helper.getView(R.id.community_attention);
+        final Button  community_attention = (Button) helper.getView(R.id.community_attention);
         community_attention.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,8 +122,14 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo>{
                     RxUtils.wrapRestCall(RetrofitFactory.INSTANCE.getRetrofit().addFollow(SPUtil.getString("userid"), item.getUserId())).subscribe(new Consumer<String>() {
                         @Override
                         public void accept(String s) throws Exception {
-                            ToastUtils.showLong("关注成功");
-                            community_attention.setText("已关注");
+                           if(community_attention.getText().equals("已关注")){
+                               ToastUtils.showLong("取消成功");
+                               community_attention.setText("关注");
+                           }else {
+                               ToastUtils.showLong("关注成功");
+                               community_attention.setText("已关注");
+                           }
+
                         }
                     }, new Consumer<Throwable>() {
                         @Override
@@ -132,6 +140,17 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo>{
                 }
             }
         });
+        final ImageView itemPraise  = helper.getView(R.id.item_praise);
+        if(item.getAdmireStatus()==0){
+            itemPraise.setImageResource(R.mipmap.nopraise);
+        }else{
+            itemPraise.setImageResource(R.mipmap.praise);
+        }
+        if(item.getFollowStatus()==0){
+            community_attention.setText("关注");
+        }else{
+            community_attention.setText("已关注");
+        }
         final EditText Et_comment = helper.getView(R.id.Et_comment);
         ImageView Iv_comment = helper.getView(R.id.comment_send);
         Iv_comment.setOnClickListener(new View.OnClickListener() {
@@ -141,7 +160,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo>{
                     Intent intent = new Intent(mContext, LoginActivity.class);
                     mContext.startActivity(intent);
                 }else {
-                    RxUtils.wrapRestCall(RetrofitFactory.INSTANCE.getRetrofit().createComment(SPUtil.getString("userid"), item.getUserId(), Et_comment.getText().toString(), publishInfoDetail.getId() + "")).subscribe(new Consumer<String>() {
+                    RxUtils.wrapRestCall(RetrofitFactory.INSTANCE.getRetrofit().createComment(SPUtil.getString("userid"), item.getUserId(), Et_comment.getText().toString(), publishInfoDetail.getPublishId()+ "")).subscribe(new Consumer<String>() {
                         @Override
                         public void accept(String s) throws Exception {
                             ToastUtils.showLong(s);
@@ -184,10 +203,14 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo>{
                     mContext.startActivity(intent);
 
                 }else {
-                    RxUtils.wrapRestCall(RetrofitFactory.INSTANCE.getRetrofit().userAdmire(SPUtil.getString("userid"), item.getPublishId() + "")).subscribe(new Consumer<String>() {
+                    RxUtils.wrapRestCall(RetrofitFactory.INSTANCE.getRetrofit().userAdmire(item.getUserId(), item.getPublishId() + "",SPUtil.getString("userid"))).subscribe(new Consumer<String>() {
                         @Override
                         public void accept(String s) throws Exception {
-                            ToastUtils.showLong(s);
+                            if(item.getAdmireStatus()==0){
+                                itemPraise.setImageResource(R.mipmap.praise);
+                            }else{
+                                itemPraise.setImageResource(R.mipmap.nopraise);
+                            }
                         }
                     }, new Consumer<Throwable>() {
                         @Override

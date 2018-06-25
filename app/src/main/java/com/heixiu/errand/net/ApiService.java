@@ -57,10 +57,8 @@ public interface ApiService {
      */
     @POST("user/register")
     Observable<ResponseBean> register(@Query("phone") String phone, @Query("userName") String userName, @Query("password") String password);
-
     /**
      * 首页所有用户的动态展示
-     *
      * @return
      */
     @POST("showAllPublishInfo")
@@ -96,7 +94,8 @@ public interface ApiService {
      */
     @POST("userAdmire")
     Observable<ResponseBean<String>> userAdmire(@Query("admireUserId") String admireUserId,
-                                                @Query("publishId") String publishId
+                                                @Query("publishId") String publishId,
+                                                          @Query("userId") String userId
     );
 
     /**
@@ -346,6 +345,7 @@ public interface ApiService {
 
     @POST("editData")
     Observable<ResponseBean<String>> editData(
+            @Body RequestBody file,
             @Query("userId") String userId,
             @Query("nickName") String nickName,
             @Query("sex") String sex,
@@ -358,6 +358,8 @@ public interface ApiService {
      * userId	用户id
      * zfbId	支付宝账户
      * zfbPassword	支付宝姓名
+     *
+     *
      */
 
     @POST("bindZfb")
@@ -422,7 +424,7 @@ public interface ApiService {
     @POST("withdrawCash")
     Observable<ResponseBean<String>> withdrawCash(
             @Query("userId") String userId,
-            @Query("cash") BigDecimal cash
+            @Query("cash") Double cash
     );
 
     /**
@@ -456,8 +458,8 @@ public interface ApiService {
 
     @POST("updatePhoneNumber")
     Observable<ResponseBean<String>> updatePhoneNumber(
-            @Query("userId") String userId,
-            @Query("password") String password
+            @Query("id") String userId,
+            @Query("phone") String password
     );
     /**
      * 账号与安全

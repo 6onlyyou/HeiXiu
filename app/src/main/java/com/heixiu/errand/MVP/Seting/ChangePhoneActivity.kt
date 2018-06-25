@@ -22,9 +22,9 @@ class ChangePhoneActivity : BaseActivity() {
     }
 
     override fun findViewById() {
-        initTitle("密码设置", R.color.colorPrimary, R.color.white)
+        initTitle("重置手机号", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
-        change_phone.text = "设置密码需要验证绑定的手机号"+ SPUtil.getString("userid")
+        change_phone.text = "重置手机号需要验证绑定的手机号"+ SPUtil.getString("userid")
     }
     var handler: Handler = object : Handler() {
         override fun handleMessage(msg: Message) {
@@ -78,9 +78,10 @@ class ChangePhoneActivity : BaseActivity() {
 //                    }, {
 //                        ToastUtils.showLong(it.message)
 //                    })
-                    val intent = Intent(mContext,ChangeConfirmPhoneActivity::class.java)
+                    val intent = Intent(this@ChangePhoneActivity,ChangeConfirmPhoneActivity::class.java)
                     intent.putExtra("bindphone", change_phones.text.toString())
-                    mContext.startActivity(intent)
+                   startActivity(intent)
+                    finishWithAlpha()
                 } else {
                     handler.sendEmptyMessage(1)
                 }

@@ -60,7 +60,7 @@ class RegisterActivity : BaseActivity() {
                 ToastUtils.showLong("密码太短");
                 return@setOnClickListener
             }
-            if(Et_inUsername.text.toString().equals("")||Et_inPass.text.toString().equals("")||Et_inPhone.text.toString().equals("")||Tv_inCode.text.toString().equals("")){
+            if(Et_inPass.text.toString().equals("")||Et_inPhone.text.toString().equals("")||Tv_inCode.text.toString().equals("")){
                 ToastUtils.showLong("不能为空");
             }else {
                 submitCode("86", Et_inPhone.text.toString(), Tv_inCode.text.toString())
@@ -96,7 +96,7 @@ class RegisterActivity : BaseActivity() {
         SMSSDK.registerEventHandler(object : EventHandler() {
             override fun afterEvent(event: Int, result: Int, data: Any?) {
                 if (result == SMSSDK.RESULT_COMPLETE) {
-                    RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().register(phone,Et_inUsername.text.toString(),Et_inPass.text.toString())).subscribe({
+                    RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().register(phone,phone,Et_inPass.text.toString())).subscribe({
                         var message:Message = Message()
                         message.obj = "注册成功"
                         handler.sendMessage(message);

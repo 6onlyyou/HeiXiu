@@ -6,7 +6,6 @@ package com.heixiu.errand.net;
  * Author: fushuaige
  */
 public class MyException extends Exception {
-
     /**
      * code : 200
      * message : success

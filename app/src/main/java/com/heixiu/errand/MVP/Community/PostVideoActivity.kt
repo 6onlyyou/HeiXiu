@@ -6,9 +6,11 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
+import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.text.TextUtils
@@ -24,6 +26,7 @@ import com.heixiu.errand.utils.SPUtil
 import com.jaiky.imagespickers.ImageConfig
 import com.jaiky.imagespickers.ImageSelector
 import com.jaiky.imagespickers.ImageSelectorActivity
+import com.mob.tools.utils.ResHelper.getFileSize
 import kotlinx.android.synthetic.main.activity_post_text.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -40,8 +43,6 @@ class PostVideoActivity : BaseActivity() {
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
         mTitle.setTv_Right("发表", R.color.white, View.OnClickListener {
             publish()
-
-
         })
     }
 
@@ -54,7 +55,6 @@ class PostVideoActivity : BaseActivity() {
     override fun findViewById() {
         text_addImage.setOnClickListener {
             startAlbum()
-
         }
     }
 
@@ -91,11 +91,17 @@ class PostVideoActivity : BaseActivity() {
             }
         }
         val intent = Intent()
-        intent.type = "video/*"
+        /* 开启Pictures画面Type设定为image */
+        //intent.setType("image/*");
+        // intent.setType("audio/*"); //选择音频
+        intent.type = "video/*" //选择视频 （mp4 3gp 是android支持的视频格式）
+
+        // intent.setType("video/*;image/*");//同时选择视频和图片
+
+        /* 使用Intent.ACTION_GET_CONTENT这个Action */
         intent.action = Intent.ACTION_GET_CONTENT
-        intent.addCategory(Intent.CATEGORY_OPENABLE)
-      startActivityForResult(intent,
-                1)
+        /* 取得相片后返回本画面 */
+        startActivityForResult(intent, 1)
     }
 
     fun publish() {
@@ -124,9 +130,10 @@ class PostVideoActivity : BaseActivity() {
                 .setType(MultipartBody.FORM)
         //注意，file是后台约定的参数，如果是多图，file[]，如果是单张图片，file就行
         for ( i in fileList.indices ) {
-
+            var size =   getFileSize(fileList.get(i))
+            ToastUtils.showLong(size.toString())
             //这里上传的是多图
-            builder.addFormDataPart("file", fileList.get(i).getName(), RequestBody.create(MediaType.parse("image/*"), fileList.get(i)));
+            builder.addFormDataPart("file", fileList.get(i).getName(), RequestBody.create(MediaType.parse("video/*"), fileList.get(i)));
         }
         val requestBody: RequestBody = builder.build();
 
@@ -157,7 +164,6 @@ class PostVideoActivity : BaseActivity() {
 //                        Log.e(FragmentActivity.TAG, "accept: " + throwable.message)
 //                    }
 //                })
-
     }
 //    fun   upload(){
 //        //构建body
@@ -201,7 +207,7 @@ class PostVideoActivity : BaseActivity() {
     if (requestCode == 1) {
         //
 
-//        if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
 //                try {
 //                    var uri = data!!.getData()
 //                    uri = BitmapCache.geturi(this, data);
@@ -223,15 +229,30 @@ class PostVideoActivity : BaseActivity() {
 //                    } catch (Exception e) {
 //                    } catch (OutOfMemoryError e) {
 //                    }
+
+             var selectedVideo:Uri = data!!.getData();
+//        var filePathColumn :Array<String>   =arrayOf ( MediaStore.Video.Media.DATA );
+
+            var cursor:Cursor = getContentResolver().query(selectedVideo ,  null, null, null, null);
+        cursor.moveToFirst();
+            var videoPath4 =  cursor.getString(0);
+        var videoPath =  cursor.getString(1);
+            var videoPath2 =  cursor.getString(2);
+            var videoPath3 =  cursor.getString(9);
+        cursor.close();
+
+
 //            var uri = data!!.dataString
-//            fileList.clear()
-//            val file: File = File(uri);
-//            fileList.add(file)
-//            var uris = Uri.parse(uri as String)
-//            mainIvVido.visibility=View.VISIBLE
-//            mainIvVido.setVideoURI(uris)
-//            mainIvVido.start()
-//        }
+            fileList.clear()
+            val file: File = File(videoPath);
+            var size =   getFileSize(file)
+            ToastUtils.showLong(size.toString())
+            fileList.add(file)
+            var uris = Uri.parse(videoPath)
+            mainIvVido.visibility=View.VISIBLE
+            mainIvVido.setVideoURI(uris)
+            mainIvVido.start()
+        }
     }
     }
 

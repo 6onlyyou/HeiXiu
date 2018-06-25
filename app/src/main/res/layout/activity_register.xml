@@ -16,15 +16,22 @@
         android:paddingLeft="55dp"
         android:paddingRight="55dp">
 
+        <!--<EditText-->
+            <!--android:id="@+id/Et_inUsername"-->
+            <!--android:maxLength="8"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="35dp"-->
+            <!--android:layout_marginTop="70dp"-->
+            <!--android:background="@drawable/login_bg"-->
+            <!--android:hint="请输入用户名" />-->
         <EditText
-            android:id="@+id/Et_inUsername"
-            android:maxLength="8"
+            android:id="@+id/Et_inPhone"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="20dp"
+            android:digits="0123456789"
             android:background="@drawable/login_bg"
-            android:hint="请输入用户名" />
-
+            android:hint="请输入手机号码" />
         <EditText
             android:id="@+id/Et_inPass"
             android:maxLength="10"
@@ -36,14 +43,7 @@
             android:background="@drawable/login_bg"
             android:hint="请输入密码" />
 
-        <EditText
-            android:id="@+id/Et_inPhone"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginTop="20dp"
-            android:digits="0123456789"
-            android:background="@drawable/login_bg"
-            android:hint="请输入手机号码" />
+
 
         <RelativeLayout
             android:layout_width="wrap_content"
