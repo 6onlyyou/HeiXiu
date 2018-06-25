@@ -8,6 +8,7 @@ import com.heixiu.errand.bean.MyPublishOrderBean;
 import com.heixiu.errand.bean.OrderInfo;
 import com.heixiu.errand.bean.PackageInformationBean;
 import com.heixiu.errand.bean.PhoneToken;
+import com.heixiu.errand.bean.PriceBean;
 import com.heixiu.errand.bean.PubLishInfo;
 import com.heixiu.errand.bean.PublishInfoDetail;
 import com.heixiu.errand.bean.QueryCertificationStatusBean;
@@ -16,7 +17,6 @@ import com.heixiu.errand.bean.QueryPersonalBean;
 import com.heixiu.errand.bean.ResponseBean;
 import com.heixiu.errand.bean.SelectDataByIdBean;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -57,8 +57,10 @@ public interface ApiService {
      */
     @POST("user/register")
     Observable<ResponseBean> register(@Query("phone") String phone, @Query("userName") String userName, @Query("password") String password);
+
     /**
      * 首页所有用户的动态展示
+     *
      * @return
      */
     @POST("showAllPublishInfo")
@@ -95,7 +97,7 @@ public interface ApiService {
     @POST("userAdmire")
     Observable<ResponseBean<String>> userAdmire(@Query("admireUserId") String admireUserId,
                                                 @Query("publishId") String publishId,
-                                                          @Query("userId") String userId
+                                                @Query("userId") String userId
     );
 
     /**
@@ -358,8 +360,6 @@ public interface ApiService {
      * userId	用户id
      * zfbId	支付宝账户
      * zfbPassword	支付宝姓名
-     *
-     *
      */
 
     @POST("bindZfb")
@@ -477,6 +477,12 @@ public interface ApiService {
     Observable<PackageInformationBean> queryLogisticalInformation(
             @Query("expCode") String expCode,
             @Query("expNo") String expNo
+    );
+
+    @POST("calculatePrice")
+    Observable<ResponseBean<PriceBean>> calculatePrice(
+            @Query("weight") String weight,
+            @Query("distance") String distance
     );
 
 

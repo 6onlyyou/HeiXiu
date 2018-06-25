@@ -28,6 +28,7 @@ public class TicketAdapter extends BaseQuickAdapter<CouponTicketBean> {
         helper.setText(R.id.price, item.getCouponPrice() + "")
                 .setText(R.id.description, item.getDescription());
 
+//        helper.setText(R.id.time, TimeUtils.millis2String(bean.create_time, TimeUtils.ARTICLE_FORMAT)+"");
         helper.setOnClickListener(R.id.use_ticket, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
