@@ -36,6 +36,8 @@ class StartOrderDetailActivity : AppCompatActivity() {
         start.text = orderInfo!!.sendAddress
         end.text = orderInfo!!.receiveAddress
         time.text = orderInfo!!.sendTime
+        type.text = orderInfo?.name
+        weight.text = orderInfo?.weight.toString()
         add_money.text = "加价" + orderInfo!!.addPrice
         tips.text = orderInfo!!.description
         recipientsame.text = "收件人姓名：" + orderInfo!!.receiveName
@@ -89,7 +91,7 @@ class StartOrderDetailActivity : AppCompatActivity() {
             }
         } else {
             // 已经获得授权，可以打电话
-            val uri = Uri.parse("tel:" + 13583426235)
+            val uri = Uri.parse("tel:" + orderInfo?.userId)
             val intent2 = Intent(Intent.ACTION_CALL, uri)
             startActivity(intent2)
         }

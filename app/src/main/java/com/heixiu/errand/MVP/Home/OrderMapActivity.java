@@ -5,13 +5,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
+import com.baidu.location.Address;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
+import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.baidu.location.Poi;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
@@ -31,12 +40,18 @@ import com.baidu.mapapi.search.route.PlanNode;
 import com.baidu.mapapi.search.route.RoutePlanSearch;
 import com.baidu.mapapi.search.route.TransitRouteResult;
 import com.baidu.mapapi.search.route.WalkingRouteResult;
+import com.baidu.mapapi.search.sug.OnGetSuggestionResultListener;
+import com.baidu.mapapi.search.sug.SuggestionResult;
+import com.baidu.mapapi.search.sug.SuggestionSearch;
+import com.baidu.mapapi.search.sug.SuggestionSearchOption;
+import com.fushuaige.common.utils.ToastUtils;
 import com.heixiu.errand.DrivingRouteOverlay;
 import com.heixiu.errand.MyApplication.MyApplication;
 import com.heixiu.errand.OverlayManager;
 import com.heixiu.errand.R;
 import com.heixiu.errand.bean.OrderInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderMapActivity extends AppCompatActivity {
@@ -48,9 +63,17 @@ public class OrderMapActivity extends AppCompatActivity {
     };
     RouteLine route = null;
     OverlayManager routeOverlay = null;
+    LocationClient mLocationClient;
+    String city = "";
+    String addr;
+    ArrayAdapter sugAdapter;
+    ArrayList<String> addressData = new ArrayList<>();
+    SuggestionSearch mSuggestionSearch;
     private OrderInfo orderInfo;
     private MapView mMapView;
     private BaiduMap mBaiduMap;
+    private AutoCompleteTextView address;
+    private int clickPosition;
 
     public static void startSelf(Context context, OrderInfo orderInfo) {
         Intent intent = new Intent(context, OrderMapActivity.class);
@@ -73,6 +96,39 @@ public class OrderMapActivity extends AppCompatActivity {
                 startNavi();
             }
         });
+
+        address = ((AutoCompleteTextView) findViewById(R.id.address));
+        addressData.add(orderInfo.getReceiveAddress());
+        sugAdapter = new ArrayAdapter<>(this, R.layout.item_auto_text, R.id.address_name, addressData);
+        address.setAdapter(sugAdapter);
+        address.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                clickPosition = position;
+                startNavi();
+            }
+        });
+        address.setThreshold(1);
+        address.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() > 0) {
+                    searchAddress();
+                }
+            }
+        });
+
+
         mBaiduMap = mMapView.getMap();
         // 开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
@@ -82,6 +138,8 @@ public class OrderMapActivity extends AppCompatActivity {
         option.setCoorType("bd09ll");
         option.setScanSpan(1000);
         option.setOpenGps(true);
+        option.setIsNeedLocationPoiList(true);
+        option.setIsNeedAddress(true);
         option.setLocationNotify(true);
         //设置是否在stop的时候杀死这个进程，默认（建议）不杀死，即setIgnoreKillProcess(true)
         option.setIgnoreKillProcess(true);
@@ -94,15 +152,51 @@ public class OrderMapActivity extends AppCompatActivity {
 
         // 设置定位图层的配置（定位模式，是否允许方向信息，用户自定义定位图标）
 
-//        mLocationClient = new LocationClient(getApplicationContext());
-//        MyLocationListener bdAbstractLocationListener = new MyLocationListener();
-//        mLocationClient.registerLocationListener(bdAbstractLocationListener);
-//        mLocationClient.setLocOption(option);
-//        mLocationClient.start();
+        mLocationClient = new LocationClient(getApplicationContext());
+        MyLocationListener bdAbstractLocationListener = new MyLocationListener();
+        mLocationClient.registerLocationListener(bdAbstractLocationListener);
+        mLocationClient.setLocOption(option);
+        mLocationClient.start();
 
+        iniSearch();
+    }
+
+    private void searchAddress() {
+        if (TextUtils.isEmpty(addr)) {
+            ToastUtils.showShort("暂未获取到您的位置");
+            return;
+        }
+
+        mSuggestionSearch.requestSuggestion(new SuggestionSearchOption().keyword(address.getText().toString()).city(MyApplication.getInstance().city));
+    }
+
+    private void iniSearch() {
+        mSuggestionSearch = SuggestionSearch.newInstance();
+
+        mSuggestionSearch.setOnGetSuggestionResultListener(new OnGetSuggestionResultListener() {
+            @Override
+            public void onGetSuggestionResult(SuggestionResult suggestionResult) {
+                if (suggestionResult.getAllSuggestions() == null) {
+                    Log.i("result: ", "未找到相关结果\n");
+                } else {
+                    //获取在线建议检索结果
+                    addressData.clear();
+                    for (SuggestionResult.SuggestionInfo suggestionInfo : suggestionResult.getAllSuggestions()) {
+                        addressData.add(suggestionInfo.key);
+                    }
+                    sugAdapter = new ArrayAdapter<>(OrderMapActivity.this, R.layout.item_auto_text, R.id.address_name, addressData);
+                    address.setAdapter(sugAdapter);
+                    sugAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     private void startNavi() {
+        if (TextUtils.isEmpty(addr)) {
+            ToastUtils.showShort("暂未获取到您的位置");
+            return;
+        }
         RoutePlanSearch mSearch = RoutePlanSearch.newInstance();
         OnGetRoutePlanResultListener listener = new OnGetRoutePlanResultListener() {
             @Override
@@ -161,8 +255,8 @@ public class OrderMapActivity extends AppCompatActivity {
             }
         };
         mSearch.setOnGetRoutePlanResultListener(listener);
-        PlanNode stNode = PlanNode.withCityNameAndPlaceName("北京", "西二旗地铁站");
-        PlanNode enNode = PlanNode.withCityNameAndPlaceName("北京", "百度科技园");
+        PlanNode stNode = PlanNode.withCityNameAndPlaceName(MyApplication.getInstance().city, addr);
+        PlanNode enNode = PlanNode.withCityNameAndPlaceName(MyApplication.getInstance().city, addressData.get(clickPosition));
         mSearch.drivingSearch((new DrivingRoutePlanOption())
                 .from(stNode)
                 .to(enNode));
@@ -229,12 +323,15 @@ public class OrderMapActivity extends AppCompatActivity {
 
             mBaiduMap.setMyLocationConfiguration(config);
 
-            String addr = location.getAddrStr();    //获取详细地址信息
+            addr = location.getAddrStr();    //获取详细地址信息
             String country = location.getCountry();    //获取国家
             String province = location.getProvince();    //获取省份
             String city = location.getCity();    //获取城市
             String district = location.getDistrict();    //获取区县
             String street = location.getStreet();    //获取街道信息
+            Address address = location.getAddress();
+            String buildingName = location.getBuildingName();
+            List<Poi> poiList = location.getPoiList();
         }
     }
 }
