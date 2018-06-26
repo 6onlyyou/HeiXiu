@@ -15,9 +15,11 @@ import com.heixiu.errand.MVP.Login.LoginActivity
 import com.heixiu.errand.MVP.Login.entity.MessageEvent
 import com.heixiu.errand.MVP.Message.MessageFragment
 import com.heixiu.errand.base.BaseActivity
+import com.heixiu.errand.bean.CouponTicketBean
 import com.heixiu.errand.listener.MyLocationListener
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
+import com.heixiu.errand.utils.RxBus
 import com.heixiu.errand.utils.SPUtil
 import com.tbruyelle.rxpermissions2.Permission
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -81,14 +83,25 @@ class MainActivity : BaseActivity() {
             Iv_messnopass.setImageResource(R.mipmap.messagepass)
             switchFragment(4)
         });
+
+        RxBus.getDefault().toObservable(CouponTicketBean::class.java).subscribe({
+//            switchFragment(2)
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            fragmentTransaction.show(fragments?.get(2))
+            fragmentTransaction.commit()
+
+            ContentFragment.ticketBean = it
+        }, {
+
+        })
     }
 
-    fun getUserMessage(){
+    fun getUserMessage() {
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().selectDataById(SPUtil.getString("userid"))).subscribe({
-            SPUtil.saveString("headurl",it.userInfo.userImg)
-            SPUtil.saveString("nickname",it.userInfo.nickName)
-            SPUtil.saveString("bindzfb",it.dbSubAccount.zfbId)
-        },{
+            SPUtil.saveString("headurl", it.userInfo.userImg)
+            SPUtil.saveString("nickname", it.userInfo.nickName)
+            SPUtil.saveString("bindzfb", it.dbSubAccount.zfbId)
+        }, {
             ToastUtils.showLong(it.message)
         })
     }

@@ -1,10 +1,13 @@
 package com.heixiu.errand.adapter;
 
+import android.app.Activity;
 import android.view.View;
 
 import com.heixiu.errand.MVP.Contentt.ContentFragment;
 import com.heixiu.errand.R;
 import com.heixiu.errand.bean.CouponTicketBean;
+import com.heixiu.errand.utils.RxBus;
+import com.heixiu.errand.utils.TimeUtils;
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter;
 import com.xiaochao.lcrapiddeveloplibrary.BaseViewHolder;
 
@@ -28,12 +31,15 @@ public class TicketAdapter extends BaseQuickAdapter<CouponTicketBean> {
         helper.setText(R.id.price, item.getCouponPrice() + "")
                 .setText(R.id.description, item.getDescription());
 
-//        helper.setText(R.id.time, TimeUtils.millis2String(bean.create_time, TimeUtils.ARTICLE_FORMAT)+"");
+        helper.setText(R.id.time, TimeUtils.millis2String(item.getStartTime(), TimeUtils.ARTICLE_FORMAT) + "--"
+                + TimeUtils.millis2String(item.getEndTime(), TimeUtils.ARTICLE_FORMAT)
+        );
         helper.setOnClickListener(R.id.use_ticket, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //事件处理
-                ContentFragment.Companion.setTicketId(String.valueOf(item.getId()));
+                RxBus.getDefault().post(item);
+                ((Activity) mContext).finish();
             }
         });
     }

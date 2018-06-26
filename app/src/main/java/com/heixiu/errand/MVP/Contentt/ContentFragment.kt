@@ -25,6 +25,7 @@ import com.heixiu.errand.R
 import com.heixiu.errand.adapter.SpinnerAdapter
 import com.heixiu.errand.base.BaseFragment
 import com.heixiu.errand.base.Contants
+import com.heixiu.errand.bean.CouponTicketBean
 import com.heixiu.errand.bean.OrderInfo
 import com.heixiu.errand.dialog.AddPriceDialog
 import com.heixiu.errand.dialog.ChooseWeightDialog
@@ -59,7 +60,6 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
         var packageType: String = ""
         var packageWeight: String = ""
         var courierNum: String = ""
-        var ticketId: String = "1"
         var discountCoupon: String = "5"
         var addPrice: String = ""
         var receiverName = ""
@@ -69,6 +69,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
         var sendLon = 0.00
         var receiveLat = 0.00
         var receiveLon = 0.00
+        var ticketBean: CouponTicketBean? = null
     }
 
     private val days = ArrayList<String>()
@@ -186,8 +187,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
                     TextUtils.isEmpty(ContentFragment.sendAddress) ||
                     TextUtils.isEmpty(ContentFragment.sendTime) ||
                     TextUtils.isEmpty(ContentFragment.packageType) ||
-                    TextUtils.isEmpty(ContentFragment.packageWeight) ||
-                    TextUtils.isEmpty(ContentFragment.ticketId)
+                    TextUtils.isEmpty(ContentFragment.packageWeight)
                     || TextUtils.isEmpty(ContentFragment.discountCoupon)
                     || TextUtils.isEmpty(ContentFragment.addPrice)
                     || TextUtils.isEmpty(ContentFragment.receiverName)
