@@ -5,6 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import com.baidu.mapapi.model.LatLng
+import com.baidu.mapapi.utils.DistanceUtil
+import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.R
 import com.heixiu.errand.bean.OrderInfo
 import com.heixiu.errand.net.RetrofitFactory
@@ -38,7 +41,6 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
         type.text = orderInfo.name
         weight.text = orderInfo.weight.toString() + "斤"
         add_money.text = orderInfo.addPrice.toString() + "元"
-        all_order_price.text = "总价" + orderInfo.payment
         tips.text = orderInfo.description
         recipientsame.text = orderInfo.receiveName
         recipientsNum.text = orderInfo.receiveNum
@@ -51,9 +53,25 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
         submitOrder.setOnClickListener({
             submitOrder()
         })
+
+        getPrice()
+    }
+
+    fun getPrice() {
+        var distance = DistanceUtil.getDistance(
+                LatLng(orderInfo.destinationsLatitude, orderInfo.destinationsLongitude),
+                LatLng(orderInfo.originsLatitude, orderInfo.originsLongitude))
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().calculatePrice(orderInfo.weight.toString(), distance.toString()))
+                .subscribe({
+                    all_order_price.text = "总价" + it.price
+                    payment.text = (it.price - 1).toString()
+                }, {
+                    ToastUtils.showShort("订单价格计算失败")
+                })
     }
 
     fun submitOrder() {
+
         orderInfo.payment = 1100
 
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().createOrder(

@@ -1,10 +1,12 @@
 package com.heixiu.errand.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by YuanGang on 2018/5/9.
  */
 
-public class CouponTicketBean {
+public class CouponTicketBean implements Serializable {
 
     /**
      * id : 1
