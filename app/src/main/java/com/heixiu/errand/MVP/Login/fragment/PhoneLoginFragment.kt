@@ -97,6 +97,7 @@ class PhoneLoginFragment : BaseFragment() {
                     RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().loginByPhone(Et_phone.text.toString(), SPUtil.getString("city").toString())).subscribe({
                         SPUtil.saveString("token", it.token)
                         SPUtil.saveString("userid",Et_phone.text.toString())
+                        SPUtil.saveString("rongyun_token",it.rongyun_token)
                         startActivity(MainActivity::class.java)
                         activity?.finish()
                     }, {

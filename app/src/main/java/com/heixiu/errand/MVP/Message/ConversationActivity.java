@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.heixiu.errand.R;
 
+import io.rong.imkit.RongIM;
+
 
 /**
  * Created by fuyuancong on 2018/3/8.

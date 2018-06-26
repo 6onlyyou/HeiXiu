@@ -119,6 +119,10 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo>{
                     mContext.startActivity(intent);
 
                 }else {
+                    if(SPUtil.getString("userid").equals(item.getUserId())){
+                        ToastUtils.showLong("不能关注自己");
+                        return;
+                    }
                     RxUtils.wrapRestCall(RetrofitFactory.INSTANCE.getRetrofit().addFollow(SPUtil.getString("userid"), item.getUserId())).subscribe(new Consumer<String>() {
                         @Override
                         public void accept(String s) throws Exception {

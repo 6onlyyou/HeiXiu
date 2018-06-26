@@ -114,6 +114,10 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
 
 
         video_info_attention.setOnClickListener {
+            if (SPUtil.getString("userid") == publishInfoDetail!!.getUserId()) {
+                ToastUtils.showLong("不能关注自己")
+                return@setOnClickListener
+            }
             RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().addFollow(SPUtil.getString("userid"), publishInfoDetail!!.userId)).subscribe({
                 if(video_info_attention.text.toString().equals("已关注")){
                     video_info_attention.setText("关注")

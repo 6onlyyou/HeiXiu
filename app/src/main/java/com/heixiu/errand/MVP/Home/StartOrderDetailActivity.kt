@@ -11,21 +11,22 @@ import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.fushuaige.common.utils.ToastUtils
+import com.heixiu.errand.MVP.Message.ConversationListActivity
 import com.heixiu.errand.R
+import com.heixiu.errand.base.BaseActivity
 import com.heixiu.errand.bean.OrderInfo
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.SPUtil
+import io.rong.imkit.RongIM
+import io.rong.imlib.NativeObject
+import io.rong.imlib.model.UserInfo
 import kotlinx.android.synthetic.main.activity_start_order_detail.*
 
 
-class StartOrderDetailActivity : AppCompatActivity() {
-
-
+class StartOrderDetailActivity : BaseActivity() {
     private var orderInfo: OrderInfo? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun loadViewLayout() {
         setContentView(R.layout.activity_start_order_detail)
 
         orderInfo = intent.getSerializableExtra("data") as OrderInfo
@@ -44,10 +45,12 @@ class StartOrderDetailActivity : AppCompatActivity() {
         receiveName.text = orderInfo?.receiveName
 
         message.setOnClickListener({
-            val uri = Uri.parse("smsto:" + orderInfo?.receiveNum)
-            val it = Intent(Intent.ACTION_SENDTO, uri)
-            it.putExtra("sms_body", "")
-            startActivity(it)
+            //            ToastUtils.showLong(orderInfo!!.userId.toString())
+//             RongIM.getInstance().startPrivateChat(this, orderInfo!!.userId.toString(), orderInfo!!.receiveName)
+            RongIM.getInstance().setMessageAttachedUserInfo(true)
+            RongIM.getInstance().setCurrentUserInfo(UserInfo(SPUtil.getString("userid"), SPUtil.getString("nickname"), Uri.parse(SPUtil.getString("headurl").toString())))
+            RongIM.getInstance().startPrivateChat(this, orderInfo!!.userId.toString(),orderInfo!!.receiveName)
+
         })
 
         call.setOnClickListener({
@@ -67,6 +70,19 @@ class StartOrderDetailActivity : AppCompatActivity() {
             OrderMapActivity.startSelf(this@StartOrderDetailActivity, orderInfo)
         })
     }
+
+    override fun findViewById() {
+    }
+
+    override fun setListener() {
+    }
+
+    override fun processLogic() {
+    }
+
+
+
+
 
     fun requestPression() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) !== PackageManager.PERMISSION_GRANTED) {
@@ -89,7 +105,7 @@ class StartOrderDetailActivity : AppCompatActivity() {
             }
         } else {
             // 已经获得授权，可以打电话
-            val uri = Uri.parse("tel:" + 13583426235)
+            val uri = Uri.parse("tel:" + orderInfo!!.userId)
             val intent2 = Intent(Intent.ACTION_CALL, uri)
             startActivity(intent2)
         }

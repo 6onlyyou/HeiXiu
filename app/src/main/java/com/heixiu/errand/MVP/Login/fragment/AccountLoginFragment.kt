@@ -54,7 +54,7 @@ class AccountLoginFragment : BaseFragment() {
                 RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().loginByAccount(Et_userName.text.toString(), Et_passWord.text.toString(),SPUtil.getString("city").toString())).subscribe({
                     SPUtil.saveString("token",it.token)
                     SPUtil.saveString("userid",Et_userName.text.toString())
-                    connect("")
+                    SPUtil.saveString("rongyun_token",it.rongyun_token)
                     startActivity(MainActivity::class.java)
                 },{
                     var message:Message = Message()
