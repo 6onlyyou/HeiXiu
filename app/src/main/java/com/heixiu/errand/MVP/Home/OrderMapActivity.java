@@ -69,6 +69,7 @@ public class OrderMapActivity extends AppCompatActivity {
     ArrayAdapter sugAdapter;
     ArrayList<String> addressData = new ArrayList<>();
     SuggestionSearch mSuggestionSearch;
+    List<Poi> poiList;
     private OrderInfo orderInfo;
     private MapView mMapView;
     private BaiduMap mBaiduMap;
@@ -94,6 +95,13 @@ public class OrderMapActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startNavi();
+            }
+        });
+
+        findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -216,6 +224,7 @@ public class OrderMapActivity extends AppCompatActivity {
 
             @Override
             public void onGetDrivingRouteResult(DrivingRouteResult result) {
+
                 if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
                     Toast.makeText(OrderMapActivity.this, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
                 }
@@ -229,6 +238,9 @@ public class OrderMapActivity extends AppCompatActivity {
                         if (result.getRouteLines().size() >= 1) {
                             route = result.getRouteLines().get(0);
                             DrivingRouteOverlay overlay = new MyDrivingRouteOverlay(mBaiduMap);
+                            if (routeOverlay != null) {
+                                routeOverlay.removeFromMap();
+                            }
                             routeOverlay = overlay;
                             mBaiduMap.setOnMarkerClickListener(overlay);
                             overlay.setData(result.getRouteLines().get(0));
@@ -255,7 +267,9 @@ public class OrderMapActivity extends AppCompatActivity {
             }
         };
         mSearch.setOnGetRoutePlanResultListener(listener);
-        PlanNode stNode = PlanNode.withCityNameAndPlaceName(MyApplication.getInstance().city, addr);
+        Log.i(TAG, "startNavi: " + poiList.get(0).getName());
+        Log.i(TAG, "startNavi: " + addressData.get(clickPosition));
+        PlanNode stNode = PlanNode.withCityNameAndPlaceName(MyApplication.getInstance().city, poiList.get(0).getName());
         PlanNode enNode = PlanNode.withCityNameAndPlaceName(MyApplication.getInstance().city, addressData.get(clickPosition));
         mSearch.drivingSearch((new DrivingRoutePlanOption())
                 .from(stNode)
@@ -331,7 +345,7 @@ public class OrderMapActivity extends AppCompatActivity {
             String street = location.getStreet();    //获取街道信息
             Address address = location.getAddress();
             String buildingName = location.getBuildingName();
-            List<Poi> poiList = location.getPoiList();
+            poiList = location.getPoiList();
         }
     }
 }

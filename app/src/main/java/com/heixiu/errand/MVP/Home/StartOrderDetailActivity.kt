@@ -13,6 +13,7 @@ import android.widget.Toast
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.R
 import com.heixiu.errand.bean.OrderInfo
+import com.heixiu.errand.dialog.CommonCenterDialog
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.SPUtil
@@ -61,14 +62,14 @@ class StartOrderDetailActivity : AppCompatActivity() {
         })
 
         take_order.setOnClickListener({
-            // 取到物品
-            takeOrder(orderInfo!!)
+            dealTakeOrderClick()
         })
 
         startMap.setOnClickListener({
             OrderMapActivity.startSelf(this@StartOrderDetailActivity, orderInfo)
         })
     }
+
 
     fun requestPression() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) !== PackageManager.PERMISSION_GRANTED) {
@@ -105,12 +106,53 @@ class StartOrderDetailActivity : AppCompatActivity() {
         }
     }
 
-    fun takeOrder(orderInfo: OrderInfo) {
-        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().changeOrderStatus(orderInfo.orderNum, SPUtil.getString("userid"), "2"))
+    fun takeOrder(orderInfo: OrderInfo, orderStatus: String) {
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().changeOrderStatus(orderInfo.orderNum, SPUtil.getString("userid"), orderStatus))
                 .subscribe({
-                    ToastUtils.showShort("取到物品")
+                    if (orderStatus.equals("2")) {
+                        CommonCenterDialog(this@StartOrderDetailActivity, "2")
+                    }
+                    if (orderStatus.equals("3")) {
+                        CommonCenterDialog(this@StartOrderDetailActivity, "3")
+                    }
+                    queryOneOrderInfo()
                 }, {
                     ToastUtils.showShort(it.message)
                 })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        queryOneOrderInfo()
+    }
+
+    fun queryOneOrderInfo() {
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryOneOrderInfo(orderInfo?.orderNum))
+                .subscribe({
+                    this.orderInfo = it
+                    dealOrderState()
+                    if ("0" == orderInfo?.orderStatus) {
+
+                    }
+                }, {
+
+                })
+    }
+
+    private fun dealOrderState() {
+        when (orderInfo?.orderStatus) {
+            "0" -> take_order.setImageResource(R.mipmap.ic_start_order)
+            "1" -> take_order.setImageResource(R.mipmap.btn_get_doll)
+            "2" -> take_order.setImageResource(R.mipmap.ic_confirm_arrive)
+            "3" -> take_order.setImageResource(R.mipmap.ic_confirm_arrive)
+            "4" -> take_order.setImageResource(R.mipmap.ic_confirm_arrive)
+        }
+    }
+
+    private fun dealTakeOrderClick() {
+        when (orderInfo?.orderStatus) {
+            "1" -> takeOrder(orderInfo!!, "2")
+            "2" -> takeOrder(orderInfo!!, "3")
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.heixiu.errand.net;
 
+import com.heixiu.errand.bean.BannerBean;
 import com.heixiu.errand.bean.CouponTicketBean;
 import com.heixiu.errand.bean.MessageInfoBean;
 import com.heixiu.errand.bean.MyAddressInfo;
@@ -157,7 +158,7 @@ public interface ApiService {
      * @return
      */
     @POST("queryOneOrderInfo")
-    Observable<ResponseBean<List<OrderInfo>>> queryOneOrderInfo(@Query("orderNum") String orderNum);
+    Observable<ResponseBean<OrderInfo>> queryOneOrderInfo(@Query("orderNum") String orderNum);
 
     /**
      * 修改订单状态
@@ -484,6 +485,9 @@ public interface ApiService {
             @Query("weight") String weight,
             @Query("distance") String distance
     );
+
+    @POST("activity/list")
+    Observable<ResponseBean<List<BannerBean>>> getBanner();
 
 
 }

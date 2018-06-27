@@ -30,6 +30,7 @@ import com.heixiu.errand.bean.OrderInfo
 import com.heixiu.errand.dialog.AddPriceDialog
 import com.heixiu.errand.dialog.ChooseWeightDialog
 import com.heixiu.errand.dialog.InputAddressDialog
+import com.heixiu.errand.utils.CityUtils
 import kotlinx.android.synthetic.main.fragment_content.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -90,7 +91,10 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
         (1..60 step 1).mapTo(mintnues) { it }
 
         addressData.add("杭州市")
-
+        var cityList = CityUtils.getJson("city.json", context)
+        for (cityBean in cityList) {
+            addressData.add(cityBean.name + "市")
+        }
         return inflater!!.inflate(R.layout.fragment_content, container, false)
     }
 
@@ -255,7 +259,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
                 suggest?.clear()
                 for (suggestionInfo in resl) {
                     Log.i("result: ", "city" + suggestionInfo.city + " dis " + suggestionInfo.district + "key " + suggestionInfo.key)
-                    if (suggestionInfo.key != null) {
+                    if (suggestionInfo.key != null && !TextUtils.isEmpty(suggestionInfo.city)) {
                         suggest?.add(suggestionInfo.key)
                     }
                 }
@@ -306,6 +310,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
         mSearch?.geocode(GeoCodeOption().city(
                 addressData[choosePosition]).address(address))
     }
+
 
     internal var mSearch: GeoCoder? = null
 }
