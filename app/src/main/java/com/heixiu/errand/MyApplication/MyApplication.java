@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.jpush.android.api.JPushInterface;
 import io.rong.imkit.RongIM;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -75,7 +76,8 @@ public class MyApplication extends MultiDexApplication {
         Utils.init(this);
         ZXingLibrary.initDisplayOpinion(this);
         SDKInitializer.initialize(this);
-
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 
     /**
