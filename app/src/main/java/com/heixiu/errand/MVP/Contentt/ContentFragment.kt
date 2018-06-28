@@ -20,6 +20,7 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener
 import com.bigkoo.pickerview.view.OptionsPickerView
 import com.fushuaige.common.utils.ToastUtils
+import com.heixiu.errand.Event.PublishParamsChangeEvent
 import com.heixiu.errand.MVP.common.TicketActivity
 import com.heixiu.errand.R
 import com.heixiu.errand.adapter.SpinnerAdapter
@@ -31,6 +32,7 @@ import com.heixiu.errand.dialog.AddPriceDialog
 import com.heixiu.errand.dialog.ChooseWeightDialog
 import com.heixiu.errand.dialog.InputAddressDialog
 import com.heixiu.errand.utils.CityUtils
+import com.heixiu.errand.utils.RxBus
 import kotlinx.android.synthetic.main.fragment_content.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -61,8 +63,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
         var packageType: String = ""
         var packageWeight: String = ""
         var courierNum: String = ""
-        var discountCoupon: String = "5"
-        var addPrice: String = ""
+        var addPrice: String = "0"
         var receiverName = ""
         var receiverNum = ""
         var descriptions = ""
@@ -81,6 +82,49 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
 
     }
 
+    fun dealParamsState() {
+        if (!TextUtils.isEmpty(ContentFragment.addPrice)) {
+            var drawable = context?.resources?.getDrawable(R.mipmap.ic_add_price_publish_over)
+            drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
+            add_price_tv.setCompoundDrawables(null, drawable, null, null)
+        } else {
+            var drawable = context?.resources?.getDrawable(R.mipmap.ic_add_price_publish)
+            drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
+            add_price_tv.setCompoundDrawables(null, drawable, null, null)
+        }
+
+        if (ContentFragment.ticketBean != null) {
+            var drawable = context?.resources?.getDrawable(R.mipmap.ic_ticket_publish_over)
+            drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
+            discount_coupon_tv.setCompoundDrawables(null, drawable, null, null)
+        } else {
+            var drawable = context?.resources?.getDrawable(R.mipmap.ic_discount_coupon)
+            drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
+            discount_coupon_tv.setCompoundDrawables(null, drawable, null, null)
+        }
+
+        if (!TextUtils.isEmpty(ContentFragment.packageWeight)) {
+            var drawable = context?.resources?.getDrawable(R.mipmap.ic_weight_publish_over)
+            drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
+            package_weight_tv.setCompoundDrawables(null, drawable, null, null)
+        } else {
+            var drawable = context?.resources?.getDrawable(R.mipmap.ic_weight_publish)
+            drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
+            package_weight_tv.setCompoundDrawables(null, drawable, null, null)
+        }
+
+        if (!TextUtils.isEmpty(ContentFragment.packageType) && !TextUtils.isEmpty(ContentFragment.receiverName)
+                && !TextUtils.isEmpty(ContentFragment.receiverNum)) {
+            var drawable = context?.resources?.getDrawable(R.mipmap.ic_publish_package_over)
+            drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
+            package_type_tv.setCompoundDrawables(null, drawable, null, null)
+        } else {
+            var drawable = context?.resources?.getDrawable(R.mipmap.ic_package_publish)
+            drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
+            package_type_tv.setCompoundDrawables(null, drawable, null, null)
+        }
+    }
+
     private var suggest: MutableList<String>? = ArrayList()
 
     override fun createView(inflater: LayoutInflater?, container: ViewGroup?): View {
@@ -95,6 +139,11 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
         for (cityBean in cityList) {
             addressData.add(cityBean.name + "市")
         }
+        RxBus.getDefault().toObservable(PublishParamsChangeEvent::class.java).subscribe({
+            dealParamsState()
+        }, {
+
+        })
         return inflater!!.inflate(R.layout.fragment_content, container, false)
     }
 
@@ -127,7 +176,6 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
         sugAdapter = ArrayAdapter(context, R.layout.item_auto_text, R.id.address_name)
         inputAddressEt.setAdapter(sugAdapter)
         inputAddressEt.setOnItemClickListener { parent, view, position, id ->
-            ToastUtils.showShort(suggest?.get(position))
             getLocationPosition(suggest?.get(position)!!)
         }
 
@@ -185,15 +233,12 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
             AddPriceDialog(context!!).show()
         })
 
-
         submit.setOnClickListener({
             if (TextUtils.isEmpty(ContentFragment.receiveAddress) ||
                     TextUtils.isEmpty(ContentFragment.sendAddress) ||
                     TextUtils.isEmpty(ContentFragment.sendTime) ||
                     TextUtils.isEmpty(ContentFragment.packageType) ||
                     TextUtils.isEmpty(ContentFragment.packageWeight)
-                    || TextUtils.isEmpty(ContentFragment.discountCoupon)
-                    || TextUtils.isEmpty(ContentFragment.addPrice)
                     || TextUtils.isEmpty(ContentFragment.receiverName)
                     || TextUtils.isEmpty(ContentFragment.receiverNum)
                     || TextUtils.isEmpty(ContentFragment.descriptions)) {

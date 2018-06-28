@@ -85,7 +85,7 @@ class MainActivity : BaseActivity() {
         });
 
         RxBus.getDefault().toObservable(CouponTicketBean::class.java).subscribe({
-//            switchFragment(2)
+            //            switchFragment(2)
             val fragmentTransaction = supportFragmentManager.beginTransaction()
             fragmentTransaction.show(fragments?.get(2))
             fragmentTransaction.commit()

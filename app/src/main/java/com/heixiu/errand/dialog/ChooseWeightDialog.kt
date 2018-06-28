@@ -5,9 +5,11 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.NumberPicker
+import com.heixiu.errand.Event.PublishParamsChangeEvent
 import com.heixiu.errand.MVP.Contentt.ContentFragment
 import com.heixiu.errand.R
 import com.heixiu.errand.databinding.ChooseWeightDialogBinding
+import com.heixiu.errand.utils.RxBus
 
 
 /**
@@ -36,6 +38,7 @@ class ChooseWeightDialog(context: Context) : BottomDialog(context) {
             } else {
                 ContentFragment.packageWeight = numbers[binding.weightNp.verticalScrollbarPosition]
             }
+            RxBus.getDefault().post(PublishParamsChangeEvent())
             dismiss()
         })
 

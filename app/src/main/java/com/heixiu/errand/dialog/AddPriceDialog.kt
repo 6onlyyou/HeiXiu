@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.NumberPicker
+import com.heixiu.errand.Event.PublishParamsChangeEvent
 import com.heixiu.errand.MVP.Contentt.ContentFragment
 import com.heixiu.errand.R
 import com.heixiu.errand.databinding.ChooseWeightDialogBinding
+import com.heixiu.errand.utils.RxBus
 
 /**
  * Created by YuanGang on 2018/5/8.
@@ -31,6 +33,7 @@ class AddPriceDialog(context: Context) : BottomDialog(context) {
         })
 
         binding.confirm.setOnClickListener({
+            RxBus.getDefault().post(PublishParamsChangeEvent())
             ContentFragment.addPrice = numbers[binding.weightNp.verticalScrollbarPosition]
             dismiss()
         })
@@ -45,4 +48,5 @@ class AddPriceDialog(context: Context) : BottomDialog(context) {
         binding.weightNp.wrapSelectorWheel = false
         binding.weightNp.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
     }
+
 }

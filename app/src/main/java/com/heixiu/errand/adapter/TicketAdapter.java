@@ -3,6 +3,7 @@ package com.heixiu.errand.adapter;
 import android.app.Activity;
 import android.view.View;
 
+import com.heixiu.errand.Event.PublishParamsChangeEvent;
 import com.heixiu.errand.MVP.Contentt.ContentFragment;
 import com.heixiu.errand.R;
 import com.heixiu.errand.bean.CouponTicketBean;
@@ -39,7 +40,9 @@ public class TicketAdapter extends BaseQuickAdapter<CouponTicketBean> {
             public void onClick(View v) {
                 //事件处理
                 RxBus.getDefault().post(item);
+                RxBus.getDefault().post(new PublishParamsChangeEvent());
                 ContentFragment.Companion.setTicketBean(item);
+
                 ((Activity) mContext).finish();
             }
         });

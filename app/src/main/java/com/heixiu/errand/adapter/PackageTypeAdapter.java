@@ -2,11 +2,13 @@ package com.heixiu.errand.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.heixiu.errand.MVP.Contentt.ContentFragment;
 import com.heixiu.errand.R;
 
 import org.jetbrains.annotations.Nullable;
@@ -25,6 +27,14 @@ public class PackageTypeAdapter extends RecyclerView.Adapter<PackageTypeAdapter.
     public PackageTypeAdapter(@Nullable Context context) {
         this.mContext = context;
         data = context.getResources().getStringArray(R.array.package_type);
+        if (!TextUtils.isEmpty(ContentFragment.Companion.getPackageType())) {
+            for (int i = 0; i < data.length; i++) {
+                if (data[i].equals(ContentFragment.Companion.getPackageType())) {
+                    selectPosition = i;
+                    break;
+                }
+            }
+        }
     }
 
     public int getSelectPosition() {

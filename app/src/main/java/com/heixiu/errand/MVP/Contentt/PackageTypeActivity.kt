@@ -9,8 +9,10 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import com.fushuaige.common.utils.ToastUtils
+import com.heixiu.errand.Event.PublishParamsChangeEvent
 import com.heixiu.errand.R
 import com.heixiu.errand.adapter.PackageTypeAdapter
+import com.heixiu.errand.utils.RxBus
 import kotlinx.android.synthetic.main.activity_package_type.*
 
 class PackageTypeActivity : AppCompatActivity() {
@@ -40,6 +42,22 @@ class PackageTypeActivity : AppCompatActivity() {
                 finish()
             }
         })
+
+        if (!TextUtils.isEmpty(ContentFragment.receiverName)) {
+            receiverName = ContentFragment.receiverName
+            receiveName.setText(ContentFragment.receiverName)
+        }
+
+        if (!TextUtils.isEmpty(ContentFragment.receiverNum)) {
+            receiverNum = ContentFragment.receiverNum
+            receiveNum.setText(ContentFragment.receiverNum)
+        }
+        if (!TextUtils.isEmpty(ContentFragment.courierNum)) {
+            deliverNum.setText(ContentFragment.courierNum)
+        }
+        if (!TextUtils.isEmpty(ContentFragment.descriptions)) {
+            description.setText(ContentFragment.descriptions)
+        }
 
         receiveName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -127,6 +145,10 @@ class PackageTypeActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        RxBus.getDefault().post(PublishParamsChangeEvent())
     }
 }
