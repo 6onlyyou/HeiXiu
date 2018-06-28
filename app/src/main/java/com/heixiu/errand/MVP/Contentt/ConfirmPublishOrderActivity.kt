@@ -57,22 +57,42 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
         getPrice()
     }
 
+    var canSubmit: Boolean = false
+
     fun getPrice() {
         var distance = DistanceUtil.getDistance(
                 LatLng(orderInfo.destinationsLatitude, orderInfo.destinationsLongitude),
-                LatLng(orderInfo.originsLatitude, orderInfo.originsLongitude))
+                LatLng(orderInfo.originsLatitude, orderInfo.originsLongitude)) / 1000
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().calculatePrice(orderInfo.weight.toString(), distance.toString()))
                 .subscribe({
-                    all_order_price.text = "总价" + it.price
-                    payment.text = (it.price - 1).toString()
+                    all_order_price.text = "" + it.price
+                    if (ContentFragment.ticketBean != null) {
+                        var realPrice = it.price - ContentFragment.ticketBean?.couponPrice!!
+                        if (realPrice < 0) {
+                            orderInfo.payment = 0
+                            payment.text = "实际付款金额 0"
+                        } else {
+                            payment.text = "实际付款金额" + realPrice
+                        }
+                        ticket.text = ContentFragment.ticketBean?.couponPrice!!.toString()
+                    } else {
+                        orderInfo.payment = it.price
+                        payment.text = "实际付款金额" + it.price
+                        ticket.text = "无优惠券"
+                    }
+                    canSubmit = true
                 }, {
-                    ToastUtils.showShort("订单价格计算失败")
+                    canSubmit = false
+                    ToastUtils.showShort("订单价格计算失败" + it.message)
                 })
     }
 
     fun submitOrder() {
 
-        orderInfo.payment = 1100
+        if (!canSubmit) {
+            ToastUtils.showShort("订单价格计算失败，请重新选择地点")
+        }
+        orderInfo.courierNum = "1"
 
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().createOrder(
                 SPUtil.getString("userid"),
@@ -94,7 +114,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
         )).subscribe({
             Log.i("createOrder", it)
         }, {
-            Log.i("createOrder", it.message)
+            Log.e("createOrder", it.message)
         })
     }
 }

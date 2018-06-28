@@ -11,14 +11,17 @@ import android.view.ViewGroup
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.Event.MyLocationEvent
 import com.heixiu.errand.MVP.Login.LoginActivity
+import com.heixiu.errand.MVP.Seting.WebActivity
 import com.heixiu.errand.R
 import com.heixiu.errand.adapter.HomeAdapter
 import com.heixiu.errand.base.BaseFragment
 import com.heixiu.errand.bean.OrderInfo
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
+import com.heixiu.errand.utils.GlideImageLoader
 import com.heixiu.errand.utils.RxBus
 import com.heixiu.errand.utils.SPUtil
+import com.youth.banner.Transformer
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -47,12 +50,20 @@ class HomeFragment : BaseFragment() {
         }, {
             ToastUtils.showLong(it.message)
         })
+
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().banner).subscribe({
+            banner.setOnBannerListener { position ->
+                WebActivity.startSelf(context, "详情", it[position].link)
+            }
+            var bannerUrl = ArrayList<String>()
+            it.mapTo(bannerUrl) { it.imgSrc }
+            banner.setImages(bannerUrl)
+            banner.start()
+        }, {
+            ToastUtils.showLong(it.message)
+        })
     }
 
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    fun messageEventBus(event: MyLocationEvent) {
-//        homeAdapter.notifyDataSetChanged()
-//    }
 
     var subscribe: Disposable? = null
     override fun initView() {
@@ -77,6 +88,12 @@ class HomeFragment : BaseFragment() {
             }
         }
         homeRv.adapter = homeAdapter
+
+        banner.isAutoPlay(true)
+        banner.setImageLoader(GlideImageLoader())
+        banner.setBannerAnimation(Transformer.ScaleInOut)
+        banner.setDelayTime(5000)
+
     }
 
     fun takeOrder(orderInfo: OrderInfo) {

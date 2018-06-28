@@ -234,6 +234,7 @@
         <activity android:name=".MVP.Express.ExpressMessageActivity" />
         <activity android:name=".MVP.Community.PostVideoActivity" />
         <activity android:name=".MVP.Seting.DescriptionActivity"></activity>
+        <activity android:name=".MVP.Seting.WebActivity"></activity>
     </application>
 
 </manifest>

@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
 import com.baidu.location.Poi;
 import com.heixiu.errand.Event.MyLocationEvent;
 import com.heixiu.errand.MVP.Login.entity.MessageEvent;
@@ -91,7 +90,10 @@ public class MyLocationListener extends BDAbstractLocationListener {
 
         MyApplication.getInstance().localLong = location.getLongitude();
 
+        MyApplication.getInstance().city = location.getCity();
+
         RxBus.getDefault().post(new MyLocationEvent());
-//        Log.e("描述：", sb.toString());
+
+        Log.i("onReceiveLocation", "onReceiveLocation: "+sb.toString());
     }
 }

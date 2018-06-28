@@ -150,7 +150,7 @@ class MainActivity : BaseActivity() {
 //        LocationMode.Hight_Accuracy：高精度；
 //        LocationMode.Battery_Saving：低功耗；
 //        LocationMode.Device_Sensors：仅使用设备；
-
+        option.setIsNeedAddress(true)
         option.setCoorType("bd09ll")
 //        可选，设置返回经纬度坐标类型，默认gcj02
 //        gcj02：国测局坐标；

@@ -39,6 +39,7 @@ public class TicketAdapter extends BaseQuickAdapter<CouponTicketBean> {
             public void onClick(View v) {
                 //事件处理
                 RxBus.getDefault().post(item);
+                ContentFragment.Companion.setTicketBean(item);
                 ((Activity) mContext).finish();
             }
         });

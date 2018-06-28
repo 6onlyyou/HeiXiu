@@ -37,6 +37,7 @@ public class MyApplication extends MultiDexApplication {
     public double localLat = 0.0;
 
     public double localLong = 0.0;
+    public String city = "";
     //记录当前栈里所有activity
     private List<Activity> activities = new ArrayList<Activity>();
     //记录需要一次性关闭的页面
