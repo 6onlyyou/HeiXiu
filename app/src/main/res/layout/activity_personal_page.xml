@@ -22,7 +22,7 @@
         android:paddingRight="18dp"
         android:text="编辑资料"
         android:textColor="@color/hint_text"
-        android:textSize="10sp" />
+        android:textSize="14sp" />
 
     <LinearLayout
         android:layout_width="match_parent"

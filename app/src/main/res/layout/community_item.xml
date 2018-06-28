@@ -9,12 +9,11 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="7dp"
         android:layout_marginLeft="5.5dp"
         android:layout_marginRight="5.5dp"
         android:layout_marginTop="7dp"
-        app:cardCornerRadius="19dp"
-        app:cardElevation="8dp">
+        app:cardCornerRadius="14dp"
+        app:cardElevation="7dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -76,6 +75,7 @@
                     android:layout_width="60dp"
                     android:layout_height="25dp"
                     android:layout_marginTop="10dp"
+                    android:textColor="@color/colorPrimary"
                     android:text="关注"
                     android:background="@drawable/video_bg"/>
                 <!--<TextView-->
@@ -127,14 +127,14 @@
             android:id="@+id/video_list_item_playr"
             android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="200dp"/>
+            android:layout_height="169dp"/>
         <com.heixiu.errand.MVP.Community.widget.PictureGridView
             android:verticalSpacing="5dp"
             android:horizontalSpacing="5dp"
             android:visibility="gone"
             android:id="@+id/gridView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="169dp" />
     </LinearLayout>
         <LinearLayout
             android:id="@+id/community_prias"
@@ -153,6 +153,8 @@
                 android:id="@+id/Tv_communityPraise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="12sp"
                 android:text="393"/>
         </LinearLayout>
     <LinearLayout
@@ -165,9 +167,9 @@
             android:id="@+id/Et_comment"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:textSize="13sp"
+            android:textSize="9sp"
             android:textColor="@color/black"
-            android:layout_height="wrap_content"
+            android:layout_height="19dp"
             android:background="@drawable/login_bg"
             android:hint="请输入评论"
             tools:ignore="NotSibling" />

@@ -57,21 +57,32 @@ class EditProfileActivity : BaseActivity() {
             finishWithAlpha()
         })
         mTitle.setTv_Right("保存", R.color.white,View.OnClickListener{
-            val builder: MultipartBody.Builder =  MultipartBody.Builder()
-                    .setType(MultipartBody.FORM)
-            //注意，file是后台约定的参数，如果是多图，file[]，如果是单张图片，file就行
-            for ( i in fileList.indices ) {
-
-                //这里上传的是多图
-                builder.addFormDataPart("file", fileList.get(i).getName(), RequestBody.create(MediaType.parse("image/*"), fileList.get(i)));
+            var requestBody: RequestBody? = null
+            if(fileList.size<1){
+                RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().editDataNoHead(SPUtil.getString("userid"),profile_name.text.toString(),profile_sex.text.toString(),profile_sign.text.toString(),profile_birdday.text.toString())).subscribe({
+                    ToastUtils.showLong("保存成功")
+                    finishWithAlpha()
+                },{
+                    ToastUtils.showLong(it.message)
+                })
+            }else {
+                val builder: MultipartBody.Builder = MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                //注意，file是后台约定的参数，如果是多图，file[]，如果是单张图片，file就行
+                for (i in fileList.indices) {
+                    //这里上传的是多图
+                    builder.addFormDataPart("file", fileList.get(i).getName(), RequestBody.create(MediaType.parse("image/*"), fileList.get(i)));
+                }
+                    requestBody = builder.build();
+                RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().editData(requestBody,SPUtil.getString("userid"),profile_name.text.toString(),profile_sex.text.toString(),profile_sign.text.toString(),profile_birdday.text.toString())).subscribe({
+                    ToastUtils.showLong("保存成功")
+                    finishWithAlpha()
+                },{
+                    ToastUtils.showLong(it.message)
+                })
             }
-            val requestBody:RequestBody = builder.build();
-            RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().editData(requestBody,SPUtil.getString("userid"),profile_name.text.toString(),profile_sex.text.toString(),profile_sign.text.toString(),profile_birdday.text.toString())).subscribe({
-                ToastUtils.showLong("保存成功")
-                finishWithAlpha()
-            },{
-                ToastUtils.showLong(it.message)
-            })
+
+
     })
     getUserMessage()
         profile_sex.setOnClickListener {

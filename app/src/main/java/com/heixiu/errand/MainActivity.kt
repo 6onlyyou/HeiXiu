@@ -4,6 +4,8 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.os.Build
+import android.util.Log
+import android.widget.Toast
 import com.baidu.location.LocationClient
 import com.baidu.location.LocationClientOption
 import com.fushuaige.common.utils.ToastUtils
@@ -24,6 +26,8 @@ import com.heixiu.errand.utils.SPUtil
 import com.tbruyelle.rxpermissions2.Permission
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.functions.Consumer
+import io.rong.imkit.RongIM
+import io.rong.imlib.RongIMClient
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -84,16 +88,6 @@ class MainActivity : BaseActivity() {
             switchFragment(4)
         });
 
-        RxBus.getDefault().toObservable(CouponTicketBean::class.java).subscribe({
-            //            switchFragment(2)
-            val fragmentTransaction = supportFragmentManager.beginTransaction()
-            fragmentTransaction.show(fragments?.get(2))
-            fragmentTransaction.commit()
-
-            ContentFragment.ticketBean = it
-        }, {
-
-        })
     }
 
     fun getUserMessage() {
@@ -122,6 +116,29 @@ class MainActivity : BaseActivity() {
 
         switchFragment(0)
         getPermissions()
+        RxBus.getDefault().toObservable(CouponTicketBean::class.java).subscribe({
+
+
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            for (i in 0 until fragments!!.size) {
+                val fragment = fragments!!.get(i)
+                if (i == 2) {
+//                    if (fragment.isAdded) {
+                        fragmentTransaction.show(fragment)
+//                    } else {
+//                        fragmentTransaction.add(R.id.fl_container, fragment)
+//                    }
+                } else {
+//                    if (fragment.isAdded) {
+                        fragmentTransaction.hide(fragment)
+//                    }
+                }
+            }
+            fragmentTransaction.commit()
+            ContentFragment.ticketBean = it
+        }, {
+
+        })
     }
 
     fun initLocationConfig() {
@@ -212,8 +229,30 @@ class MainActivity : BaseActivity() {
                 requestPermissionsForM(permissions)
             }
         }
-    }
+        if(!SPUtil.getString("rongyun_token").equals("")){
+            connect(SPUtil.getString("rongyun_token"))
+        }
 
+
+    }
+    private fun connect(token: String) {
+        RongIM.connect(token, object : RongIMClient.ConnectCallback() {
+            override fun onTokenIncorrect() {
+                Log.e("LoginActivity", "--onTokenIncorrect")
+            }
+
+            override fun onSuccess(userid: String) {
+                Log.e("LoginActivity", "--onSuccess--" + userid)
+
+                //服务器连接成功，跳转消息列表
+                //
+            }
+
+            override fun onError(errorCode: RongIMClient.ErrorCode) {
+                Log.e("LoginActivity", "--onError")
+            }
+        })
+    }
     private fun requestPermissionsForM(per: java.util.ArrayList<String>) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(per.toTypedArray(), 1)
@@ -252,10 +291,11 @@ class MainActivity : BaseActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun messageEventBus(event: MessageEvent) {
-
+//
         if (event.city.equals("")) {
-//            ToastUtils.showLong("" + event.city)
+
         } else {
+            ToastUtils.showLong("" + event.city)
             SPUtil.saveString("city", event.city)
             mLocationClient!!.stop()
         }

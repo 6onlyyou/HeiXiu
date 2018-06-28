@@ -145,7 +145,7 @@
         <activity android:name=".MVP.Message.MyIssuedFragment" />
         <!-- 会话列表融云 -->
         <activity
-            android:name=".activity.ConversationListActivity"
+            android:name=".MVP.Message.ConversationListActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
@@ -155,15 +155,16 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data
-                    android:host="com.huadong.heixiu"
+                    android:host="com.heixiu.errand"
                     android:path="/conversationlist"
                     android:scheme="rong" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.ConversationActivity"
+            android:name=".MVP.Message.ConversationActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -171,7 +172,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data
-                    android:host="com.huadong.heixiu"
+                    android:host="com.heixiu.errand"
                     android:pathPrefix="/conversation/"
                     android:scheme="rong" />
             </intent-filter>
@@ -204,7 +205,7 @@
 
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
-            android:value="vnroth0kv8q0o" />
+            android:value="bmdehs6pbr26s" />
 
         <activity android:name=".MVP.Login.LoginActivity" />
         <activity android:name=".MVP.Message.MyTaskActicity" />
@@ -232,6 +233,7 @@
         <activity android:name=".MVP.Seting.ChangePhoneActivity" />
         <activity android:name=".MVP.Express.ExpressMessageActivity" />
         <activity android:name=".MVP.Community.PostVideoActivity" />
+        <activity android:name=".MVP.Seting.DescriptionActivity"></activity>
         <activity android:name=".MVP.Seting.WebActivity"></activity>
     </application>
 

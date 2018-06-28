@@ -29,6 +29,8 @@ import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.rong.imkit.RongIM;
+
 
 public abstract class BaseActivity extends AppCompatActivity {
     protected Context mContext;
@@ -46,6 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         initWindows(getResources().getColor(R.color.colorPrimary));
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);// 锁定竖屏
+
         initView();
         initdata();
         ActivityManager.addActivity(this);

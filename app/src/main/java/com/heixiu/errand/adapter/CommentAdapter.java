@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.fushuaige.common.utils.GlideUtil;
 import com.heixiu.errand.R;
 import com.heixiu.errand.bean.ListCommentInfoBean;
 import com.heixiu.errand.bean.MyFansBean;
@@ -37,11 +38,7 @@ public class CommentAdapter extends BaseQuickAdapter<ListCommentInfoBean> {
     protected void convert(BaseViewHolder helper, ListCommentInfoBean item) {
         helper.setText(R.id.comment_nickname,item.getNickName()).setText(R.id.comment_content,item.getContent());
 //        //Glide加载图片  并且支持gif动图
-        Glide.with(mContext)
-                .load(item.getUserImg())
-                .crossFade()
-                .placeholder(R.mipmap.defaulthead)
-                .into((ImageView) helper.getView(R.id.comment_head));
+        GlideUtil.load(mContext, item.getUserImg(),(ImageView) helper.getView(R.id.comment_head));
 
     }
 

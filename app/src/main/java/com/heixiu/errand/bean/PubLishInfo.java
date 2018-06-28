@@ -39,6 +39,15 @@ public class PubLishInfo {
     private String nickName;
     private String userImg;
     private Object listCommentInfo;
+    private Long createTime;
+
+    public Long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
+    }
 
     public List<String> getContentImgList() {
         return contentImgList;

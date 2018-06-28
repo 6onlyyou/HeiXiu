@@ -12,6 +12,16 @@ public class PhoneToken {
 
     private String token;
 
+    public String getRongyun_token() {
+        return rongyun_token;
+    }
+
+    public void setRongyun_token(String rongyun_token) {
+        this.rongyun_token = rongyun_token;
+    }
+
+    private String rongyun_token;
+
     public String getToken() {
         return token;
     }
