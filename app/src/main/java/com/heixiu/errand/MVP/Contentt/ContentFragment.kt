@@ -1,6 +1,7 @@
 package com.heixiu.errand.MVP.Contentt
 
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.Editable
@@ -10,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.baidu.mapapi.search.geocode.*
@@ -83,7 +85,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
     }
 
     fun dealParamsState() {
-        if (!TextUtils.isEmpty(ContentFragment.addPrice)) {
+        if ((ContentFragment.addPrice.toInt()) > 0) {
             var drawable = context?.resources?.getDrawable(R.mipmap.ic_add_price_publish_over)
             drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
             add_price_tv.setCompoundDrawables(null, drawable, null, null)
@@ -154,6 +156,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
     var choosePosition = -1
     private var addressData: MutableList<String> = ArrayList()
     var spinnerAdapter: SpinnerAdapter? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -176,6 +179,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
         sugAdapter = ArrayAdapter(context, R.layout.item_auto_text, R.id.address_name)
         inputAddressEt.setAdapter(sugAdapter)
         inputAddressEt.setOnItemClickListener { parent, view, position, id ->
+            hideInput(context!!, inputAddressEt)
             getLocationPosition(suggest?.get(position)!!)
         }
 
@@ -241,7 +245,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
                     TextUtils.isEmpty(ContentFragment.packageWeight)
                     || TextUtils.isEmpty(ContentFragment.receiverName)
                     || TextUtils.isEmpty(ContentFragment.receiverNum)
-                    || TextUtils.isEmpty(ContentFragment.descriptions)) {
+                    ) {
                 ToastUtils.showLong("信息不完整")
             } else {
                 try {
@@ -269,6 +273,10 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
         })
     }
 
+    fun hideInput(context: Context, view: View) {
+        var inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
 
     private fun dealTime(options1: Int, options2: Int, options3: Int) {
         val c = Calendar.getInstance()//

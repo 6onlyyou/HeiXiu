@@ -39,8 +39,8 @@ public class TicketAdapter extends BaseQuickAdapter<CouponTicketBean> {
             @Override
             public void onClick(View v) {
                 //事件处理
+
                 RxBus.getDefault().post(item);
-                RxBus.getDefault().post(new PublishParamsChangeEvent());
                 ContentFragment.Companion.setTicketBean(item);
 
                 ((Activity) mContext).finish();
