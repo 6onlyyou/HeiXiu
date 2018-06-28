@@ -1,7 +1,5 @@
 package com.heixiu.errand.MVP.Seting
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
 import android.widget.CompoundButton
 import com.heixiu.errand.R
@@ -24,7 +22,7 @@ class SoundActivity : BaseActivity() {
                 SPUtil.saveboolean("soundInform", b)
             }
         })
-        val shakeState  = SPUtil.getBoolean("shakeInform")
+        val shakeState = SPUtil.getBoolean("shakeInform")
         shake_inform.setChecked(shakeState)
         shake_inform.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
             override fun onCheckedChanged(compoundButton: CompoundButton, b: Boolean) {

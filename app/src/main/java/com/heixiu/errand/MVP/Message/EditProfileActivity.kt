@@ -15,6 +15,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.fushuaige.common.utils.GlideUtil
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.MVP.Seting.AliPayBindActivity
 import com.heixiu.errand.MVP.Seting.AuthenticationActivity
@@ -143,12 +144,7 @@ class EditProfileActivity : BaseActivity() {
                 profile_bind.setText("已绑定")
             }
 
-
-            Glide.with(this)
-                    .load(it.userInfo.userImg)
-                    .crossFade()
-                    .placeholder(R.mipmap.defaulthead)
-                    .into(profile_hard);
+            GlideUtil.load(this,it.userInfo.userImg,profile_hard)
 
         },{
             ToastUtils.showLong(it.message)

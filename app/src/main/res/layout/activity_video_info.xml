@@ -5,10 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context="com.heixiu.errand.MVP.Community.VideoInfoActivity">
     <include layout="@layout/comm_title" />
     <RelativeLayout
+        android:paddingTop="22dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <com.heixiu.errand.widget.ObservableScrollView
@@ -18,7 +20,7 @@
         android:scrollbars="none">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -27,10 +29,10 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
             <ImageView
                 android:id="@+id/info_headimg"
@@ -56,6 +58,8 @@
     </RelativeLayout>
     <TextView
         android:id="@+id/info_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_width="match_parent"
@@ -66,9 +70,13 @@
                 android:id="@+id/video_list_item_playr"
                 android:visibility="gone"
                 android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_height="200dp"/>
             <com.heixiu.errand.MVP.Community.widget.PictureGridView
                 android:verticalSpacing="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:horizontalSpacing="5dp"
                 android:visibility="gone"
                 android:id="@+id/gridView"
@@ -136,18 +144,23 @@
         </LinearLayout>
     </LinearLayout>
 <TextView
+    android:layout_marginLeft="22dp"
+    android:layout_marginRight="22dp"
     android:layout_marginTop="15dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="评论"/>
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.3dp"
-        android:background="#aaa"></View>
+        android:layout_height="3dp"
+        android:background="#f2f2f2"></View>
     <android.support.v7.widget.RecyclerView
+        android:background="@color/white"
         android:id="@+id/Rv_comment"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="22dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:layout_marginBottom="40dp">
 
     </android.support.v7.widget.RecyclerView>
@@ -157,9 +170,13 @@
             <TextView
                 android:id="@+id/Et_comment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
                 android:background="@drawable/login_bg"
                 android:layout_alignParentBottom="true"
+                android:layout_marginLeft="22dp"
+                android:layout_marginRight="22dp"
+                android:textSize="13sp"
                 android:hint="请输入评论"
                 tools:ignore="NotSibling" />
     </RelativeLayout>

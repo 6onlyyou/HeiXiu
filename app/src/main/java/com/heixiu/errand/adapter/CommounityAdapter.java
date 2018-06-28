@@ -9,8 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.fushuaige.common.utils.GlideUtil;
 import com.fushuaige.common.utils.ToastUtils;
 import com.heixiu.errand.MVP.Community.VideoInfoActivity;
@@ -56,10 +56,12 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
         super(contentView, data);
         datalist = data;
     }
+
     PictureGridView gridview;
+
     @SuppressLint("ResourceType")
     @Override
-    protected void convert(BaseViewHolder helper, final PubLishInfo item) {
+    protected void convert(final BaseViewHolder helper, final PubLishInfo item) {
         publishInfoDetail = item;
         if (item.getType().equals("0")) {
 
@@ -108,7 +110,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
         helper.setText(R.id.video_list_item_text_context, item.getContent()).setText(R.id.Iv_communityNickName, item.getNickName()).setText(R.id.Tv_communityPraise, item.getAdmireCount() + "");
         //Glide加载图片  并且支持gif动图
         helper.setText(R.id.Iv_communityTime, TimeUtils.getFriendlyTimeArticleByNow(item.getCreateTime(), null));
-        GlideUtil.load(mContext,item.getUserImg(), (ImageView) helper.getView(R.id.Iv_communityHead));
+        GlideUtil.load(mContext, item.getUserImg(), (ImageView) helper.getView(R.id.Iv_communityHead));
         final Button community_attention = (Button) helper.getView(R.id.community_attention);
         community_attention.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +146,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
                 }
             }
         });
-        final ImageView itemPraise = helper.getView(R.id.item_praise);
+        final ImageView   itemPraise = helper.getView(R.id.item_praise);
         if (item.getAdmireStatus() == 0) {
             itemPraise.setImageResource(R.mipmap.nopraise);
         } else {
@@ -155,7 +157,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
         } else {
             community_attention.setText("已关注");
         }
-        final EditText Et_comment = helper.getView(R.id.Et_comment);
+        final EditText   Et_comment = helper.getView(R.id.Et_comment);
         ImageView Iv_comment = helper.getView(R.id.comment_send);
         Iv_comment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,7 +199,8 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
                 mContext.startActivity(intent);
             }
         });
-        LinearLayout community_prias = (LinearLayout) helper.getView(R.id.community_prias);
+        final LinearLayout community_prias = (LinearLayout) helper.getView(R.id.community_prias);
+        final TextView  Tv_communityPraise = (TextView) helper.getView(R.id.Tv_communityPraise);
         community_prias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -207,18 +210,23 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
                     mContext.startActivity(intent);
 
                 } else {
+                    community_prias.setEnabled(false);
                     RxUtils.wrapRestCall(RetrofitFactory.INSTANCE.getRetrofit().userAdmire(item.getUserId(), item.getPublishId() + "", SPUtil.getString("userid"))).subscribe(new Consumer<String>() {
                         @Override
                         public void accept(String s) throws Exception {
-                            if (item.getAdmireStatus() == 0) {
+                            if (s.equals("点赞成功")) {
                                 itemPraise.setImageResource(R.mipmap.praise);
+                                Tv_communityPraise.setText(Integer.parseInt(Tv_communityPraise.getText().toString()) + 1 + "");
                             } else {
                                 itemPraise.setImageResource(R.mipmap.nopraise);
+                                Tv_communityPraise.setText(Integer.parseInt(Tv_communityPraise.getText().toString()) - 1 + "");
                             }
+                            community_prias.setEnabled(true);
                         }
                     }, new Consumer<Throwable>() {
                         @Override
                         public void accept(Throwable throwable) throws Exception {
+                            community_prias.setEnabled(true);
                             ToastUtils.showLong(throwable.getMessage());
                         }
                     });

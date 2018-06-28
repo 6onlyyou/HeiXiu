@@ -105,7 +105,7 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
                     video_list_item_playr.setVisibility(View.VISIBLE)
                 }
             }
-            GlideUtil.load(mContext, publishInfoDetail!!.getUserImg(),info_headimg)
+            GlideUtil.load(this, publishInfoDetail!!.getUserImg(),info_headimg)
         }, {
             ToastUtils.showLong(it.message)
         })
@@ -134,18 +134,25 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
                 val intent = Intent(mContext, LoginActivity::class.java)
                 mContext.startActivity(intent)
             } else {
+                info_praise.isEnabled = false
                 RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().userAdmire(publishInfoDetail!!.userId, publishInfoDetail!!.getPublishId() + "",SPUtil.getString("userid"))).subscribe({ s ->
-                    if(publishInfoDetail!!.admireStatus==0){
+
+                    if (s == "点赞成功") {
                         val drawableLeft = resources.getDrawable(
                                 R.mipmap.praise)
                         info_praise.setCompoundDrawablesWithIntrinsicBounds(drawableLeft, null, null, null)
-                    }else{
+                        info_praise.setText((Integer.parseInt(info_praise.getText().toString()) + 1).toString() + "")
+                    } else {
                         val drawableLeft = resources.getDrawable(
                                 R.mipmap.nopraise)
                         info_praise.setCompoundDrawablesWithIntrinsicBounds(drawableLeft, null, null, null)
+                        info_praise.setText((Integer.parseInt(info_praise.getText().toString()) - 1).toString() + "")
                     }
+                    info_praise.isEnabled = true
                 })
-                { throwable -> ToastUtils.showLong(throwable.message) }
+                { throwable ->
+                    info_praise.isEnabled = true
+                    ToastUtils.showLong(throwable.message) }
             }
         }
     }
