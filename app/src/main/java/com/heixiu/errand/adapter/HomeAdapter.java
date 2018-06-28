@@ -2,6 +2,7 @@ package com.heixiu.errand.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             double distance = DistanceUtil.getDistance(
                     new LatLng(MyApplication.getInstance().localLat, MyApplication.getInstance().localLong)
                     , new LatLng(orderInfo.getOriginsLatitude(), orderInfo.getOriginsLongitude()));
+            Log.i(TAG, "onBindViewHolder: distance"+distance);
             if ((distance) >= 1000 && distance < 1000000000) {
                 distanceFormat = df.format(distance / 1000);
                 viewHolder.distance.setText("距您" + distanceFormat + "公里");

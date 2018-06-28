@@ -4,14 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import com.baidu.mapapi.model.LatLng
 import com.baidu.mapapi.utils.DistanceUtil
 import com.fushuaige.common.utils.ToastUtils
+import com.heixiu.errand.Event.PublishParamsChangeEvent
 import com.heixiu.errand.R
 import com.heixiu.errand.bean.OrderInfo
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
+import com.heixiu.errand.utils.RxBus
 import com.heixiu.errand.utils.SPUtil
 import kotlinx.android.synthetic.main.activity_confirm_publish_order.*
 
@@ -35,16 +36,15 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
 
 
 //        orderNo.text = "订单编号： " + orderInfo.orderNum
-        start.text = orderInfo.sendAddress
-        end.text = orderInfo.receiveAddress
+        start.text = orderInfo.receiveAddress
+        end.text = orderInfo.sendAddress
         time.text = orderInfo.sendTime
         type.text = orderInfo.name
         weight.text = orderInfo.weight.toString() + "斤"
         add_money.text = orderInfo.addPrice.toString() + "元"
         tips.text = orderInfo.description
-        recipientsame.text = orderInfo.receiveName
-        recipientsNum.text = orderInfo.receiveNum
-
+        recipientsame.text = "收件人姓名：" + orderInfo.receiveName
+        recipientsNum.text = "收件人电话：" + orderInfo.receiveNum
 
         back.setOnClickListener({
             finish()
@@ -65,19 +65,20 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
                 LatLng(orderInfo.originsLatitude, orderInfo.originsLongitude)) / 1000
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().calculatePrice(orderInfo.weight.toString(), distance.toString()))
                 .subscribe({
-                    all_order_price.text = "" + it.price
+                    all_order_price.text = it.price.toString() + "元"
                     if (ContentFragment.ticketBean != null) {
                         var realPrice = it.price - ContentFragment.ticketBean?.couponPrice!!
                         if (realPrice < 0) {
                             orderInfo.payment = 0
-                            payment.text = "实际付款金额 0"
+                            payment.text = "实际付款金额 : 0元"
                         } else {
-                            payment.text = "实际付款金额" + realPrice
+                            orderInfo.payment = realPrice
+                            payment.text = "实际付款金额" + realPrice + "元"
                         }
-                        ticket.text = ContentFragment.ticketBean?.couponPrice!!.toString()
+                        ticket.text = "优惠券金额：" + ContentFragment.ticketBean?.couponPrice!!.toString() + "元"
                     } else {
                         orderInfo.payment = it.price
-                        payment.text = "实际付款金额" + it.price
+                        payment.text = "实际付款金额" + it.price + "元"
                         ticket.text = "无优惠券"
                     }
                     canSubmit = true
@@ -92,7 +93,6 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
         if (!canSubmit) {
             ToastUtils.showShort("订单价格计算失败，请重新选择地点")
         }
-        orderInfo.courierNum = "1"
 
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().createOrder(
                 SPUtil.getString("userid"),
@@ -112,9 +112,33 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
                 orderInfo.destinationsLatitude.toString(),
                 orderInfo.destinationsLongitude.toString()
         )).subscribe({
-            Log.i("createOrder", it)
+            ToastUtils.showShort("创建订单成功")
+            initPublishParams()
+            finish()
         }, {
-            Log.e("createOrder", it.message)
+            ToastUtils.showShort(it.message)
         })
+    }
+
+    fun initPublishParams() {
+        ContentFragment.receiveAddress = ""
+        ContentFragment.sendAddress = ""
+        ContentFragment.sendTime = ""
+        ContentFragment.packageType = ""
+        ContentFragment.addPrice = ""
+        ContentFragment.receiverName = ""
+        ContentFragment.receiverNum = ""
+        ContentFragment.packageWeight = ""
+        ContentFragment.descriptions = ""
+        ContentFragment.courierNum = ""
+        ContentFragment.sendLat = 0.0
+        ContentFragment.sendLon = 0.0
+        ContentFragment.receiveLat = 0.0
+        ContentFragment.receiveLon = 0.0
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        RxBus.getDefault().post(PublishParamsChangeEvent())
     }
 }

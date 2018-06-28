@@ -88,7 +88,6 @@ class MainActivity : BaseActivity() {
             switchFragment(4)
         });
 
-
     }
 
     fun getUserMessage() {
