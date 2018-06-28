@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.fushuaige.common.utils.GlideUtil;
 import com.heixiu.errand.R;
 import com.heixiu.errand.bean.PublishInfoDetail;
@@ -68,8 +69,11 @@ public class MyGridViewAdapter extends BaseAdapter {
         height = width;
         for(int i=0;i<list.size();i++){
             img.setLayoutParams(new AbsListView.LayoutParams(width, height));
-            GlideUtil.load(img.getContext(), list.get(i), img);
-
+            Glide.with(img.getContext())
+                    .load(list.get(i))
+                    .crossFade()
+                    .placeholder(R.mipmap.defaulthead)
+                    .into(img);
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -92,8 +96,10 @@ public class MyGridViewAdapter extends BaseAdapter {
                 dialog6LlBckgrnd = (LinearLayout)pDialog.findViewById(R.id.dialog6LlBckgrnd);
                 dialog6LlBckgrnd.setOnClickListener(pDialogMy);
                 dialog6IvPic = (ImageView)pDialog.findViewById(R.id.dialog6IvPic);
-                GlideUtil.load(dialog6IvPic.getContext(), url, dialog6IvPic);
-
+                Glide.with(dialog6IvPic.getContext())
+                        .load(url)
+                        .crossFade()
+                        .into(dialog6IvPic);
 //				WindowManager wm = getWindowManager();
 //				int nScreenWidth = wm.getDefaultDisplay().getWidth();
 //				int nWidth = nScreenWidth;

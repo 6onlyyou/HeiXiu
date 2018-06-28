@@ -44,7 +44,7 @@ class PostTextActivity : BaseActivity() {
         mTitle.setTv_Right("发表", R.color.white, View.OnClickListener {
             publish()
 
-            finishWithAnim()
+
         })
     }
 

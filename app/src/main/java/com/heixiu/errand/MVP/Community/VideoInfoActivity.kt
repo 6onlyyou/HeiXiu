@@ -3,7 +3,9 @@ package com.heixiu.errand.MVP.Community
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.fushuaige.common.utils.GlideUtil
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.MVP.Community.callback.DialogFragmentDataCallback
 import com.heixiu.errand.MVP.Community.fragment.CommentFragment
@@ -103,11 +105,7 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
                     video_list_item_playr.setVisibility(View.VISIBLE)
                 }
             }
-            Glide.with(mContext)
-                    .load(publishInfoDetail!!.getUserImg())
-                    .crossFade()
-                    .placeholder(R.mipmap.defaulthead)
-                    .into(info_headimg)
+            GlideUtil.load(mContext, publishInfoDetail!!.getUserImg(),info_headimg)
         }, {
             ToastUtils.showLong(it.message)
         })

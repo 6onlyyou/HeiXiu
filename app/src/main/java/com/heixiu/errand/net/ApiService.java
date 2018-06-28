@@ -354,7 +354,23 @@ public interface ApiService {
             @Query("sign") String sign,
             @Query("birthday") String birthday
     );
+    /**
+     * 编辑资料
+     * userId	用户id
+     * nickName	昵称
+     * sex	性别
+     * sign	签名
+     * birthday	生日
+     */
 
+    @POST("editData")
+    Observable<ResponseBean<String>> editDataNoHead(
+            @Query("userId") String userId,
+            @Query("nickName") String nickName,
+            @Query("sex") String sex,
+            @Query("sign") String sign,
+            @Query("birthday") String birthday
+    );
     /**
      * 1.1.31	绑定支付宝
      * userId	用户id

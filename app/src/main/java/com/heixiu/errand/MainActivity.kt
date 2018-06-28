@@ -88,16 +88,7 @@ class MainActivity : BaseActivity() {
             switchFragment(4)
         });
 
-        RxBus.getDefault().toObservable(CouponTicketBean::class.java).subscribe({
-//            switchFragment(2)
-            val fragmentTransaction = supportFragmentManager.beginTransaction()
-            fragmentTransaction.show(fragments?.get(2))
-            fragmentTransaction.commit()
 
-            ContentFragment.ticketBean = it
-        }, {
-
-        })
     }
 
     fun getUserMessage() {
@@ -126,6 +117,29 @@ class MainActivity : BaseActivity() {
 
         switchFragment(0)
         getPermissions()
+        RxBus.getDefault().toObservable(CouponTicketBean::class.java).subscribe({
+
+
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            for (i in 0 until fragments!!.size) {
+                val fragment = fragments!!.get(i)
+                if (i == 2) {
+//                    if (fragment.isAdded) {
+                        fragmentTransaction.show(fragment)
+//                    } else {
+//                        fragmentTransaction.add(R.id.fl_container, fragment)
+//                    }
+                } else {
+//                    if (fragment.isAdded) {
+                        fragmentTransaction.hide(fragment)
+//                    }
+                }
+            }
+            fragmentTransaction.commit()
+            ContentFragment.ticketBean = it
+        }, {
+
+        })
     }
 
     fun initLocationConfig() {
@@ -230,8 +244,7 @@ class MainActivity : BaseActivity() {
 
             override fun onSuccess(userid: String) {
                 Log.e("LoginActivity", "--onSuccess--" + userid)
-                Toast.makeText(this@MainActivity, "登录成功,用户：" + userid, Toast.LENGTH_SHORT).show()
-                
+
                 //服务器连接成功，跳转消息列表
                 //
             }

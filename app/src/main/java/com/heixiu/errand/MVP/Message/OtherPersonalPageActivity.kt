@@ -6,15 +6,18 @@ import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.R
 import com.heixiu.errand.adapter.CommounityAdapter
 import com.heixiu.errand.base.BaseActivity
+import com.heixiu.errand.bean.MessageInfoBean
 import com.heixiu.errand.bean.PubLishInfo
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.SPUtil
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter
+import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_other_personal_page.*
 
 class OtherPersonalPageActivity : BaseActivity() {
     internal var commounityAdapter: CommounityAdapter? = null
+    internal var messageInfoBean: MessageInfoBean?=null
     override fun loadViewLayout() {
         setContentView(R.layout.activity_other_personal_page)
         initTitle("他人信息", R.color.colorAccent, R.color.white)
@@ -34,10 +37,24 @@ class OtherPersonalPageActivity : BaseActivity() {
     }
 
     override fun setListener() {
+        community_attention.setOnClickListener {
+        if (SPUtil.getString("userid") == messageInfoBean!!.userInfo.userId){
+            ToastUtils.showLong("不能关注自己")
+            return@setOnClickListener
+        }
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().addFollow(SPUtil.getString("userid"), messageInfoBean!!.userInfo.userId)).subscribe({
+            if (community_attention.text == "已关注") {
+                ToastUtils.showLong("取消成功")
+                community_attention.text = "关注"
+            } else {
+                ToastUtils.showLong("关注成功")
+                community_attention.text = "已关注"
+            }
+        }) { throwable -> ToastUtils.showLong(throwable.message) }
 //        page_fansonclick.setOnClickListener {
 //            startActivity(MyFansActivity::class.java)
 //        }
-
+        }
     }
 
     override fun processLogic() {
@@ -47,6 +64,7 @@ class OtherPersonalPageActivity : BaseActivity() {
         super.onResume()
         val friendid = intent.getStringExtra("friendid")
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryMyMessage(friendid, null)).subscribe({
+            messageInfoBean = it
             page_nickname.text = it.userInfo.nickName
             page_sign.text = it.userInfo.sign
             page_briday.text = it.userInfo.birthday

@@ -48,6 +48,7 @@ class MyTaskActicity : BaseActivity() {
     }
 
     override fun processLogic() {
+
     }
 
 

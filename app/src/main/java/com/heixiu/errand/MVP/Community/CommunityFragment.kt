@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_community.*
 import java.util.ArrayList
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter
 import android.app.Dialog
+import android.graphics.Color
 import android.view.Gravity
 import android.widget.LinearLayout
 import com.fushuaige.common.utils.ToastUtils
@@ -31,10 +32,32 @@ import kotlinx.android.synthetic.main.issue_dialog.view.*
 /**
  * A simple [Fragment] subclass.
  */
-class CommunityFragment : BaseFragment(), BaseQuickAdapter.RequestLoadMoreListener,View.OnClickListener  {
+class CommunityFragment : BaseFragment(),SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener,View.OnClickListener  {
+    override fun onRefresh() {
+        swipeLayout.setRefreshing(true)
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().showAllPublishInfo(SPUtil.getString("userid"))).subscribe({
+            swipeLayout.setRefreshing(false)
+            if(it.size>0){
+                rv_list.setLayoutManager(LinearLayoutManager(context))
+//        如果Item高度固定  增加该属性能够提高效率
+                rv_list.setHasFixedSize(true)
+//        设置适配器
+                commounityAdapter = CommounityAdapter(it)
+                //设置加载动画
+                commounityAdapter!!.openLoadAnimation(BaseQuickAdapter.SCALEIN)
+                //设置是否自动加载以及加载个数
+                //将适配器添加到RecyclerView
+                rv_list.setAdapter(commounityAdapter)
+                //设置自动加载监听
+            }
+        },{
+            swipeLayout.setRefreshing(false)
+            ToastUtils.showLong(it.message)
+        })
+    }
+
     var page: Int = 0
     var mCameraDialog: Dialog? = null
-    internal var mRefreshLayout: SwipeRefreshLayout? = null
     internal var commounityAdapter: CommounityAdapter? = null
     private val dynamicEntityList = ArrayList<PubLishInfo>()
     override fun createView(inflater: LayoutInflater?, container: ViewGroup?): View {
@@ -51,6 +74,8 @@ class CommunityFragment : BaseFragment(), BaseQuickAdapter.RequestLoadMoreListen
             ToastUtils.showLong(position.toString())
             startActivity(VideoInfoActivity::class.java,dynamicEntityList.get(position))
         }
+        swipeLayout.setOnRefreshListener(this)
+        swipeLayout.setColorSchemeColors(Color.parseColor("#FF4081"), Color.parseColor("#643ac1"))
     }
     override fun initListener() {
 
@@ -73,8 +98,6 @@ class CommunityFragment : BaseFragment(), BaseQuickAdapter.RequestLoadMoreListen
     }
 
     override fun initData() {
-    }
-    override fun onLoadMoreRequested() {
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().showAllPublishInfo(SPUtil.getString("userid"))).subscribe({
             if(it.size>0){
                 rv_list.setLayoutManager(LinearLayoutManager(context))
@@ -87,13 +110,14 @@ class CommunityFragment : BaseFragment(), BaseQuickAdapter.RequestLoadMoreListen
                 //设置是否自动加载以及加载个数
                 //将适配器添加到RecyclerView
                 rv_list.setAdapter(commounityAdapter)
-                mRefreshLayout!!.setRefreshing(false);
                 //设置自动加载监听
             }
         },{
             ToastUtils.showLong(it.message)
-            mRefreshLayout!!.setRefreshing(false);
         })
+    }
+    override fun onLoadMoreRequested() {
+
 
     }
 
@@ -145,22 +169,6 @@ class CommunityFragment : BaseFragment(), BaseQuickAdapter.RequestLoadMoreListen
 
     override fun onResume() {
         super.onResume()
-        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().showAllPublishInfo(SPUtil.getString("userid"))).subscribe({
-            if(it.size>0){
-                rv_list.setLayoutManager(LinearLayoutManager(context))
-//        如果Item高度固定  增加该属性能够提高效率
-                rv_list.setHasFixedSize(true)
-//        设置适配器
-                commounityAdapter = CommounityAdapter(it)
-                //设置加载动画
-                commounityAdapter!!.openLoadAnimation(BaseQuickAdapter.SCALEIN)
-                //设置是否自动加载以及加载个数
-                //将适配器添加到RecyclerView
-                rv_list.setAdapter(commounityAdapter)
-                //设置自动加载监听
-            }
-        },{
-            ToastUtils.showLong(it.message)
-        })
+
     }
 }// Required empty public constructor

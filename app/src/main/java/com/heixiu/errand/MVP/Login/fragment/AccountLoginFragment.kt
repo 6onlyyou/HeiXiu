@@ -76,7 +76,6 @@ class AccountLoginFragment : BaseFragment() {
 
             override fun onSuccess(userid: String) {
                 Log.e("LoginActivity", "--onSuccess--" + userid)
-                Toast.makeText(activity, "登录成功,用户：" + userid, Toast.LENGTH_SHORT).show()
                 //服务器连接成功，跳转消息列表
                 //
             }

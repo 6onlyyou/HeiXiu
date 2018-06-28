@@ -3,7 +3,10 @@ package com.heixiu.errand.MVP.Message
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
+import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.fushuaige.common.utils.GlideUtil
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.R
 import com.heixiu.errand.adapter.CommounityAdapter
@@ -57,14 +60,10 @@ class PersonalPageActivity : BaseActivity() {
             page_attention.text = it.userFollowsCount.toString()
             page_orderInfoPublishCount.text = "发单任务数："+it.orderInfoPublishCount.toString()
             page_orderInfoReceiveCount.text = "接单数："+it.orderInfoReceiveCount.toString()
-            Glide.with(this)
-                    .load(it.userInfo.userImg)
-                    .crossFade()
-                    .placeholder(R.mipmap.defaulthead)
-                    .into(page_headimg);
+            GlideUtil.load(this@PersonalPageActivity, it.userInfo.userImg.toString(),page_headimg)
             if (it.userInfo.sex.equals("男")){
                 Glide.with(this)
-                        .load(R.mipmap.ic_launcher)
+                        .load(R.mipmap.icon_man)
                         .crossFade()
                         .placeholder(R.mipmap.ic_launcher)
                         .into(page_sex);
@@ -87,6 +86,7 @@ class PersonalPageActivity : BaseActivity() {
                 //设置加载动画
                 commounityAdapter!!.openLoadAnimation(BaseQuickAdapter.SCALEIN)
                 //设置是否自动加载以及加载个数
+                commounityAdapter!!.openLoadMore(10,true);
                 //将适配器添加到RecyclerView
                 rv_list.setAdapter(commounityAdapter)
                 //设置自动加载监听
