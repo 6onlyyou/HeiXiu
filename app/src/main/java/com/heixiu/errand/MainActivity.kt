@@ -91,13 +91,16 @@ class MainActivity : BaseActivity() {
     }
 
     fun getUserMessage() {
-        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().selectDataById(SPUtil.getString("userid"))).subscribe({
-            SPUtil.saveString("headurl", it.userInfo.userImg)
-            SPUtil.saveString("nickname", it.userInfo.nickName)
-            SPUtil.saveString("bindzfb", it.dbSubAccount.zfbId)
-        }, {
-            ToastUtils.showLong(it.message)
-        })
+        if(SPUtil.getString("userid").equals("")||SPUtil.getString("userid").equals("1")) {
+        }else {
+            RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().selectDataById(SPUtil.getString("userid"))).subscribe({
+                SPUtil.saveString("headurl", it.userInfo.userImg)
+                SPUtil.saveString("nickname", it.userInfo.nickName)
+                SPUtil.saveString("bindzfb", it.dbSubAccount.zfbId)
+            }, {
+                ToastUtils.showLong(it.message)
+            })
+        }
     }
 
     override fun loadViewLayout() {
@@ -295,7 +298,7 @@ class MainActivity : BaseActivity() {
         if (event.city.equals("")) {
 
         } else {
-            ToastUtils.showLong("" + event.city)
+            ToastUtils.showLong(event.city)
             SPUtil.saveString("city", event.city)
             mLocationClient!!.stop()
         }

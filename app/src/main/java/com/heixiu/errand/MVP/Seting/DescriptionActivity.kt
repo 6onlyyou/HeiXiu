@@ -13,14 +13,21 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.text.TextUtils
+import android.view.View
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseActivity
+import com.heixiu.errand.net.RetrofitFactory
+import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.GlideLoader
+import com.heixiu.errand.utils.SPUtil
 import com.jaiky.imagespickers.ImageConfig
 import com.jaiky.imagespickers.ImageSelector
 import com.jaiky.imagespickers.ImageSelectorActivity
 import kotlinx.android.synthetic.main.activity_description.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import top.zibin.luban.CompressionPredicate
 import top.zibin.luban.Luban
 import top.zibin.luban.OnCompressListener
@@ -33,11 +40,31 @@ class DescriptionActivity : BaseActivity() {
     private var imageConfig: ImageConfig? = null
     override fun loadViewLayout() {
         setContentView(R.layout.activity_description)
+        initTitle("问题反馈", R.color.colorPrimary, R.color.white)
+        mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
     }
 
     override fun findViewById() {
+
         description_pic.setOnClickListener{
             startAlbum();
+        }
+        description_doit.setOnClickListener {
+            val builder: MultipartBody.Builder =  MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+            //注意，file是后台约定的参数，如果是多图，file[]，如果是单张图片，file就行
+            for ( i in fileList.indices ) {
+
+                //这里上传的是多图
+                builder.addFormDataPart("file", fileList.get(i).getName(), RequestBody.create(MediaType.parse("image/*"), fileList.get(i)));
+            }
+            val requestBody: RequestBody = builder.build();
+            RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().addFeedback( SPUtil.getString("userid"), description_issue.text.toString(),requestBody)).subscribe({
+                ToastUtils.showLong("保存成功")
+                finishWithAlpha()
+            }, {
+                ToastUtils.showLong(it.message)
+            })
         }
     }
 

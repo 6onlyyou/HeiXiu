@@ -43,7 +43,8 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
     FragmentManager fragmentManager;
     private List<PubLishInfo> datalist;
     private PubLishInfo publishInfoDetail;
-
+    private String imgsrc = "";
+    private String nickname = "";
     public CommounityAdapter(int layoutResId, List<PubLishInfo> data) {
         super(layoutResId, data);
     }
@@ -51,7 +52,11 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
     public CommounityAdapter(List<PubLishInfo> data) {
         super(R.layout.community_item, data);
     }
-
+    public CommounityAdapter(List<PubLishInfo> data,String imgsrc,String nickname) {
+        super(R.layout.community_item, data);
+        this.imgsrc = imgsrc;
+        this.nickname = nickname;
+    }
     public CommounityAdapter(View contentView, List<PubLishInfo> data) {
         super(contentView, data);
         datalist = data;
@@ -107,10 +112,22 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
             }
         }
 
-        helper.setText(R.id.video_list_item_text_context, item.getContent()).setText(R.id.Iv_communityNickName, item.getNickName()).setText(R.id.Tv_communityPraise, item.getAdmireCount() + "");
+        helper.setText(R.id.video_list_item_text_context, item.getContent()).setText(R.id.Tv_communityPraise, item.getAdmireCount() + "");
         //Glide加载图片  并且支持gif动图
+        if(nickname.equals("")){
+            helper.setText(R.id.Iv_communityNickName, item.getNickName());
+        }else{
+            helper.setText(R.id.Iv_communityNickName, nickname);
+        }
+
         helper.setText(R.id.Iv_communityTime, TimeUtils.getFriendlyTimeArticleByNow(item.getCreateTime(), null));
-        GlideUtil.load(mContext, item.getUserImg(), (ImageView) helper.getView(R.id.Iv_communityHead));
+        if(imgsrc.equals("")){
+            GlideUtil.load(mContext, item.getUserImg(), (ImageView) helper.getView(R.id.Iv_communityHead));
+        }else{
+            GlideUtil.load(mContext, imgsrc, (ImageView) helper.getView(R.id.Iv_communityHead));
+        }
+
+
         final Button community_attention = (Button) helper.getView(R.id.community_attention);
         community_attention.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -50,7 +50,7 @@ class LoginActivity : BaseActivity() {
         adapter = LoginFragmentAdapter(supportFragmentManager, fragments)
         viewpager.setAdapter(adapter)
         tablayout.setupWithViewPager(viewpager)
-//        getPermissions()
+        getPermissions()
     }
 
     fun getPermissions() {
@@ -79,7 +79,7 @@ class LoginActivity : BaseActivity() {
                         } else {
                             // 用户拒绝了该权限，并且选中『不再询问』，提醒用户手动打开权限
 //                        ToastUtils.showLong("权限被拒绝，请在设置里面开启相应权限，若无相应权限会影响使用")
-//                            getAppDetailSettingIntent(this@LoginActivity)
+                            getAppDetailSettingIntent(this@LoginActivity)
                         }
                     }
                 })
@@ -112,7 +112,16 @@ class LoginActivity : BaseActivity() {
         }
         startActivity(localIntent)
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun messageEventBus(event: MessageEvent) {
+//
+        if (event.city.equals("")) {
 
+        } else {
+            SPUtil.saveString("city", event.city)
+            mLocationClient!!.stop()
+        }
+    }
     /**
      * 定位
      */

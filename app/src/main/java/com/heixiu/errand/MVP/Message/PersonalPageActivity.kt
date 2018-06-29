@@ -34,7 +34,7 @@ class PersonalPageActivity : BaseActivity() {
         rv_list.setHasFixedSize(true)
         //设置适配器
         val list = ArrayList<PubLishInfo>()
-        commounityAdapter = CommounityAdapter(list)
+        commounityAdapter = CommounityAdapter(list,"","")
         personal_compile.setOnClickListener {
             startActivity(EditProfileActivity::class.java)
         }
@@ -82,7 +82,7 @@ class PersonalPageActivity : BaseActivity() {
 //        如果Item高度固定  增加该属性能够提高效率
                 rv_list.setHasFixedSize(true)
 //        设置适配器
-                commounityAdapter = CommounityAdapter(it.publishInfos)
+                commounityAdapter = CommounityAdapter(it.publishInfos,it.userInfo.userImg,it.userInfo.nickName)
                 //设置加载动画
                 commounityAdapter!!.openLoadAnimation(BaseQuickAdapter.SCALEIN)
                 //设置是否自动加载以及加载个数

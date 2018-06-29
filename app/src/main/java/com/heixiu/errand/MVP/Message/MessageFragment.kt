@@ -74,19 +74,28 @@ class MessageFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-
-        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryPersonal(SPUtil.getString("userid"),SPUtil.getString("city"))).subscribe({
-            message_tadayRank.text=it.platRank.toString()
-                message_todayMenoy.text=it.dayAmount.toString()
-
-            message_friendRank.text = it.friendRank.toString()
+        if(SPUtil.getString("userid").equals("")||SPUtil.getString("userid").equals("1")) {
+            message_tadayRank.text = ""
+            message_todayMenoy.text = ""
+            message_friendRank.text = ""
             Glide.with(this)
-                .load(it.userImg)
-                .crossFade()
-                .placeholder(R.mipmap.defaulthead)
-                .into(message_hard);
-        },{
-            ToastUtils.showLong(it.message)
-        })
+                    .load(R.mipmap.defaulthead)
+                    .crossFade()
+                    .placeholder(R.mipmap.defaulthead)
+                    .into(message_hard);
+        }else{
+            RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryPersonal(SPUtil.getString("userid"), SPUtil.getString("city"))).subscribe({
+                message_tadayRank.text = it.platRank.toString()
+                message_todayMenoy.text = it.dayAmount.toString()
+                message_friendRank.text = it.friendRank.toString()
+                Glide.with(this)
+                        .load(it.userImg)
+                        .crossFade()
+                        .placeholder(R.mipmap.defaulthead)
+                        .into(message_hard);
+            }, {
+                ToastUtils.showLong(it.message)
+            })
+        }
     }
 }// Required empty public constructor

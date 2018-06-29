@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseActivity
+import com.heixiu.errand.utils.SPUtil
 import kotlinx.android.synthetic.main.activity_seting_main.*
 
 class SetingMainActivity : BaseActivity() {
@@ -20,6 +21,16 @@ class SetingMainActivity : BaseActivity() {
         }
         setting_notification.setOnClickListener {
             startActivity(SoundActivity::class.java)
+        }
+        setting_outaccont.setOnClickListener {
+            SPUtil.saveString("headurl", "")
+            SPUtil.saveString("nickname", "")
+            SPUtil.saveString("bindzfb", "")
+            SPUtil.saveString("token","")
+            SPUtil.saveString("userid","")
+            SPUtil.saveString("rongyun_token","")
+            SPUtil.saveString("city", "")
+            finishWithAlpha()
         }
 //        setting_common.setOnClickListener {
 //            startActivity(SoundActivity::class.java)
