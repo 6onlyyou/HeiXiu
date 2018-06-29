@@ -63,37 +63,4 @@ class MyIssuedFragment : BaseActivity()  {
 
     override fun processLogic() {
     }
-
-
-
-
-
-
-
-//        mMyDollRv.setLayoutManager(GridLayoutManager(mContext, 2))
-//        val list = ArrayList<MyDollEntity>()
-//        mAdapter = MyDollAdapter(list)
-//        mAdapter.setOnItemClickListener(object : BaseQuickAdapter.OnItemClickListener() {
-//            fun onItemClick(adapter: BaseQuickAdapter, view: View, position: Int) {
-//
-//                if (adapter.getItem(position) != null && (adapter.getItem(position) as MyDollEntity).isIn_invalid()) {
-//                    return
-//                }
-//
-//                if (mAdapter.isSelect) {
-//                    val entity = adapter.getItem(position) as MyDollEntity
-//                    if (!entity.isInOrder()) {
-//                        entity.setChecked(!entity.isChecked())
-//                        adapter.notifyItemChanged(position)
-//                    }
-//                } else {
-//                    val entity = adapter.getItem(position) as MyDollEntity
-//                    val url = Urls.URL_SKU_DETAIL + entity.getGoods().getId()
-//                    WebActivity.runActivity(mContext, "娃娃详情", url)
-//                }
-//            }
-//        })
-
-
-
-}// Required empty public constructor
+}

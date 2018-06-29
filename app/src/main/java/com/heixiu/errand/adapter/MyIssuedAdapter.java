@@ -63,9 +63,6 @@ public class MyIssuedAdapter extends BaseQuickAdapter<OrderInfo> {
         btnDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent();
-//                intent.setClass(mContext, VideoInfoActivity.class);
-//                mContext.startActivity(intent);
             }
         });
 

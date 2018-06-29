@@ -233,8 +233,10 @@
         <activity android:name=".MVP.Seting.ChangePhoneActivity" />
         <activity android:name=".MVP.Express.ExpressMessageActivity" />
         <activity android:name=".MVP.Community.PostVideoActivity" />
-        <activity android:name=".MVP.Seting.DescriptionActivity"></activity>
-        <activity android:name=".MVP.Seting.WebActivity"></activity>
+        <activity android:name=".MVP.Seting.DescriptionActivity" />
+        <activity android:name=".MVP.Seting.WebActivity" />
+        <activity android:name=".MVP.Message.myorder.OrderSendingActivity" />
+        <activity android:name=".MVP.Message.myorder.OrderFinishActivity"></activity>
     </application>
 
 </manifest>
