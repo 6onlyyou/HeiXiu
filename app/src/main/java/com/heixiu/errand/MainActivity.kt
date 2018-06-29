@@ -5,7 +5,6 @@ import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
-import android.widget.Toast
 import com.baidu.location.LocationClient
 import com.baidu.location.LocationClientOption
 import com.fushuaige.common.utils.ToastUtils
@@ -38,7 +37,7 @@ class MainActivity : BaseActivity() {
     private var fragments: ArrayList<android.support.v4.app.Fragment>? = null
     var mLocationClient: LocationClient? = null
     private val myListener = MyLocationListener()
-
+    var stuteLocation = 0
 
     override fun onDestroy() {
         super.onDestroy()
@@ -91,8 +90,8 @@ class MainActivity : BaseActivity() {
     }
 
     fun getUserMessage() {
-        if(SPUtil.getString("userid").equals("")||SPUtil.getString("userid").equals("1")) {
-        }else {
+        if (SPUtil.getString("userid").equals("") || SPUtil.getString("userid").equals("1")) {
+        } else {
             RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().selectDataById(SPUtil.getString("userid"))).subscribe({
                 SPUtil.saveString("headurl", it.userInfo.userImg)
                 SPUtil.saveString("nickname", it.userInfo.nickName)
@@ -112,8 +111,6 @@ class MainActivity : BaseActivity() {
         //注册监听函数
         initLocationConfig()
         mLocationClient?.start()
-
-
         fragments = ArrayList()
         addFragment()
 
@@ -127,13 +124,13 @@ class MainActivity : BaseActivity() {
                 val fragment = fragments!!.get(i)
                 if (i == 2) {
 //                    if (fragment.isAdded) {
-                        fragmentTransaction.show(fragment)
+                    fragmentTransaction.show(fragment)
 //                    } else {
 //                        fragmentTransaction.add(R.id.fl_container, fragment)
 //                    }
                 } else {
 //                    if (fragment.isAdded) {
-                        fragmentTransaction.hide(fragment)
+                    fragmentTransaction.hide(fragment)
 //                    }
                 }
             }
@@ -160,7 +157,7 @@ class MainActivity : BaseActivity() {
 //        bd09：百度墨卡托坐标；
 //        海外地区定位，无需设置坐标类型，统一返回wgs84类型坐标
 
-        option.setScanSpan(1000)
+        option.setScanSpan(10000)
 //        可选，设置发起定位请求的间隔，int类型，单位ms
 //        如果设置为0，则代表单次定位，即仅定位一次，默认为0
 //        如果设置非0，需设置1000ms以上才有效
@@ -232,12 +229,13 @@ class MainActivity : BaseActivity() {
                 requestPermissionsForM(permissions)
             }
         }
-        if(!SPUtil.getString("rongyun_token").equals("")){
+        if (!SPUtil.getString("rongyun_token").equals("")) {
             connect(SPUtil.getString("rongyun_token"))
         }
 
 
     }
+
     private fun connect(token: String) {
         RongIM.connect(token, object : RongIMClient.ConnectCallback() {
             override fun onTokenIncorrect() {
@@ -256,6 +254,7 @@ class MainActivity : BaseActivity() {
             }
         })
     }
+
     private fun requestPermissionsForM(per: java.util.ArrayList<String>) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(per.toTypedArray(), 1)
@@ -298,9 +297,12 @@ class MainActivity : BaseActivity() {
         if (event.city.equals("")) {
 
         } else {
+            stuteLocation = 1
+
             ToastUtils.showLong(event.city)
             SPUtil.saveString("city", event.city)
             mLocationClient!!.stop()
+
         }
     }
 
@@ -324,7 +326,10 @@ class MainActivity : BaseActivity() {
         option.setEnableSimulateGps(false)//可选，默认false，设置是否需要过滤GPS仿真结果，默认需要
         mLocationClient!!.setLocOption(option)
         //开启定位
-        mLocationClient!!.start()
+        if (stuteLocation == 0) {
+            mLocationClient!!.start()
+        }
+
     }
 
     fun getPermissions() {

@@ -33,13 +33,19 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
                     commentAdapter!!.addData(publishInfoDetail!!.listCommentInfo.size, content)
                 }
     }
-
-
     override fun loadViewLayout() {
         setContentView(R.layout.activity_video_info);
         initTitle("动态详情", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
         publishId = intent.getStringExtra("publishId").toString()
+        share_go.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_SUBJECT, "快来吧")
+            intent.putExtra(Intent.EXTRA_TEXT, "呼呼呼" + "www.baidu.com")
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(Intent.createChooser(intent, "分享到"))
+        }
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().showOnePublishInfoDetail(publishId, SPUtil.getString("userid"))).subscribe({
             publishInfoDetail = it
             info_nickname.text = publishInfoDetail!!.nickName.toString()
@@ -131,8 +137,8 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
         }
         info_praise.setOnClickListener {
             if (SPUtil.getString("userid") == "" || SPUtil.getString("userid") == "1") {
-                val intent = Intent(mContext, LoginActivity::class.java)
-                mContext.startActivity(intent)
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
             } else {
                 info_praise.isEnabled = false
                 RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().userAdmire(publishInfoDetail!!.userId, publishInfoDetail!!.getPublishId() + "",SPUtil.getString("userid"))).subscribe({ s ->

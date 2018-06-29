@@ -1,8 +1,10 @@
 package com.heixiu.errand.adapter;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 
+import com.heixiu.errand.MVP.Message.myorder.OrderSendingActivity;
 import com.heixiu.errand.R;
 import com.heixiu.errand.bean.OrderInfo;
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter;
@@ -16,9 +18,9 @@ import java.util.List;
  * Author: fushuaige
  */
 public class MyIssuedAdapter extends BaseQuickAdapter<OrderInfo> {
-
     public MyIssuedAdapter(int layoutResId, List<OrderInfo> data) {
         super(layoutResId, data);
+
     }
 
     public MyIssuedAdapter(List<OrderInfo> data) {
@@ -31,7 +33,7 @@ public class MyIssuedAdapter extends BaseQuickAdapter<OrderInfo> {
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, OrderInfo item) {
+    protected void convert(BaseViewHolder helper, final OrderInfo item) {
         helper.setText(R.id.Tv_startingPart,item.getSendAddress()).setText(R.id.Tv_endingPart,item.getReceiveAddress());
         //Glide加载图片  并且支持gif动图
         helper.setText(R.id.Tv_deliveryTime,"送达时间："+item.getSendTime());
@@ -63,6 +65,8 @@ public class MyIssuedAdapter extends BaseQuickAdapter<OrderInfo> {
         btnDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                OrderSendingActivity orderSendingActivity = new OrderSendingActivity();
+                orderSendingActivity.Companion.startSelf(mContext,item);
             }
         });
 

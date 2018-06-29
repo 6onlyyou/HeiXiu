@@ -183,7 +183,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
                     Intent intent = new Intent(mContext, LoginActivity.class);
                     mContext.startActivity(intent);
                 } else {
-                    RxUtils.wrapRestCall(RetrofitFactory.INSTANCE.getRetrofit().createComment(SPUtil.getString("userid"), item.getUserId(), Et_comment.getText().toString(), publishInfoDetail.getPublishId() + "")).subscribe(new Consumer<String>() {
+                    RxUtils.wrapRestCall(RetrofitFactory.INSTANCE.getRetrofit().createComment(SPUtil.getString("userid"), item.getUserId(), Et_comment.getText().toString(), item.getPublishId() + "")).subscribe(new Consumer<String>() {
                         @Override
                         public void accept(String s) throws Exception {
                             ToastUtils.showLong(s);

@@ -43,6 +43,7 @@
                 android:id="@+id/info_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
                 android:text="付竹"
                 android:layout_gravity="center"/>
         </LinearLayout>
@@ -59,7 +60,7 @@
     <TextView
         android:id="@+id/info_content"
         android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_width="match_parent"
@@ -90,27 +91,33 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:visibility="invisible"
+            android:layout_marginLeft="20dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
         <ImageView
+            android:layout_marginTop="10dp"
+            android:id="@+id/share_go"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/share_go"/>
+        <ImageView
+            android:visibility="gone"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@mipmap/ic_launcher"/>
         <ImageView
+            android:visibility="gone"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@mipmap/ic_launcher"/>
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/ic_launcher"/>
-        <ImageView
+            android:visibility="gone"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@mipmap/ic_launcher"/>
 
         <ImageView
+            android:visibility="gone"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@mipmap/ic_launcher"/>
@@ -129,16 +136,16 @@
             <TextView
                 android:id="@+id/info_praise"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="14dp"
                 android:layout_marginRight="10dp"
                 android:drawableLeft="@mipmap/praise"
                 android:gravity="center"
                 android:text="234" />
             <TextView
                 android:id="@+id/info_comment"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="14dp"
                 android:drawableLeft="@mipmap/comment"
                 android:text="234"/>
         </LinearLayout>
@@ -157,8 +164,6 @@
     <android.support.v7.widget.RecyclerView
         android:background="@color/white"
         android:id="@+id/Rv_comment"
-        android:layout_marginLeft="22dp"
-        android:layout_marginRight="22dp"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_marginBottom="40dp">

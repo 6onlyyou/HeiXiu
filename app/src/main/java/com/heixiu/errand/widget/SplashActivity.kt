@@ -26,7 +26,7 @@ class SplashActivity : AppCompatActivity() {
 //                    Thread.sleep(2000)
                     if (entity .equals("") ||entity.equals("1")) {
                         finish()
-                        SPUtil.saveString("userid","1")
+                        SPUtil.saveString("userid","")
                         val intent = Intent(mContext, MainActivity::class.java)
                         startActivity(intent)
                         overridePendingTransition(R.anim.anim_right_enter, R.anim.anim_left_exit)

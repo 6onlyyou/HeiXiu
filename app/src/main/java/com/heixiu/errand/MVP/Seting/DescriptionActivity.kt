@@ -38,28 +38,32 @@ class DescriptionActivity : BaseActivity() {
     private val path = ArrayList<String>()
     private val fileList = ArrayList<File>()
     private var imageConfig: ImageConfig? = null
+    private var ordernum = ""
     override fun loadViewLayout() {
         setContentView(R.layout.activity_description)
         initTitle("问题反馈", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
+        ordernum =   intent.getSerializableExtra("data") as String
     }
 
     override fun findViewById() {
-
+        description_order.text = "订单编号："+ordernum
         description_pic.setOnClickListener{
             startAlbum();
         }
         description_doit.setOnClickListener {
             val builder: MultipartBody.Builder =  MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
+            if(fileList.size<1){
+                builder.addFormDataPart("file", null, RequestBody.create(MediaType.parse("image/*"), ""));
+            }
             //注意，file是后台约定的参数，如果是多图，file[]，如果是单张图片，file就行
             for ( i in fileList.indices ) {
-
                 //这里上传的是多图
                 builder.addFormDataPart("file", fileList.get(i).getName(), RequestBody.create(MediaType.parse("image/*"), fileList.get(i)));
             }
             val requestBody: RequestBody = builder.build();
-            RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().addFeedback( SPUtil.getString("userid"), description_issue.text.toString(),requestBody)).subscribe({
+            RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().addFeedback( SPUtil.getString("userid"),ordernum, description_issue.text.toString(),requestBody)).subscribe({
                 ToastUtils.showLong("保存成功")
                 finishWithAlpha()
             }, {

@@ -512,7 +512,7 @@ public interface ApiService {
     Observable<ResponseBean<List<BannerBean>>> platRank(@Query("userId") String userId,@Query("city") String city);
 
     @POST("add/feedback")
-    Observable<ResponseBean<List<String>>> addFeedback(@Query("userId") String userId,@Query("orderNum") String orderNum,@Query("desc") String desc,@Body RequestBody file);
+    Observable<ResponseBean<String>> addFeedback(@Query("userId") String userId,@Query("orderNum") String orderNum,@Query("desc") String desc,@Body RequestBody file);
 
 
 }

@@ -2,7 +2,9 @@ package com.heixiu.errand.MVP.Message
 
 import android.support.v7.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.fushuaige.common.utils.GlideUtil
 import com.fushuaige.common.utils.ToastUtils
+import com.heixiu.errand.MVP.Login.LoginActivity
 import com.heixiu.errand.R
 import com.heixiu.errand.adapter.CommounityAdapter
 import com.heixiu.errand.base.BaseActivity
@@ -38,7 +40,11 @@ class OtherPersonalPageActivity : BaseActivity() {
 
     override fun setListener() {
         community_attention.setOnClickListener {
-        if (SPUtil.getString("userid") == messageInfoBean!!.userInfo.userId){
+            if(SPUtil.getString("userid").equals("")||SPUtil.getString("userid").equals("1")){
+                startActivity(LoginActivity::class.java)
+                return@setOnClickListener
+            }
+        if (SPUtil.getString("userid").equals(messageInfoBean!!.userInfo.userId) ){
             ToastUtils.showLong("不能关注自己")
             return@setOnClickListener
         }
@@ -80,15 +86,15 @@ class OtherPersonalPageActivity : BaseActivity() {
                         .placeholder(R.mipmap.ic_launcher)
                         .into(page_sex);
             }else{
+
                 Glide.with(this)
                         .load(R.mipmap.page_woman)
                         .crossFade()
                         .placeholder(R.mipmap.ic_launcher)
                         .into(page_sex);
             }
-
+            GlideUtil.load(this@OtherPersonalPageActivity, it.userInfo.userImg.toString(),other_head)
             if(it.publishInfos.size>0){
-
                 rv_list.setLayoutManager(LinearLayoutManager(this))
 //        如果Item高度固定  增加该属性能够提高效率
                 rv_list.setHasFixedSize(true)

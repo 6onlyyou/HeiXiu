@@ -23,7 +23,6 @@ import com.heixiu.errand.utils.SPUtil
 import com.jaiky.imagespickers.ImageConfig
 import com.jaiky.imagespickers.ImageSelector
 import com.jaiky.imagespickers.ImageSelectorActivity
-import io.reactivex.Flowable
 import kotlinx.android.synthetic.main.activity_post_text.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -32,28 +31,25 @@ import top.zibin.luban.CompressionPredicate
 import top.zibin.luban.Luban
 import top.zibin.luban.OnCompressListener
 import java.io.File
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class PostTextActivity : BaseActivity() {
+    val REQUEST_CODE = 123
+    private val path = ArrayList<String>()
+    private val fileList = ArrayList<File>()
+    private var imageConfig: ImageConfig? = null
+    private var lisf = ArrayList<RequestBody>()
+    private var bodys = ArrayList<MultipartBody.Part>()
     override fun loadViewLayout() {
         setContentView(R.layout.activity_post_text)
         initTitle("图片动态", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
         mTitle.setTv_Right("发表", R.color.white, View.OnClickListener {
             publish()
-
-
         })
     }
 
-    val REQUEST_CODE = 123
-    private val path = ArrayList<String>()
-    private val fileList = ArrayList<File>()
-    private var imageConfig: ImageConfig? = null
-    private var lisf=ArrayList<RequestBody>()
-    private var bodys=ArrayList<MultipartBody.Part>()
+
     override fun findViewById() {
         text_addImage.setOnClickListener {
             startAlbum()
@@ -121,41 +117,25 @@ class PostTextActivity : BaseActivity() {
     }
 
     fun publish() {
-      val  paramsMap: Map<String, RequestBody> =  MyApplication.getp(fileList)
+        val paramsMap: Map<String, RequestBody> = MyApplication.getp(fileList)
 
-//        val paramsMap: Map<String, RequestBody> = HashMap<>();
-//        for ( i in fileList.indices ) {
-//            val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), fileList.get(i))
-//            lisf.add(requestFile);
-//        }
-//
-//        for ( i in lisf.indices ) {
-//            val body = MultipartBody.Part.createFormData("file","", lisf[i])
-//            bodys.add(body)
-//        }
-//        val multipartEntity = MultipartEntity()
-//
-//        val fid = FileBody(File(filePath))
-//        multipartEntity.addPart("file",fid);
-//bodys
-//        val descriptionString = "picture"
-//
-//        val description = RequestBody.create(MediaType.parse("multipart/form-data"), descriptionString)
-        ////addFormDataPart()第一个参数为表单名字，这是和后台约定好的
-        val builder:MultipartBody.Builder =  MultipartBody.Builder()
+
+        val builder: MultipartBody.Builder = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
         //注意，file是后台约定的参数，如果是多图，file[]，如果是单张图片，file就行
-        for ( i in fileList.indices ) {
-
+        if (fileList.size < 1) {
+            builder.addFormDataPart("file", null, RequestBody.create(MediaType.parse("image/*"), ""));
+        }
+        for (i in fileList.indices) {
             //这里上传的是多图
             builder.addFormDataPart("file", fileList.get(i).getName(), RequestBody.create(MediaType.parse("image/*"), fileList.get(i)));
         }
-        val requestBody:RequestBody = builder.build();
+        val requestBody: RequestBody = builder.build();
 
-        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().publish(requestBody, SPUtil.getString("userid"),0,text_content.text.toString(),"")).subscribe({
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().publish(requestBody, SPUtil.getString("userid"), 0, text_content.text.toString(), "")).subscribe({
             ToastUtils.showLong(it)
             finishWithAnim()
-        },{
+        }, {
             ToastUtils.showLong(it.message)
         })
 //        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit()
@@ -184,7 +164,7 @@ class PostTextActivity : BaseActivity() {
 //    fun   upload(){
 //        //构建body
 
-//
+    //
 //        return getRetrofitInterface(URLConstant.URL_BASE).upload(requestBody);
 //    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -210,6 +190,7 @@ class PostTextActivity : BaseActivity() {
                         override fun onError(e: Throwable?) {
                             ToastUtils.showLong(e.toString())
                         }
+
                         override fun onStart() {
 
                         }
