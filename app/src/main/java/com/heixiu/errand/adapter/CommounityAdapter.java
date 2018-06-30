@@ -45,6 +45,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
     private PubLishInfo publishInfoDetail;
     private String imgsrc = "";
     private String nickname = "";
+
     public CommounityAdapter(int layoutResId, List<PubLishInfo> data) {
         super(layoutResId, data);
     }
@@ -52,11 +53,13 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
     public CommounityAdapter(List<PubLishInfo> data) {
         super(R.layout.community_item, data);
     }
-    public CommounityAdapter(List<PubLishInfo> data,String imgsrc,String nickname) {
+
+    public CommounityAdapter(List<PubLishInfo> data, String imgsrc, String nickname) {
         super(R.layout.community_item, data);
         this.imgsrc = imgsrc;
         this.nickname = nickname;
     }
+
     public CommounityAdapter(View contentView, List<PubLishInfo> data) {
         super(contentView, data);
         datalist = data;
@@ -107,23 +110,23 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
                 helper.getView(R.id.video_list_item_playr).setVisibility(View.GONE);
             } else {
 
-                ((JCVideoPlayerStandard) helper.getView(R.id.video_list_item_playr)).setUp(item.getContentVideo(), item.getContent());
+                ((JCVideoPlayerStandard) helper.getView(R.id.video_list_item_playr)).setUp(item.getContentVideo(),  item.getContent());
                 helper.getView(R.id.video_list_item_playr).setVisibility(View.VISIBLE);
             }
         }
 
         helper.setText(R.id.video_list_item_text_context, item.getContent()).setText(R.id.Tv_communityPraise, item.getAdmireCount() + "");
         //Glide加载图片  并且支持gif动图
-        if(nickname.equals("")){
+        if (nickname.equals("")) {
             helper.setText(R.id.Iv_communityNickName, item.getNickName());
-        }else{
+        } else {
             helper.setText(R.id.Iv_communityNickName, nickname);
         }
 
         helper.setText(R.id.Iv_communityTime, TimeUtils.getFriendlyTimeArticleByNow(item.getCreateTime(), null));
-        if(imgsrc.equals("")){
+        if (imgsrc.equals("")) {
             GlideUtil.load(mContext, item.getUserImg(), (ImageView) helper.getView(R.id.Iv_communityHead));
-        }else{
+        } else {
             GlideUtil.load(mContext, imgsrc, (ImageView) helper.getView(R.id.Iv_communityHead));
         }
 
@@ -163,7 +166,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
                 }
             }
         });
-        final ImageView   itemPraise = helper.getView(R.id.item_praise);
+        final ImageView itemPraise = helper.getView(R.id.item_praise);
         if (item.getAdmireStatus() == 0) {
             itemPraise.setImageResource(R.mipmap.nopraise);
         } else {
@@ -174,7 +177,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
         } else {
             community_attention.setText("已关注");
         }
-        final EditText   Et_comment = helper.getView(R.id.Et_comment);
+        final EditText Et_comment = helper.getView(R.id.Et_comment);
         ImageView Iv_comment = helper.getView(R.id.comment_send);
         Iv_comment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,7 +220,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
             }
         });
         final LinearLayout community_prias = (LinearLayout) helper.getView(R.id.community_prias);
-        final TextView  Tv_communityPraise = (TextView) helper.getView(R.id.Tv_communityPraise);
+        final TextView Tv_communityPraise = (TextView) helper.getView(R.id.Tv_communityPraise);
         community_prias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -133,7 +133,7 @@ class PostTextActivity : BaseActivity() {
         val requestBody: RequestBody = builder.build();
 
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().publish(requestBody, SPUtil.getString("userid"), 0, text_content.text.toString(), "")).subscribe({
-            ToastUtils.showLong(it)
+            ToastUtils.showLong("发布成功")
             finishWithAnim()
         }, {
             ToastUtils.showLong(it.message)

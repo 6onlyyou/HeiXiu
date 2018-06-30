@@ -15,7 +15,6 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        setContentView(R.layout.activity_splash)
         mContext = this
 
         val entity = SPUtil.getString("userid")
@@ -23,7 +22,6 @@ class SplashActivity : AppCompatActivity() {
             override fun run() {
                 super.run()
                 try {
-//                    Thread.sleep(2000)
                     if (entity .equals("") ||entity.equals("1")) {
                         finish()
                         SPUtil.saveString("userid","")
@@ -39,7 +37,6 @@ class SplashActivity : AppCompatActivity() {
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                 }
-
             }
         }.start()
 

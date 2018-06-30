@@ -8,12 +8,12 @@
     tools:context="com.heixiu.errand.MVP.Seting.AliPayBindActivity">
     <include layout="@layout/comm_title" />
     <LinearLayout
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white">
     <TextView
         android:id="@+id/bind_zfb"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="19dp"
         android:layout_marginBottom="17dp"

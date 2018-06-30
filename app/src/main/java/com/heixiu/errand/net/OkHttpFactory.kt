@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
  */
 
 object OkHttpFactory {
-    private val DEFAULT_TIME_OUT: Long = 10
+    private val DEFAULT_TIME_OUT: Long = 40
     private lateinit var okHttpClient: OkHttpClient
 
     fun OkHttpClientManager() {
