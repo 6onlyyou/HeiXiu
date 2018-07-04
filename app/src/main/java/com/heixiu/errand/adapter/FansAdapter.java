@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.heixiu.errand.MVP.Community.VideoInfoActivity;
+import com.heixiu.errand.MVP.Message.OtherPersonalPageActivity;
 import com.heixiu.errand.R;
 import com.heixiu.errand.bean.MyFansBean;
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter;
@@ -44,6 +45,16 @@ public class FansAdapter extends BaseQuickAdapter<MyFansBean> {
                 .crossFade()
                 .placeholder(R.mipmap.defaulthead)
                 .into((ImageView) helper.getView(R.id.fans_img));
+        ImageView  fans_img =     (ImageView) helper.getView(R.id.fans_img);
+        fans_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("stype", "1");
+                intent.setClass(mContext, OtherPersonalPageActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
 //        //对视频的赋值 添加视频播放地址(使用原地址  .mp4之类的  这个要注意)和标题
 //        if(item.getViodeoUrl().equals("")||item.getViodeoUrl()==null){
 //            helper.getView(R.id.video_list_item_playr).setVisibility(View.GONE);

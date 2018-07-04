@@ -19,6 +19,8 @@ import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_personal_page.*
 import kotlinx.android.synthetic.main.fragment_message.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PersonalPageActivity : BaseActivity() {
     internal var commounityAdapter: CommounityAdapter? = null
@@ -55,7 +57,7 @@ class PersonalPageActivity : BaseActivity() {
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryMyMessage(SPUtil.getString("userid"),null)).subscribe({
             page_nickname.text = it.userInfo.nickName
             page_sign.text = it.userInfo.sign
-            page_briday.text = it.userInfo.birthday
+            page_briday.text = getAgeByBirthDay(it.userInfo.birthday).toString()+"岁"
             page_fans.text = it.userFanCounts.toString()
             page_attention.text = it.userFollowsCount.toString()
             page_orderInfoPublishCount.text = "发单任务数："+it.orderInfoPublishCount.toString()
@@ -94,5 +96,34 @@ class PersonalPageActivity : BaseActivity() {
         }) { throwable ->
             ToastUtils.showShort(throwable.message)
         }
+    }
+    fun getAgeByBirthDay(birthDay: String?): Int {
+        if (birthDay == null || birthDay.length < 4) {
+            return 0
+        }
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        //得到当前的年份
+        val cYear = sdf.format(Date()).substring(0, 4)
+        val cMouth = sdf.format(Date()).substring(5, 7)
+        val cDay = sdf.format(Date()).substring(8, 10)
+        //得到生日年份
+        val birth_Year = birthDay.substring(0, 4)
+        val birth_Mouth = birthDay.substring(5, 7)
+        val birth_Day = birthDay.substring(8, 10)
+        var age = Integer.parseInt(cYear) - Integer.parseInt(birth_Year)
+        if (Integer.parseInt(cMouth) - Integer.parseInt(birth_Mouth) < 0) {
+            age = age - 1
+        } else if (Integer.parseInt(cMouth) - Integer.parseInt(birth_Mouth) == 0) {
+            if (Integer.parseInt(cDay) - Integer.parseInt(birth_Day) > 0) {
+                age = age - 1
+            } else {
+                age = Integer.parseInt(cYear) - Integer.parseInt(birth_Year)
+            }
+        } else if (Integer.parseInt(cMouth) - Integer.parseInt(birth_Mouth) > 0) {
+            age = Integer.parseInt(cYear) - Integer.parseInt(birth_Year)
+        }
+
+
+        return age
     }
 }

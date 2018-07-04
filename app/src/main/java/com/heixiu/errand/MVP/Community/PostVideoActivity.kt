@@ -89,22 +89,9 @@ class PostVideoActivity : BaseActivity() {
                 ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, REQUEST_CODE)
             }
         }
-//            Intent intentPic = new Intent(
-//            Intent.ACTION_GET_CONTENT);
-//    intentPic;
-//    intentPic.setType("video/*;image/*");
-//    startActivityForResult(intentPic,
-//            RESULT_LOAD_IMAGE);
         val intent = Intent()
-//        intent.addCategory(Intent.CATEGORY_OPENABLE)
-        /* 开启Pictures画面Type设定为image */
-        //intent.setType("image/*");
-        // intent.setType("audio/*"); //选择音频
         intent.type = "video/*" //选择视频 （mp4 3gp 是android支持的视频格式）
 
-        // intent.setType("video/*;image/*");//同时选择视频和图片
-
-        /* 使用Intent.ACTION_GET_CONTENT这个Action */
         intent.action = Intent.ACTION_GET_CONTENT
         /* 取得相片后返回本画面 */
         startActivityForResult(intent, 1)

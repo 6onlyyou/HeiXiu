@@ -11,12 +11,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <EditText
-
         android:id="@+id/Et_phone"
         android:layout_marginLeft="57dp"
         android:layout_marginRight="57dp"
         android:layout_width="match_parent"
         android:background="@drawable/login_bg"
+        android:textSize="14sp"
         android:hint="请输入电话号"
         android:layout_height="34dp" />
     <RelativeLayout
@@ -30,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="34dp"
         android:hint="请输入验证码"
+        android:textSize="14sp"
         android:background="@drawable/login_bg"
         />
         <TextView

@@ -35,6 +35,7 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/rand_tadayRank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
@@ -56,10 +57,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="今日榜單"
+                    android:text="今日净赚"
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/rand_todayMenoy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
@@ -80,10 +82,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="今日榜單"
+                    android:text="好友排行"
                     android:textSize="13sp" />
 
                 <TextView
+                    android:id="@+id/rand_friendRank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"

@@ -16,6 +16,7 @@
         android:layout_marginLeft="57dp"
         android:layout_marginRight="57dp"
         android:layout_height="34dp"
+        android:textSize="14sp"
         android:layout_width="match_parent"
         android:background="@drawable/login_bg"
          />
@@ -32,6 +33,7 @@
         android:inputType="textPassword"
         android:layout_height="34dp"
         android:layout_width="match_parent"
+        android:textSize="14sp"
         android:background="@drawable/login_bg"
         />
 
