@@ -1,6 +1,7 @@
 package com.heixiu.errand.MVP.Message
 
 
+import android.content.Intent
 import android.os.Handler
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -22,8 +23,7 @@ import io.rong.imlib.model.Conversation
 import kotlinx.android.synthetic.main.fragment_message.*
 import java.util.*
 import android.databinding.adapters.TextViewBindingAdapter.setText
-
-
+import android.os.Bundle
 
 
 class MessageFragment : BaseFragment() {
@@ -62,7 +62,11 @@ class MessageFragment : BaseFragment() {
             startActivity(TicketActivity::class.java)
         }
         message_ranking.setOnClickListener {
-            startActivity(RankListActivity::class.java,queryPersonalBean)
+            val intent = Intent(context, RankListActivity::class.java)
+            val bundle = Bundle()
+            bundle.putSerializable("datas", queryPersonalBean)
+            intent.putExtras(bundle)
+            startActivity(intent)
         }
         message_wallet.setOnClickListener {
             startActivity(WalletMainActivity::class.java)

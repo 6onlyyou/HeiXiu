@@ -1,6 +1,7 @@
 package com.heixiu.errand.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Description:
@@ -15,6 +16,7 @@ import java.io.Serializable;
  */
 public class QueryPersonalBean implements Serializable {
 
+    private static final long serialVersionUID = 7846280459532412918L;
     private int platRank;
     private int friendRank;
 
@@ -44,13 +46,6 @@ public class QueryPersonalBean implements Serializable {
     }
 
 
-    public String getRankPlatInfoList() {
-        return rankPlatInfoList;
-    }
-
-    public void setRankPlatInfoList(String rankPlatInfoList) {
-        this.rankPlatInfoList = rankPlatInfoList;
-    }
 
     private String userImg;
 
@@ -63,5 +58,4 @@ public class QueryPersonalBean implements Serializable {
     }
 
     private int dayAmount;
-    private String rankPlatInfoList;
 }

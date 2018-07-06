@@ -16,6 +16,15 @@ public class MessageInfoBean implements Serializable {
     private int orderInfoReceiveCount;
     private int orderInfoPublishCount;
     private int followStatus;
+    private int admireCount;
+
+    public int getAdmireCount() {
+        return admireCount;
+    }
+
+    public void setAdmireCount(int admireCount) {
+        this.admireCount = admireCount;
+    }
 
     public List<PubLishInfo> getPublishInfos() {
         return publishInfos;

@@ -60,7 +60,7 @@ class OtherPersonalPageActivity : BaseActivity() {
             return@setOnClickListener
         }
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().addFollow(SPUtil.getString("userid"), messageInfoBean!!.userInfo.userId)).subscribe({
-            if (community_attention.text == "已关注") {
+            if (community_attention.text.equals("已关注")  ) {
                 ToastUtils.showLong("取消成功")
                 community_attention.text = "关注"
             } else {
@@ -87,8 +87,14 @@ class OtherPersonalPageActivity : BaseActivity() {
             page_briday.text = getAgeByBirthDay(it.userInfo.birthday).toString()+"岁"
             page_fans.text = it.userFanCounts.toString()
             page_attention.text = it.userFollowsCount.toString()
+            page_getpraise.text = it.admireCount.toString()
             page_orderInfoPublishCount.text = "发单任务数："+it.orderInfoPublishCount.toString()
             page_orderInfoReceiveCount.text = "接单数："+it.orderInfoReceiveCount.toString()
+            if(it.followStatus == 1) {
+                community_attention.setText("已关注")
+            }else{
+                community_attention.setText("关注")
+            }
 
             if(stype.equals("1")){
                 if(it.followStatus == 1) {
@@ -100,7 +106,7 @@ class OtherPersonalPageActivity : BaseActivity() {
             }
             if (it.userInfo.sex.equals("男")){
                 Glide.with(this)
-                        .load(R.mipmap.ic_launcher)
+                        .load(R.mipmap.icon_man)
                         .crossFade()
                         .placeholder(R.mipmap.ic_launcher)
                         .into(page_sex);
@@ -118,7 +124,7 @@ class OtherPersonalPageActivity : BaseActivity() {
 //        如果Item高度固定  增加该属性能够提高效率
                 rv_list.setHasFixedSize(true)
 //        设置适配器
-                commounityAdapter = CommounityAdapter(it.publishInfos,it.userInfo.userImg,it.userInfo.nickName)
+                commounityAdapter = CommounityAdapter(it.publishInfos,it.userInfo.userImg,it.userInfo.nickName,it.followStatus)
                 //设置加载动画
                 commounityAdapter!!.openLoadAnimation(BaseQuickAdapter.SCALEIN)
                 //设置是否自动加载以及加载个数

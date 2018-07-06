@@ -4,6 +4,7 @@ import com.heixiu.errand.bean.BannerBean;
 import com.heixiu.errand.bean.CouponTicketBean;
 import com.heixiu.errand.bean.MessageInfoBean;
 import com.heixiu.errand.bean.MyAddressInfo;
+import com.heixiu.errand.bean.MyAttentionBean;
 import com.heixiu.errand.bean.MyFansBean;
 import com.heixiu.errand.bean.MyPublishOrderBean;
 import com.heixiu.errand.bean.OrderInfo;
@@ -15,6 +16,7 @@ import com.heixiu.errand.bean.PublishInfoDetail;
 import com.heixiu.errand.bean.QueryCertificationStatusBean;
 import com.heixiu.errand.bean.QueryMyIncomeBean;
 import com.heixiu.errand.bean.QueryPersonalBean;
+import com.heixiu.errand.bean.RankBean;
 import com.heixiu.errand.bean.ResponseBean;
 import com.heixiu.errand.bean.SelectDataByIdBean;
 
@@ -421,7 +423,15 @@ public interface ApiService {
     Observable<ResponseBean<List<MyFansBean>>> fansList(
             @Query("userId") String userId
     );
+    /**
+     * 我的粉丝
+     * userId	用户id
+     */
 
+    @POST("followList")
+    Observable<ResponseBean<List<MyAttentionBean>>> followList(
+            @Query("userId") String userId
+    );
     /**
      * 我的收益
      * userId	用户id
@@ -506,10 +516,10 @@ public interface ApiService {
     Observable<ResponseBean<List<BannerBean>>> getBanner();
 
     @POST("friend/rank")
-    Observable<ResponseBean<List<BannerBean>>> friendRank(@Query("userId") String userId);
+    Observable<ResponseBean<List<RankBean>>> friendRank(@Query("userId") String userId);
 
     @POST("plat/rank")
-    Observable<ResponseBean<List<BannerBean>>> platRank(@Query("userId") String userId,@Query("city") String city);
+    Observable<ResponseBean<List<RankBean>>> platRank(@Query("userId") String userId, @Query("city") String city);
 
     @POST("add/feedback")
     Observable<ResponseBean<String>> addFeedback(@Query("userId") String userId,@Query("orderNum") String orderNum,@Query("desc") String desc,@Body RequestBody file);

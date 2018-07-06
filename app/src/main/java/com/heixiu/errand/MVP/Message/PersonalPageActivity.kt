@@ -46,7 +46,9 @@ class PersonalPageActivity : BaseActivity() {
         page_fansonclick.setOnClickListener {
             startActivity(MyFansActivity::class.java)
         }
-
+        page_ll_attention.setOnClickListener {
+            startActivity(MyAttentionActivity::class.java)
+        }
     }
 
     override fun processLogic() {
@@ -59,6 +61,7 @@ class PersonalPageActivity : BaseActivity() {
             page_sign.text = it.userInfo.sign
             page_briday.text = getAgeByBirthDay(it.userInfo.birthday).toString()+"岁"
             page_fans.text = it.userFanCounts.toString()
+            page_getpraise.text = it.admireCount.toString()
             page_attention.text = it.userFollowsCount.toString()
             page_orderInfoPublishCount.text = "发单任务数："+it.orderInfoPublishCount.toString()
             page_orderInfoReceiveCount.text = "接单数："+it.orderInfoReceiveCount.toString()

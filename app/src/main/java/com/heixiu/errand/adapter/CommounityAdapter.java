@@ -45,6 +45,8 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
     private PubLishInfo publishInfoDetail;
     private String imgsrc = "";
     private String nickname = "";
+    private int stuts = 0;
+    PictureGridView gridview;
 
     public CommounityAdapter(int layoutResId, List<PubLishInfo> data) {
         super(layoutResId, data);
@@ -53,11 +55,16 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
     public CommounityAdapter(List<PubLishInfo> data) {
         super(R.layout.community_item, data);
     }
-
     public CommounityAdapter(List<PubLishInfo> data, String imgsrc, String nickname) {
         super(R.layout.community_item, data);
         this.imgsrc = imgsrc;
         this.nickname = nickname;
+    }
+    public CommounityAdapter(List<PubLishInfo> data, String imgsrc, String nickname,int stuts) {
+        super(R.layout.community_item, data);
+        this.imgsrc = imgsrc;
+        this.nickname = nickname;
+        this.stuts = stuts;
     }
 
     public CommounityAdapter(View contentView, List<PubLishInfo> data) {
@@ -65,7 +72,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
         datalist = data;
     }
 
-    PictureGridView gridview;
+
 
     @SuppressLint("ResourceType")
     @Override
@@ -172,7 +179,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
         } else {
             itemPraise.setImageResource(R.mipmap.praise);
         }
-        if (item.getFollowStatus() == 0) {
+        if (stuts == 0) {
             community_attention.setText("关注");
         } else {
             community_attention.setText("已关注");

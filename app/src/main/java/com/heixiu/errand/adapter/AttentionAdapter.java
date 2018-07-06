@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide;
 import com.fushuaige.common.utils.ToastUtils;
 import com.heixiu.errand.MVP.Message.OtherPersonalPageActivity;
 import com.heixiu.errand.R;
-import com.heixiu.errand.bean.MyFansBean;
+import com.heixiu.errand.bean.MyAttentionBean;
 import com.heixiu.errand.net.RetrofitFactory;
 import com.heixiu.errand.net.RxUtils;
 import com.heixiu.errand.utils.SPUtil;
@@ -25,30 +25,29 @@ import io.reactivex.functions.Consumer;
  * Data：2018/4/12-10:44
  * Author: fushuaige
  */
-public class FansAdapter extends BaseQuickAdapter<MyFansBean> {
+public class AttentionAdapter extends BaseQuickAdapter<MyAttentionBean> {
 
-    public FansAdapter(int layoutResId, List<MyFansBean> data) {
+    public AttentionAdapter(int layoutResId, List<MyAttentionBean> data) {
         super(layoutResId, data);
     }
 
-    public FansAdapter(List<MyFansBean> data) {
+    public AttentionAdapter(List<MyAttentionBean> data) {
         super(R.layout.fans_item, data);
     }
 
-    public FansAdapter(View contentView, List<MyFansBean> data) {
+    public AttentionAdapter(View contentView, List<MyAttentionBean> data) {
         super(contentView, data);
     }
 
     @Override
-    protected void convert(final BaseViewHolder helper, final MyFansBean item) {
+    protected void convert(final BaseViewHolder helper, final MyAttentionBean item) {
 
         helper.setText(R.id.fans_nickname, item.getUserName());
         final Button fans_attention = (Button) helper.getView(R.id.fans_attention);
-        fans_attention.setVisibility(View.VISIBLE);
         fans_attention.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RxUtils.wrapRestCall(RetrofitFactory.INSTANCE.getRetrofit().addFollow(SPUtil.getString("userid"), item.getFansId())).subscribe(new Consumer<String>() {
+                RxUtils.wrapRestCall(RetrofitFactory.INSTANCE.getRetrofit().addFollow(SPUtil.getString("userid"), item.getFollowId())).subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
                         if (fans_attention.getText().equals("已关注")) {

@@ -89,6 +89,7 @@ android:paddingTop="19dp"
                     android:text="还未填写个人签名"
                     android:textColor="@color/hint_text" />
                 <Button
+                    android:layout_marginRight="20dp"
                     android:id="@+id/community_attention"
                     android:layout_width="50dp"
                     android:layout_height="20dp"
