@@ -22,7 +22,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_margin="15dp"
             android:orientation="vertical">
 
 
@@ -64,14 +64,15 @@
                 android:src="@mipmap/ic_search" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/search_history"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="25dp"
                 android:text="历史记录查询"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="visible" />
         </LinearLayout>
 
 

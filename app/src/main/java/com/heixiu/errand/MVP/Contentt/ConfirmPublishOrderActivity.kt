@@ -4,10 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
 import com.baidu.mapapi.model.LatLng
 import com.baidu.mapapi.utils.DistanceUtil
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.Event.PublishParamsChangeEvent
+import com.heixiu.errand.MVP.Login.LoginActivity
 import com.heixiu.errand.R
 import com.heixiu.errand.bean.OrderInfo
 import com.heixiu.errand.net.RetrofitFactory
@@ -92,6 +94,11 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
 
         if (!canSubmit) {
             ToastUtils.showShort("订单价格计算失败，请重新选择地点")
+        }
+
+        if (TextUtils.isEmpty(SPUtil.getString("userid"))) {
+            startActivity(Intent(this, LoginActivity::class.java))
+            return
         }
 
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().createOrder(

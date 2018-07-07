@@ -241,7 +241,8 @@
         <activity android:name=".MVP.Seting.WebActivity" />
         <activity android:name=".MVP.Message.myorder.OrderSendingActivity" />
         <activity android:name=".MVP.Message.MyAttentionActivity" />
-        <activity android:name=".MVP.Message.myorder.OrderFinishActivity"></activity>
+        <activity android:name=".MVP.Message.myorder.OrderFinishActivity" />
+        <activity android:name=".MVP.Express.ExpressHistoryActivity"></activity>
     </application>
 
 </manifest>

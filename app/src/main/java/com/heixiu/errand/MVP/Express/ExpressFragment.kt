@@ -12,10 +12,12 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
 import com.fushuaige.common.utils.ToastUtils
+import com.heixiu.errand.MVP.Login.LoginActivity
 import com.heixiu.errand.R
 import com.heixiu.errand.adapter.SpinnerAdapter
 import com.heixiu.errand.base.BaseFragment
 import com.heixiu.errand.net.RetrofitFactory
+import com.heixiu.errand.utils.SPUtil
 import com.uuzuche.lib_zxing.activity.CaptureActivity
 import com.uuzuche.lib_zxing.activity.CodeUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -71,10 +73,19 @@ class ExpressFragment : BaseFragment() {
             }
         }
 
-        zxing.setText("70227030686938")
+        zxing.setText("3920060496244")
 
         search.setOnClickListener({
             startSearch()
+        })
+
+        search_history.setOnClickListener({
+            if (TextUtils.isEmpty(SPUtil.getString("userid"))) {
+                startActivity(Intent(context, LoginActivity::class.java))
+                ToastUtils.showShort("您尚未登录")
+            } else {
+                startActivity(Intent(context, ExpressHistoryActivity::class.java))
+            }
         })
     }
 
@@ -88,9 +99,17 @@ class ExpressFragment : BaseFragment() {
             return
         }
 
+
+        if (TextUtils.isEmpty(SPUtil.getString("userid"))) {
+            startActivity(Intent(context, LoginActivity::class.java))
+            return
+        }
+
         RetrofitFactory.getRetrofit().queryLogisticalInformation(
                 resources.getStringArray(R.array.package_id)[choosePosition],
-                zxing.text.toString())
+                zxing.text.toString(),
+                SPUtil.getString("userid")
+        )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

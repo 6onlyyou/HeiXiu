@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
+import android.text.TextUtils;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.fushuaige.common.utils.Utils;
 import com.heixiu.errand.net.AndroidBase;
+import com.heixiu.errand.utils.SPUtil;
 import com.mob.MobSDK;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
@@ -78,6 +80,9 @@ public class MyApplication extends MultiDexApplication {
         SDKInitializer.initialize(this);
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+        if (!TextUtils.isEmpty(SPUtil.getString("userid"))) {
+            JPushInterface.setAlias(this, 1, SPUtil.getString("userid"));
+        }
     }
 
     /**

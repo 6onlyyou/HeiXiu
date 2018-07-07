@@ -2,6 +2,7 @@ package com.heixiu.errand.net;
 
 import com.heixiu.errand.bean.BannerBean;
 import com.heixiu.errand.bean.CouponTicketBean;
+import com.heixiu.errand.bean.ExpressHistoryBean;
 import com.heixiu.errand.bean.MessageInfoBean;
 import com.heixiu.errand.bean.MyAddressInfo;
 import com.heixiu.errand.bean.MyAttentionBean;
@@ -374,6 +375,7 @@ public interface ApiService {
             @Query("sign") String sign,
             @Query("birthday") String birthday
     );
+
     /**
      * 1.1.31	绑定支付宝
      * userId	用户id
@@ -503,7 +505,13 @@ public interface ApiService {
     @POST("queryLogisticalInfomation")
     Observable<PackageInformationBean> queryLogisticalInformation(
             @Query("expCode") String expCode,
-            @Query("expNo") String expNo
+            @Query("expNo") String expNo,
+            @Query("userId") String userId
+    );
+
+    @POST("queryAllLogisticsRecordByUserId")
+    Observable<ResponseBean<ExpressHistoryBean>> queryLogisticalHistroy(
+            @Query("userId") String userId
     );
 
     @POST("calculatePrice")
