@@ -1,5 +1,6 @@
 package com.heixiu.errand.MVP.Message
 
+import android.net.Uri
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.bumptech.glide.Glide
@@ -16,6 +17,8 @@ import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.SPUtil
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter
 import io.reactivex.functions.Consumer
+import io.rong.imkit.RongIM
+import io.rong.imlib.model.UserInfo
 import kotlinx.android.synthetic.main.activity_other_personal_page.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,7 +31,7 @@ class OtherPersonalPageActivity : BaseActivity() {
         setContentView(R.layout.activity_other_personal_page)
         initTitle("他人信息", R.color.colorAccent, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn) { finishWithAnim() }
-        if(intent.extras.size() <1){
+        if(intent.extras.size() >0){
             stype = intent.getStringExtra("stype").toString()
         }
 
@@ -48,7 +51,9 @@ class OtherPersonalPageActivity : BaseActivity() {
 
     override fun setListener() {
         other_message.setOnClickListener {
-
+            RongIM.getInstance().setMessageAttachedUserInfo(true)
+            RongIM.getInstance().setCurrentUserInfo(UserInfo(SPUtil.getString("userid"), SPUtil.getString("nickname"), Uri.parse(SPUtil.getString("headurl").toString())))
+            RongIM.getInstance().startPrivateChat(this, messageInfoBean!!.userInfo.userId.toString(),messageInfoBean!!.userInfo.nickName)
         }
         community_attention.setOnClickListener {
             if(SPUtil.getString("userid").equals("")||SPUtil.getString("userid").equals("1")){

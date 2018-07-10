@@ -8,67 +8,22 @@ import java.io.Serializable;
  * Author: fushuaige
  */
 public class MyFansBean implements Serializable {
-    private String userId;
-    private int id;
-    private String fansId;
-    private String userName;
-    private String userImg;
-    private Long createTime;
-    private Long updateTime;
+    private String followStatus;
+  private UserInfoBean userInfo;
 
-    public String getUserId() {
-        return userId;
+    public String getFollowStatus() {
+        return followStatus;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setFollowStatus(String followStatus) {
+        this.followStatus = followStatus;
     }
 
-    public int getId() {
-        return id;
+    public UserInfoBean getUserInfo() {
+        return userInfo;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFansId() {
-        return fansId;
-    }
-
-    public void setFansId(String fansId) {
-        this.fansId = fansId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getUserImg() {
-        return userImg;
-    }
-
-    public void setUserImg(String userImg) {
-        this.userImg = userImg;
-    }
-
-    public Long getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Long createTime) {
-        this.createTime = createTime;
-    }
-
-    public Long getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Long updateTime) {
-        this.updateTime = updateTime;
+    public void setUserInfo(UserInfoBean userInfo) {
+        this.userInfo = userInfo;
     }
 }

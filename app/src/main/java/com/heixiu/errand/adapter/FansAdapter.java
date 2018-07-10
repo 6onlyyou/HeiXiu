@@ -42,13 +42,16 @@ public class FansAdapter extends BaseQuickAdapter<MyFansBean> {
     @Override
     protected void convert(final BaseViewHolder helper, final MyFansBean item) {
 
-        helper.setText(R.id.fans_nickname, item.getUserName());
+        helper.setText(R.id.fans_nickname, item.getUserInfo().getNickName());
         final Button fans_attention = (Button) helper.getView(R.id.fans_attention);
         fans_attention.setVisibility(View.VISIBLE);
+        if(item.getFollowStatus().equals("1")){
+            fans_attention.setText("已关注");
+        }
         fans_attention.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RxUtils.wrapRestCall(RetrofitFactory.INSTANCE.getRetrofit().addFollow(SPUtil.getString("userid"), item.getFansId())).subscribe(new Consumer<String>() {
+                RxUtils.wrapRestCall(RetrofitFactory.INSTANCE.getRetrofit().addFollow(SPUtil.getString("userid"), item.getUserInfo().getUserId())).subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
                         if (fans_attention.getText().equals("已关注")) {
@@ -66,7 +69,7 @@ public class FansAdapter extends BaseQuickAdapter<MyFansBean> {
 
 //        //Glide加载图片  并且支持gif动图
         Glide.with(mContext)
-                .load(item.getUserImg())
+                .load(item.getUserInfo().getUserImg())
                 .crossFade()
                 .placeholder(R.mipmap.defaulthead)
                 .into((ImageView) helper.getView(R.id.fans_img));
@@ -76,6 +79,8 @@ public class FansAdapter extends BaseQuickAdapter<MyFansBean> {
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.putExtra("stype", "1");
+                intent.putExtra("friendid", item.getUserInfo().getUserId());
+
                 intent.setClass(mContext, OtherPersonalPageActivity.class);
                 mContext.startActivity(intent);
             }

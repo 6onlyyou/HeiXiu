@@ -64,7 +64,7 @@ class RankListActivity : BaseActivity() {
                             rankListAdapter!!.setNewData(it)
                         }
                     },{
-                        ToastUtils.showLong(it.message)
+                        ToastUtils.showLong("没有排行")
                     })
 
                 }
@@ -85,7 +85,7 @@ class RankListActivity : BaseActivity() {
                             rankListAdapter!!.setNewData(it)
                         }
                     },{
-                        ToastUtils.showLong(it.message)
+                        ToastUtils.showLong("没有排行")
                     })
                 }
             }

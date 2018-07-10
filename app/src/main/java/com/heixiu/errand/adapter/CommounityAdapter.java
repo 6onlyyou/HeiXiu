@@ -78,9 +78,10 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
     @Override
     protected void convert(final BaseViewHolder helper, final PubLishInfo item) {
         publishInfoDetail = item;
+        gridview = (PictureGridView) helper.getView(R.id.gridView);
         if (item.getType().equals("0")) {
 
-            gridview = (PictureGridView) helper.getView(R.id.gridView);
+
             helper.getView(R.id.video_list_item_playr).setVisibility(View.GONE);
             gridview.setVisibility(View.VISIBLE);
             int num = item.getContentImgList().size();//获取当前的图片数目

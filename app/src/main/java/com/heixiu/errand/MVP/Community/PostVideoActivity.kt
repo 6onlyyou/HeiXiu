@@ -98,6 +98,7 @@ class PostVideoActivity : BaseActivity() {
     }
 
     fun publish() {
+        ToastUtils.showLong("正在发布中,请稍等")
         val paramsMap: Map<String, RequestBody> = MyApplication.getp(fileList)
         ////addFormDataPart()第一个参数为表单名字，这是和后台约定好的
         val builder: MultipartBody.Builder = MultipartBody.Builder()
@@ -105,7 +106,6 @@ class PostVideoActivity : BaseActivity() {
         //注意，file是后台约定的参数，如果是多图，file[]，如果是单张图片，file就行
         for (i in fileList.indices) {
             var size = getFileSize(fileList.get(i))
-            ToastUtils.showLong(size.toString())
             //这里上传的是多图
             builder.addFormDataPart("file", fileList.get(i).getName(), RequestBody.create(MediaType.parse("video/*"), fileList.get(i)));
         }
@@ -113,10 +113,11 @@ class PostVideoActivity : BaseActivity() {
 
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().publish(requestBody, SPUtil.getString("userid"), 1, text_content.text.toString(), "")).subscribe({
             ToastUtils.showLong("发布成功")
-            finishWithAnim()
+
         }, {
             ToastUtils.showLong(it.message)
         })
+        finishWithAnim()
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
