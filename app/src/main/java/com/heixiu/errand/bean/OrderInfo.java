@@ -1,5 +1,7 @@
 package com.heixiu.errand.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -9,6 +11,7 @@ import java.io.Serializable;
 public class OrderInfo implements Serializable {
 
 
+    private static final long serialVersionUID = 6510760223886357972L;
     /**
      * id : 5
      * orderNum : d5b2912d-d66f-4b0f-984b-1d22d4543c2a
@@ -53,6 +56,7 @@ public class OrderInfo implements Serializable {
     private String sendTime;
     private int weight;
     private String name;
+    @SerializedName("descriptions")
     private String description;
     private String sendAddress;
     private String receiveAddress;

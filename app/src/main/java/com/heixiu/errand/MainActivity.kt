@@ -95,7 +95,11 @@ class MainActivity : BaseActivity() {
             RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().selectDataById(SPUtil.getString("userid"))).subscribe({
                 SPUtil.saveString("headurl", it.userInfo.userImg)
                 SPUtil.saveString("nickname", it.userInfo.nickName)
+                if ( it.dbSubAccount?.zfbId==null){
+                    SPUtil.saveString("bindzfb",  "0")
+                }else {
                     SPUtil.saveString("bindzfb", it.dbSubAccount?.zfbId + "")
+                }
             }, {
                 ToastUtils.showLong(it.message)
             })

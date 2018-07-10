@@ -20,6 +20,7 @@ import com.heixiu.errand.bean.QueryPersonalBean;
 import com.heixiu.errand.bean.RankBean;
 import com.heixiu.errand.bean.ResponseBean;
 import com.heixiu.errand.bean.SelectDataByIdBean;
+import com.heixiu.errand.bean.WithdrawBean;
 
 import java.util.List;
 
@@ -531,6 +532,8 @@ public interface ApiService {
 
     @POST("add/feedback")
     Observable<ResponseBean<String>> addFeedback(@Query("userId") String userId,@Query("orderNum") String orderNum,@Query("desc") String desc,@Body RequestBody file);
+    @POST("withdraw/list")
+    Observable<ResponseBean<List<WithdrawBean>>> withdrawList(@Query("userId") String userId);
 
 
 }

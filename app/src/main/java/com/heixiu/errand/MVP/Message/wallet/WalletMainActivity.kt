@@ -19,6 +19,9 @@ class WalletMainActivity : BaseActivity() {
         wallet_record.setOnClickListener {
             startActivity(WithdrawalRecordActivity::class.java)
         }
+        wallet_withdrawal.setOnClickListener {
+            startActivity(WithdrawalActivity::class.java)
+        }
     }
 
     override fun setListener() {

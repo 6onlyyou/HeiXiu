@@ -11,13 +11,26 @@
     android:gravity="center_vertical"
     android:orientation="vertical"
     android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
     <TextView
         android:id="@+id/withdraw_numbers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12sp"
         android:textColor="@color/black"
-        android:text="我发布的单号：2饿3122344"/>
+        android:text="我发布"/>
+        <TextView
+            android:id="@+id/withdraw_account"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            android:text="   提现账号：ssss"/>
+    </LinearLayout>
     <TextView
         android:id="@+id/withdraw_time"
         android:layout_width="wrap_content"
