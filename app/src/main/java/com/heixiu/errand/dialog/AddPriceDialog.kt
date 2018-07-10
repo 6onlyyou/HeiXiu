@@ -33,8 +33,8 @@ class AddPriceDialog(context: Context) : BottomDialog(context) {
         })
 
         binding.confirm.setOnClickListener({
-            RxBus.getDefault().post(PublishParamsChangeEvent())
             ContentFragment.addPrice = numbers[binding.weightNp.verticalScrollbarPosition]
+            RxBus.getDefault().post(PublishParamsChangeEvent())
             dismiss()
         })
 
