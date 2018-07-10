@@ -8,6 +8,7 @@ import com.heixiu.errand.bean.MyAddressInfo;
 import com.heixiu.errand.bean.MyAttentionBean;
 import com.heixiu.errand.bean.MyFansBean;
 import com.heixiu.errand.bean.MyPublishOrderBean;
+import com.heixiu.errand.bean.OrderDetailInfo;
 import com.heixiu.errand.bean.OrderInfo;
 import com.heixiu.errand.bean.PackageInformationBean;
 import com.heixiu.errand.bean.PhoneToken;
@@ -155,6 +156,16 @@ public interface ApiService {
      */
     @POST("queryCreatedOrderInfo")
     Observable<ResponseBean<List<OrderInfo>>> queryCreatedOrderInfo();
+
+    /**
+     * 首页查询订单
+     *
+     * @return
+     */
+    @POST("takeOrder")
+    Observable<ResponseBean<String>> takeOrder(@Query("orderNum") String orderNum,
+                                               @Query("recieveOriginsLongitude") double recieveOriginsLongitude,
+                                               @Query("recieveOriginsLatitude") double recieveOriginsLatitude);
 
     /**
      * 查看订单详情

@@ -91,11 +91,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_VIDEO" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- OpenGLES 2.0 -->
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -242,9 +240,13 @@
         <activity android:name=".MVP.Message.myorder.OrderSendingActivity" />
         <activity android:name=".MVP.Message.MyAttentionActivity" />
         <activity android:name=".MVP.Message.myorder.OrderFinishActivity" />
-        <activity android:name=".MVP.Express.ExpressHistoryActivity"></activity>
+        <activity android:name=".MVP.Express.ExpressHistoryActivity" />
         <activity android:name=".MVP.Message.wallet.WithdrawalActivity" />
 
+        <service
+            android:name=".service.UpdateLocaltionService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
