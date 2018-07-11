@@ -57,7 +57,7 @@ class MyAttentionActivity : BaseActivity() {
                 //设置自动加载监听
             }
         },{
-            ToastUtils.showLong(it.message)
+            ToastUtils.showLong("关注空空如也")
         })
     }
 }

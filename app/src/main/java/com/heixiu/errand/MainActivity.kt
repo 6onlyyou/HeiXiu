@@ -212,27 +212,27 @@ class MainActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         getUserMessage()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val permissions = java.util.ArrayList<String>()
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                permissions.add(Manifest.permission.ACCESS_FINE_LOCATION)
-            }
-            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-
-            }
-            if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-                permissions.add(Manifest.permission.RECORD_AUDIO)
-            }
-
-            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                permissions.add(Manifest.permission.CAMERA)
-            }
-
-            if (permissions.size != 0) {
-                requestPermissionsForM(permissions)
-            }
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            val permissions = java.util.ArrayList<String>()
+//            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//                permissions.add(Manifest.permission.ACCESS_FINE_LOCATION)
+//            }
+//            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//                permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//
+//            }
+//            if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+//                permissions.add(Manifest.permission.RECORD_AUDIO)
+//            }
+//
+//            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//                permissions.add(Manifest.permission.CAMERA)
+//            }
+//
+//            if (permissions.size != 0) {
+//                requestPermissionsForM(permissions)
+//            }
+//        }
         if (!SPUtil.getString("rongyun_token").equals("")) {
             connect(SPUtil.getString("rongyun_token"))
         }
@@ -302,8 +302,6 @@ class MainActivity : BaseActivity() {
 
         } else {
             stuteLocation = 1
-
-            ToastUtils.showLong(event.city)
             SPUtil.saveString("city", event.city)
             mLocationClient!!.stop()
 
