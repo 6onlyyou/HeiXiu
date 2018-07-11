@@ -14,6 +14,7 @@ import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.MVP.Message.ConversationListActivity
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseActivity
+import com.heixiu.errand.bean.OrderDetailInfo
 import com.heixiu.errand.bean.OrderInfo
 import com.heixiu.errand.dialog.CommonCenterDialog
 import com.heixiu.errand.net.RetrofitFactory

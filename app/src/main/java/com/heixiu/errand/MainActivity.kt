@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.os.Build
+import android.text.TextUtils
 import android.util.Log
 import com.baidu.location.LocationClient
 import com.baidu.location.LocationClientOption
@@ -15,6 +16,7 @@ import com.heixiu.errand.MVP.Home.HomeFragment
 import com.heixiu.errand.MVP.Login.LoginActivity
 import com.heixiu.errand.MVP.Login.entity.MessageEvent
 import com.heixiu.errand.MVP.Message.MessageFragment
+import com.heixiu.errand.MyApplication.MyApplication
 import com.heixiu.errand.base.BaseActivity
 import com.heixiu.errand.bean.CouponTicketBean
 import com.heixiu.errand.listener.MyLocationListener
@@ -31,6 +33,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.util.*
 
 
 class MainActivity : BaseActivity() {
@@ -42,6 +45,7 @@ class MainActivity : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this);
+        timer.cancel()
     }
 
     override fun findViewById() {
@@ -95,9 +99,9 @@ class MainActivity : BaseActivity() {
             RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().selectDataById(SPUtil.getString("userid"))).subscribe({
                 SPUtil.saveString("headurl", it.userInfo.userImg)
                 SPUtil.saveString("nickname", it.userInfo.nickName)
-                if ( it.dbSubAccount?.zfbId==null){
-                    SPUtil.saveString("bindzfb",  "0")
-                }else {
+                if (it.dbSubAccount?.zfbId == null) {
+                    SPUtil.saveString("bindzfb", "0")
+                } else {
                     SPUtil.saveString("bindzfb", it.dbSubAccount?.zfbId + "")
                 }
             }, {
@@ -143,6 +147,8 @@ class MainActivity : BaseActivity() {
         }, {
 
         })
+
+        initUpdateLocation()
     }
 
     fun initLocationConfig() {
@@ -237,7 +243,34 @@ class MainActivity : BaseActivity() {
             connect(SPUtil.getString("rongyun_token"))
         }
 
+    }
 
+    var timer: Timer = Timer()
+    private fun initUpdateLocation() {
+
+        var task: TimerTask = object : TimerTask() {
+            override fun run() {
+                if (!TextUtils.isEmpty(SPUtil.getString("userid"))) {
+                    RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryAllMyRecieveOrderInfos(SPUtil.getString("userid")))
+                            .subscribe({
+                                if (it != null && it.size > 0) {
+                                    for (orderInfo in it) {
+                                        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit()
+                                                .takeOrder(orderInfo.orderNum, MyApplication.getInstance().localLong, MyApplication.getInstance().localLat))
+                                                .subscribe({
+
+                                                }, {
+
+                                                })
+                                    }
+                                }
+                            }) {
+
+                            }
+                }
+            }
+        }
+        timer.schedule(task, 1000, 20000)
     }
 
     private fun connect(token: String) {

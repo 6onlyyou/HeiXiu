@@ -25,6 +25,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/sendAva"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="16dp"
