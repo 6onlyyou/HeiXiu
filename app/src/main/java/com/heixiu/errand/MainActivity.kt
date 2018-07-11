@@ -268,11 +268,8 @@ class MainActivity : BaseActivity() {
 
                             }
                 }
-
             }
-
         }
-
         timer.schedule(task, 1000, 20000)
     }
 

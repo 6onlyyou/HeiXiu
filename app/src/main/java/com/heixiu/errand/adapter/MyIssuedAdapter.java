@@ -1,9 +1,9 @@
 package com.heixiu.errand.adapter;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 
+import com.heixiu.errand.MVP.Message.myorder.OrderFinishActivity;
 import com.heixiu.errand.MVP.Message.myorder.OrderSendingActivity;
 import com.heixiu.errand.R;
 import com.heixiu.errand.bean.OrderInfo;
@@ -25,7 +25,7 @@ public class MyIssuedAdapter extends BaseQuickAdapter<OrderInfo> {
 
     public MyIssuedAdapter(List<OrderInfo> data) {
 
-        super(R.layout.item_issued,data);
+        super(R.layout.item_issued, data);
     }
 
     public MyIssuedAdapter(View contentView, List<OrderInfo> data) {
@@ -34,39 +34,45 @@ public class MyIssuedAdapter extends BaseQuickAdapter<OrderInfo> {
 
     @Override
     protected void convert(BaseViewHolder helper, final OrderInfo item) {
-        helper.setText(R.id.Tv_startingPart,item.getSendAddress()).setText(R.id.Tv_endingPart,item.getReceiveAddress());
+        helper.setText(R.id.Tv_startingPart, item.getSendAddress()).setText(R.id.Tv_endingPart, item.getReceiveAddress());
         //Glide加载图片  并且支持gif动图
-        helper.setText(R.id.Tv_deliveryTime,"送达时间："+item.getSendTime());
+        helper.setText(R.id.Tv_deliveryTime, "送达时间：" + item.getSendTime());
         Button btnDetails;
-        btnDetails =  helper.getView(R.id.Bt_details);
+        btnDetails = helper.getView(R.id.Bt_details);
         String stuts = null;
-        switch (item.getOrderStatus()){
+        if (item.getOrderStatus() == null) {
+            item.setOrderStatus("0");
+        }
+        switch (item.getOrderStatus()) {
             case "0":
-                stuts ="刚创建";
+                stuts = "刚创建";
                 break;
             case "1":
-                stuts ="已接单";
+                stuts = "已接单";
                 break;
             case "2":
-                stuts ="已取货";
+                stuts = "已取货";
                 break;
             case "3":
-                stuts ="已送达";
+                stuts = "已送达";
                 break;
             case "4":
-                stuts ="完成";
+                stuts = "完成";
                 break;
         }
         helper.setText(R.id.Tv_proceed, stuts);
-        if(stuts.equals("完成")){
+        if (stuts.equals("完成")) {
             helper.setText(R.id.Tv_unOrder, "订单已完成");
         }
 
         btnDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                OrderSendingActivity orderSendingActivity = new OrderSendingActivity();
-                orderSendingActivity.Companion.startSelf(mContext,item);
+                if (item.getOrderStatus().equals("4") || item.getOrderStatus().equals("0")) {
+                    OrderFinishActivity.Companion.startSelf(mContext, item);
+                } else {
+                    OrderSendingActivity.Companion.startSelf(mContext, item);
+                }
             }
         });
 

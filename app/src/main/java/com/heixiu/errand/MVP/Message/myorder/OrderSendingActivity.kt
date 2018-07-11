@@ -8,7 +8,9 @@ import android.net.Uri
 import android.provider.Settings
 import android.support.v4.app.ActivityCompat
 import android.widget.Toast
-import com.baidu.mapapi.map.BaiduMap
+import com.baidu.mapapi.map.*
+import com.baidu.mapapi.map.MapStatus
+import com.baidu.mapapi.model.LatLng
 import com.fushuaige.common.utils.GlideUtil
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.MVP.Seting.DescriptionActivity
@@ -22,6 +24,7 @@ import io.rong.imkit.RongIM
 import io.rong.imlib.model.UserInfo
 import kotlinx.android.synthetic.main.activity_order_sending.*
 import java.util.*
+
 
 class OrderSendingActivity : BaseActivity() {
     companion object {
@@ -82,11 +85,7 @@ class OrderSendingActivity : BaseActivity() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) !== PackageManager.PERMISSION_GRANTED) {
             // 没有获得授权，申请授权
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CALL_PHONE)) {
-                // 返回值：
-                //如果app之前请求过该权限,被用户拒绝, 这个方法就会返回true.
-                //如果用户之前拒绝权限的时候勾选了对话框中”Don’t ask again”的选项,那么这个方法会返回false.
-                //如果设备策略禁止应用拥有这条权限, 这个方法也返回false.
-                // 弹窗需要解释为何需要该权限，再次请求授权
+
                 Toast.makeText(this, "请授权！", Toast.LENGTH_LONG).show()
                 // 帮跳转到该应用的设置界面，让用户手动授权
                 val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
@@ -114,9 +113,11 @@ class OrderSendingActivity : BaseActivity() {
 
     }
 
-
     var timer: Timer = Timer()
+
     private fun initUpdateLocation() {
+        showMarker()
+
         var task: TimerTask = object : TimerTask() {
             override fun run() {
                 RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryOneOrderInfo(orderInfo?.orderNum))
@@ -125,11 +126,12 @@ class OrderSendingActivity : BaseActivity() {
                             receverInfo = it.recieveUserInfo
                             if ("0" == orderInfo.orderStatus || "4" == orderInfo.orderStatus) {
                                 // 刚创建 或者 已经完成
-
+                                OrderFinishActivity.startSelf(this@OrderSendingActivity, orderInfo)
+                                finish()
                             } else {
                                 // 需要显示骑手位置
                                 GlideUtil.load(this@OrderSendingActivity, it.recieveUserInfo.userImg, sendAva)
-
+                                showMarker()
                             }
                         }, {
 
@@ -138,7 +140,27 @@ class OrderSendingActivity : BaseActivity() {
 
         }
 
-        timer.schedule(task, 0, 20000)
+        timer.schedule(task, 0, 2000)
+    }
+
+    private fun showMarker() {
+
+        var point: LatLng = LatLng(30.963175, 116.400244)
+
+        var bitmap: BitmapDescriptor = BitmapDescriptorFactory.fromResource(R.mipmap.ic_receiver_location)
+
+        var option: OverlayOptions = MarkerOptions()
+                .position(point)
+                .icon(bitmap)
+
+        mBaiduMap.addOverlay(option)
+
+        val mMapStatus = MapStatus.Builder()
+                .target(point)
+                .zoom(12f)
+                .build()  //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
+        val mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus)
+        mBaiduMap.setMapStatus(mMapStatusUpdate)
     }
 
     override fun onPause() {
