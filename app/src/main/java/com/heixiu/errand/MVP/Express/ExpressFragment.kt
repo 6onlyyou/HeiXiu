@@ -73,8 +73,6 @@ class ExpressFragment : BaseFragment() {
             }
         }
 
-        zxing.setText("3920060496244")
-
         search.setOnClickListener({
             startSearch()
         })
@@ -98,7 +96,6 @@ class ExpressFragment : BaseFragment() {
             ToastUtils.showShort("未输入快递单号")
             return
         }
-
 
         if (TextUtils.isEmpty(SPUtil.getString("userid"))) {
             startActivity(Intent(context, LoginActivity::class.java))
@@ -134,10 +131,10 @@ class ExpressFragment : BaseFragment() {
                 var bundle: Bundle = data.extras
                 if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     var result = bundle.getString(CodeUtils.RESULT_STRING)
-                    Toast.makeText(context, "解析结果:" + result, Toast.LENGTH_LONG).show()
+//                    Toast.makeText(context, "解析结果:" + result, Toast.LENGTH_LONG).show()
                     zxing.setText(result)
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
-                    Toast.makeText(context, "解析二维码失败", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "解析失败，请手动输入", Toast.LENGTH_LONG).show()
                 }
             }
         }

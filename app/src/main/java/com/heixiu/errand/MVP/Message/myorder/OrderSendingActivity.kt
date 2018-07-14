@@ -130,7 +130,8 @@ class OrderSendingActivity : BaseActivity() {
                                 finish()
                             } else {
                                 // 需要显示骑手位置
-                                GlideUtil.load(this@OrderSendingActivity, it.recieveUserInfo.userImg, sendAva)
+                                if (it.recieveUserInfo != null)
+                                    GlideUtil.load(this@OrderSendingActivity, it.recieveUserInfo.userImg, sendAva)
                                 showMarker()
                             }
                         }, {

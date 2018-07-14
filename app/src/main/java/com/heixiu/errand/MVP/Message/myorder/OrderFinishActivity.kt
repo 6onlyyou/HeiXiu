@@ -94,10 +94,12 @@ class OrderFinishActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryOneOrderInfo(orderInfo?.orderNum))
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryOneOrderInfo(orderInfo.orderNum))
                 .subscribe({
-                    GlideUtil.load(this@OrderFinishActivity, it.recieveUserInfo.userImg, sendAva)
-                    receiveName.text = it.recieveUserInfo.nickName
+                    if (it.recieveUserInfo != null) {
+                        GlideUtil.load(this@OrderFinishActivity, it.recieveUserInfo.userImg + "", sendAva)
+                        receiveName.text = it.recieveUserInfo.nickName
+                    }
                 }, {
 
                 })
