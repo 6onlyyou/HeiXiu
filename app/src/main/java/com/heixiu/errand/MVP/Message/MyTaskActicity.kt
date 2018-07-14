@@ -2,6 +2,7 @@ package com.heixiu.errand.MVP.Message
 
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.R
 import com.heixiu.errand.adapter.MyTaskAdapter
 import com.heixiu.errand.base.BaseActivity
@@ -39,7 +40,7 @@ class MyTaskActicity : BaseActivity() {
             //设置自动加载监听
             myIssuedAdapter!!.setNewData(it)
         }, {
-
+        ToastUtils.showLong(it.message)
         })
     }
 

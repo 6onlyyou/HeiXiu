@@ -75,6 +75,7 @@ public class AttentionAdapter extends BaseQuickAdapter<MyAttentionBean> {
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.putExtra("stype", "1");
+                intent.putExtra("friendid", item.getUserId());
                 intent.setClass(mContext, OtherPersonalPageActivity.class);
                 mContext.startActivity(intent);
             }

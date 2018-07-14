@@ -56,6 +56,7 @@ class AccountLoginFragment : BaseFragment() {
                     SPUtil.saveString("userid",Et_userName.text.toString())
                     SPUtil.saveString("rongyun_token",it.rongyun_token)
                     startActivity(MainActivity::class.java)
+                    activity?.finish()
                 },{
                     var message:Message = Message()
                     message.obj = it.message

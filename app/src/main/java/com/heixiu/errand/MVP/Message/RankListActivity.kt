@@ -109,4 +109,25 @@ class RankListActivity : BaseActivity() {
     override fun processLogic() {
     }
 
+    override fun onResume() {
+        super.onResume()
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().platRank(SPUtil.getString("userid"),SPUtil.getString("city"))).subscribe({
+            if(it.size>0){
+                //设置自动加载监听
+                my_doll_rv.setLayoutManager(LinearLayoutManager(this@RankListActivity))
+//        如果Item高度固定  增加该属性能够提高效率
+                my_doll_rv.setHasFixedSize(true)
+//        设置适配器
+                rankListAdapter = RankListAdapter(it)
+                //设置加载动画
+                rankListAdapter!!.openLoadAnimation(BaseQuickAdapter.SCALEIN)
+                //设置是否自动加载以及加载个数
+                //将适配器添加到RecyclerView
+                my_doll_rv.setAdapter(rankListAdapter)
+                rankListAdapter!!.setNewData(it)
+            }
+        },{
+            ToastUtils.showLong("没有排行")
+        })
+    }
 }

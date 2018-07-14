@@ -31,7 +31,7 @@ class OtherPersonalPageActivity : BaseActivity() {
         setContentView(R.layout.activity_other_personal_page)
         initTitle("他人信息", R.color.colorAccent, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn) { finishWithAnim() }
-        if(intent.extras.size() >0){
+        if(intent.extras.size() >1){
             stype = intent.getStringExtra("stype").toString()
         }
 

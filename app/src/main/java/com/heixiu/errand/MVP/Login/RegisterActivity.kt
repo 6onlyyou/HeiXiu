@@ -14,6 +14,7 @@ import com.heixiu.errand.net.ApiService
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.CountDownTimerUtils
+import com.heixiu.errand.utils.SPUtil
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.fragment_phone_login.*
@@ -26,7 +27,16 @@ class RegisterActivity : BaseActivity() {
            if(msg.what==1) {
                ToastUtils.showLong("验证码错误")
            }else{
-               ToastUtils.showLong(msg.obj.toString())
+               RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().loginByPhone(Et_inPhone.text.toString(), SPUtil.getString("city").toString())).subscribe({
+                   SPUtil.saveString("token", it.token)
+                   SPUtil.saveString("userid",Et_inPhone.text.toString())
+                   SPUtil.saveString("rongyun_token",it.rongyun_token)
+                   ToastUtils.showLong(msg.obj.toString())
+                   startActivity(MainActivity::class.java)
+                   finishWithAlpha()
+               }, {
+                   ToastUtils.showLong(it.message)
+               })
            }
         }
     }
@@ -100,7 +110,6 @@ class RegisterActivity : BaseActivity() {
                         var message:Message = Message()
                         message.obj = "注册成功"
                         handler.sendMessage(message);
-                        finishWithAlpha()
                     },{
                         var message:Message = Message()
                         message.obj = it.message

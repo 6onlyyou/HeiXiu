@@ -45,10 +45,22 @@ class PostTextActivity : BaseActivity() {
         initTitle("图片动态", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
         mTitle.setTv_Right("发表", R.color.white, View.OnClickListener {
-            publish()
+            if(isFastDoubleClick()){
+                publish()
+            }
+
         })
     }
-
+    private var lastClickTime: Long = 0
+    fun isFastDoubleClick(): Boolean {
+        val time = System.currentTimeMillis()
+        val timeD = time - lastClickTime
+        if (0 < timeD && timeD < 2000) {
+            return false
+        }
+        lastClickTime = time
+        return true
+    }
 
     override fun findViewById() {
         text_addImage.setOnClickListener {

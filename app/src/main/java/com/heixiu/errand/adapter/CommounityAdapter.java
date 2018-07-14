@@ -45,7 +45,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
     private PubLishInfo publishInfoDetail;
     private String imgsrc = "";
     private String nickname = "";
-    private int stuts = 0;
+    private int stuts = -1;
     PictureGridView gridview;
 
     public CommounityAdapter(int layoutResId, List<PubLishInfo> data) {
@@ -180,10 +180,19 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
         } else {
             itemPraise.setImageResource(R.mipmap.praise);
         }
+        if(stuts == -1){
+            if (item.getFollowStatus() == 0) {
+                community_attention.setText("关注");
+            } else {
+                community_attention.setText("已关注");
+            }
+        }else{
         if (stuts == 0) {
+
             community_attention.setText("关注");
         } else {
             community_attention.setText("已关注");
+        }
         }
         final EditText Et_comment = helper.getView(R.id.Et_comment);
         ImageView Iv_comment = helper.getView(R.id.comment_send);
