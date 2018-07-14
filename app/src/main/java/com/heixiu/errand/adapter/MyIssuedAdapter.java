@@ -59,6 +59,8 @@ public class MyIssuedAdapter extends BaseQuickAdapter<OrderInfo> {
             case "4":
                 stuts = "完成";
                 break;
+            default:
+                stuts = "问题";
         }
         helper.setText(R.id.Tv_proceed, stuts);
         if (stuts.equals("完成")) {
