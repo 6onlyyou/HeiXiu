@@ -347,7 +347,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
         mSearch = GeoCoder.newInstance()
         mSearch?.setOnGetGeoCodeResultListener(object : OnGetGeoCoderResultListener {
             override fun onGetGeoCodeResult(result: GeoCodeResult?) {
-                if (result != null) {
+                if (result != null && result.location != null) {
                     when (addressType) {
                         sendAddressType -> {
                             ContentFragment.sendAddress = address
