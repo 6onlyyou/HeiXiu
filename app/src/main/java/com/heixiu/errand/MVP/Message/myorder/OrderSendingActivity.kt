@@ -43,12 +43,16 @@ class OrderSendingActivity : BaseActivity() {
     }
 
     override fun loadViewLayout() {
+
         setContentView(R.layout.activity_order_sending)
     }
 
     lateinit var mBaiduMap: BaiduMap
     lateinit var orderInfo: OrderInfo
     override fun findViewById() {
+
+        initTitle("我的订单", R.color.colorPrimary, R.color.white)
+
         mBaiduMap = map.map
 
         orderInfo = intent.getSerializableExtra("data") as OrderInfo

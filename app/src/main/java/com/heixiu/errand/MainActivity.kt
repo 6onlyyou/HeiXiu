@@ -254,12 +254,14 @@ class MainActivity : BaseActivity() {
                     RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryAllMyRecieveOrderInfos(SPUtil.getString("userid")))
                             .subscribe({
                                 if (it != null && it.size > 0) {
+                                    Log.i("order", "接单数量大于0")
                                     for (orderInfo in it) {
                                         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit()
                                                 .takeOrder(orderInfo.orderNum, MyApplication.getInstance().localLong, MyApplication.getInstance().localLat))
                                                 .subscribe({
-
+                                                    Log.i("order", "提交位置成功")
                                                 }, {
+                                                    Log.i("order", "提交位置失败" + it.message)
 
                                                 })
                                     }
