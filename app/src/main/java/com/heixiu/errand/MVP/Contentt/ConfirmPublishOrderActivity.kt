@@ -67,11 +67,12 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
                 LatLng(orderInfo.originsLatitude, orderInfo.originsLongitude)) / 1000
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().calculatePrice(orderInfo.weight.toString(), distance.toString()))
                 .subscribe({
+                    it.price = it.price + orderInfo.addPrice
                     all_order_price.text = it.price.toString() + "元"
                     if (ContentFragment.ticketBean != null) {
                         var realPrice = it.price - ContentFragment.ticketBean?.couponPrice!!
                         if (realPrice < 0) {
-                            orderInfo.payment = 0
+                            orderInfo.payment = 0.0
                             payment.text = "实际付款金额 : 0元"
                         } else {
                             orderInfo.payment = realPrice

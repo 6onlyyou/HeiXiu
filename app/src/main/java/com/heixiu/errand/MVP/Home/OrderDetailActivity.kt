@@ -61,6 +61,12 @@ class OrderDetailActivity : AppCompatActivity() {
     }
 
     fun takeOrder(orderInfo: OrderInfo) {
+
+        if (SPUtil.getString("userid").equals(orderInfo.publishUserInfo.userId)) {
+            ToastUtils.showShort("不能接自己发的订单呦~")
+            return
+        }
+
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().changeOrderStatus(orderInfo.orderNum, SPUtil.getString("userid"), "1"))
                 .subscribe({
                     StartOrderDetailActivity.startSelf(this@OrderDetailActivity, orderInfo)

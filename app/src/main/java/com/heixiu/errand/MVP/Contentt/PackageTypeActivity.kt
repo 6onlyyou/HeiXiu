@@ -36,11 +36,7 @@ class PackageTypeActivity : AppCompatActivity() {
         }
 
         back.setOnClickListener({
-            if (checkHasNullMessage()) {
-                ToastUtils.showLong("信息填写不完整，请补全信息")
-            } else {
-                finish()
-            }
+            ToastUtils.showLong("信息填写不完整，请补全信息")
         })
 
         if (!TextUtils.isEmpty(ContentFragment.receiverName)) {
@@ -112,15 +108,11 @@ class PackageTypeActivity : AppCompatActivity() {
 
 
         confirm.setOnClickListener({
-            if (checkHasNullMessage()) {
-                ToastUtils.showLong("信息填写不完整，请补全信息")
-            } else {
-                ContentFragment.packageType = name
-                ContentFragment.descriptions = descriptions
-                ContentFragment.receiverName = receiverName
-                ContentFragment.receiverNum = receiverNum
-                ContentFragment.courierNum = deliverNums
-            }
+            ContentFragment.packageType = name
+            ContentFragment.descriptions = descriptions
+            ContentFragment.receiverName = receiverName
+            ContentFragment.receiverNum = receiverNum
+            ContentFragment.courierNum = deliverNums
             finish()
         })
     }

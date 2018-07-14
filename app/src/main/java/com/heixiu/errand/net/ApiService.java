@@ -141,7 +141,7 @@ public interface ApiService {
             @Query("receiveNum") String receiveNum,
             @Query("courierNum") String courierNum,
             @Query("supportPrice") int supportPrice,
-            @Query("payment") int payment,
+            @Query("payment") double payment,
             @Query("originsLatitude") String originsLatitude,
             @Query("originsLongitude") String originsLongitude,
             @Query("destinationsLatitude") String destinationsLatitude,
