@@ -20,9 +20,6 @@ public class ExpressHistoryAdapter extends BaseQuickAdapter<ExpressHistoryBean.L
         super(R.layout.item_express_history, data);
     }
 
-    public ExpressHistoryAdapter(View contentView, List<ExpressHistoryBean.LogisticsRecordsBean> data) {
-        super(contentView, data);
-    }
 
     @Override
     protected void convert(BaseViewHolder helper, ExpressHistoryBean.LogisticsRecordsBean item) {

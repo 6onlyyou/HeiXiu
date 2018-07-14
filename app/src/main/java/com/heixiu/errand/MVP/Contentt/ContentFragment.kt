@@ -14,10 +14,12 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import com.baidu.mapapi.model.LatLng
 import com.baidu.mapapi.search.geocode.*
 import com.baidu.mapapi.search.sug.SuggestionResult
 import com.baidu.mapapi.search.sug.SuggestionSearch
 import com.baidu.mapapi.search.sug.SuggestionSearchOption
+import com.baidu.mapapi.utils.DistanceUtil
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener
 import com.bigkoo.pickerview.view.OptionsPickerView
@@ -265,7 +267,16 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
                     orderInfo.originsLatitude = ContentFragment.receiveLat
                     orderInfo.originsLongitude = ContentFragment.receiveLon
 
-                    ConfirmPublishOrderActivity.startSelf(context!!, orderInfo)
+                    var distance = DistanceUtil.getDistance(
+                            LatLng(orderInfo.destinationsLatitude, orderInfo.destinationsLongitude),
+                            LatLng(orderInfo.originsLatitude, orderInfo.originsLongitude)) / 1000
+
+                    if (distance > 8) {
+                        ToastUtils.showShort("配送距离超过八公里，请重新选择位置")
+                    } else {
+                        ConfirmPublishOrderActivity.startSelf(context!!, orderInfo)
+                    }
+
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
