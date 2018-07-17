@@ -11,4 +11,5 @@ public interface AppConstant {
     int ADDRESS_EDIT_RESULT = 0x006;
     String ADD = "add";
     String EDIT = "edit";
+    String WX_ID = "wxfbc7b022388e89cf";
 }
