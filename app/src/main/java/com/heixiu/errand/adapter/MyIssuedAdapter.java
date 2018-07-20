@@ -20,11 +20,9 @@ import java.util.List;
 public class MyIssuedAdapter extends BaseQuickAdapter<OrderInfo> {
     public MyIssuedAdapter(int layoutResId, List<OrderInfo> data) {
         super(layoutResId, data);
-
     }
 
     public MyIssuedAdapter(List<OrderInfo> data) {
-
         super(R.layout.item_issued, data);
     }
 
@@ -60,7 +58,7 @@ public class MyIssuedAdapter extends BaseQuickAdapter<OrderInfo> {
                 stuts = "完成";
                 break;
             default:
-                stuts = "问题";
+                stuts = "问题订单";
         }
         helper.setText(R.id.Tv_proceed, stuts);
         if (stuts.equals("完成")) {
