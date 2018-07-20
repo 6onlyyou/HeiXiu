@@ -8,7 +8,6 @@ import com.heixiu.errand.bean.MyAddressInfo;
 import com.heixiu.errand.bean.MyAttentionBean;
 import com.heixiu.errand.bean.MyFansBean;
 import com.heixiu.errand.bean.MyPublishOrderBean;
-import com.heixiu.errand.bean.OrderDetailInfo;
 import com.heixiu.errand.bean.OrderInfo;
 import com.heixiu.errand.bean.PackageInformationBean;
 import com.heixiu.errand.bean.PhoneToken;
@@ -370,6 +369,7 @@ public interface ApiService {
             @Query("sign") String sign,
             @Query("birthday") String birthday
     );
+
     /**
      * 编辑资料
      * userId	用户id
@@ -437,6 +437,7 @@ public interface ApiService {
     Observable<ResponseBean<List<MyFansBean>>> fansList(
             @Query("userId") String userId
     );
+
     /**
      * 我的粉丝
      * userId	用户id
@@ -446,6 +447,7 @@ public interface ApiService {
     Observable<ResponseBean<List<MyAttentionBean>>> followList(
             @Query("userId") String userId
     );
+
     /**
      * 我的收益
      * userId	用户id
@@ -459,13 +461,17 @@ public interface ApiService {
     /**
      * 提现
      * userId	用户id
-     * cash	提现金额
+     * type	类型：0，支付宝
+     * amount	金额
+     * account	账号
      */
 
-    @POST("withdrawCash")
+    @POST("withdraw/add")
     Observable<ResponseBean<String>> withdrawCash(
             @Query("userId") String userId,
-            @Query("cash") Double cash
+            @Query("account") String account,
+            @Query("amount") Double amount,
+            @Query("type") String type
     );
 
     /**
@@ -542,7 +548,8 @@ public interface ApiService {
     Observable<ResponseBean<List<RankBean>>> platRank(@Query("userId") String userId, @Query("city") String city);
 
     @POST("add/feedback")
-    Observable<ResponseBean<String>> addFeedback(@Query("userId") String userId,@Query("orderNum") String orderNum,@Query("desc") String desc,@Body RequestBody file);
+    Observable<ResponseBean<String>> addFeedback(@Query("userId") String userId, @Query("orderNum") String orderNum, @Query("desc") String desc, @Body RequestBody file);
+
     @POST("withdraw/list")
     Observable<ResponseBean<List<WithdrawBean>>> withdrawList(@Query("userId") String userId);
 

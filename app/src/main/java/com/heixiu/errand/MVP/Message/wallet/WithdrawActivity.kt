@@ -50,7 +50,7 @@ class WithdrawActivity : BaseActivity() {
                 return@setOnClickListener
             }else {
                 withdraw_doit.isEnabled = false
-                RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().withdrawCash(SPUtil.getString("userid"),pieceall)).subscribe({
+                RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().withdrawCash(SPUtil.getString("userid"),queryMyIncomeBean!!.zfbId,pieceall,"0")).subscribe({
                     ToastUtils.showLong(it)
 
                     startActivity(WithdrawalSuccessActivity::class.java)
