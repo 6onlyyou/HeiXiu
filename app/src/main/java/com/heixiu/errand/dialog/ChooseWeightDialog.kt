@@ -3,6 +3,7 @@ package com.heixiu.errand.dialog
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.NumberPicker
 import com.heixiu.errand.Event.PublishParamsChangeEvent
@@ -32,11 +33,13 @@ class ChooseWeightDialog(context: Context) : BottomDialog(context) {
             dismiss()
         })
 
+
         binding.confirm.setOnClickListener({
-            if (binding.weightNp.verticalScrollbarPosition == 0) {
+            Log.i("weight","weight = "+binding.weightNp.value)
+            if (binding.weightNp.value == 1) {
                 ContentFragment.packageWeight = "1"
             } else {
-                ContentFragment.packageWeight = numbers[binding.weightNp.verticalScrollbarPosition]
+                ContentFragment.packageWeight = numbers[binding.weightNp.value-1]
             }
             RxBus.getDefault().post(PublishParamsChangeEvent())
             dismiss()
