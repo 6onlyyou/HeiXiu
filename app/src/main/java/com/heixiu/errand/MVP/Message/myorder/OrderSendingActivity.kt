@@ -72,7 +72,6 @@ class OrderSendingActivity : BaseActivity() {
         }
 
         order_finish.setOnClickListener({
-
             RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().changeOrderStatus(orderInfo.orderNum, orderInfo.receiveId.toString(), "4"))
                     .subscribe({
                         ToastUtils.showLong("该订单已确认完成")
@@ -141,9 +140,8 @@ class OrderSendingActivity : BaseActivity() {
                                 // 需要显示骑手位置
                                 if (it.recieveUserInfo != null) {
                                     GlideUtil.load(this@OrderSendingActivity, it.recieveUserInfo.userImg, sendAva)
-//                                    showMarker(orderInfo.recieveUserInfo)
+                                    showMarker(30.0, 120.0)
                                 }
-
                             }
                         }, {
 
@@ -151,7 +149,6 @@ class OrderSendingActivity : BaseActivity() {
             }
 
         }
-
         timer.schedule(task, 0, 2000)
     }
 

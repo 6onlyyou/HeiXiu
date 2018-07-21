@@ -1,7 +1,5 @@
 package com.heixiu.errand.adapter;
 
-import android.view.View;
-
 import com.heixiu.errand.R;
 import com.heixiu.errand.bean.ExpressHistoryBean;
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter;
