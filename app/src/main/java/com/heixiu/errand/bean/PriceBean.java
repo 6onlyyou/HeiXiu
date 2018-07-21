@@ -10,13 +10,13 @@ public class PriceBean {
      * price : 22
      */
 
-    private double price;
+    private int price;
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 }

@@ -72,7 +72,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
                     if (ContentFragment.ticketBean != null) {
                         var realPrice = it.price - ContentFragment.ticketBean?.couponPrice!!
                         if (realPrice < 0) {
-                            orderInfo.payment = 0.0
+                            orderInfo.payment = 0
                             payment.text = "实际付款金额 : 0元"
                         } else {
                             orderInfo.payment = realPrice

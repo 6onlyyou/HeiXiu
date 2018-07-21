@@ -43,7 +43,7 @@
             android:layout_marginTop="20dp"
             android:text="选择物品类型:"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/package_type_Rv"
@@ -76,7 +76,7 @@
             android:layout_marginTop="26dp"
             android:text="快递信息:"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/receiveName"
@@ -148,7 +148,7 @@
             android:layout_marginTop="20dp"
             android:text="备注信息:"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/description"

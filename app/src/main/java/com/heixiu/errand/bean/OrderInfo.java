@@ -48,7 +48,7 @@ public class OrderInfo implements Serializable {
     private String courierNum;
     private String receiveNum;
     private String receiveName;
-    private double payment;
+    private int payment;
     private String paymentType;
     private int addPrice;
     private int supportPrice;
@@ -245,11 +245,11 @@ public class OrderInfo implements Serializable {
         this.receiveName = receiveName;
     }
 
-    public double getPayment() {
+    public int getPayment() {
         return payment;
     }
 
-    public void setPayment(double payment) {
+    public void setPayment(int payment) {
         this.payment = payment;
     }
 

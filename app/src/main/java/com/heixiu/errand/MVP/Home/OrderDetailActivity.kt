@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
+import android.view.View
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.MVP.Login.LoginActivity
 import com.heixiu.errand.R
@@ -31,6 +32,8 @@ class OrderDetailActivity : AppCompatActivity() {
         supportActionBar?.title = "接单大厅"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        diverLayout.visibility = View.GONE
 
         var orderInfo = intent.getSerializableExtra("data") as OrderInfo
 

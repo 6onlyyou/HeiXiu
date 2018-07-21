@@ -20,11 +20,9 @@ import java.util.List;
 public class MyIssuedAdapter extends BaseQuickAdapter<OrderInfo> {
     public MyIssuedAdapter(int layoutResId, List<OrderInfo> data) {
         super(layoutResId, data);
-
     }
 
     public MyIssuedAdapter(List<OrderInfo> data) {
-
         super(R.layout.item_issued, data);
     }
 
@@ -35,7 +33,6 @@ public class MyIssuedAdapter extends BaseQuickAdapter<OrderInfo> {
     @Override
     protected void convert(BaseViewHolder helper, final OrderInfo item) {
         helper.setText(R.id.Tv_startingPart, item.getSendAddress()).setText(R.id.Tv_endingPart, item.getReceiveAddress());
-        //Glide加载图片  并且支持gif动图
         helper.setText(R.id.Tv_deliveryTime, "送达时间：" + item.getSendTime());
         Button btnDetails;
         btnDetails = helper.getView(R.id.Bt_details);
@@ -60,7 +57,7 @@ public class MyIssuedAdapter extends BaseQuickAdapter<OrderInfo> {
                 stuts = "完成";
                 break;
             default:
-                stuts = "问题";
+                stuts = "问题订单";
         }
         helper.setText(R.id.Tv_proceed, stuts);
         if (stuts.equals("完成")) {
