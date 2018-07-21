@@ -43,7 +43,8 @@
         android:layout_height="50dp"
         android:layout_gravity="bottom"
         android:background="@color/white"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/start_navigation"

@@ -72,7 +72,7 @@ class OrderSendingActivity : BaseActivity() {
         }
 
         order_finish.setOnClickListener({
-            RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().changeOrderStatus(orderInfo.orderNum, orderInfo.receiveId.toString(), "4"))
+            RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().changeOrderStatus(orderInfo.orderNum, SPUtil.getString("userid"), "4"))
                     .subscribe({
                         ToastUtils.showLong("该订单已确认完成")
                         finish()
@@ -149,7 +149,7 @@ class OrderSendingActivity : BaseActivity() {
             }
 
         }
-        timer.schedule(task, 0, 2000)
+        timer.schedule(task, 0, 20000)
     }
 
     private fun showMarker(lat: Double, long: Double) {
