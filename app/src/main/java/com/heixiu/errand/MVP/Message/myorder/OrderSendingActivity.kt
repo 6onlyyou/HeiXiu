@@ -124,7 +124,7 @@ class OrderSendingActivity : BaseActivity() {
     var timer: Timer = Timer()
 
     private fun initUpdateLocation() {
-        showMarker(30.0, 120.0)
+//        showMarker(30.0, 120.0)
 
         var task: TimerTask = object : TimerTask() {
             override fun run() {
@@ -140,7 +140,7 @@ class OrderSendingActivity : BaseActivity() {
                                 // 需要显示骑手位置
                                 if (it.recieveUserInfo != null) {
                                     GlideUtil.load(this@OrderSendingActivity, it.recieveUserInfo.userImg, sendAva)
-                                    showMarker(30.0, 120.0)
+//                                    showMarker(it.recieveUserInfo, 120.0)
                                 }
                             }
                         }, {

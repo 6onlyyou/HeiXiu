@@ -257,7 +257,7 @@ class MainActivity : BaseActivity() {
                                     Log.i("order", "接单数量大于0")
                                     for (orderInfo in it) {
                                         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit()
-                                                .takeOrder(orderInfo.orderNum, MyApplication.getInstance().localLong, MyApplication.getInstance().localLat))
+                                                .takeOrder(SPUtil.getString("userid"),orderInfo.orderNum, MyApplication.getInstance().localLong, MyApplication.getInstance().localLat))
                                                 .subscribe({
                                                     Log.i("order", "提交位置成功")
                                                 }, {

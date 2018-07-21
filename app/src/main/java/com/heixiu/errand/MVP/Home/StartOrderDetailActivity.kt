@@ -84,10 +84,6 @@ class StartOrderDetailActivity : BaseActivity() {
     override fun processLogic() {
     }
 
-
-
-
-
     fun requestPression() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) !== PackageManager.PERMISSION_GRANTED) {
             // 没有获得授权，申请授权
@@ -127,10 +123,10 @@ class StartOrderDetailActivity : BaseActivity() {
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().changeOrderStatus(orderInfo.orderNum, SPUtil.getString("userid"), orderStatus))
                 .subscribe({
                     if (orderStatus.equals("2")) {
-                        CommonCenterDialog(this@StartOrderDetailActivity, "2")
+                        CommonCenterDialog(this@StartOrderDetailActivity, "2").show()
                     }
                     if (orderStatus.equals("3")) {
-                        CommonCenterDialog(this@StartOrderDetailActivity, "3")
+                        CommonCenterDialog(this@StartOrderDetailActivity, "3").show()
                     }
                     queryOneOrderInfo()
                 }, {
@@ -161,8 +157,8 @@ class StartOrderDetailActivity : BaseActivity() {
             "0" -> take_order.setImageResource(R.mipmap.ic_start_order)
             "1" -> take_order.setImageResource(R.mipmap.btn_get_doll)
             "2" -> take_order.setImageResource(R.mipmap.ic_confirm_arrive)
-            "3" -> take_order.setImageResource(R.mipmap.ic_confirm_arrive)
-            "4" -> take_order.setImageResource(R.mipmap.ic_confirm_arrive)
+            "3" -> take_order.setImageResource(R.mipmap.ic_already_arrive)
+            "4" -> take_order.setImageResource(R.mipmap.ic_already_arrive)
         }
     }
 
