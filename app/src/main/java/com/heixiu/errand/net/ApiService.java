@@ -161,10 +161,12 @@ public interface ApiService {
      *
      * @return
      */
-    @POST("takeOrder")
-    Observable<ResponseBean<String>> takeOrder(@Query("orderNum") String orderNum,
-                                               @Query("recieveOriginsLongitude") double recieveOriginsLongitude,
-                                               @Query("recieveOriginsLatitude") double recieveOriginsLatitude);
+    @POST("updateRecieveLocation")
+    Observable<ResponseBean<String>> takeOrder(
+            @Query("orderNum") String receiveId,
+            @Query("orderNum") String orderNum,
+            @Query("recieveOriginsLongitude") double recieveOriginsLongitude,
+            @Query("recieveOriginsLatitude") double recieveOriginsLatitude);
 
     /**
      * 查看订单详情
