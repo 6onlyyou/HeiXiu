@@ -78,6 +78,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             Log.i(TAG, "接单列表: Lat = " + orderInfo.getOriginsLatitude()
                     + "Long = " + orderInfo.getOriginsLongitude()
             );
+            Log.i(TAG, "onBindViewHolder: " + orderInfo.getDescription());
             if ((distance) >= 1000 && distance < 1000000000) {
                 distanceFormat = df.format(distance / 1000);
                 viewHolder.distance.setText("距您" + distanceFormat + "公里");

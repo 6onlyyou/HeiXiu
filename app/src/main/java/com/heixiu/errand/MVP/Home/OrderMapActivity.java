@@ -70,6 +70,7 @@ public class OrderMapActivity extends AppCompatActivity {
     ArrayList<String> addressData = new ArrayList<>();
     SuggestionSearch mSuggestionSearch;
     List<Poi> poiList;
+    boolean isLocation = false;
     private OrderInfo orderInfo;
     private MapView mMapView;
     private BaiduMap mBaiduMap;
@@ -334,12 +335,17 @@ public class OrderMapActivity extends AppCompatActivity {
                     .latitude(location.getLatitude())
                     .longitude(location.getLongitude())
                     .build();
-            mBaiduMap.setMyLocationData(locData);
-            BitmapDescriptor mCurrentMarker = BitmapDescriptorFactory
-                    .fromResource(R.mipmap.ic_location);
-            MyLocationConfiguration config = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.FOLLOWING, true, mCurrentMarker);
 
-            mBaiduMap.setMyLocationConfiguration(config);
+            if (isLocation) {
+                mBaiduMap.setMyLocationData(locData);
+                BitmapDescriptor mCurrentMarker = BitmapDescriptorFactory
+                        .fromResource(R.mipmap.ic_location);
+                MyLocationConfiguration config = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.FOLLOWING, true, mCurrentMarker);
+
+                mBaiduMap.setMyLocationConfiguration(config);
+                isLocation = true;
+            }
+
 
             addr = location.getAddrStr();    //获取详细地址信息
             String country = location.getCountry();    //获取国家

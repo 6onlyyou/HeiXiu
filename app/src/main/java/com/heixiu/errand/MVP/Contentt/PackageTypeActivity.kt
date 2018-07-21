@@ -35,9 +35,6 @@ class PackageTypeActivity : AppCompatActivity() {
             name = adapter.data[it]
         }
 
-        back.setOnClickListener({
-            ToastUtils.showLong("信息填写不完整，请补全信息")
-        })
 
         if (!TextUtils.isEmpty(ContentFragment.receiverName)) {
             receiverName = ContentFragment.receiverName
@@ -131,13 +128,6 @@ class PackageTypeActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        if (checkHasNullMessage()) {
-            ToastUtils.showLong("信息填写不完整，请补全信息")
-        } else {
-            super.onBackPressed()
-        }
-    }
 
     override fun onDestroy() {
         super.onDestroy()
