@@ -52,8 +52,8 @@ class WithdrawActivity : BaseActivity() {
                 withdraw_doit.isEnabled = false
                 RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().withdrawCash(SPUtil.getString("userid"),queryMyIncomeBean!!.zfbId,pieceall,"0")).subscribe({
                     ToastUtils.showLong(it)
-
-                    startActivity(WithdrawalSuccessActivity::class.java)
+                    startActivity(WithdrawalActivity::class.java)
+//                    startActivity(WithdrawalSuccessActivity::class.java)
                     finishWithAlpha()
                     withdraw_doit.isEnabled = true
                 },{

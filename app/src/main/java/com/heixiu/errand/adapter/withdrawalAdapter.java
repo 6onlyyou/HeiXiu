@@ -37,11 +37,20 @@ public class withdrawalAdapter extends BaseQuickAdapter<WithdrawBean> {
             return "微信";
         }
     }
+    public  String  payStute(String type ){
+        if(type.equals("0")){
+            return "申请中";
+        }else if(type.equals("1")){
+            return "通过";
+        } else {
+            return "未通过";
+        }
+    }
     @Override
     protected void convert(BaseViewHolder helper, WithdrawBean item) {
         TextView withdraw_account = (TextView) helper.getView(R.id.withdraw_account);
         withdraw_account.setVisibility(View.VISIBLE);
-        helper.setText(R.id.withdraw_numbers,"提现渠道："+payType(item.getType())).setText(R.id.withdraw_time, item.getAmount().toString()+"元").setText(R.id.withdraw_pay,item.getStatus()).setText(R.id.withdraw_account,item.getAccount());
+        helper.setText(R.id.withdraw_numbers,"提现渠道："+payType(item.getType())).setText(R.id.withdraw_time, item.getAmount().toString()+"元").setText(R.id.withdraw_pay,payStute(item.getStatus())).setText(R.id.withdraw_account,item.getAccount());
 
     }
 }

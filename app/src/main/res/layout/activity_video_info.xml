@@ -13,7 +13,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="22dp">
+        android:paddingTop="16dp">
 
         <com.heixiu.errand.widget.ObservableScrollView
             android:layout_width="match_parent"
@@ -52,31 +52,34 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:textSize="11sp"
-                                android:layout_marginLeft="12dp"
+                                android:textSize="14sp"
+                                android:layout_marginLeft="10dp"
                                 android:text="付竹" />
                         </LinearLayout>
 
                         <Button
                             android:id="@+id/video_info_attention"
-                            android:layout_width="50dp"
-                            android:layout_height="20dp"
+                            android:layout_width="44dp"
+                            android:layout_height="18dp"
+                            android:textColor="@color/colorPrimary"
+                            android:text="关注"
+                            android:textSize="12sp"
                             android:layout_alignParentRight="true"
                             android:layout_centerInParent="true"
                             android:background="@drawable/video_bg"
-                            android:text="关注"
-                            android:textSize="12sp" />
+                            />
                     </RelativeLayout>
 
                     <TextView
                         android:id="@+id/info_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="7dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
-                        android:textSize="11sp"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
 
                         android:text="内容实打实大苏打大苏打撒大苏打大撒大大大撒旦萨达萨达撒旦的撒大" />
 
@@ -115,7 +118,6 @@
                                 android:id="@+id/share_go"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
                                 android:src="@mipmap/share_go" />
 
                             <ImageView
@@ -152,7 +154,6 @@
                         <LinearLayout
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
                             android:orientation="horizontal">
 
                             <TextView
@@ -178,15 +179,16 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="3dp"
+                        android:layout_height="4dp"
                         android:background="#f2f2f2"></View>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="22dp"
-                        android:layout_marginRight="22dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
+                        android:textSize="14sp"
                         android:text="评论"
                         android:textColor="@color/gray_text" />
 
@@ -197,9 +199,11 @@
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/Rv_comment"
+                        android:layout_marginTop="8dp"
                         android:layout_width="match_parent"
                         android:layout_height="500dp"
                         android:layout_marginBottom="40dp"
+
                         android:background="@color/white">
 
                     </android.support.v7.widget.RecyclerView>
@@ -212,12 +216,12 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="22dp"
-            android:layout_marginRight="22dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/login_bg"
             android:gravity="center_vertical"
             android:hint="请输入评论"
-            android:textSize="13sp"
+            android:textSize="14sp"
             tools:ignore="NotSibling" />
     </RelativeLayout>
 </LinearLayout>
