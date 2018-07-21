@@ -75,14 +75,16 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             double distance = DistanceUtil.getDistance(
                     new LatLng(MyApplication.getInstance().localLat, MyApplication.getInstance().localLong)
                     , new LatLng(orderInfo.getOriginsLatitude(), orderInfo.getOriginsLongitude()));
-            Log.i(TAG, "onBindViewHolder: distance"+distance);
+            Log.i(TAG, "接单列表: Lat = " + orderInfo.getOriginsLatitude()
+                    + "Long = " + orderInfo.getOriginsLongitude()
+            );
             if ((distance) >= 1000 && distance < 1000000000) {
                 distanceFormat = df.format(distance / 1000);
                 viewHolder.distance.setText("距您" + distanceFormat + "公里");
             } else if (distance < 1000) {
                 distanceFormat = df.format(distance);
                 viewHolder.distance.setText("距您" + distanceFormat + "米");
-            }else {
+            } else {
 
             }
 

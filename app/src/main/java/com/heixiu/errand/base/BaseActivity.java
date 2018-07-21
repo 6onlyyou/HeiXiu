@@ -20,23 +20,27 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.fushuaige.common.widget.TitleBar;
 import com.heixiu.errand.MyApplication.MyApplication;
 import com.heixiu.errand.R;
 import com.heixiu.errand.utils.ActivityManager;
-import com.fushuaige.common.widget.TitleBar;
 
 import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import io.rong.imkit.RongIM;
-
 
 public abstract class BaseActivity extends AppCompatActivity {
     protected Context mContext;
-    private ConnectivityManager manager;
-    boolean isNeedFullBar;
     protected TitleBar mTitle;
+    boolean isNeedFullBar;
+    private ConnectivityManager manager;
+
+    private static int getStatusBarHeight(Context context) {
+        // 获得状态栏高度
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        return context.getResources().getDimensionPixelSize(resourceId);
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("RestrictedApi")
@@ -46,13 +50,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (isNeedFullBar) {
             setFullBar();
         }
-        initWindows(getResources().getColor(R.color.colorPrimary));
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            initWindows(getResources().getColor(R.color.colorPrimary));
+        }
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);// 锁定竖屏
 
         initView();
         initdata();
         ActivityManager.addActivity(this);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     protected void initWindows(int color) {
         Window window = this.getWindow();
@@ -63,15 +70,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         //设置状态栏颜色
         window.setStatusBarColor(color);
     }
+
     public void initTitle(int id, int bgcolor, int titlecolor) {
         if (mTitle == null) {
             mTitle = new TitleBar(this, findViewById(android.R.id.content), id, bgcolor, titlecolor);
         }
-    }
-    private static int getStatusBarHeight(Context context) {
-        // 获得状态栏高度
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        return context.getResources().getDimensionPixelSize(resourceId);
     }
 
     /**
@@ -84,6 +87,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             mTitle = new TitleBar(this, findViewById(android.R.id.content), name, bgcolor, titlecolor);
         }
     }
+
     public void finishWithAnim() {
         super.finish();
         int animEnter = R.anim.anim_left_enter;

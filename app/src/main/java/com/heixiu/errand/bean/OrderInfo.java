@@ -1,5 +1,8 @@
 package com.heixiu.errand.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -389,7 +392,7 @@ public class OrderInfo implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public static class PublishUserInfoBean  implements Serializable {
+    public static class PublishUserInfoBean  implements Serializable,Parcelable {
         /**
          * id : 81
          * userId : 12
@@ -419,6 +422,32 @@ public class OrderInfo implements Serializable {
         private long createTime;
         private long updateTime;
         private Object city;
+
+        protected PublishUserInfoBean(Parcel in) {
+            id = in.readInt();
+            userId = in.readString();
+            userName = in.readString();
+            nickName = in.readString();
+            sex = in.readString();
+            sign = in.readString();
+            birthday = in.readString();
+            userImg = in.readString();
+            loginType = in.readString();
+            createTime = in.readLong();
+            updateTime = in.readLong();
+        }
+
+        public static final Creator<PublishUserInfoBean> CREATOR = new Creator<PublishUserInfoBean>() {
+            @Override
+            public PublishUserInfoBean createFromParcel(Parcel in) {
+                return new PublishUserInfoBean(in);
+            }
+
+            @Override
+            public PublishUserInfoBean[] newArray(int size) {
+                return new PublishUserInfoBean[size];
+            }
+        };
 
         public int getId() {
             return id;
@@ -523,9 +552,29 @@ public class OrderInfo implements Serializable {
         public void setCity(Object city) {
             this.city = city;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeInt(id);
+            parcel.writeString(userId);
+            parcel.writeString(userName);
+            parcel.writeString(nickName);
+            parcel.writeString(sex);
+            parcel.writeString(sign);
+            parcel.writeString(birthday);
+            parcel.writeString(userImg);
+            parcel.writeString(loginType);
+            parcel.writeLong(createTime);
+            parcel.writeLong(updateTime);
+        }
     }
 
-    public static class RecieveUserInfoBean {
+    public static class RecieveUserInfoBean  implements Serializable{
         /**
          * id : 167
          * userId : 13
