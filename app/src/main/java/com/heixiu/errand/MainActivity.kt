@@ -97,7 +97,12 @@ class MainActivity : BaseActivity() {
         if (SPUtil.getString("userid").equals("") || SPUtil.getString("userid").equals("1")) {
         } else {
             RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().selectDataById(SPUtil.getString("userid"))).subscribe({
-                SPUtil.saveString("headurl", it.userInfo.userImg)
+                if(it.userInfo.userImg==null){
+                    SPUtil.saveString("headurl", "")
+                }else{
+                    SPUtil.saveString("headurl", it.userInfo.userImg)
+                }
+
                 SPUtil.saveString("nickname", it.userInfo.nickName)
                 if (it.dbSubAccount?.zfbId == null) {
                     SPUtil.saveString("bindzfb", "0")

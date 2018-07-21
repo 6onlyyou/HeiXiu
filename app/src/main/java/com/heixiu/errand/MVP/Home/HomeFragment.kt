@@ -98,7 +98,7 @@ class HomeFragment : BaseFragment() {
 
     fun takeOrder(orderInfo: OrderInfo) {
 
-        if (SPUtil.getString("userid").equals(orderInfo.publishUserInfo.userId)) {
+        if (SPUtil.getString("userid").equals(orderInfo.userId)) {
             ToastUtils.showShort("不能接自己发的订单呦~")
             return
         }
