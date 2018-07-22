@@ -7,8 +7,10 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
 import android.support.v4.app.ActivityCompat
+import android.view.View
 import android.widget.Toast
 import com.fushuaige.common.utils.GlideUtil
+import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseActivity
 import com.heixiu.errand.bean.OrderInfo
@@ -49,16 +51,36 @@ class OrderFinishActivity : BaseActivity() {
         receiveName.text = orderInfo.receiveName
 
         when (orderInfo.orderStatus) {
-            "0" -> orderState.text = "刚创建"
-            "1" -> orderState.text = "已接单"
-            "2" -> orderState.text = "已取货"
-            "3" -> orderState.text = "已送达"
-            "4" -> orderState.text = "完成"
+            "0" -> {
+                orderState.text = "刚创建"
+                cancelOrder.visibility = View.VISIBLE
+            }
+            "1" -> {
+                orderState.text = "已接单"
+                cancelOrder.visibility = View.GONE
+            }
+            "2" -> {
+                orderState.text = "已取货"
+                cancelOrder.visibility = View.GONE
+            }
+            "3" -> {
+                orderState.text = "已送达"
+                cancelOrder.visibility = View.GONE
+            }
+            "4" -> {
+                orderState.text = "完成"
+                cancelOrder.visibility = View.GONE
+            }
         }
 
         call.setOnClickListener({
             requestPression()
         })
+
+        cancelOrder.setOnClickListener({
+            cancelOrder()
+        })
+
 
         message.setOnClickListener({
             RongIM.getInstance().setMessageAttachedUserInfo(true)
@@ -68,6 +90,16 @@ class OrderFinishActivity : BaseActivity() {
     }
 
     private var receverInfo: OrderInfo.RecieveUserInfoBean? = null
+
+    fun cancelOrder() {
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().cancleOrder(orderInfo.orderNum))
+                .subscribe({
+                    ToastUtils.showLong("取消订单成功")
+                    finish()
+                }, {
+                    ToastUtils.showLong("取消订单失败" + it.message)
+                })
+    }
 
     fun requestPression() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) !== PackageManager.PERMISSION_GRANTED) {

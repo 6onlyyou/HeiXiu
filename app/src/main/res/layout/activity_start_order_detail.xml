@@ -24,7 +24,7 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:gravity="center"
             android:text="任务详情"
             android:textColor="@color/white"
@@ -34,7 +34,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -58,11 +58,11 @@
                 android:layout_height="wrap_content"
                 android:text="name" />
 
-            <!--<TextView-->
-            <!--android:id="@+id/publishOrderNum"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="name" />-->
+            <TextView
+            android:id="@+id/publishOrderNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="name" />
 
             <!--<TextView-->
             <!--android:id="@+id/score"-->
@@ -94,19 +94,24 @@
         android:background="@color/white"
         android:orientation="vertical">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="@color/line" />
 
         <TextView
             android:id="@+id/orderNo"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_marginLeft="13dp"
+            android:gravity="center_vertical"
             android:textColor="@color/black"
             android:textSize="12sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2px"
-            android:background="@color/colorPrimary" />
+            android:background="@color/line" />
 
         <TextView
             android:id="@+id/start"
@@ -144,7 +149,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2px"
-            android:background="@color/colorPrimary" />
+            android:background="@color/line" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -161,9 +166,9 @@
                     android:id="@+id/type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="6dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginLeft="13dp"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="10dp"
                     android:drawableLeft="@mipmap/ic_package"
                     android:drawablePadding="6dp"
                     android:textColor="@color/text_gray"
@@ -183,9 +188,9 @@
                     android:id="@+id/add_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="6dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_marginLeft="13dp"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="10dp"
                     android:drawableLeft="@mipmap/ic_money"
                     android:drawablePadding="6dp"
                     android:textColor="@color/text_gray"
@@ -204,14 +209,14 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2px"
-            android:background="@color/colorPrimary" />
+            android:background="@color/line" />
 
         <TextView
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="13dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="10dp"
             android:text="备注信息："
             android:textColor="@color/black"
             android:textSize="12sp" />
@@ -220,9 +225,9 @@
             android:id="@+id/tips"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="6dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="13dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
             android:drawablePadding="6dp"
             android:textColor="@color/text_gray"
             android:textSize="12sp" />
@@ -236,7 +241,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2px"
-                android:background="@color/colorPrimary" />
+                android:background="@color/line" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -260,7 +265,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="13dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
                 android:textColor="@color/text_gray"
                 android:textSize="12sp" />
             <!--"收件人电话"+-->
@@ -268,8 +273,9 @@
                 android:id="@+id/courierNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:layout_marginLeft="13dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
                 android:textColor="@color/text_gray"
                 android:textSize="12sp" />
             <!--"快递员电话"+-->

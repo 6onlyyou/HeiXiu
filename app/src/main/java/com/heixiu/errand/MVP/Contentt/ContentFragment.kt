@@ -62,7 +62,10 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
 
     companion object {
         var receiveAddress: String = ""
+        var receiveAddressDetail = ""
         var sendAddress: String = ""
+        var sendAddressDetail = ""
+
         var sendTime: String = ""
         var packageType: String = ""
         var packageWeight: String = ""
@@ -159,6 +162,8 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
     private var addressData: MutableList<String> = ArrayList()
     var spinnerAdapter: SpinnerAdapter? = null
 
+    var isChooseAddressLocation: Boolean = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -198,13 +203,38 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
             }
         }
 
+
+        confirmAddress.setOnClickListener({
+            if (isChooseAddressLocation) {
+                when (addressType) {
+                    sendAddressType -> {
+                        ContentFragment.sendAddressDetail = detailAddress.text.toString()
+                    }
+                    receiveAddressType -> {
+                        ContentFragment.receiveAddressDetail = detailAddress.text.toString()
+                    }
+                }
+                inputAddressEt.setText("")
+                detailAddress.setText("")
+                addressLayout.visibility = View.GONE
+                isChooseAddressLocation = false
+            } else {
+                ToastUtils.showLong("请重新选择地点")
+            }
+
+        })
+
         //取货地址
         receiveAddress.setOnClickListener({
+            isChooseAddressLocation = false
+
             addressType = receiveAddressType
             addressLayout.visibility = View.VISIBLE
         })
         //送货地址
         sendAddress.setOnClickListener({
+            isChooseAddressLocation = false
+
             addressType = sendAddressType
             addressLayout.visibility = View.VISIBLE
         })
@@ -266,6 +296,8 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
                     orderInfo.destinationsLongitude = ContentFragment.sendLon
                     orderInfo.originsLatitude = ContentFragment.receiveLat
                     orderInfo.originsLongitude = ContentFragment.receiveLon
+                    orderInfo.recieveMapAdress = ContentFragment.receiveAddressDetail
+                    orderInfo.sendMapAdress = ContentFragment.sendAddressDetail
 
                     var distance = DistanceUtil.getDistance(
                             LatLng(orderInfo.destinationsLatitude, orderInfo.destinationsLongitude),
@@ -348,6 +380,8 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
         mSearch?.setOnGetGeoCodeResultListener(object : OnGetGeoCoderResultListener {
             override fun onGetGeoCodeResult(result: GeoCodeResult?) {
                 if (result != null && result.location != null) {
+                    isChooseAddressLocation = true
+
                     when (addressType) {
                         sendAddressType -> {
                             ContentFragment.sendAddress = address
@@ -362,8 +396,8 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
                             receiveAddress.text = address
                         }
                     }
-                    inputAddressEt.setText("")
-                    addressLayout.visibility = View.GONE
+//                    inputAddressEt.setText("")
+//                    addressLayout.visibility = View.GONE
                 }
             }
 

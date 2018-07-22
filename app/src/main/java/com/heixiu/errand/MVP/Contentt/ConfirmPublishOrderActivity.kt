@@ -105,7 +105,9 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().createOrder(
                 SPUtil.getString("userid"),
                 orderInfo.sendAddress,
+                orderInfo.sendMapAdress,
                 orderInfo.receiveAddress,
+                orderInfo.recieveMapAdress,
                 orderInfo.name,
                 orderInfo.weight,
                 orderInfo.addPrice,
