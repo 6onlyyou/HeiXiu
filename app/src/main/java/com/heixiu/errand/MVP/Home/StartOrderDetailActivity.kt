@@ -5,23 +5,18 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Bundle
 import android.provider.Settings
 import android.support.v4.app.ActivityCompat
-import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.fushuaige.common.utils.ToastUtils
-import com.heixiu.errand.MVP.Message.ConversationListActivity
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseActivity
-import com.heixiu.errand.bean.OrderDetailInfo
 import com.heixiu.errand.bean.OrderInfo
 import com.heixiu.errand.dialog.CommonCenterDialog
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.SPUtil
 import io.rong.imkit.RongIM
-import io.rong.imlib.NativeObject
 import io.rong.imlib.model.UserInfo
 import kotlinx.android.synthetic.main.activity_start_order_detail.*
 
@@ -53,7 +48,7 @@ class StartOrderDetailActivity : BaseActivity() {
 //             RongIM.getInstance().startPrivateChat(this, orderInfo!!.userId.toString(), orderInfo!!.receiveName)
             RongIM.getInstance().setMessageAttachedUserInfo(true)
             RongIM.getInstance().setCurrentUserInfo(UserInfo(SPUtil.getString("userid"), SPUtil.getString("nickname"), Uri.parse(SPUtil.getString("headurl").toString())))
-            RongIM.getInstance().startPrivateChat(this, orderInfo!!.userId.toString(),orderInfo!!.receiveName)
+            RongIM.getInstance().startPrivateChat(this, orderInfo!!.userId.toString(), orderInfo!!.receiveName)
 
         })
 
@@ -147,6 +142,7 @@ class StartOrderDetailActivity : BaseActivity() {
                     if ("0" == orderInfo?.orderStatus) {
 
                     }
+                    publishOrderNum.text = "发单数量" + it.publishOrderCount + "单"
                 }, {
 
                 })

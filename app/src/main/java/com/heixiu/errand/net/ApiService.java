@@ -131,7 +131,9 @@ public interface ApiService {
     Observable<ResponseBean<String>> createOrder(
             @Query("userId") String userId,
             @Query("sendAddress") String sendAddress,
+            @Query("sendMapAdress") String sendMapAdress,
             @Query("receiveAddress") String receiveAddress,
+            @Query("recieveMapAdress") String recieveMapAdress,
             @Query("name") String name,
             @Query("weight") int weight,
             @Query("addPrice") int addPrice,
@@ -189,6 +191,14 @@ public interface ApiService {
     @POST("changeOrderStatus")
     Observable<ResponseBean<String>> changeOrderStatus(@Query("orderNum") String orderNum
             , @Query("receiveId") String receiveId, @Query("orderStatus") String orderStatus);
+
+    /**
+     * 取消订单
+     * @param orderNum
+     * @return
+     */
+    @POST("cancleOrder")
+    Observable<ResponseBean<String>> cancleOrder(@Query("orderNum") String orderNum);
 
     /**
      * 获取优惠券列表

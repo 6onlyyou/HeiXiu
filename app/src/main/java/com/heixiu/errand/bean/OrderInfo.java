@@ -62,7 +62,9 @@ public class OrderInfo implements Serializable {
     private String name;
     @SerializedName("descriptions")
     private String description;
+    private String sendMapAdress;
     private String sendAddress;
+    private String recieveMapAdress;
     private String receiveAddress;
     private double originsLatitude;
     private double originsLongitude;
@@ -83,6 +85,22 @@ public class OrderInfo implements Serializable {
     private int publishOrderCount;
     private Object beginTime;
     private Object endTime;
+
+    public String getSendMapAdress() {
+        return sendMapAdress;
+    }
+
+    public void setSendMapAdress(String sendMapAdress) {
+        this.sendMapAdress = sendMapAdress;
+    }
+
+    public String getRecieveMapAdress() {
+        return recieveMapAdress;
+    }
+
+    public void setRecieveMapAdress(String recieveMapAdress) {
+        this.recieveMapAdress = recieveMapAdress;
+    }
 
     public int getId() {
         return id;
