@@ -10,6 +10,7 @@ import com.heixiu.errand.bean.MyFansBean;
 import com.heixiu.errand.bean.MyPublishOrderBean;
 import com.heixiu.errand.bean.OrderInfo;
 import com.heixiu.errand.bean.PackageInformationBean;
+import com.heixiu.errand.bean.PayBean;
 import com.heixiu.errand.bean.PhoneToken;
 import com.heixiu.errand.bean.PriceBean;
 import com.heixiu.errand.bean.PubLishInfo;
@@ -128,7 +129,7 @@ public interface ApiService {
      * @return
      */
     @POST("createOrder")
-    Observable<ResponseBean<String>> createOrder(
+    Observable<ResponseBean<OrderInfo>> createOrder(
             @Query("userId") String userId,
             @Query("sendAddress") String sendAddress,
             @Query("sendMapAdress") String sendMapAdress,
@@ -205,9 +206,9 @@ public interface ApiService {
      * @return
      */
     @POST("pay/createPayOrder")
-    Observable<ResponseBean<String>> createPayOrder(
+    Observable<ResponseBean<PayBean>> createPayOrder(
             @Query("payType") String payType,
-            @Query("orderNum") String orderNum,
+            @Query("orderNo") String orderNum,
             @Query("amount") String amount,
             @Query("ip") String ip
 

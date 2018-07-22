@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.fushuaige.common.utils.ToastUtils;
 import com.heixiu.errand.base.AppConstant;
+import com.heixiu.errand.bean.PayFailEventEntity;
 import com.heixiu.errand.bean.PaySuccessEventEntity;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
@@ -53,6 +54,8 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                 PaySuccessEventEntity paySuccessEventEntity = new PaySuccessEventEntity();
                 EventBus.getDefault().post(paySuccessEventEntity);
             } else {
+                PayFailEventEntity payFailEventEntity = new PayFailEventEntity();
+                EventBus.getDefault().post(payFailEventEntity);
                 ToastUtils.showShort("支付失败, 请重试");
             }
             finish();

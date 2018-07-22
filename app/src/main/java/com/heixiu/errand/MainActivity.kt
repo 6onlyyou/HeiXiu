@@ -2,7 +2,6 @@ package com.heixiu.errand
 
 import android.Manifest
 import android.app.AlertDialog
-import android.content.pm.PackageManager
 import android.os.Build
 import android.text.TextUtils
 import android.util.Log
@@ -97,9 +96,9 @@ class MainActivity : BaseActivity() {
         if (SPUtil.getString("userid").equals("") || SPUtil.getString("userid").equals("1")) {
         } else {
             RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().selectDataById(SPUtil.getString("userid"))).subscribe({
-                if(it.userInfo.userImg==null){
+                if (it.userInfo.userImg == null) {
                     SPUtil.saveString("headurl", "")
-                }else{
+                } else {
                     SPUtil.saveString("headurl", it.userInfo.userImg)
                 }
 
@@ -261,14 +260,14 @@ class MainActivity : BaseActivity() {
                                 if (it != null && it.size > 0) {
                                     Log.i("order", "接单数量大于0")
                                     for (orderInfo in it) {
-                                        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit()
-                                                .takeOrder(SPUtil.getString("userid"),orderInfo.orderNum, MyApplication.getInstance().localLong, MyApplication.getInstance().localLat))
-                                                .subscribe({
-                                                    Log.i("order", "提交位置成功")
-                                                }, {
-                                                    Log.i("order", "提交位置失败" + it.message)
-
-                                                })
+                                        if (orderInfo.orderStatus.equals("1") || orderInfo.orderStatus.equals("2"))
+                                            RxUtils.wrapRestCall(RetrofitFactory.getRetrofit()
+                                                    .takeOrder(SPUtil.getString("userid"), orderInfo.orderNum, MyApplication.getInstance().localLong, MyApplication.getInstance().localLat))
+                                                    .subscribe({
+                                                        Log.i("order", "提交位置成功")
+                                                    }, {
+                                                        Log.i("order", "提交位置失败" + it.message)
+                                                    })
                                     }
                                 }
                             }) {

@@ -11,11 +11,17 @@ import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.Event.PublishParamsChangeEvent
 import com.heixiu.errand.MVP.Login.LoginActivity
 import com.heixiu.errand.R
+import com.heixiu.errand.base.AppConstant
 import com.heixiu.errand.bean.OrderInfo
+import com.heixiu.errand.bean.PayBean
+import com.heixiu.errand.bean.PayFailEventEntity
+import com.heixiu.errand.bean.PaySuccessEventEntity
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.RxBus
 import com.heixiu.errand.utils.SPUtil
+import com.tencent.mm.opensdk.modelpay.PayReq
+import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import kotlinx.android.synthetic.main.activity_confirm_publish_order.*
 
 class ConfirmPublishOrderActivity : AppCompatActivity() {
@@ -57,6 +63,20 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
         })
 
         getPrice()
+
+        RxBus.getDefault().toObservable(PaySuccessEventEntity::class.java).subscribe({
+            ToastUtils.showLong("支付成功,等待接单")
+            finish()
+        }, {
+            finish()
+        })
+
+        RxBus.getDefault().toObservable(PayFailEventEntity::class.java).subscribe({
+            ToastUtils.showLong("支付失败,请重新提交订单")
+            finish()
+        }, {
+            finish()
+        })
     }
 
     var canSubmit: Boolean = false
@@ -122,12 +142,40 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
                 orderInfo.destinationsLatitude.toString(),
                 orderInfo.destinationsLongitude.toString()
         )).subscribe({
-            ToastUtils.showShort("创建订单成功")
+            ToastUtils.showShort("创建订单成功,获取支付信息")
             initPublishParams()
-            finish()
+            wxPay(it)
+//            finish()
         }, {
             ToastUtils.showShort(it.message)
         })
+    }
+
+    fun wxPay(orderInfo: OrderInfo) {
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().createPayOrder("1", orderInfo.orderNum, orderInfo.payment.toString(), "192.168.1.1"))
+                .subscribe({
+                    weChatPay(entity = it)
+                }, {
+                    ToastUtils.showLong("获取支付信息失败" + it.message)
+                })
+    }
+
+
+    /**
+     * 调起微信支付
+     */
+    private fun weChatPay(entity: PayBean) {
+        val api = WXAPIFactory.createWXAPI(this, AppConstant.WX_ID, false)
+        api.registerApp(AppConstant.WX_ID)
+        val payReq = PayReq()
+        payReq.appId = AppConstant.WX_ID
+        payReq.partnerId = entity.partnerid
+        payReq.prepayId = entity.prepayid
+        payReq.packageValue = entity.packageX
+        payReq.nonceStr = entity.noncestr
+        payReq.timeStamp = entity.timestamp.toString()
+        payReq.sign = entity.sign
+        api.sendReq(payReq)
     }
 
     fun initPublishParams() {
