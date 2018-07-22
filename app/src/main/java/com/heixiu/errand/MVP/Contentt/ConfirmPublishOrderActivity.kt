@@ -134,7 +134,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
                 orderInfo.description,
                 orderInfo.receiveName,
                 orderInfo.receiveNum,
-                orderInfo.courierNum,
+                "12615361526",
                 orderInfo.supportPrice,
                 orderInfo.payment,
                 orderInfo.originsLatitude.toString(),

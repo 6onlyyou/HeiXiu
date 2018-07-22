@@ -62,6 +62,7 @@ public class MyGridViewAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ImageView img = new ImageView(context);
         img.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        img.setPadding(16,0,16,0);
         int width = WindowSize.getWidth(context)-50;// 获取屏幕宽度
         Log.i("tag", "width" + width);
         int height = 0;

@@ -32,7 +32,7 @@ public class MyIssuedAdapter extends BaseQuickAdapter<OrderInfo> {
 
     @Override
     protected void convert(BaseViewHolder helper, final OrderInfo item) {
-        helper.setText(R.id.Tv_startingPart, item.getSendAddress()).setText(R.id.Tv_endingPart, item.getReceiveAddress());
+        helper.setText(R.id.Tv_startingPart, item.getReceiveAddress()).setText(R.id.Tv_endingPart, item.getSendAddress());
         helper.setText(R.id.Tv_deliveryTime, "送达时间：" + item.getSendTime());
         Button btnDetails;
         btnDetails = helper.getView(R.id.Bt_details);

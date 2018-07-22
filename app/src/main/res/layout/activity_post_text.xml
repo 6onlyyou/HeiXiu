@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:hint="请输入您想分享的"
         android:textColor="@color/gray_text"
-        android:background="@color/white"
+        android:background="@null"
         android:gravity="left|top"
         android:layout_marginTop="@dimen/dp_22"
         android:layout_marginLeft="20dp"

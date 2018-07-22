@@ -33,6 +33,8 @@ class PhoneLoginFragment : BaseFragment() {
             super.handleMessage(msg)
             if (msg.what == 1) {
                 ToastUtils.showLong("验证码错误")
+            }else if(msg.what == 2){
+                ToastUtils.showLong("获取验证码失败")
             } else {
                 ToastUtils.showLong(msg.obj.toString())
             }
@@ -80,7 +82,8 @@ class PhoneLoginFragment : BaseFragment() {
                     mCountDownTimerUtils!!.start()
                     // 请注意，此时只是完成了发送验证码的请求，验证码短信还需要几秒钟之后才送达
                 } else {
-                    handler.sendEmptyMessage(1);
+
+                    handler.sendEmptyMessage(2);
                 }
             }
         })
