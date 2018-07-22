@@ -25,13 +25,13 @@
             android:layout_weight="1"
             android:text="修改绑定手机号"
             android:textColor="@color/black"
-            android:textSize="11sp" />
+            android:textSize="14sp" />
 
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginRight="17dp"
             android:src="@mipmap/ic_next" />
     </LinearLayout>
     <LinearLayout
@@ -49,13 +49,13 @@
             android:layout_weight="1"
             android:text="密码设置"
             android:textColor="@color/black"
-            android:textSize="11sp" />
+            android:textSize="14sp" />
 
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginRight="17dp"
             android:src="@mipmap/ic_next" />
     </LinearLayout>
     <LinearLayout
@@ -73,15 +73,15 @@
             android:layout_weight="1"
             android:text="实名认证"
             android:textColor="@color/black"
-            android:textSize="11sp" />
+            android:textSize="14sp" />
 
 
         <TextView
             android:id="@+id/account_certification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:textSize="11sp"
+            android:layout_marginRight="17dp"
+            android:textSize="14sp"
             android:textColor="@color/red"
             android:text="未认证"
              />
@@ -101,15 +101,15 @@
             android:layout_weight="1"
             android:text="支付宝绑定"
             android:textColor="@color/black"
-            android:textSize="11sp" />
+            android:textSize="14sp" />
 
 
         <TextView
             android:id="@+id/accoun_bindzfb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:textSize="11sp"
+            android:layout_marginRight="17dp"
+            android:textSize="14sp"
             android:textColor="@color/red"
             android:text="未绑定"
             />
@@ -128,13 +128,13 @@
             android:layout_weight="1"
             android:text="注销账号"
             android:textColor="@color/black"
-            android:textSize="11sp" />
+            android:textSize="14sp" />
 
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginRight="17dp"
             android:src="@mipmap/ic_next" />
     </LinearLayout>
 </LinearLayout>

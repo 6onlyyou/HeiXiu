@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.R
 import com.heixiu.errand.adapter.WithdrawalRecordAdapter
 import com.heixiu.errand.base.BaseActivity
@@ -33,6 +34,7 @@ class WithdrawalRecordActivity : BaseActivity() {
             my_doll_rv.setAdapter(withdrawalRecordAdapter)
             withdrawalRecordAdapter!!.setNewData(myReciecedOrderBean)
         },{
+            ToastUtils.showLong(it.message)
         })
         dollStateTb.addTab(dollStateTb.newTab().setText("任务交易").setTag("1"))
         dollStateTb.addTab(dollStateTb.newTab().setText("接单交易").setTag("2"))

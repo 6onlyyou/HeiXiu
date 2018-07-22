@@ -14,9 +14,9 @@
         <ImageView
             android:id="@+id/message_setting"
             android:layout_gravity="center_vertical"
-            android:layout_width="23dp"
-            android:layout_height="23dp"
-            android:layout_marginLeft="19dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="18dp"
             android:src="@mipmap/seting" />
 
         <TextView
@@ -30,10 +30,10 @@
 
         <com.heixiu.errand.widget.CircleImageView
             android:id="@+id/message_hard"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="19dp"
+            android:layout_marginRight="15dp"
             android:src="@mipmap/ic_launcher" />
     </LinearLayout>
 
@@ -133,9 +133,10 @@
             android:id="@+id/message_ranking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+             android:gravity="center"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_margin="@dimen/dp_10"
+            android:layout_margin="12dp"
             android:orientation="horizontal">
 
             <TextView
@@ -144,11 +145,11 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:text="查看好友排行榜"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
                 android:layout_marginLeft="3dp"
                 android:src="@mipmap/my_more" />
         </LinearLayout>
@@ -170,9 +171,9 @@
            >
 
             <ImageView
-                android:layout_marginLeft="21dp"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
+                android:layout_marginLeft="16dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:src="@mipmap/my_issue" />
 
             <TextView
@@ -194,9 +195,9 @@
             >
 
             <ImageView
-                android:layout_marginLeft="21dp"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
+                android:layout_marginLeft="16dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:src="@mipmap/my_task" />
 
             <TextView
@@ -217,9 +218,9 @@
             >
 
             <ImageView
-                android:layout_marginLeft="21dp"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
+                android:layout_marginLeft="16dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:src="@mipmap/my_task" />
 
             <TextView
@@ -250,9 +251,9 @@
        >
 
             <ImageView
-                android:layout_marginLeft="21dp"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
+                android:layout_marginLeft="16dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:src="@mipmap/my_express" />
 
             <TextView
@@ -274,9 +275,9 @@
             >
 
             <ImageView
-                android:layout_marginLeft="21dp"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
+                android:layout_marginLeft="16dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:src="@mipmap/my_goods" />
 
             <TextView
@@ -297,9 +298,9 @@
             >
 
             <ImageView
-                android:layout_marginLeft="21dp"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
+                android:layout_marginLeft="16dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:src="@mipmap/coupon" />
 
             <TextView
@@ -320,9 +321,9 @@
             >
 
             <ImageView
-                android:layout_marginLeft="21dp"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
+                android:layout_marginLeft="16dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:src="@mipmap/my_wallet" />
 
             <TextView

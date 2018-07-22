@@ -57,6 +57,8 @@ public class MyTaskAdapter extends BaseQuickAdapter<OrderInfo> {
             case "4":
                 stuts ="完成";
                 break;
+                default:
+                    stuts ="问题订单";
         }
         Button btnDetails;
         helper.setText(R.id.Tv_proceed, stuts);
