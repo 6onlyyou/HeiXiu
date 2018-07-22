@@ -1,6 +1,7 @@
 package com.heixiu.errand.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,9 @@ public class SpinnerAdapter extends BaseAdapter {
         }
 
         hodler.mTextView.setText(datas.get(position));
-
+        if (datas.get(position).contains("市")) {
+            hodler.mTextView.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+        }
         return convertView;
     }
 
