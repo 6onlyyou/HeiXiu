@@ -41,6 +41,8 @@ public class MyIssuedAdapter extends BaseQuickAdapter<OrderInfo> {
             item.setOrderStatus("0");
         }
         switch (item.getOrderStatus()) {
+            case "-1":
+                stuts = "未支付";
             case "0":
                 stuts = "刚创建";
                 break;
@@ -56,6 +58,7 @@ public class MyIssuedAdapter extends BaseQuickAdapter<OrderInfo> {
             case "4":
                 stuts = "完成";
                 break;
+
             default:
                 stuts = "问题订单";
         }
