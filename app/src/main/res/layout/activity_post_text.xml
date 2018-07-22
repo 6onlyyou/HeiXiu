@@ -12,9 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="请输入您想分享的"
-        android:textColor="#b8b8b8"
+        android:textColor="@color/gray_text"
         android:background="@null"
         android:gravity="left|top"
+        android:layout_marginTop="@dimen/dp_22"
+        android:layout_marginLeft="20dp"
+        android:textSize="14sp"
         android:minHeight="200dp"/>
 
 <ImageView
@@ -22,7 +25,7 @@
     android:layout_width="48dp"
     android:layout_height="48dp"
     android:src="@mipmap/autonym_add"
-    android:layout_marginLeft="24dp"/>
+    android:layout_marginLeft="22dp"/>
     <VideoView
         android:visibility="gone"
         android:id="@+id/mainIvVido"

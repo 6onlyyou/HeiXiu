@@ -102,6 +102,7 @@
                         android:visibility="gone" />
 
                     <LinearLayout
+                        android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -116,6 +117,7 @@
 
                             <ImageView
                                 android:id="@+id/share_go"
+
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@mipmap/share_go" />
@@ -201,7 +203,7 @@
                         android:id="@+id/Rv_comment"
                         android:layout_marginTop="8dp"
                         android:layout_width="match_parent"
-                        android:layout_height="500dp"
+                        android:layout_height="300dp"
                         android:layout_marginBottom="40dp"
 
                         android:background="@color/white">

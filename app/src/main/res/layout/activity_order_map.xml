@@ -44,7 +44,7 @@
         android:layout_gravity="bottom"
         android:background="@color/white"
         android:gravity="center_vertical"
-        android:visibility="gone">
+      >
 
         <ImageView
             android:id="@+id/start_navigation"

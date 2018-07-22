@@ -52,7 +52,7 @@
                 android:hint="请输入验证码" />
 
             <TextView
-                android:id="@+id/Tv_getCode"
+                android:id="@+id/Tv_getCode_change"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -66,14 +66,15 @@
 
 
     <Button
-        android:id="@+id/change_submit"
+        android:id="@+id/change_submit_change"
         android:layout_width="71dp"
         android:layout_height="26dp"
-        android:background="@color/colorAccent"
-        android:textSize="12sp"
-        android:textColor="@color/white"
-        android:text="确认"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginTop="26dp"
-        />
+        android:layout_marginTop="44dp"
+        android:background="@color/colorAccent"
+        android:text="确认"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
 </LinearLayout>

@@ -39,15 +39,15 @@ class ChangeConfirmPhoneActivity : BaseActivity() {
         }
     }
     override fun setListener() {
-        mCountDownTimerUtils = CountDownTimerUtils(Tv_getCode, 60000, 1000)
-        Tv_inCodes.setOnClickListener {
+        mCountDownTimerUtils = CountDownTimerUtils(Tv_getCode_change, 60000, 1000)
+        Tv_getCode_change.setOnClickListener {
             if (bindphone.equals("")) {
                 ToastUtils.showLong("电话号不能为空")
             } else {
                 sendCode("86", bindphone)
             }
         }
-        change_submit.setOnClickListener {
+        change_submit_change.setOnClickListener {
             submitCode("86", bindphone,Tv_inCodes.text.toString());
         }
     }

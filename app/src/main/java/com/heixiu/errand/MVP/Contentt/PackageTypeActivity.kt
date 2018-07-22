@@ -109,7 +109,7 @@ class PackageTypeActivity : AppCompatActivity() {
             ContentFragment.descriptions = descriptions
             ContentFragment.receiverName = receiverName
             ContentFragment.receiverNum = receiverNum
-            ContentFragment.courierNum = deliverNums
+            ContentFragment.courierNum = "1221"
             finish()
         })
     }
