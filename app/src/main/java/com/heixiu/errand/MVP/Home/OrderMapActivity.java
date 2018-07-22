@@ -326,7 +326,8 @@ public class OrderMapActivity extends AppCompatActivity {
             //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
             //以下只列举部分获取地址相关的结果信息
             //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
-            Log.i(TAG, "onReceiveLocation: 定位结果地点个数" + location.getPoiList().size());
+            if (location.getPoiList() != null)
+                Log.i(TAG, "onReceiveLocation: 定位结果地点个数" + location.getPoiList().size());
             // 造定位数据
             MyLocationData locData = new MyLocationData.Builder()
                     .accuracy(location.getRadius())
