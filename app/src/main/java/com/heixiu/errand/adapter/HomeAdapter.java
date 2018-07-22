@@ -62,8 +62,17 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         OrderInfo orderInfo = data.get(i);
 
-        viewHolder.startLocationTv.setText(orderInfo.getReceiveAddress());
-        viewHolder.endLocationTv.setText(orderInfo.getSendAddress());
+        if (orderInfo.getRecieveMapAdress() == null) {
+            orderInfo.setRecieveMapAdress("");
+        }
+
+        if (orderInfo.getSendMapAdress() == null) {
+            orderInfo.setSendMapAdress("");
+        }
+
+
+        viewHolder.startLocationTv.setText(orderInfo.getReceiveAddress() + orderInfo.getRecieveMapAdress());
+        viewHolder.endLocationTv.setText(orderInfo.getSendAddress() + orderInfo.getSendMapAdress());
         viewHolder.type.setText(orderInfo.getName());
         viewHolder.weight.setText(orderInfo.getWeight() + "公斤");
 

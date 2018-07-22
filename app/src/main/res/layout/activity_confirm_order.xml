@@ -43,6 +43,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
         android:gravity="center_horizontal"
         android:text="接单成功\n以下是订单详细信息"
         android:textSize="12sp" />

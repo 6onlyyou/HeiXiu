@@ -80,7 +80,7 @@
             android:layout_marginTop="12dp"
             android:background="@drawable/bg_edittext_normal"
             android:gravity="top|left"
-            android:hint="请输入详细地址"
+            android:hint="请输入详细地址(街道几栋几单元)"
             android:padding="12dp"
             android:textSize="12sp" />
 

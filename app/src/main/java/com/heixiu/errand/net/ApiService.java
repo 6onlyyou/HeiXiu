@@ -199,6 +199,19 @@ public interface ApiService {
      */
     @POST("cancleOrder")
     Observable<ResponseBean<String>> cancleOrder(@Query("orderNum") String orderNum);
+    /**
+     * 取消订单
+     * @param orderNum
+     * @return
+     */
+    @POST("pay/createPayOrder")
+    Observable<ResponseBean<String>> createPayOrder(
+            @Query("payType") String payType,
+            @Query("orderNum") String orderNum,
+            @Query("amount") String amount,
+            @Query("ip") String ip
+
+    );
 
     /**
      * 获取优惠券列表
