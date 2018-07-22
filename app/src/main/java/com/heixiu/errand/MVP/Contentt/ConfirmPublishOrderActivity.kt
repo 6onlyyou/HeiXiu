@@ -146,13 +146,14 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
             initPublishParams()
             wxPay(it)
 //            finish()
+            RxBus.getDefault().post("PublishSuccess")
         }, {
             ToastUtils.showShort(it.message)
         })
     }
 
     fun wxPay(orderInfo: OrderInfo) {
-        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().createPayOrder("1", orderInfo.orderNum, 0.1.toString(), "192.168.1.1"))
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().createPayOrder("1", orderInfo.orderNum, "0.1", "192.168.1.1"))
                 .subscribe({
                     weChatPay(entity = it)
                 }, {

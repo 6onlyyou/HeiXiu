@@ -151,6 +151,18 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
         }, {
 
         })
+
+        RxBus.getDefault().toObservable(String::class.java).subscribe({
+            if (it.equals("PublishSuccess")) {
+                dealParamsState()
+                receiveAddress.text = ""
+                sendAddress.text = ""
+                sendTime.text = ""
+            }
+        }, {
+
+        })
+
         return inflater!!.inflate(R.layout.fragment_content, container, false)
     }
 
