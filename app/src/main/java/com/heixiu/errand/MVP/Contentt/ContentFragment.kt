@@ -355,7 +355,9 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
                 suggest?.clear()
                 for (suggestionInfo in resl) {
                     Log.i("result: ", "city" + suggestionInfo.city + " dis " + suggestionInfo.district + "key " + suggestionInfo.key)
-                    if (suggestionInfo.key != null && !TextUtils.isEmpty(suggestionInfo.city)) {
+                    if (suggestionInfo.key != null && !TextUtils.isEmpty(suggestionInfo.city)
+                            && suggestionInfo.city == addressData[choosePosition]
+                            ) {
                         suggest?.add(suggestionInfo.key)
                     }
                 }
