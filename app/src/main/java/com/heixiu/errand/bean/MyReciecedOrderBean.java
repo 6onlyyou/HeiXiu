@@ -25,12 +25,44 @@ private String id;
     private String description;
     private String sendAddress;
     private String receiveAddress;
-    private int originsLatitude;
-    private int originsLongitude;
-    private int destinationsLatitude;
-    private int destinationsLongitude;
+    private String originsLatitude;
+    private String originsLongitude;
+    private String destinationsLatitude;
+    private String destinationsLongitude;
     private long createTime;
     private long updateTime;
+
+    public String getOriginsLatitude() {
+        return originsLatitude;
+    }
+
+    public void setOriginsLatitude(String originsLatitude) {
+        this.originsLatitude = originsLatitude;
+    }
+
+    public String getOriginsLongitude() {
+        return originsLongitude;
+    }
+
+    public void setOriginsLongitude(String originsLongitude) {
+        this.originsLongitude = originsLongitude;
+    }
+
+    public String getDestinationsLatitude() {
+        return destinationsLatitude;
+    }
+
+    public void setDestinationsLatitude(String destinationsLatitude) {
+        this.destinationsLatitude = destinationsLatitude;
+    }
+
+    public String getDestinationsLongitude() {
+        return destinationsLongitude;
+    }
+
+    public void setDestinationsLongitude(String destinationsLongitude) {
+        this.destinationsLongitude = destinationsLongitude;
+    }
 
     public String getId() {
         return id;
@@ -184,37 +216,6 @@ private String id;
         this.receiveAddress = receiveAddress;
     }
 
-    public int getOriginsLatitude() {
-        return originsLatitude;
-    }
-
-    public void setOriginsLatitude(int originsLatitude) {
-        this.originsLatitude = originsLatitude;
-    }
-
-    public int getOriginsLongitude() {
-        return originsLongitude;
-    }
-
-    public void setOriginsLongitude(int originsLongitude) {
-        this.originsLongitude = originsLongitude;
-    }
-
-    public int getDestinationsLatitude() {
-        return destinationsLatitude;
-    }
-
-    public void setDestinationsLatitude(int destinationsLatitude) {
-        this.destinationsLatitude = destinationsLatitude;
-    }
-
-    public int getDestinationsLongitude() {
-        return destinationsLongitude;
-    }
-
-    public void setDestinationsLongitude(int destinationsLongitude) {
-        this.destinationsLongitude = destinationsLongitude;
-    }
 
     public long getCreateTime() {
         return createTime;

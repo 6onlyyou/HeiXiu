@@ -8,7 +8,7 @@ import java.util.List;
  * Author: fushuaige
  */
 public class MyPublishOrderBean {
-        private List<MyReciecedOrderBean> myReciecedOrderInfos;
+    private List<MyReciecedOrderBean> myReciecedOrderInfos;
 
     public List<MyReciecedOrderBean> getMyReciecedOrderInfos() {
         return myReciecedOrderInfos;

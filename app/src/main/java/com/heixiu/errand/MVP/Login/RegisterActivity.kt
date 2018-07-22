@@ -31,7 +31,6 @@ class RegisterActivity : BaseActivity() {
                    SPUtil.saveString("token", it.token)
                    SPUtil.saveString("userid",Et_inPhone.text.toString())
                    SPUtil.saveString("rongyun_token",it.rongyun_token)
-                   ToastUtils.showLong(msg.obj.toString())
                    startActivity(MainActivity::class.java)
                    finishWithAlpha()
                }, {
