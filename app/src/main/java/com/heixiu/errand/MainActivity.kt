@@ -66,7 +66,10 @@ class MainActivity : BaseActivity() {
             switchFragment(1)
         });
         Rl_contentt.setOnClickListener({
-
+            Iv_homepass.setImageResource(R.mipmap.homenopass)
+            Iv_expressnopass.setImageResource(R.mipmap.expressnopass)
+            Iv_communitynopass.setImageResource(R.mipmap.communitynopass)
+            Iv_messnopass.setImageResource(R.mipmap.messnopass)
             switchFragment(2)
         });
         Rl_communitynopass.setOnClickListener({
