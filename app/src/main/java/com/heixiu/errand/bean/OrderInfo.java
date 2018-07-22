@@ -622,6 +622,24 @@ public class OrderInfo implements Serializable {
         private long createTime;
         private long updateTime;
         private Object city;
+        private double recieveOriginsLongitude;
+        private double recieveOriginsLatitude;
+
+        public double getRecieveOriginsLongitude() {
+            return recieveOriginsLongitude;
+        }
+
+        public void setRecieveOriginsLongitude(double recieveOriginsLongitude) {
+            this.recieveOriginsLongitude = recieveOriginsLongitude;
+        }
+
+        public double getRecieveOriginsLatitude() {
+            return recieveOriginsLatitude;
+        }
+
+        public void setRecieveOriginsLatitude(double recieveOriginsLatitude) {
+            this.recieveOriginsLatitude = recieveOriginsLatitude;
+        }
 
         public int getId() {
             return id;

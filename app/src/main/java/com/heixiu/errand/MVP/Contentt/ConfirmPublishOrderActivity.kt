@@ -128,6 +128,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
                 orderInfo.sendMapAdress,
                 orderInfo.receiveAddress,
                 orderInfo.recieveMapAdress,
+                orderInfo.sendTime,
                 orderInfo.name,
                 orderInfo.weight,
                 orderInfo.addPrice,
@@ -144,16 +145,16 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
         )).subscribe({
             ToastUtils.showShort("创建订单成功,获取支付信息")
             initPublishParams()
+            RxBus.getDefault().post("PublishSuccess")
             wxPay(it)
 //            finish()
-            RxBus.getDefault().post("PublishSuccess")
         }, {
             ToastUtils.showShort(it.message)
         })
     }
 
     fun wxPay(orderInfo: OrderInfo) {
-        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().createPayOrder("1", orderInfo.orderNum, "0.1", "192.168.1.1"))
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().createPayOrder("1", orderInfo.orderNum, "1", "192.168.1.1"))
                 .subscribe({
                     weChatPay(entity = it)
                 }, {
@@ -174,7 +175,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
         payReq.prepayId = entity.prepayid
         payReq.packageValue = entity.packageX
         payReq.nonceStr = entity.noncestr
-        payReq.timeStamp = entity.timestamp.toString()
+        payReq.timeStamp = entity.timestamp
         payReq.sign = entity.sign
         api.sendReq(payReq)
     }
@@ -184,7 +185,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
         ContentFragment.sendAddress = ""
         ContentFragment.sendTime = ""
         ContentFragment.packageType = ""
-        ContentFragment.addPrice = ""
+        ContentFragment.addPrice = "0"
         ContentFragment.receiverName = ""
         ContentFragment.receiverNum = ""
         ContentFragment.packageWeight = ""

@@ -135,6 +135,7 @@ public interface ApiService {
             @Query("sendMapAdress") String sendMapAdress,
             @Query("receiveAddress") String receiveAddress,
             @Query("recieveMapAdress") String recieveMapAdress,
+            @Query("sendTime") String sendTime,
             @Query("name") String name,
             @Query("weight") int weight,
             @Query("addPrice") int addPrice,

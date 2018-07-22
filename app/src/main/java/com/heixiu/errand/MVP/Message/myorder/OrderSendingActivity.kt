@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
 import android.support.v4.app.ActivityCompat
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import com.baidu.mapapi.map.BaiduMap
@@ -140,7 +141,8 @@ class OrderSendingActivity : BaseActivity() {
                                 // 需要显示骑手位置
                                 if (it.recieveUserInfo != null) {
                                     GlideUtil.load(this@OrderSendingActivity, it.recieveUserInfo.userImg, sendAva)
-//                                    showMarker(it.recieveUserInfo, 120.0)
+                                    Log.i("经纬度", "快递经纬度：" + it.recieveUserInfo.recieveOriginsLatitude)
+                                    showMarker(it.recieveUserInfo.recieveOriginsLatitude, it.recieveUserInfo.recieveOriginsLongitude)
                                 }
                             }
                         }, {
@@ -161,9 +163,9 @@ class OrderSendingActivity : BaseActivity() {
 
         var distance = DistanceUtil.getDistance(
                 LatLng(lat, long),
-                LatLng(orderInfo.destinationsLatitude, orderInfo.destinationsLongitude)) / 1000
+                LatLng(orderInfo.destinationsLatitude, orderInfo.destinationsLongitude)) /*/ 1000*/
 
-        view.findViewById<TextView>(R.id.distance).text = "距您" + distance + "米"
+        view.findViewById<TextView>(R.id.distance).text = "距您" + distance.toString().subSequence(0,distance.toString().indexOf(".")) + "米"
 
         val mInfoWindow = InfoWindow(view, pt, -47)
 
