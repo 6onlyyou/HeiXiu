@@ -65,8 +65,13 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
         getPrice()
 
         RxBus.getDefault().toObservable(PaySuccessEventEntity::class.java).subscribe({
-            ToastUtils.showLong("支付成功,等待接单")
-            finish()
+            runOnUiThread {
+                run {
+                    ToastUtils.showLong("支付成功,等待接单")
+                    finish()
+                }
+            }
+
         }, {
             finish()
         })
@@ -74,6 +79,11 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
         RxBus.getDefault().toObservable(PayFailEventEntity::class.java).subscribe({
             ToastUtils.showLong("支付失败,请重新提交订单")
             finish()
+
+            runOnUiThread {
+                ToastUtils.showLong("支付成功,等待接单")
+                finish()
+            }
         }, {
             finish()
         })
@@ -144,9 +154,9 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
                 orderInfo.destinationsLongitude.toString()
         )).subscribe({
             ToastUtils.showShort("创建订单成功,获取支付信息")
+            wxPay(it)
             initPublishParams()
             RxBus.getDefault().post("PublishSuccess")
-            wxPay(it)
 //            finish()
         }, {
             ToastUtils.showShort(it.message)
@@ -162,6 +172,19 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
                 })
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        if (!TextUtils.isEmpty(orderInfo.orderNum)) {
+            RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().getPayResult("1", orderInfo.orderNum))
+                    .subscribe({
+                        ToastUtils.showLong("支付成功,等待接单")
+                        finish()
+                    }, {
+
+                    })
+        }
+    }
 
     /**
      * 调起微信支付

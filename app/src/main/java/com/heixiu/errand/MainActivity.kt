@@ -263,14 +263,16 @@ class MainActivity : BaseActivity() {
                                 if (it != null && it.size > 0) {
                                     Log.i("order", "接单数量大于0")
                                     for (orderInfo in it) {
-                                        if (orderInfo.orderStatus.equals("1") || orderInfo.orderStatus.equals("2"))
-                                            RxUtils.wrapRestCall(RetrofitFactory.getRetrofit()
-                                                    .takeOrder(SPUtil.getString("userid"), orderInfo.orderNum, MyApplication.getInstance().localLong, MyApplication.getInstance().localLat))
-                                                    .subscribe({
-                                                        Log.i("order", "提交位置成功")
-                                                    }, {
-                                                        Log.i("order", "提交位置失败" + it.message)
-                                                    })
+                                        if (orderInfo.orderStatus.equals("1") || orderInfo.orderStatus.equals("2") || orderInfo.orderStatus.equals("3"))
+                                            if (MyApplication.getInstance().localLong != 0.0) {
+                                                RxUtils.wrapRestCall(RetrofitFactory.getRetrofit()
+                                                        .takeOrder(SPUtil.getString("userid"), orderInfo.orderNum, MyApplication.getInstance().localLong, MyApplication.getInstance().localLat))
+                                                        .subscribe({
+                                                            Log.i("order", "提交位置成功")
+                                                        }, {
+                                                            Log.i("order", "提交位置失败" + it.message)
+                                                        })
+                                            }
                                     }
                                 }
                             }) {
