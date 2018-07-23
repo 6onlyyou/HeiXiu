@@ -62,7 +62,6 @@ class OrderSendingActivity : BaseActivity() {
 
         orderInfo = intent.getSerializableExtra("data") as OrderInfo
         orderNo.text = "订单编号: " + orderInfo.orderNum
-        name.text = orderInfo.receiveName
         order_feedback.setOnClickListener {
             startActivity(DescriptionActivity::class.java, orderInfo.orderNum)
         }
@@ -143,6 +142,8 @@ class OrderSendingActivity : BaseActivity() {
                                     GlideUtil.load(this@OrderSendingActivity, it.recieveUserInfo.userImg, sendAva)
                                     Log.i("经纬度", "订单号 ： " + orderInfo.orderNum + " 快递经纬度：" + it.recieveUserInfo.recieveOriginsLatitude)
                                     showMarker(it.recieveUserInfo.recieveOriginsLatitude, it.recieveUserInfo.recieveOriginsLongitude)
+                                    name.text = it.recieveUserInfo.nickName+""
+
                                 }
                             }
                         }, {
