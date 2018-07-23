@@ -167,7 +167,7 @@ public interface ApiService {
      */
     @POST("updateRecieveLocation")
     Observable<ResponseBean<String>> takeOrder(
-            @Query("orderNum") String receiveId,
+            @Query("receiveId") String receiveId,
             @Query("orderNum") String orderNum,
             @Query("recieveOriginsLongitude") double recieveOriginsLongitude,
             @Query("recieveOriginsLatitude") double recieveOriginsLatitude);
