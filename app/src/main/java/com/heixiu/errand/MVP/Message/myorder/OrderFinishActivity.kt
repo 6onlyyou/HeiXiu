@@ -48,7 +48,7 @@ class OrderFinishActivity : BaseActivity() {
         recipientsame.text = "收件人姓名：" + orderInfo.receiveName
         recipientsNum.text = "收件人电话：" + orderInfo.receiveNum
         courierNum.text = "快递员电话：" + orderInfo.courierNum
-        receiveName.text = orderInfo.receiveName
+//        receiveName.text = orderInfo.receiveName
 
         when (orderInfo.orderStatus) {
             "0" -> {

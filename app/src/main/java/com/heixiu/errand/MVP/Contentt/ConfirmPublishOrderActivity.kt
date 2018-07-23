@@ -23,6 +23,7 @@ import com.heixiu.errand.utils.SPUtil
 import com.tencent.mm.opensdk.modelpay.PayReq
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import kotlinx.android.synthetic.main.activity_confirm_publish_order.*
+import java.util.*
 
 class ConfirmPublishOrderActivity : AppCompatActivity() {
 
@@ -155,6 +156,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
         )).subscribe({
             ToastUtils.showShort("创建订单成功,获取支付信息")
             wxPay(it)
+            orderInfo.orderNum = it.orderNum
             initPublishParams()
             RxBus.getDefault().post("PublishSuccess")
 //            finish()
@@ -176,13 +178,20 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (!TextUtils.isEmpty(orderInfo.orderNum)) {
-            RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().getPayResult("1", orderInfo.orderNum))
-                    .subscribe({
-                        ToastUtils.showLong("支付成功,等待接单")
-                        finish()
-                    }, {
+            var timer: Timer = Timer()
 
-                    })
+            var task: TimerTask = object : TimerTask() {
+                override fun run() {
+                    RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().getPayResult("1", orderInfo.orderNum))
+                            .subscribe({
+                                ToastUtils.showLong("支付成功,等待接单")
+                                finish()
+                            }, {
+
+                            })
+                }
+            }
+            timer.schedule(task, 1000)
         }
     }
 
