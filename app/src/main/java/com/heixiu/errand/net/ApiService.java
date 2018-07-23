@@ -196,13 +196,16 @@ public interface ApiService {
 
     /**
      * 取消订单
+     *
      * @param orderNum
      * @return
      */
     @POST("cancleOrder")
     Observable<ResponseBean<String>> cancleOrder(@Query("orderNum") String orderNum);
+
     /**
-     * 取消订单
+     * 创建支付
+     *
      * @param orderNum
      * @return
      */
@@ -214,6 +217,13 @@ public interface ApiService {
             @Query("ip") String ip
 
     );
+
+    @POST("pay/getPayResult")
+    Observable<ResponseBean<String>> getPayResult(
+            @Query("payType") String payType,
+            @Query("orderNo") String orderNum
+    );
+
 
     /**
      * 获取优惠券列表

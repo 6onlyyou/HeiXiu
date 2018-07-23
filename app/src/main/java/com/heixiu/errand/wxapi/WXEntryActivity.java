@@ -3,6 +3,7 @@ package com.heixiu.errand.wxapi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.fushuaige.common.utils.ToastUtils;
 import com.heixiu.errand.base.AppConstant;
@@ -47,7 +48,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onResp(BaseResp baseResp) {
-
+        Log.i(TAG, "onResp: " + baseResp.errCode);
         if (baseResp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
             if (baseResp.errCode == 0) {
                 ToastUtils.showShort("您已经支付成功了~");

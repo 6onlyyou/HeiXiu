@@ -38,8 +38,8 @@ class OrderDetailActivity : AppCompatActivity() {
         var orderInfo = intent.getSerializableExtra("data") as OrderInfo
 
         orderNo.text = "订单编号： " + orderInfo.orderNum
-        start.text = orderInfo.sendAddress
-        end.text = orderInfo.receiveAddress
+        start.text = orderInfo.sendAddress+orderInfo.sendMapAdress
+        end.text = orderInfo.receiveAddress+orderInfo.recieveMapAdress
         time.text = orderInfo.sendTime
         type.text = orderInfo.name
         weight.text = orderInfo.weight.toString() + "斤"

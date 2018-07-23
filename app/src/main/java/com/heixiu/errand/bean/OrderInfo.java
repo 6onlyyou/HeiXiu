@@ -60,7 +60,6 @@ public class OrderInfo implements Serializable {
     private String sendTime;
     private int weight;
     private String name;
-    @SerializedName("descriptions")
     private String description;
     private String sendMapAdress="";
     private String sendAddress;

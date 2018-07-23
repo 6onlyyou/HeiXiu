@@ -73,7 +73,7 @@ class OrderSendingActivity : BaseActivity() {
         }
 
         order_finish.setOnClickListener({
-            RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().changeOrderStatus(orderInfo.orderNum, SPUtil.getString("userid"), "4"))
+            RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().changeOrderStatus(orderInfo.orderNum, "", "4"))
                     .subscribe({
                         ToastUtils.showLong("该订单已确认完成")
                         finish()
@@ -141,7 +141,7 @@ class OrderSendingActivity : BaseActivity() {
                                 // 需要显示骑手位置
                                 if (it.recieveUserInfo != null) {
                                     GlideUtil.load(this@OrderSendingActivity, it.recieveUserInfo.userImg, sendAva)
-                                    Log.i("经纬度", "快递经纬度：" + it.recieveUserInfo.recieveOriginsLatitude)
+                                    Log.i("经纬度", "订单号 ： " + orderInfo.orderNum + " 快递经纬度：" + it.recieveUserInfo.recieveOriginsLatitude)
                                     showMarker(it.recieveUserInfo.recieveOriginsLatitude, it.recieveUserInfo.recieveOriginsLongitude)
                                 }
                             }
@@ -165,7 +165,7 @@ class OrderSendingActivity : BaseActivity() {
                 LatLng(lat, long),
                 LatLng(orderInfo.destinationsLatitude, orderInfo.destinationsLongitude)) /*/ 1000*/
 
-        view.findViewById<TextView>(R.id.distance).text = "距您" + distance.toString().subSequence(0,distance.toString().indexOf(".")) + "米"
+        view.findViewById<TextView>(R.id.distance).text = "距您" + distance.toString().subSequence(0, distance.toString().indexOf(".")) + "米"
 
         val mInfoWindow = InfoWindow(view, pt, -47)
 

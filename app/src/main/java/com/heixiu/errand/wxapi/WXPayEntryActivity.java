@@ -3,6 +3,7 @@ package com.heixiu.errand.wxapi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.fushuaige.common.utils.ToastUtils;
 import com.heixiu.errand.base.AppConstant;
@@ -23,6 +24,7 @@ import org.greenrobot.eventbus.EventBus;
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
+    private static final String TAG = "WXPayEntryActivity";
     private IWXAPI api;
 
     @Override
@@ -45,6 +47,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onResp(BaseResp baseResp) {
+        Log.i(TAG, "onResp: " + baseResp.errCode);
         if (baseResp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
             if (baseResp.errCode == 0) {
                 ToastUtils.showShort("支付成功");
