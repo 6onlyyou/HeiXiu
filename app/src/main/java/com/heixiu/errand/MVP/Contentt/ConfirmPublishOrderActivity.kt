@@ -45,8 +45,8 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
 
 
 //        orderNo.text = "订单编号： " + orderInfo.orderNum
-        start.text = orderInfo.receiveAddress
-        end.text = orderInfo.sendAddress
+        start.text = orderInfo.receiveAddress + orderInfo.recieveMapAdress
+        end.text = orderInfo.sendAddress + orderInfo.sendMapAdress
         time.text = orderInfo.sendTime
         type.text = orderInfo.name
         weight.text = orderInfo.weight.toString() + "斤"

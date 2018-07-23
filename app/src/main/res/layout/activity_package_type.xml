@@ -129,18 +129,18 @@
             android:background="@null"
 
             android:hint="快递员电话"
-            android:visibility="gone"
             android:singleLine="true"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:visibility="gone" />
 
         <View
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="12dp"
             android:layout_marginTop="6dp"
-            android:background="@color/line" />
+            android:background="@color/line"
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -165,12 +165,15 @@
             android:padding="12dp"
             android:textSize="12sp" />
 
-        <ImageView
+        <TextView
             android:id="@+id/confirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="25dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:src="@mipmap/btn_submit_order" />
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="完成"
+            android:textColor="@color/white" />
     </LinearLayout>
 </ScrollView>

@@ -38,16 +38,17 @@ class OrderFinishActivity : BaseActivity() {
     override fun findViewById() {
         orderInfo = intent.getSerializableExtra("data") as OrderInfo
         orderNo.text = "订单编号：" + orderInfo.orderNum
-        start.text = orderInfo.sendAddress
-        end.text = orderInfo.receiveAddress
+        start.text = orderInfo.receiveAddress + orderInfo.recieveMapAdress
+        end.text = orderInfo.sendAddress + orderInfo.sendMapAdress
         time.text = orderInfo.sendTime
         type.text = orderInfo.name
-        weight.text = orderInfo.weight.toString()
-        add_money.text = "加价" + orderInfo.addPrice
+        weight.text = orderInfo.weight.toString() + "公斤"
+        add_money.text = "加价 " + orderInfo.addPrice+"元"
         tips.text = orderInfo.description
         recipientsame.text = "收件人姓名：" + orderInfo.receiveName
         recipientsNum.text = "收件人电话：" + orderInfo.receiveNum
         courierNum.text = "快递员电话：" + orderInfo.courierNum
+        price.text = orderInfo.payment.toString()+"元"
 //        receiveName.text = orderInfo.receiveName
 
         when (orderInfo.orderStatus) {

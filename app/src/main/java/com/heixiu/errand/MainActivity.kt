@@ -376,7 +376,6 @@ class MainActivity : BaseActivity() {
         if (stuteLocation == 0) {
             mLocationClient!!.start()
         }
-
     }
 
     fun getPermissions() {

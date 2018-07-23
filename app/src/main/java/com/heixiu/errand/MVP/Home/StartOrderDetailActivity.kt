@@ -31,8 +31,8 @@ class StartOrderDetailActivity : BaseActivity() {
         back.setOnClickListener({ finish() })
 
         orderNo.text = "订单编号：" + orderInfo!!.orderNum
-        start.text = orderInfo!!.sendAddress+orderInfo?.sendMapAdress
-        end.text = orderInfo!!.receiveAddress+orderInfo?.recieveMapAdress
+        start.text = orderInfo!!.receiveAddress + orderInfo?.recieveMapAdress
+        end.text = orderInfo!!.sendAddress + orderInfo?.sendMapAdress
         time.text = orderInfo!!.sendTime
         type.text = orderInfo?.name
         weight.text = orderInfo?.weight.toString()
