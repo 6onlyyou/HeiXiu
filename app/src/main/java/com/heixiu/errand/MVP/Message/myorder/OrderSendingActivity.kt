@@ -124,8 +124,6 @@ class OrderSendingActivity : BaseActivity() {
     var timer: Timer = Timer()
 
     private fun initUpdateLocation() {
-//        showMarker(30.0, 120.0)
-
         var task: TimerTask = object : TimerTask() {
             override fun run() {
                 RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryOneOrderInfo(orderInfo.orderNum))
@@ -142,15 +140,13 @@ class OrderSendingActivity : BaseActivity() {
                                     GlideUtil.load(this@OrderSendingActivity, it.recieveUserInfo.userImg, sendAva)
                                     Log.i("经纬度", "订单号 ： " + orderInfo.orderNum + " 快递经纬度：" + it.recieveUserInfo.recieveOriginsLatitude)
                                     showMarker(it.recieveUserInfo.recieveOriginsLatitude, it.recieveUserInfo.recieveOriginsLongitude)
-                                    name.text = it.recieveUserInfo.nickName+""
-
+                                    name.text = it.recieveUserInfo.nickName + ""
                                 }
                             }
                         }, {
 
                         })
             }
-
         }
         timer.schedule(task, 0, 20000)
     }
