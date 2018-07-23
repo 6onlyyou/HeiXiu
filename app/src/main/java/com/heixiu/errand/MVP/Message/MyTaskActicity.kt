@@ -26,6 +26,26 @@ class MyTaskActicity : BaseActivity() {
     }
 
     override fun findViewById() {
+//        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryAllMyRecieveOrderInfos(SPUtil.getString("userid"))).subscribe({
+//            Rv_task.setLayoutManager(LinearLayoutManager(this))
+////        如果Item高度固定  增加该属性能够提高效率
+//            Rv_task.setHasFixedSize(true)
+////        设置适配器
+//            myIssuedAdapter = MyTaskAdapter(ArrayList())
+//            //设置加载动画
+//            myIssuedAdapter!!.openLoadAnimation(BaseQuickAdapter.SCALEIN)
+//            //设置是否自动加载以及加载个数
+//            //将适配器添加到RecyclerView
+//            Rv_task.setAdapter(myIssuedAdapter)
+//            //设置自动加载监听
+//            myIssuedAdapter!!.setNewData(it)
+//        }, {
+//        ToastUtils.showLong(it.message)
+//        })
+    }
+
+    override fun onResume() {
+        super.onResume()
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryAllMyRecieveOrderInfos(SPUtil.getString("userid"))).subscribe({
             Rv_task.setLayoutManager(LinearLayoutManager(this))
 //        如果Item高度固定  增加该属性能够提高效率
@@ -40,7 +60,7 @@ class MyTaskActicity : BaseActivity() {
             //设置自动加载监听
             myIssuedAdapter!!.setNewData(it)
         }, {
-        ToastUtils.showLong(it.message)
+            ToastUtils.showLong(it.message)
         })
     }
 
