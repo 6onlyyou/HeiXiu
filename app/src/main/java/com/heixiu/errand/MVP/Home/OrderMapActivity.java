@@ -3,6 +3,10 @@ package com.heixiu.errand.MVP.Home;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -25,9 +29,12 @@ import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.RouteLine;
 import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.route.BikingRouteResult;
@@ -54,7 +61,7 @@ import com.heixiu.errand.bean.OrderInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderMapActivity extends AppCompatActivity {
+public class OrderMapActivity extends AppCompatActivity implements SensorEventListener {
 
     private static final String TAG = "OrderMapActivity";
     private static final String[] authBaseArr = {
@@ -76,6 +83,13 @@ public class OrderMapActivity extends AppCompatActivity {
     private BaiduMap mBaiduMap;
     private AutoCompleteTextView address;
     private int clickPosition;
+    private SensorManager mSensorManager;
+    private int mCurrentDirection = 0;
+    private double mCurrentLat = 0.0;
+    private double mCurrentLon = 0.0;
+    private float mCurrentAccracy;
+    private MyLocationData locData;
+    private Double lastX = 0.0;
 
     public static void startSelf(Context context, OrderInfo orderInfo) {
         Intent intent = new Intent(context, OrderMapActivity.class);
@@ -88,6 +102,8 @@ public class OrderMapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         SDKInitializer.initialize(MyApplication.getInstance());
         setContentView(R.layout.activity_order_map);
+
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);//获取传感器管理服务
 
         orderInfo = ((OrderInfo) getIntent().getSerializableExtra("data"));
 
@@ -293,6 +309,14 @@ public class OrderMapActivity extends AppCompatActivity {
         super.onResume();
         //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
         mMapView.onResume();
+        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
+                SensorManager.SENSOR_DELAY_UI);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mSensorManager.unregisterListener(this);
     }
 
     @Override
@@ -300,6 +324,26 @@ public class OrderMapActivity extends AppCompatActivity {
         super.onPause();
         //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
         mMapView.onPause();
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        double x = sensorEvent.values[SensorManager.DATA_X];
+        if (Math.abs(x - lastX) > 1.0) {
+            mCurrentDirection = (int) x;
+            locData = new MyLocationData.Builder()
+                    .accuracy(mCurrentAccracy)
+                    // 此处设置开发者获取到的方向信息，顺时针0-360
+                    .direction(mCurrentDirection).latitude(mCurrentLat)
+                    .longitude(mCurrentLon).build();
+            mBaiduMap.setMyLocationData(locData);
+        }
+        lastX = x;
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
     }
 
     private class MyDrivingRouteOverlay extends DrivingRouteOverlay {
@@ -329,25 +373,25 @@ public class OrderMapActivity extends AppCompatActivity {
 //            if (location.getPoiList() != null)
 //                Log.i(TAG, "onReceiveLocation: 定位结果地点个数" + location.getPoiList().size());
             // 造定位数据
-            MyLocationData locData = new MyLocationData.Builder()
-                    .accuracy(location.getRadius())
-                    // 此处设置开发者获取到的方向信息，顺时针0-360
-                    .direction(location.getDirection())
-                    .latitude(location.getLatitude())
-                    .longitude(location.getLongitude())
-                    .build();
-
-            if (!isLocation) {
-                mBaiduMap.setMyLocationData(locData);
-                BitmapDescriptor mCurrentMarker = BitmapDescriptorFactory
-                        .fromResource(R.mipmap.ic_location);
-                MyLocationConfiguration config = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.FOLLOWING, true, mCurrentMarker);
-
-                mBaiduMap.setMyLocationConfiguration(config);
-                isLocation = true;
-            }
-
-
+//            MyLocationData locData = new MyLocationData.Builder()
+//                    .accuracy(location.getRadius())
+//                    // 此处设置开发者获取到的方向信息，顺时针0-360
+//                    .direction(location.getDirection())
+//                    .latitude(location.getLatitude())
+//                    .longitude(location.getLongitude())
+//                    .build();
+//
+//            if (!isLocation) {
+//                mBaiduMap.setMyLocationData(locData);
+//                BitmapDescriptor mCurrentMarker = BitmapDescriptorFactory
+//                        .fromResource(R.mipmap.ic_location);
+//                MyLocationConfiguration config = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.FOLLOWING, true, mCurrentMarker);
+//
+//                mBaiduMap.setMyLocationConfiguration(config);
+//                isLocation = true;
+//            }
+//
+//            mCurrentAccracy = location.getRadius();
             addr = location.getAddrStr();    //获取详细地址信息
             String country = location.getCountry();    //获取国家
             String province = location.getProvince();    //获取省份
@@ -356,7 +400,35 @@ public class OrderMapActivity extends AppCompatActivity {
             String street = location.getStreet();    //获取街道信息
             Address address = location.getAddress();
             String buildingName = location.getBuildingName();
+//
+
+
+            if (location == null || mMapView == null) {
+                return;
+            }
+            mCurrentLat = location.getLatitude();
+            mCurrentLon = location.getLongitude();
+            mCurrentAccracy = location.getRadius();
             poiList = location.getPoiList();
+
+            locData = new MyLocationData.Builder()
+                    .accuracy(location.getRadius())
+                    // 此处设置开发者获取到的方向信息，顺时针0-360
+                    .direction(mCurrentDirection)
+                    .latitude(location.getLatitude())
+                    .longitude(location.getLongitude()).build();
+            mBaiduMap.setMyLocationData(locData);
+            mBaiduMap
+                    .setMyLocationConfigeration(new MyLocationConfiguration(
+                            MyLocationConfiguration.LocationMode.FOLLOWING,true, null));
+            if (!isLocation) {
+                isLocation = true;
+                LatLng ll = new LatLng(location.getLatitude(),
+                        location.getLongitude());
+                MapStatus.Builder builder = new MapStatus.Builder();
+                builder.target(ll).zoom(18.0f);
+                mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+            }
         }
     }
 }
