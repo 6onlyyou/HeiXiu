@@ -8,7 +8,6 @@ import android.support.v7.widget.GridLayoutManager
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.Event.PublishParamsChangeEvent
 import com.heixiu.errand.R
 import com.heixiu.errand.adapter.PackageTypeAdapter
@@ -46,9 +45,11 @@ class PackageTypeActivity : AppCompatActivity() {
             receiveNum.setText(ContentFragment.receiverNum)
         }
         if (!TextUtils.isEmpty(ContentFragment.courierNum)) {
+            deliverNums = ContentFragment.courierNum
             deliverNum.setText(ContentFragment.courierNum)
         }
         if (!TextUtils.isEmpty(ContentFragment.descriptions)) {
+            descriptions = ContentFragment.descriptions
             description.setText(ContentFragment.descriptions)
         }
 
@@ -72,7 +73,6 @@ class PackageTypeActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 receiverNum = receiveNum.text.toString()
-
             }
 
         })

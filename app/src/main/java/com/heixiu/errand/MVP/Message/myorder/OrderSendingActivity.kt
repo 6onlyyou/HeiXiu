@@ -124,8 +124,6 @@ class OrderSendingActivity : BaseActivity() {
     var timer: Timer = Timer()
 
     private fun initUpdateLocation() {
-//        showMarker(30.0, 120.0)
-
         var task: TimerTask = object : TimerTask() {
             override fun run() {
                 RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryOneOrderInfo(orderInfo.orderNum))
@@ -140,17 +138,15 @@ class OrderSendingActivity : BaseActivity() {
                                 // 需要显示骑手位置
                                 if (it.recieveUserInfo != null) {
                                     GlideUtil.load(this@OrderSendingActivity, it.recieveUserInfo.userImg, sendAva)
-                                    Log.i("经纬度", "订单号 ： " + orderInfo.orderNum + " 快递经纬度：" + it.recieveUserInfo.recieveOriginsLatitude)
+                                    Log.i("经纬度", "订单号 ： " + orderInfo.orderNum + " 快递经纬度：" + it.recieveUserInfo.recieveOriginsLatitude + "  " + it.recieveUserInfo.recieveOriginsLongitude)
                                     showMarker(it.recieveUserInfo.recieveOriginsLatitude, it.recieveUserInfo.recieveOriginsLongitude)
-                                    name.text = it.recieveUserInfo.nickName+""
-
+                                    name.text = it.recieveUserInfo.nickName + ""
                                 }
                             }
                         }, {
 
                         })
             }
-
         }
         timer.schedule(task, 0, 20000)
     }
@@ -168,10 +164,8 @@ class OrderSendingActivity : BaseActivity() {
 
         view.findViewById<TextView>(R.id.distance).text = "距您" + distance.toString().subSequence(0, distance.toString().indexOf(".")) + "米"
 
-        val mInfoWindow = InfoWindow(view, pt, -47)
-
+        val mInfoWindow = InfoWindow(view, pt, 0)
         mBaiduMap.showInfoWindow(mInfoWindow)
-
 
 //        var point: LatLng = LatLng(30.963175, 116.400244)
 //
@@ -185,7 +179,7 @@ class OrderSendingActivity : BaseActivity() {
 
         val mMapStatus = MapStatus.Builder()
                 .target(pt)
-                .zoom(10f)
+                .zoom(13f)
                 .build()  //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
         val mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus)
         mBaiduMap.setMapStatus(mMapStatusUpdate)

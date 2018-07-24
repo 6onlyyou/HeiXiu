@@ -196,12 +196,22 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textSize="14sp" />
+                android:text="本单总价："
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginRight="16dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <View

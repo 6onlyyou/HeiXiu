@@ -1,29 +1,53 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.heixiu.errand.MVP.Home.HomeFragment">
+    android:layout_height="match_parent">
 
-    <TextView
+
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:text="接单大厅"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
 
-    <com.youth.banner.Banner
-        android:id="@+id/banner"
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:text="接单大厅"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+
+            <com.youth.banner.Banner
+                android:layout_marginTop="40dp"
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    </com.youth.banner.Banner>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/homeRv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/homeRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-</LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

@@ -10,6 +10,7 @@ import com.heixiu.errand.bean.OrderInfo;
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter;
 import com.xiaochao.lcrapiddeveloplibrary.BaseViewHolder;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -30,9 +31,26 @@ public class MyIssuedAdapter extends BaseQuickAdapter<OrderInfo> {
         super(contentView, data);
     }
 
+
+    @Override
+    public void setNewData(List<OrderInfo> data) {
+
+        Iterator<OrderInfo> orderInfoIterator = data.iterator();
+        while (orderInfoIterator.hasNext()) {
+            OrderInfo orderInfo = orderInfoIterator.next();
+            if (orderInfo.getOrderStatus().equals("-1")) {
+                orderInfoIterator.remove();
+            }
+        }
+
+        super.setNewData(data);
+
+    }
+
     @Override
     protected void convert(BaseViewHolder helper, final OrderInfo item) {
-        helper.setText(R.id.Tv_startingPart, item.getReceiveAddress()).setText(R.id.Tv_endingPart, item.getSendAddress());
+        helper.setText(R.id.Tv_startingPart, item.getReceiveAddress()+item.getRecieveMapAdress())
+                .setText(R.id.Tv_endingPart, item.getSendAddress()+item.getSendMapAdress());
         helper.setText(R.id.Tv_deliveryTime, "送达时间：" + item.getSendTime());
         Button btnDetails;
         btnDetails = helper.getView(R.id.Bt_details);
@@ -43,6 +61,7 @@ public class MyIssuedAdapter extends BaseQuickAdapter<OrderInfo> {
         switch (item.getOrderStatus()) {
             case "-1":
                 stuts = "未支付";
+                break;
             case "0":
                 stuts = "刚创建";
                 break;
@@ -70,6 +89,7 @@ public class MyIssuedAdapter extends BaseQuickAdapter<OrderInfo> {
         btnDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (item.getOrderStatus().equals("4") || item.getOrderStatus().equals("0")) {
                     OrderFinishActivity.Companion.startSelf(mContext, item);
                 } else {

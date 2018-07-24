@@ -22,6 +22,7 @@ class MyIssuedFragment : BaseActivity() {
         setContentView(R.layout.fragment_my_issued)
     }
 
+
     override fun findViewById() {
         initTitle("我的发布", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, { finishWithAlpha() })
@@ -35,6 +36,7 @@ class MyIssuedFragment : BaseActivity() {
             myIssuedAdapter = MyIssuedAdapter(it)
             myIssuedAdapter!!.openLoadAnimation(BaseQuickAdapter.SCALEIN)
             Rv_issue.adapter = myIssuedAdapter
+
             myIssuedAdapter!!.setNewData(it)
         }, {
 

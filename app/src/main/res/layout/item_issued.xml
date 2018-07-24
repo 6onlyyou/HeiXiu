@@ -26,7 +26,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_marginTop="23dp"
+                android:layout_marginTop="13dp"
                 android:layout_width="13dp"
                 android:layout_height="13dp"
                 android:layout_marginRight="5dp"
@@ -34,7 +34,7 @@
 
              <TextView
                 android:id="@+id/Tv_deliveryTime"
-                android:layout_marginTop="23dp"
+                android:layout_marginTop="13dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -43,7 +43,7 @@
                 android:textColor="@color/colorPrimary" />
 
             <TextView
-                android:layout_marginTop="21dp"
+                android:layout_marginTop="13dp"
                 android:textSize="11sp"
                 android:id="@+id/Tv_unOrder"
                 android:layout_width="wrap_content"
