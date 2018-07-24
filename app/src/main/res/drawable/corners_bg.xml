@@ -5,7 +5,7 @@
 
     <stroke
         android:width="0.01dp"
-        android:color="#BFBFBF" />
+        android:color="@color/activity_bg" />
 
     <padding
         android:bottom="1dp"

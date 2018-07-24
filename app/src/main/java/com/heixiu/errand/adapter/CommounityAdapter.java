@@ -199,6 +199,10 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
         Iv_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(Et_comment.getText().toString().equals("")){
+                    ToastUtils.showLong("亲~评论为空");
+                    return;
+                }
                 if (SPUtil.getString("userid").equals("") || SPUtil.getString("userid").equals("1")) {
                     Intent intent = new Intent(mContext, LoginActivity.class);
                     mContext.startActivity(intent);

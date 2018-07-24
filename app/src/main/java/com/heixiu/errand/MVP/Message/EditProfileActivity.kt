@@ -53,7 +53,6 @@ class EditProfileActivity : BaseActivity() {
 
     override fun findViewById() {
         initTitle("编辑资料", R.color.colorPrimary, R.color.white)
-
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener {
             finishWithAlpha()
         })

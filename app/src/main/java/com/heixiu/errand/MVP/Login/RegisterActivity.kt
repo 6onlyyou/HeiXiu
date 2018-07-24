@@ -602,7 +602,7 @@ class RegisterActivity : BaseActivity() {
                        "Vivian")
                val index = random.nextInt(Surname.size - 1)
                var name = Surname[index] //获得一个随机的姓氏
-
+               name = name + random.nextInt(100);
 //               /* 从常用字中选取一个或两个字作为名 */
 //               if (random.nextBoolean()) {
 //                   name += getChinese()

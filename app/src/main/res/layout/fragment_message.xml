@@ -40,7 +40,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="230dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="42dp"
+
         android:background="@mipmap/message_bg">
 
         <LinearLayout
@@ -221,7 +222,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:src="@mipmap/my_task" />
+                android:src="@mipmap/icon_msg" />
 
             <TextView
                 android:layout_width="wrap_content"
