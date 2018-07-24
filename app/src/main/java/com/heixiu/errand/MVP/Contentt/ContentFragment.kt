@@ -179,6 +179,13 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        rootView.setOnClickListener({
+            addressLayout.visibility = View.GONE
+            inputAddressEt.setText("")
+            detailAddress.setText("")
+        })
+
         inputAddressEt.threshold = 1
         inputAddressEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -242,14 +249,14 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
         //取货地址
         receiveAddress.setOnClickListener({
             isChooseAddressLocation = false
-
+            inputAddressEt.hint = "取货地址"
             addressType = receiveAddressType
             addressLayout.visibility = View.VISIBLE
         })
         //送货地址
         sendAddress.setOnClickListener({
             isChooseAddressLocation = false
-
+            inputAddressEt.hint = "送货地址"
             addressType = sendAddressType
             addressLayout.visibility = View.VISIBLE
         })

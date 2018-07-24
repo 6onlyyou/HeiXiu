@@ -30,6 +30,15 @@
                 android:textColor="#b3b3b3"
                 android:textSize="12sp" />
 
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
             <TextView
                 android:id="@+id/confirm"
                 android:layout_width="wrap_content"
@@ -50,6 +59,7 @@
             android:id="@+id/moreWeightLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -71,10 +81,10 @@
         </LinearLayout>
 
         <NumberPicker
+            android:showDividers="none"
             android:id="@+id/weightNp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
             android:background="@color/white" />
     </LinearLayout>
 </layout>

@@ -46,9 +46,13 @@
 
             <Spinner
                 android:id="@+id/spinner"
+                style="@style/spinner_style"
+                android:background="@null"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp" />
+                android:layout_marginTop="30dp"
+                android:overlapAnchor="false"
+                android:spinnerMode="dropdown" />
 
             <View
                 android:layout_width="match_parent"

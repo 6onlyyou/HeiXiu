@@ -52,6 +52,7 @@ public class SpinnerAdapter extends BaseAdapter {
             hodler = new ViewHodler();
             convertView = LayoutInflater.from(mContext).inflate(R.layout.item_spinner, null);
             hodler.mTextView = (TextView) convertView.findViewById(R.id.kuaidiName);
+            hodler.line =  convertView.findViewById(R.id.line);
             convertView.setTag(hodler);
         } else {
             hodler = (ViewHodler) convertView.getTag();
@@ -60,6 +61,10 @@ public class SpinnerAdapter extends BaseAdapter {
         hodler.mTextView.setText(datas.get(position));
         if (datas.get(position).contains("市")) {
             hodler.mTextView.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+            hodler.line.setVisibility(View.INVISIBLE);
+        } else {
+            hodler.line.setVisibility(View.VISIBLE);
+            hodler.mTextView.setHeight(80);
         }
         return convertView;
     }
@@ -78,6 +83,6 @@ public class SpinnerAdapter extends BaseAdapter {
 
     private static class ViewHodler {
         TextView mTextView;
-
+        View line;
     }
 }

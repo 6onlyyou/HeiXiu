@@ -1,6 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.heixiu.errand.MVP.Contentt.ContentFragment">
@@ -27,36 +28,36 @@
         android:layout_marginTop="40dp"
         android:background="@color/white"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <Spinner
                 android:id="@+id/city"
                 android:layout_width="70dp"
-                android:spinnerMode="dialog"
-                android:layout_height="36dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="8dp"
                 android:background="@drawable/bg_package_type_unchecked"
                 android:gravity="center"
                 android:hint="输入城市"
+                android:spinnerMode="dialog"
                 android:textSize="12sp" />
 
             <AutoCompleteTextView
                 android:id="@+id/inputAddressEt"
                 android:layout_width="0dp"
-                android:layout_height="36dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="8dp"
+                android:layout_marginRight="16dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_package_type_unchecked"
-                android:hint="输入地址"
+                android:hint="选择地址"
                 android:paddingLeft="6dp"
                 android:textSize="12sp" />
 
@@ -68,7 +69,8 @@
                 android:gravity="center"
                 android:paddingRight="12dp"
                 android:text="取消"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="gone" />
         </LinearLayout>
 
         <EditText
@@ -76,9 +78,8 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:background="@drawable/bg_edittext_normal"
             android:gravity="top|left"
             android:hint="请输入详细地址(街道几栋几单元)"

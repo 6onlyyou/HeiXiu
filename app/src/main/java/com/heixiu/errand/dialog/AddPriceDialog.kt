@@ -4,7 +4,6 @@ import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.NumberPicker
 import com.heixiu.errand.Event.PublishParamsChangeEvent
 import com.heixiu.errand.MVP.Contentt.ContentFragment
@@ -25,7 +24,8 @@ class AddPriceDialog(context: Context) : BottomDialog(context) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.choose_weight_dialog, null, false)
         setContentView(binding.root)
 
-        binding.moreWeightLayout.visibility = View.GONE
+//        binding.moreWeightLayout.visibility = View.GONE
+        binding.title.text = "加价金额"
 
         binding.cancel.setOnClickListener({
             dismiss()
@@ -40,6 +40,7 @@ class AddPriceDialog(context: Context) : BottomDialog(context) {
             RxBus.getDefault().post(PublishParamsChangeEvent())
             dismiss()
         })
+        setNumberPickerDivider(binding.weightNp)
 
         //设置需要显示的内容数组
         binding.weightNp.displayedValues = numbers
@@ -52,4 +53,14 @@ class AddPriceDialog(context: Context) : BottomDialog(context) {
         binding.weightNp.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
     }
 
+    private fun setNumberPickerDivider(picker: NumberPicker) {
+        val fields = NumberPicker::class.java.declaredFields
+        for (f in fields) {
+            if (f.name == "mSelectionDividerHeight") {
+                f.isAccessible = true
+                f.set(picker, 1)
+                break
+            }
+        }
+    }
 }
