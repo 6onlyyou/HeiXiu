@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:text="11111"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/address"

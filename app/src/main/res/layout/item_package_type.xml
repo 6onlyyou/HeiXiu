@@ -12,5 +12,5 @@
         android:background="@drawable/bg_package_type"
         android:gravity="center"
         android:text="文件"
-        android:textSize="12sp" />
+        android:textSize="14sp" />
 </LinearLayout>

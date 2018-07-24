@@ -19,7 +19,7 @@ android:background="@color/white"
         android:textColor="@color/black"
         android:layout_marginTop="19dp"
         android:layout_marginLeft="19dp"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:text="到账支付宝"/>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -32,7 +32,7 @@ android:background="@color/white"
             android:textColor="@color/black"
             android:layout_marginTop="19dp"
             android:layout_marginLeft="19dp"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:text="尾号1232"/>
         <TextView
             android:layout_width="wrap_content"
@@ -40,7 +40,7 @@ android:background="@color/white"
             android:textColor="@color/colorAccent"
             android:layout_marginTop="@dimen/ui_10_dip"
             android:layout_marginLeft="19dp"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:text="明天24点前到账"/>
     </LinearLayout>
 </LinearLayout>
@@ -52,7 +52,7 @@ android:background="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="提现金额"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:textColor="@color/black"
         android:layout_marginTop="17dp"
         android:layout_marginLeft="19dp"/>
@@ -92,7 +92,7 @@ android:background="@color/white"
             android:layout_height="wrap_content"
             android:textColor="@color/hint_text"
             android:text="零钱余额：2332"
-            android:textSize="12sp"
+            android:textSize="14sp"
             />
         <TextView
             android:id="@+id/withdraw_allget"
@@ -103,7 +103,7 @@ android:background="@color/white"
             android:layout_height="wrap_content"
             android:textColor="@color/colorAccent"
             android:text="全部提现"
-            android:textSize="12sp"
+            android:textSize="14sp"
             />
     </RelativeLayout>
     <Button
@@ -111,7 +111,7 @@ android:background="@color/white"
         android:layout_width="71dp"
         android:layout_height="26dp"
         android:background="@color/colorAccent"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:textColor="@color/white"
         android:text="提现"
         android:layout_gravity="center"

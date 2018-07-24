@@ -31,10 +31,17 @@ class ChangePhoneActivity : BaseActivity() {
             super.handleMessage(msg)
             if (msg.what == 1) {
                 ToastUtils.showLong("验证码错误")
+            } else if (msg.what == 2) {
+                ToastUtils.showLong("验证码获取失败")
             } else {
                 ToastUtils.showLong(msg.obj.toString())
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        SMSSDK.unregisterAllEventHandler()
     }
 
     override fun setListener() {
@@ -57,10 +64,12 @@ class ChangePhoneActivity : BaseActivity() {
         SMSSDK.registerEventHandler(object : EventHandler() {
             override fun afterEvent(event: Int, result: Int, data: Any) {
                 if (result == SMSSDK.RESULT_COMPLETE) {
-                    mCountDownTimerUtils!!.start()
-                    // 请注意，此时只是完成了发送验证码的请求，验证码短信还需要几秒钟之后才送达
+                    if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
+                        mCountDownTimerUtils!!.start()
+                        // 请注意，此时只是完成了发送验证码的请求，验证码短信还需要几秒钟之后才送达
+                    }
                 } else {
-                    handler.sendEmptyMessage(1);
+                    handler.sendEmptyMessage(2);
                 }
             }
         })
@@ -73,18 +82,20 @@ class ChangePhoneActivity : BaseActivity() {
         // 注册一个事件回调，用于处理提交验证码操作的结果
         SMSSDK.registerEventHandler(object : EventHandler() {
             override fun afterEvent(event: Int, result: Int, data: Any?) {
-                Log.i("submitCode","submitCode Result :" + result)
-                if (result == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+                Log.i("submitCode", "submitCode Result :" + result)
+                if (result == SMSSDK.RESULT_COMPLETE) {
+                    if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
 //                    RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().passwordSetting(SPUtil.getString("userid"), change_phones.text.toString())).subscribe({
 //                        ToastUtils.showLong("修改成功")
 //                        finishWithAlpha()
 //                    }, {
 //                        ToastUtils.showLong(it.message)
 //                    })
-                    val intent = Intent(this@ChangePhoneActivity, ChangeConfirmPhoneActivity::class.java)
-                    intent.putExtra("bindphone", change_phones.text.toString())
-                    startActivity(intent)
-                    finishWithAlpha()
+                        val intent = Intent(this@ChangePhoneActivity, ChangeConfirmPhoneActivity::class.java)
+                        intent.putExtra("bindphone", change_phones.text.toString())
+                        startActivity(intent)
+                        finishWithAlpha()
+                    }
                 } else {
                     handler.sendEmptyMessage(1)
                 }

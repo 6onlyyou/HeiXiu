@@ -22,7 +22,7 @@
 
                 <TextView
                     android:id="@+id/cancel"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top|left"
@@ -44,7 +44,7 @@
                     android:layout_marginTop="80dp"
                     android:text="您的速度超快呢，快去赶往指定送达地点吧~"
                     android:textColor="@color/black"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/confirm"
@@ -59,7 +59,7 @@
                     android:gravity="center"
                     android:text="确认"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
             </FrameLayout>
         </android.support.v7.widget.CardView>
 

@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/comment_nickname"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:layout_marginLeft="8dp"
         android:textColor="@color/hint_text"
         android:text="昵称"/>

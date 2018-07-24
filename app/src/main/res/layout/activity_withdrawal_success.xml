@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/hint_text"
                 android:text="提现金额"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 />
             <TextView
                 android:layout_alignParentRight="true"
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/hint_text"
                 android:text="￥1282"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/hint_text"
                 android:text="到现支付宝"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 />
             <TextView
                 android:layout_alignParentRight="true"
@@ -128,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/hint_text"
                 android:text="尾号1273"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 />
         </RelativeLayout>
     </LinearLayout>
@@ -137,7 +137,7 @@
         android:layout_width="71dp"
         android:layout_height="26dp"
         android:background="@color/colorAccent"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:textColor="@color/white"
         android:text="完成"
         android:layout_gravity="center"

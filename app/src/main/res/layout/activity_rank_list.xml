@@ -32,7 +32,7 @@
                     android:layout_height="wrap_content"
                     android:text="今日榜單"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/rand_tadayRank"
@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:text="13"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -91,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:text="13"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

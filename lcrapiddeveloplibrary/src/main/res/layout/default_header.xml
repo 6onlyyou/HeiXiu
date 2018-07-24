@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:text="上次更新时间："
                     android:textColor="#777777"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/default_header_time"
@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#777777"
                     android:text="刚刚"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 

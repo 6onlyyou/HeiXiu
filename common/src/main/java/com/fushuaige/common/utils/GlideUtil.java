@@ -71,7 +71,7 @@ public class GlideUtil {
         }
         Glide.with(mContext).load(path).diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .bitmapTransform(new CropCircleTransformation(mContext)).crossFade()
-                .placeholder(R.mipmap.round_gray_ic)
+                .placeholder(R.mipmap.defaulthead)
                 .error(R.mipmap.round_gray_ic)
                 .into(mImageView);
     }

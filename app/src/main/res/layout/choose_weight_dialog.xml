@@ -28,7 +28,7 @@
                 android:layout_marginLeft="16dp"
                 android:text="取消"
                 android:textColor="#b3b3b3"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
 
             <TextView
@@ -47,7 +47,7 @@
                 android:layout_marginRight="16dp"
                 android:text="确定"
                 android:textColor="@color/colorPrimary"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
         </RelativeLayout>
 
         <View

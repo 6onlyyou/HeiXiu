@@ -34,7 +34,7 @@
             android:singleLine="true"
             android:textColor="@color/gray_text"
             android:textColorHint="@color/gray_text"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 
@@ -71,7 +71,7 @@
             android:singleLine="true"
             android:textColor="@color/gray_text"
             android:textColorHint="@color/gray_text"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 

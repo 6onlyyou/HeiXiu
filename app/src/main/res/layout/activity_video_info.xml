@@ -63,7 +63,7 @@
                             android:layout_height="18dp"
                             android:textColor="@color/colorPrimary"
                             android:text="关注"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             android:layout_alignParentRight="true"
                             android:layout_centerInParent="true"
                             android:background="@drawable/video_bg"

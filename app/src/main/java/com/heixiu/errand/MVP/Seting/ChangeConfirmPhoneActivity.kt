@@ -1,6 +1,5 @@
 package com.heixiu.errand.MVP.Seting
 
-import android.content.Intent
 import android.os.Handler
 import android.os.Message
 import android.view.View
@@ -20,24 +19,29 @@ class ChangeConfirmPhoneActivity : BaseActivity() {
     override fun loadViewLayout() {
         setContentView(R.layout.activity_change_confirmphone)
     }
-    var bindphone:String = ""
+
+    var bindphone: String = ""
     override fun findViewById() {
         initTitle("密码设置", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
 
-         bindphone = intent.getStringExtra("bindphone")
-        change_phone.text = "重置电话号需要验证下手机号"+ bindphone
+        bindphone = intent.getStringExtra("bindphone")
+        change_phone.text = "重置电话号需要验证下手机号" + bindphone
     }
+
     var handler: Handler = object : Handler() {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
             if (msg.what == 1) {
                 ToastUtils.showLong("验证码错误")
+            } else if (msg.what == 2) {
+                ToastUtils.showLong("验证码获取失败")
             } else {
                 ToastUtils.showLong(msg.obj.toString())
             }
         }
     }
+
     override fun setListener() {
         mCountDownTimerUtils = CountDownTimerUtils(Tv_getCode_change, 60000, 1000)
         Tv_getCode_change.setOnClickListener {
@@ -48,7 +52,7 @@ class ChangeConfirmPhoneActivity : BaseActivity() {
             }
         }
         change_submit_change.setOnClickListener {
-            submitCode("86", bindphone,Tv_inCodes.text.toString());
+            submitCode("86", bindphone, Tv_inCodes.text.toString());
         }
     }
 
@@ -58,28 +62,33 @@ class ChangeConfirmPhoneActivity : BaseActivity() {
         SMSSDK.registerEventHandler(object : EventHandler() {
             override fun afterEvent(event: Int, result: Int, data: Any) {
                 if (result == SMSSDK.RESULT_COMPLETE) {
-                    mCountDownTimerUtils!!.start()
-                    // 请注意，此时只是完成了发送验证码的请求，验证码短信还需要几秒钟之后才送达
+                    if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
+                        mCountDownTimerUtils!!.start()
+                        // 请注意，此时只是完成了发送验证码的请求，验证码短信还需要几秒钟之后才送达
+                    }
                 } else {
-                    handler.sendEmptyMessage(1);
+                    handler.sendEmptyMessage(2);
                 }
             }
         })
         // 触发操作
         SMSSDK.getVerificationCode(country, phone)
     }
+
     // 提交验证码，其中的code表示验证码，如“1357”
     fun submitCode(country: String, phone: String, code: String) {
         // 注册一个事件回调，用于处理提交验证码操作的结果
         SMSSDK.registerEventHandler(object : EventHandler() {
             override fun afterEvent(event: Int, result: Int, data: Any?) {
                 if (result == SMSSDK.RESULT_COMPLETE) {
-                    RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().updatePhoneNumber(SPUtil.getString("userid"), bindphone)).subscribe({
-                        ToastUtils.showLong("修改成功")
-                        finishWithAlpha()
-                    }, {
-                        ToastUtils.showLong(it.message)
-                    })
+                    if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+                        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().updatePhoneNumber(SPUtil.getString("userid"), bindphone)).subscribe({
+                            ToastUtils.showLong("修改成功")
+                            finishWithAlpha()
+                        }, {
+                            ToastUtils.showLong(it.message)
+                        })
+                    }
                 } else {
                     handler.sendEmptyMessage(1)
                 }
@@ -88,6 +97,13 @@ class ChangeConfirmPhoneActivity : BaseActivity() {
         // 触发操作
         SMSSDK.submitVerificationCode(country, phone, code)
     }
+
     override fun processLogic() {
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        SMSSDK.unregisterAllEventHandler()
+    }
+
 }

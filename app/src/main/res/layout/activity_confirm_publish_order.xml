@@ -50,7 +50,7 @@
             android:drawableLeft="@mipmap/ic_start_address"
             android:drawablePadding="8dp"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/end"
@@ -60,7 +60,7 @@
             android:drawableLeft="@mipmap/ic_end_address"
             android:drawablePadding="8dp"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
 
         <TextView
@@ -71,7 +71,7 @@
             android:drawableLeft="@mipmap/ic_time"
             android:drawablePadding="8dp"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <View
             android:layout_width="match_parent"
@@ -93,7 +93,7 @@
                 android:drawableLeft="@mipmap/ic_package"
                 android:drawablePadding="8dp"
                 android:textColor="@color/text_gray"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
 
             <TextView
@@ -105,7 +105,7 @@
                 android:drawableLeft="@mipmap/ic_weight"
                 android:drawablePadding="8dp"
                 android:textColor="@color/text_gray"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/add_money"
@@ -116,7 +116,7 @@
                 android:drawableLeft="@mipmap/ic_money"
                 android:drawablePadding="8dp"
                 android:textColor="@color/text_gray"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -132,7 +132,7 @@
             android:layout_margin="13dp"
             android:text="备注信息："
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tips"
@@ -141,7 +141,7 @@
             android:layout_marginBottom="19dp"
             android:layout_marginLeft="13dp"
             android:textColor="@color/gray_text"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
 
         <LinearLayout
@@ -161,7 +161,7 @@
                 android:layout_margin="13dp"
                 android:text="快递信息"
                 android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/recipientsame"
@@ -169,7 +169,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="13dp"
                 android:textColor="@color/gray_text"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
             <!--"收件人姓名"-->
 
             <TextView
@@ -179,7 +179,7 @@
                 android:layout_marginLeft="13dp"
                 android:layout_marginTop="13dp"
                 android:textColor="@color/gray_text"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
             <!--"收件人电话"+-->
             <TextView
                 android:id="@+id/courierNum"
@@ -188,7 +188,7 @@
                 android:layout_marginLeft="13dp"
                 android:layout_marginTop="@dimen/layout_verticaldistance12_worlduc_dp"
                 android:textColor="@color/gray_text"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
             <!--"快递员电话"+-->
         </LinearLayout>
 
@@ -204,7 +204,7 @@
                 android:layout_marginLeft="13dp"
                 android:text="订单总价"
                 android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/all_order_price"
@@ -212,7 +212,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/colorPrimary"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/ticket"
@@ -220,7 +220,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="21dp"
                 android:text="优惠券"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <TextView
@@ -232,7 +232,7 @@
             android:layout_marginTop="5dp"
             android:text="实际付款金额"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 

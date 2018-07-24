@@ -75,7 +75,7 @@
                 android:layout_marginTop="23dp"
                 android:gravity="center"
                 android:text="历史记录查询"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:visibility="visible" />
         </LinearLayout>
 
