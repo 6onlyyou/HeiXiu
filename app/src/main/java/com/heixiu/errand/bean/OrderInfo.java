@@ -3,9 +3,8 @@ package com.heixiu.errand.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by YuanGang on 2018/5/4.
@@ -61,9 +60,9 @@ public class OrderInfo implements Serializable {
     private int weight;
     private String name;
     private String description;
-    private String sendMapAdress="";
+    private String sendMapAdress = "";
     private String sendAddress;
-    private String recieveMapAdress="";
+    private String recieveMapAdress = "";
     private String receiveAddress;
     private double originsLatitude;
     private double originsLongitude;
@@ -84,6 +83,10 @@ public class OrderInfo implements Serializable {
     private int publishOrderCount;
     private Object beginTime;
     private Object endTime;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public String getSendMapAdress() {
         return sendMapAdress;
@@ -121,8 +124,8 @@ public class OrderInfo implements Serializable {
         return userId;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public PublishUserInfoBean getPublishUserInfo() {
@@ -229,10 +232,6 @@ public class OrderInfo implements Serializable {
         this.endTime = endTime;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
     public Object getReceiveId() {
         return receiveId;
     }
@@ -314,7 +313,7 @@ public class OrderInfo implements Serializable {
     }
 
     public String getSendTime() {
-        return sendTime;
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Long.valueOf(sendTime));
     }
 
     public void setSendTime(String sendTime) {
@@ -409,7 +408,18 @@ public class OrderInfo implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public static class PublishUserInfoBean  implements Serializable,Parcelable {
+    public static class PublishUserInfoBean implements Serializable, Parcelable {
+        public static final Creator<PublishUserInfoBean> CREATOR = new Creator<PublishUserInfoBean>() {
+            @Override
+            public PublishUserInfoBean createFromParcel(Parcel in) {
+                return new PublishUserInfoBean(in);
+            }
+
+            @Override
+            public PublishUserInfoBean[] newArray(int size) {
+                return new PublishUserInfoBean[size];
+            }
+        };
         /**
          * id : 81
          * userId : 12
@@ -453,18 +463,6 @@ public class OrderInfo implements Serializable {
             createTime = in.readLong();
             updateTime = in.readLong();
         }
-
-        public static final Creator<PublishUserInfoBean> CREATOR = new Creator<PublishUserInfoBean>() {
-            @Override
-            public PublishUserInfoBean createFromParcel(Parcel in) {
-                return new PublishUserInfoBean(in);
-            }
-
-            @Override
-            public PublishUserInfoBean[] newArray(int size) {
-                return new PublishUserInfoBean[size];
-            }
-        };
 
         public int getId() {
             return id;
@@ -591,7 +589,7 @@ public class OrderInfo implements Serializable {
         }
     }
 
-    public static class RecieveUserInfoBean  implements Serializable{
+    public static class RecieveUserInfoBean implements Serializable {
         /**
          * id : 167
          * userId : 13

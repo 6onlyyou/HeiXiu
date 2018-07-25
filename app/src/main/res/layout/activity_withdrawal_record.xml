@@ -6,29 +6,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.heixiu.errand.MVP.Message.wallet.WithdrawalRecordActivity">
+
     <include layout="@layout/comm_title" />
+
     <android.support.design.widget.TabLayout
         android:id="@+id/dollStateTb"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        app:tabTextColor="@color/gray_text"
+        android:visibility="gone"
+        app:tabIndicatorColor="@color/colorAccent"
         app:tabSelectedTextColor="@color/colorAccent"
-        app:tabIndicatorColor="@color/colorAccent"/>
+        app:tabTextColor="@color/gray_text" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/my_doll_swipe"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_doll_rv"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/my_doll_rv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="22dp"
-            android:layout_marginRight="22dp"
-
-            android:layout_marginTop="14dp" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_height="match_parent"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginTop="14dp" />
 </LinearLayout>
