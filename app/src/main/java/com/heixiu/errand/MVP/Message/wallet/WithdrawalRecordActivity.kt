@@ -40,6 +40,7 @@ class WithdrawalRecordActivity : BaseActivity() {
                 if (tab.tag == "1") {
                     if (myReciecedOrderBean.isEmpty()) {
                         withdrawalRecordAdapter!!.setNewData(ArrayList())
+
                         withdrawalRecordAdapter?.notifyDataSetChanged()
                         return
                     }
