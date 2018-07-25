@@ -313,7 +313,7 @@ public class OrderInfo implements Serializable {
     }
 
     public String getSendTime() {
-        return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Long.valueOf(sendTime));
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Long.valueOf(sendTime)).replace("-","/");
     }
 
     public void setSendTime(String sendTime) {
