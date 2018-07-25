@@ -356,7 +356,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
             c.add(Calendar.DAY_OF_YEAR, 1)
             c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH), hour[options2], mintnues[options3])
         }
-        sendTime.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(c.timeInMillis)
+        sendTime.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(c.timeInMillis).replace("-","/")
         ContentFragment.sendTime = sendTime.text.toString()
     }
 
