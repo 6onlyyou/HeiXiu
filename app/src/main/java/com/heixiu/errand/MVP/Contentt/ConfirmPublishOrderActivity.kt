@@ -158,7 +158,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
             wxPay(it)
             orderInfo.orderNum = it.orderNum
             initPublishParams()
-            RxBus.getDefault().post("PublishSuccess")
+//            RxBus.getDefault().post("PublishSuccess")
 //            finish()
         }, {
             ToastUtils.showShort(it.message)

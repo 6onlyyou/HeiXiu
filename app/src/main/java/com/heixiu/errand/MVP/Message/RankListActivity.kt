@@ -49,6 +49,8 @@ class RankListActivity : BaseActivity() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 if (tab.tag == "1") {
                     RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().platRank(SPUtil.getString("userid"),SPUtil.getString("city"))).subscribe({
+                        rankListAdapter!!.setNewData(ArrayList())
+                        rankListAdapter?.notifyDataSetChanged()
                         if(it.size>0){
                             //设置自动加载监听
                             my_doll_rv.setLayoutManager(LinearLayoutManager(this@RankListActivity))
@@ -70,6 +72,8 @@ class RankListActivity : BaseActivity() {
                 }
                 if (tab.tag == "2") {
                     RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().friendRank(SPUtil.getString("userid"))).subscribe({
+                        rankListAdapter!!.setNewData(ArrayList())
+                        rankListAdapter?.notifyDataSetChanged()
                         if(it.size>0){
                             //设置自动加载监听
                             my_doll_rv.setLayoutManager(LinearLayoutManager(this@RankListActivity))
