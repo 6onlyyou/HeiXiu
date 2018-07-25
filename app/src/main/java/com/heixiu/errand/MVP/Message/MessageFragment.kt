@@ -116,11 +116,11 @@ class MessageFragment : BaseFragment() {
                     .placeholder(R.mipmap.defaulthead)
                     .into(message_hard);
         } else {
-//            Glide.with(this)
-//                    .load(SPUtil.getString("headurl"))
-//                    .crossFade()
-//                    .placeholder(R.mipmap.defaulthead)
-//                    .into(message_hard);
+            Glide.with(this)
+                    .load(SPUtil.getString("headurl"))
+                    .crossFade()
+                    .placeholder(R.mipmap.defaulthead)
+                    .into(message_hard);
             RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryPersonal(SPUtil.getString("userid"), SPUtil.getString("city"))).subscribe({
                 queryPersonalBean = it
                 message_tadayRank.text = it.platRank.toString()
