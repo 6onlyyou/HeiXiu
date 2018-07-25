@@ -101,7 +101,7 @@
                 android:layout_marginRight="10dp"
                 android:text="已发"
                 android:textColor="@color/rc_notification_bg"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:visibility="gone" />
 
             <ProgressBar
@@ -131,7 +131,7 @@
                 android:drawableLeft="@drawable/rc_read_receipt"
                 android:drawableStart="@drawable/rc_read_receipt"
                 android:textColor="@color/rc_read_receipt_status"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:visibility="gone" />
 
             <TextView
@@ -144,7 +144,7 @@
                 android:drawableLeft="@drawable/rc_read_receipt_request_button"
                 android:drawableStart="@drawable/rc_read_receipt_request_button"
                 android:textColor="@color/rc_read_receipt_status"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:visibility="gone" />
 
             <TextView
@@ -156,7 +156,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="@string/rc_read_receipt_status"
                 android:textColor="@color/rc_read_receipt_status"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:visibility="gone" />
 
             <io.rong.imkit.widget.ProviderContainerView

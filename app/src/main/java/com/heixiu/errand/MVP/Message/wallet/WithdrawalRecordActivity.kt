@@ -36,12 +36,13 @@ class WithdrawalRecordActivity : BaseActivity() {
         },{
             ToastUtils.showLong(it.message)
         })
-        dollStateTb.addTab(dollStateTb.newTab().setText("任务交易").setTag("1"))
-        dollStateTb.addTab(dollStateTb.newTab().setText("接单交易").setTag("2"))
+        dollStateTb.addTab(dollStateTb.newTab().setText("任务交易").setTag("2"))
+        dollStateTb.addTab(dollStateTb.newTab().setText("接单交易").setTag("1"))
         dollStateTb.isSelected = true
         dollStateTb.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 if (tab.tag == "1") {
+//                    withdrawalRecordAdapter!!.setNewData(null)
                     if(myReciecedOrderBean!!.size<1){
                         return
                     }
@@ -51,7 +52,9 @@ class WithdrawalRecordActivity : BaseActivity() {
 //                    setSelect(false)
                 }
                 if (tab.tag == "2") {
+//                    withdrawalRecordAdapter!!.setNewData(null)
                     if(myReciecedOrderBean2!!.size<1){
+
                         return
                     }
                     my_doll_rv.setLayoutManager(LinearLayoutManager(this@WithdrawalRecordActivity))
