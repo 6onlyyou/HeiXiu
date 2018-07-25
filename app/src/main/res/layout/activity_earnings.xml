@@ -24,7 +24,7 @@
     <TextView
         android:id="@+id/earn_menoy"
         android:layout_gravity="center_horizontal"
-        android:text="￥13233"
+        android:text="￥0"
         android:textSize="20sp"
         android:textColor="@color/black"
         android:layout_marginTop="10dp"
