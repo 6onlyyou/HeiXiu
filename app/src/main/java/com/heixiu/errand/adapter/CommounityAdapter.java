@@ -138,8 +138,27 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
             GlideUtil.load(mContext, imgsrc, (ImageView) helper.getView(R.id.Iv_communityHead));
         }
 
-
+        final Button community_dell = (Button) helper.getView(R.id.community_dell);
         final Button community_attention = (Button) helper.getView(R.id.community_attention);
+        community_dell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RxUtils.wrapRestCall(RetrofitFactory.INSTANCE.getRetrofit().removePublish(item.getPublishId())).subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        ToastUtils.showLong("删除成功");
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        ToastUtils.showLong(throwable.getMessage());
+                    }
+                });
+            }
+        });
+        if(SPUtil.getString("userid").equals(item.getUserId())){
+            community_dell.setVisibility(View.VISIBLE);
+        }
         community_attention.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -174,6 +193,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
                 }
             }
         });
+
         final ImageView itemPraise = helper.getView(R.id.item_praise);
         if (item.getAdmireStatus() == 0) {
             itemPraise.setImageResource(R.mipmap.nopraise);
@@ -181,6 +201,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
             itemPraise.setImageResource(R.mipmap.praise);
         }
         if(stuts == -1){
+//            community_dell.setVisibility(View.VISIBLE);
             if (item.getFollowStatus() == 0) {
                 community_attention.setText("关注");
             } else {

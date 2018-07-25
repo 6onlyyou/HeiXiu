@@ -73,6 +73,16 @@ public interface ApiService {
     Observable<ResponseBean<List<PubLishInfo>>> showAllPublishInfo(@Query("userId") String phone);
 
     /**
+     *
+     * 删除动态
+     *
+     * @return
+     */
+    @POST("removePublish")
+    Observable<ResponseBean<String>> removePublish(@Query("publishId") String phone);
+
+
+    /**
      * 查询一条动态详情
      *
      * @return
