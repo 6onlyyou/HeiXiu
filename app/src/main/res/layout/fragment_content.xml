@@ -21,6 +21,12 @@
             android:textSize="16sp" />
     </FrameLayout>
 
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/mmap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp" />
+
     <LinearLayout
         android:id="@+id/addressLayout"
         android:layout_width="match_parent"
@@ -98,12 +104,6 @@
             android:textColor="@color/white" />
 
     </LinearLayout>
-
-    <!--<com.baidu.mapapi.map.MapView-->
-    <!--android:id="@+id/mmap"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_marginTop="40dp" />-->
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"

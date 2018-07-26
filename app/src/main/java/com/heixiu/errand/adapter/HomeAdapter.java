@@ -1,6 +1,7 @@
 package com.heixiu.errand.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.heixiu.errand.MyApplication.MyApplication;
@@ -88,7 +93,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                     + "Long = " + orderInfo.getOriginsLongitude()
             );
 
-            Log.i(TAG, "num: "+orderInfo.getOrderNum() + "   描述"+ orderInfo.getDescription());
+            Log.i(TAG, "num: " + orderInfo.getOrderNum() + "   描述" + orderInfo.getDescription());
 
             if ((distance) >= 1000 && distance < 1000000000) {
                 distanceFormat = df.format(distance / 1000);
@@ -139,6 +144,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         TextView type;
         TextView weight;
         ImageView confirmOrder;
+        CardView rootView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -146,10 +152,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             detail = itemView.findViewById(R.id.detail);
             startLocationTv = itemView.findViewById(R.id.start_location_tv);
             endLocationTv = itemView.findViewById(R.id.end_location_tv);
+            rootView = itemView.findViewById(R.id.rootView);
             type = itemView.findViewById(R.id.type);
             weight = itemView.findViewById(R.id.weight);
             confirmOrder = itemView.findViewById(R.id.confirmOrder);
-            detail.setOnClickListener(new View.OnClickListener() {
+            rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     onItemClick.onDetailClick(getLayoutPosition());
