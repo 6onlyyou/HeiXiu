@@ -8,6 +8,7 @@ import android.net.Uri
 import android.provider.Settings
 import android.support.v4.app.ActivityCompat
 import android.widget.Toast
+import com.fushuaige.common.utils.GlideUtil
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseActivity
@@ -35,14 +36,14 @@ class StartOrderDetailActivity : BaseActivity() {
         end.text = orderInfo!!.sendAddress + orderInfo?.sendMapAdress
         time.text = orderInfo!!.sendTime
         type.text = orderInfo?.name
-        weight.text = orderInfo?.weight.toString()
-        add_money.text = "加价" + orderInfo!!.addPrice
+        weight.text = orderInfo?.weight.toString() +"斤"
+        add_money.text = "加价" + orderInfo!!.addPrice +"元"
         tips.text = orderInfo!!.description
         recipientsame.text = "收件人姓名：" + orderInfo!!.receiveName
         recipientsNum.text = "收件人电话：" + orderInfo!!.receiveNum
         courierNum.text = "快递员电话：" + orderInfo!!.courierNum
         receiveName.text = orderInfo?.receiveName
-
+        price.text = orderInfo?.payment.toString() + "元"
         message.setOnClickListener({
             //            ToastUtils.showLong(orderInfo!!.userId.toString())
 //             RongIM.getInstance().startPrivateChat(this, orderInfo!!.userId.toString(), orderInfo!!.receiveName)
@@ -143,6 +144,11 @@ class StartOrderDetailActivity : BaseActivity() {
 
                     }
                     publishOrderNum.text = "发单数量" + it.publishOrderCount + "单"
+                    if (it.publishUserInfo != null) {
+                        GlideUtil.load(this, it.publishUserInfo.userImg, avaImg)
+                        receiveName.text = it.publishUserInfo.nickName + ""
+                    }
+
                 }, {
 
                 })
