@@ -23,8 +23,6 @@ import com.heixiu.errand.utils.SPUtil
 import com.jakewharton.rxbinding2.view.RxView
 import com.tencent.mm.opensdk.modelpay.PayReq
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
-import com.umeng.socialize.UMShareAPI
-import com.umeng.socialize.bean.SHARE_MEDIA
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_confirm_publish_order.*
 import java.util.*
@@ -64,7 +62,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
             finish()
         })
 
-        RxView.clicks(submitOrder).throttleFirst(1000, TimeUnit.MILLISECONDS).subscribe(Consumer<Any> {
+        RxView.clicks(submitOrder).throttleFirst(3000, TimeUnit.MILLISECONDS).subscribe(Consumer<Any> {
             submitOrder()
         })
 
