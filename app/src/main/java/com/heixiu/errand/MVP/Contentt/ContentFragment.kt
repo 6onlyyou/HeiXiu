@@ -2,6 +2,10 @@ package com.heixiu.errand.MVP.Contentt
 
 
 import android.content.Context
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.Editable
@@ -14,6 +18,11 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import com.baidu.location.BDAbstractLocationListener
+import com.baidu.location.BDLocation
+import com.baidu.location.LocationClient
+import com.baidu.location.LocationClientOption
+import com.baidu.mapapi.map.*
 import com.baidu.mapapi.model.LatLng
 import com.baidu.mapapi.search.geocode.*
 import com.baidu.mapapi.search.sug.SuggestionResult
@@ -26,6 +35,7 @@ import com.bigkoo.pickerview.view.OptionsPickerView
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.Event.PublishParamsChangeEvent
 import com.heixiu.errand.MVP.common.TicketActivity
+import com.heixiu.errand.MyApplication.MyApplication
 import com.heixiu.errand.R
 import com.heixiu.errand.adapter.SpinnerAdapter
 import com.heixiu.errand.base.BaseFragment
@@ -46,7 +56,23 @@ import kotlin.collections.ArrayList
 /**
  * A simple [Fragment] subclass.
  */
-class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
+class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm, SensorEventListener {
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+    }
+
+    override fun onSensorChanged(event: SensorEvent) {
+        val x = event?.values[SensorManager.DATA_X].toDouble()
+        if (Math.abs(x - lastX) > 1.0) {
+            mCurrentDirection = x.toInt()
+            locData = MyLocationData.Builder()
+                    .accuracy(mCurrentAccracy)
+                    // 此处设置开发者获取到的方向信息，顺时针0-360
+                    .direction(mCurrentDirection.toFloat()).latitude(mCurrentLat)
+                    .longitude(mCurrentLon).build()
+            mBaiduMap.setMyLocationData(locData)
+        }
+        lastX = x
+    }
 
     override fun addressConfirm(address: String, type: String) {
         if (type.equals(Contants.RECEIVER)) {
@@ -141,7 +167,9 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
         (0..24 step 1).mapTo(hour) { it }
         (1..60 step 1).mapTo(mintnues) { it }
 
-        addressData.add("杭州市")
+        if (MyApplication.getInstance().city.isNotEmpty()) {
+            addressData.add(MyApplication.getInstance().city)
+        }
         var cityList = CityUtils.getJson("city.json", context)
         for (cityBean in cityList) {
             addressData.add(cityBean.name + "市")
@@ -163,9 +191,12 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
             receiveAddress.text = ""
         })
 
+
+
         return inflater!!.inflate(R.layout.fragment_content, container, false)
     }
 
+    private lateinit var mBaiduMap: BaiduMap
     lateinit var sugAdapter: ArrayAdapter<String>
     var sendAddressType: Int = 0
     var receiveAddressType: Int = 1
@@ -175,9 +206,76 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
     var spinnerAdapter: SpinnerAdapter? = null
 
     var isChooseAddressLocation: Boolean = false
+    private var mCurrentDirection = 0
+    private var mCurrentLat = 0.0
+    private var mCurrentLon = 0.0
+    private var mCurrentAccracy: Float = 0.toFloat()
+    private var locData: MyLocationData? = null
+    private var lastX: Double = 0.0
+    private var isLocation: Boolean = false
 
+    internal inner class MyLocationListener : BDAbstractLocationListener() {
+        override fun onReceiveLocation(location: BDLocation?) {
+
+            if (location == null || mmap == null) {
+                return
+            }
+
+            if (!isLocation) {
+                mCurrentLat = location.latitude
+                mCurrentLon = location.longitude
+                mCurrentAccracy = location.radius
+
+                locData = MyLocationData.Builder()
+                        .accuracy(location.radius)
+                        // 此处设置开发者获取到的方向信息，顺时针0-360
+                        .direction(mCurrentDirection.toFloat())
+                        .latitude(location.latitude)
+                        .longitude(location.longitude).build()
+                mBaiduMap.setMyLocationData(locData)
+                mBaiduMap
+                        .setMyLocationConfigeration(MyLocationConfiguration(
+                                MyLocationConfiguration.LocationMode.FOLLOWING, true, null))
+                isLocation = true
+                val ll = LatLng(location.latitude,
+                        location.longitude)
+                val builder = MapStatus.Builder()
+                builder.target(ll).zoom(13.0f)
+                mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
+            }
+        }
+    }
+
+    internal lateinit var mLocationClient: LocationClient
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mBaiduMap = mmap.map
+        // 开启定位图层
+        mBaiduMap.isMyLocationEnabled = true
+
+        val option = LocationClientOption()
+        option.locationMode = LocationClientOption.LocationMode.Hight_Accuracy
+        option.setCoorType("bd09ll")
+        option.setScanSpan(1000)
+        option.isOpenGps = true
+        option.setIsNeedLocationPoiList(true)
+        option.setIsNeedAddress(true)
+        option.isLocationNotify = true
+        //设置是否在stop的时候杀死这个进程，默认（建议）不杀死，即setIgnoreKillProcess(true)
+        option.setIgnoreKillProcess(true)
+        //可选，设置是否收集Crash信息，默认收集，即参数为false
+        option.SetIgnoreCacheException(false)
+        //如果设置了该接口，首次启动定位时，会先判断当前WiFi是否超出有效期，若超出有效期，会先重新扫描WiFi，然后定位
+        option.setWifiCacheTimeOut(5 * 60 * 1000)
+        //可选，设置是否需要过滤GPS仿真结果，默认需要，即参数为false
+        option.setEnableSimulateGps(false)
+
+        mLocationClient = LocationClient(context)
+        val bdAbstractLocationListener = MyLocationListener()
+        mLocationClient.registerLocationListener(bdAbstractLocationListener)
+        mLocationClient.locOption = option
+        mLocationClient.start()
 
 
         rootView.setOnClickListener({
@@ -229,11 +327,12 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
                     sendAddressType -> {
                         ContentFragment.sendAddressDetail = detailAddress.text.toString()
                         sendAddress.text = sendAddress.text.toString() + detailAddress.text.toString()
-
+                        addMarke(ContentFragment.sendLat, ContentFragment.sendLon)
                     }
                     receiveAddressType -> {
                         ContentFragment.receiveAddressDetail = detailAddress.text.toString()
                         receiveAddress.text = receiveAddress.text.toString() + detailAddress.text.toString()
+                        addMarke(ContentFragment.receiveLat, ContentFragment.receiveLon)
                     }
                 }
                 inputAddressEt.setText("")
@@ -338,6 +437,26 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
         })
     }
 
+    fun addMarke(lat: Double, long: Double) {
+
+
+        val point = LatLng(lat, long)
+        val bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.ic_location)
+        val option = MarkerOptions()
+                .position(point)
+                .icon(bitmap)
+
+        mBaiduMap.addOverlay(option)
+
+        val mMapStatus = MapStatus.Builder()
+                .target(point)
+                .zoom(13f)
+                .build()  //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
+        val mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus)
+        mBaiduMap.setMapStatus(mMapStatusUpdate)
+
+    }
+
     fun hideInput(context: Context, view: View) {
         var inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
@@ -356,7 +475,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm {
             c.add(Calendar.DAY_OF_YEAR, 1)
             c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH), hour[options2], mintnues[options3])
         }
-        sendTime.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(c.timeInMillis).replace("-","/")
+        sendTime.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(c.timeInMillis).replace("-", "/")
         ContentFragment.sendTime = c.timeInMillis.toString()
 //        sendTime.text.toString()
     }

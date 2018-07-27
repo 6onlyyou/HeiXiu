@@ -42,7 +42,7 @@ class OrderFinishActivity : BaseActivity() {
         end.text = orderInfo.sendAddress + orderInfo.sendMapAdress
         time.text = orderInfo.sendTime
         type.text = orderInfo.name
-        weight.text = orderInfo.weight.toString() + "公斤"
+        weight.text = orderInfo.weight.toString() + "斤"
         add_money.text = "加价 " + orderInfo.addPrice+"元"
         tips.text = orderInfo.description
         recipientsame.text = "收件人姓名：" + orderInfo.receiveName
