@@ -134,7 +134,6 @@ class MainActivity : BaseActivity() {
         getPermissions()
         RxBus.getDefault().toObservable(CouponTicketBean::class.java).subscribe({
 
-
             val fragmentTransaction = supportFragmentManager.beginTransaction()
             for (i in 0 until fragments!!.size) {
                 val fragment = fragments!!.get(i)
@@ -326,6 +325,12 @@ class MainActivity : BaseActivity() {
             val fragment = fragments!!.get(i)
             if (i == position) {
                 if (fragment.isAdded) {
+                    if (fragment is HomeFragment) {
+                        fragment.onResume()
+                    }
+                    if (fragment is CommunityFragment) {
+                        fragment.onResume()
+                    }
                     fragmentTransaction.show(fragment)
                 } else {
                     fragmentTransaction.add(R.id.fl_container, fragment)

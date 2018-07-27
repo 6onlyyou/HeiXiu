@@ -181,11 +181,15 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm, Sen
         })
 
         RxBus.getDefault().toObservable(String::class.java).subscribe({
-            if (it.equals("PublishSuccess")) {
-                receiveAddress.text = ""
-                sendAddress.text = ""
-                sendTime.text = ""
-                dealParamsState()
+            try {
+                if (it.equals("PublishSuccess")) {
+                    receiveAddress.text = ""
+                    sendAddress.text = ""
+                    sendTime.text = ""
+                    dealParamsState()
+                }
+            } catch (e: Exception) {
+                Log.i("PublishSuccess", e.message + "")
             }
         }, {
             receiveAddress.text = ""
