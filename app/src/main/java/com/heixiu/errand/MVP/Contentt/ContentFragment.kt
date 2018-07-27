@@ -441,7 +441,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm, Sen
 
 
         val point = LatLng(lat, long)
-        val bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.ic_location)
+        val bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.ic_publish_location)
         val option = MarkerOptions()
                 .position(point)
                 .icon(bitmap)
