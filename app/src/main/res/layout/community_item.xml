@@ -153,6 +153,15 @@
             android:layout_width="match_parent"
             android:layout_height="162dp" />
     </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/community_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="7dp"
+            android:gravity="center_vertical">
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/community_prias"
             android:layout_width="wrap_content"
@@ -174,7 +183,22 @@
                 android:textColor="@color/gray_text"
                 android:textSize="10sp"
                 android:text="393"/>
+            <ImageView
+                android:id="@+id/item_msg"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginLeft="20dp"
+                android:src="@mipmap/comment" />
+            <TextView
+                android:layout_marginLeft="7dp"
+                android:id="@+id/Tv_communitymsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray_text"
+                android:textSize="10sp"
+                android:text="393"/>
         </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -97,7 +97,6 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
                 gridview.setNumColumns(3);
                 col = 3;
             }
-
             gridview.setNumColumns(3);
             gridview.setAdapter(new MyGridViewAdapter(mContext, num, col, item.getContentImgList()));
 
@@ -123,7 +122,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
             }
         }
 
-        helper.setText(R.id.video_list_item_text_context, item.getContent()).setText(R.id.Tv_communityPraise, item.getAdmireCount() + "");
+        helper.setText(R.id.video_list_item_text_context, item.getContent()).setText(R.id.Tv_communityPraise, item.getAdmireCount() + "").setText(R.id.Tv_communitymsg, item.getCommentCount() + "");
         //Glide加载图片  并且支持gif动图
         if (nickname.equals("")) {
             helper.setText(R.id.Iv_communityNickName, item.getNickName());
@@ -232,6 +231,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
                         @Override
                         public void accept(String s) throws Exception {
                             ToastUtils.showLong(s);
+                            Et_comment.setText("");
                         }
                     }, new Consumer<Throwable>() {
                         @Override

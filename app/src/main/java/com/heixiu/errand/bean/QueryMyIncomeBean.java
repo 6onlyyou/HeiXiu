@@ -12,8 +12,18 @@ public class QueryMyIncomeBean  implements Serializable{
     private String userId;
     private String relaName;
     private String cardNumId;
+    private String amountAvailable;
+
     private String cardStatus;
     private Double amountDay;
+
+    public String getAmountAvailable() {
+        return amountAvailable;
+    }
+
+    public void setAmountAvailable(String amountAvailable) {
+        this.amountAvailable = amountAvailable;
+    }
 
     public Double getAmountDay() {
         return amountDay;
