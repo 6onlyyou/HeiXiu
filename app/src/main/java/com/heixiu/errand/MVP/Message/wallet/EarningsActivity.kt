@@ -51,7 +51,7 @@ class EarningsActivity : BaseActivity() {
            if(it.amountAll==null){
                earn_menoy.text = "￥0"
            }else{
-               earn_menoy.text = "￥"+it.amountAll.toString()
+               earn_menoy.text = "￥"+it.amountAvailable.toString()
            }
             queryMyIncomeBean = it
 

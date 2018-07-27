@@ -71,6 +71,9 @@ class PhoneLoginFragment : BaseFragment() {
         Tv_sign.setOnClickListener {
             startActivity(RegisterActivity::class.java)
         }
+        change_password.setOnClickListener{
+            startActivity(RegisterActivity::class.java)
+        }
     }
 
     // 请求验证码，其中country表示国家代码，如“86”；phone表示手机号码，如“13800138000”
