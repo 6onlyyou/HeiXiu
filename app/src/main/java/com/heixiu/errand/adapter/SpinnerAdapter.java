@@ -69,17 +69,6 @@ public class SpinnerAdapter extends BaseAdapter {
         return convertView;
     }
 
-//    @Override
-//    public View getDropDownView(int position, View convertView,
-//                                ViewGroup parent) {
-//        View view = LayoutInflater.from(mContext).inflate(R.layout.spinner_item_layout, null);
-//        TextView label = (TextView) view.findViewById(R.id.spinner_item_label);
-//        ImageView check = (ImageView) view.findViewById(R.id.spinner_item_checked_image);
-////        label.setText(gradeList.get(position));
-//
-//        return view;
-//    }
-
 
     private static class ViewHodler {
         TextView mTextView;

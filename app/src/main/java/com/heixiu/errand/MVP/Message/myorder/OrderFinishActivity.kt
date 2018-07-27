@@ -43,12 +43,11 @@ class OrderFinishActivity : BaseActivity() {
         time.text = orderInfo.sendTime
         type.text = orderInfo.name
         weight.text = orderInfo.weight.toString() + "斤"
-        add_money.text = "加价 " + orderInfo.addPrice+"元"
+        add_money.text = "加价 " + orderInfo.addPrice + "元"
         tips.text = orderInfo.description
         recipientsame.text = "收件人姓名：" + orderInfo.receiveName
         recipientsNum.text = "收件人电话：" + orderInfo.receiveNum
-        courierNum.text = "快递员电话：" + orderInfo.courierNum
-        price.text = orderInfo.payment.toString()+"元"
+        price.text = orderInfo.payment.toString() + "元"
 //        receiveName.text = orderInfo.receiveName
 
         when (orderInfo.orderStatus) {
@@ -130,6 +129,7 @@ class OrderFinishActivity : BaseActivity() {
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryOneOrderInfo(orderInfo.orderNum))
                 .subscribe({
                     if (it.recieveUserInfo != null) {
+                        courierNum.text = "快递员电话：" + it.recieveUserInfo.userId
                         GlideUtil.load(this@OrderFinishActivity, it.recieveUserInfo.userImg + "", sendAva)
                         receiveName.text = it.recieveUserInfo.nickName
                     }
