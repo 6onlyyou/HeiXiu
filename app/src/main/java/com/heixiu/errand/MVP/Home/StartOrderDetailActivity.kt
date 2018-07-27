@@ -49,7 +49,7 @@ class StartOrderDetailActivity : BaseActivity() {
 //             RongIM.getInstance().startPrivateChat(this, orderInfo!!.userId.toString(), orderInfo!!.receiveName)
             RongIM.getInstance().setMessageAttachedUserInfo(true)
             RongIM.getInstance().setCurrentUserInfo(UserInfo(SPUtil.getString("userid"), SPUtil.getString("nickname"), Uri.parse(SPUtil.getString("headurl").toString())))
-            RongIM.getInstance().startPrivateChat(this, orderInfo!!.userId.toString(), orderInfo!!.receiveName)
+            RongIM.getInstance().startPrivateChat(this, orderInfo!!.userId.toString(), orderInfo!!.nickName)
 
         })
 
