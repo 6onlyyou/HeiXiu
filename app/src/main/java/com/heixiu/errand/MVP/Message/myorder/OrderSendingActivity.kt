@@ -68,7 +68,7 @@ class OrderSendingActivity : BaseActivity() {
         message.setOnClickListener {
             RongIM.getInstance().setMessageAttachedUserInfo(true)
             RongIM.getInstance().setCurrentUserInfo(UserInfo(SPUtil.getString("userid"), SPUtil.getString("nickname"), Uri.parse(SPUtil.getString("headurl").toString())))
-            RongIM.getInstance().startPrivateChat(this, "18757161476", orderInfo.receiveName)
+            RongIM.getInstance().startPrivateChat(this,  orderInfo.recieveUserInfo.userId, orderInfo.recieveUserInfo.nickName)
         }
 
         order_finish.setOnClickListener({
