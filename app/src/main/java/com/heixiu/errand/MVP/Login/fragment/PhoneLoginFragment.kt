@@ -15,6 +15,7 @@ import com.heixiu.errand.utils.CountDownTimerUtils
 import kotlinx.android.synthetic.main.fragment_phone_login.*
 import cn.smssdk.SMSSDK.RESULT_COMPLETE
 import com.fushuaige.common.utils.ToastUtils
+import com.heixiu.errand.MVP.Login.ChangPassActivity
 import com.heixiu.errand.MVP.Login.RegisterActivity
 import com.heixiu.errand.MainActivity
 import com.heixiu.errand.net.RetrofitFactory
@@ -58,6 +59,9 @@ class PhoneLoginFragment : BaseFragment() {
                 sendCode("86", Et_phone.text.toString())
             }
         }
+        change_password.setOnClickListener {
+            startActivity(ChangPassActivity::class.java)
+        }
         Bt_login.setOnClickListener {
 
 
@@ -71,9 +75,6 @@ class PhoneLoginFragment : BaseFragment() {
         Tv_sign.setOnClickListener {
             startActivity(RegisterActivity::class.java)
         }
-        change_password.setOnClickListener{
-            startActivity(RegisterActivity::class.java)
-        }
     }
 
     // 请求验证码，其中country表示国家代码，如“86”；phone表示手机号码，如“13800138000”
@@ -82,8 +83,10 @@ class PhoneLoginFragment : BaseFragment() {
         SMSSDK.registerEventHandler(object : EventHandler() {
             override fun afterEvent(event: Int, result: Int, data: Any) {
                 if (result == SMSSDK.RESULT_COMPLETE) {
-                    mCountDownTimerUtils!!.start()
-                    // 请注意，此时只是完成了发送验证码的请求，验证码短信还需要几秒钟之后才送达
+                    if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
+                        mCountDownTimerUtils!!.start()
+                        // 请注意，此时只是完成了发送验证码的请求，验证码短信还需要几秒钟之后才送达
+                    }
                 } else {
 
                     handler.sendEmptyMessage(2);
@@ -100,16 +103,17 @@ class PhoneLoginFragment : BaseFragment() {
         SMSSDK.registerEventHandler(object : EventHandler() {
             override fun afterEvent(event: Int, result: Int, data: Any?) {
                 if (result == SMSSDK.RESULT_COMPLETE) {
-                    RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().loginByPhone(Et_phone.text.toString(), SPUtil.getString("city").toString())).subscribe({
-                        SPUtil.saveString("token", it.token)
-                        SPUtil.saveString("userid",Et_phone.text.toString())
-                        SPUtil.saveString("rongyun_token",it.rongyun_token)
-                        startActivity(MainActivity::class.java)
-                        activity?.finish()
-                    }, {
-                        ToastUtils.showLong(it.message)
-                    })
-
+                    if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+                        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().loginByPhone(Et_phone.text.toString(), SPUtil.getString("city").toString())).subscribe({
+                            SPUtil.saveString("token", it.token)
+                            SPUtil.saveString("userid", Et_phone.text.toString())
+                            SPUtil.saveString("rongyun_token", it.rongyun_token)
+                            startActivity(MainActivity::class.java)
+                            activity?.finish()
+                        }, {
+                            ToastUtils.showLong(it.message)
+                        })
+                    }
                 } else {
                     handler.sendEmptyMessage(1)
                 }

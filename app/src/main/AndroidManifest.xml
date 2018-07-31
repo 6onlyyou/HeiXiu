@@ -214,6 +214,7 @@
             android:name="RONG_CLOUD_APP_KEY"
             android:value="bmdehs6pbr26s" />
 
+        <activity android:name=".MVP.Login.ChangPassActivity" />
         <activity android:name=".MVP.Login.LoginActivity" />
         <activity android:name=".MVP.Message.MyTaskActicity" />
         <activity android:name=".MVP.Message.EditProfileActivity" />

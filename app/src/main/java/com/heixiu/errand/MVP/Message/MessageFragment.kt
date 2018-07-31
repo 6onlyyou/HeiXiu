@@ -35,11 +35,11 @@ class MessageFragment : BaseFragment() {
 
     override fun createView(inflater: LayoutInflater?, container: ViewGroup?): View {
         return inflater!!.inflate(R.layout.fragment_message, container, false)
-        initRongMessage()
+
     }
 
     override fun initListener() {
-
+        initRongMessage()
         message_hard.setOnClickListener {
             startActivity(PersonalPageActivity::class.java)
         }
