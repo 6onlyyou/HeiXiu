@@ -244,7 +244,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm, Sen
                 val ll = LatLng(location.latitude,
                         location.longitude)
                 val builder = MapStatus.Builder()
-                builder.target(ll).zoom(13.0f)
+                builder.target(ll).zoom(14.0f)
                 mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()))
             }
         }
@@ -332,6 +332,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm, Sen
                         ContentFragment.sendAddressDetail = detailAddress.text.toString()
                         sendAddress.text = sendAddress.text.toString() + detailAddress.text.toString()
                         addMarke(ContentFragment.sendLat, ContentFragment.sendLon)
+                        addLine()
                     }
                     receiveAddressType -> {
                         ContentFragment.receiveAddressDetail = detailAddress.text.toString()
@@ -358,10 +359,14 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm, Sen
         })
         //送货地址
         sendAddress.setOnClickListener({
-            isChooseAddressLocation = false
-            inputAddressEt.hint = "送货地址"
-            addressType = sendAddressType
-            addressLayout.visibility = View.VISIBLE
+            if (ContentFragment.receiveAddress.isEmpty()) {
+                ToastUtils.showShort("请先选择取货地址")
+            } else {
+                isChooseAddressLocation = false
+                inputAddressEt.hint = "送货地址"
+                addressType = sendAddressType
+                addressLayout.visibility = View.VISIBLE
+            }
         })
         cancel.setOnClickListener({
             addressLayout.visibility = View.GONE
@@ -441,8 +446,26 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm, Sen
         })
     }
 
-    fun addMarke(lat: Double, long: Double) {
+    var mPolyline: Polyline? = null
+    private fun addLine() {
+        //构建折线点坐标
 
+        mPolyline?.remove()
+
+        var p1: LatLng = LatLng(ContentFragment.receiveLat, ContentFragment.receiveLon)
+        var p2: LatLng = LatLng(ContentFragment.sendLat, ContentFragment.sendLon)
+        var points: ArrayList<LatLng> = ArrayList()
+        points.add(p1)
+        points.add(p2)
+
+        //绘制折线
+        var ooPolyline: OverlayOptions = PolylineOptions().width(10)
+                .color(R.color.rad_color).points(points)
+
+        mPolyline = mBaiduMap.addOverlay(ooPolyline) as Polyline
+    }
+
+    fun addMarke(lat: Double, long: Double) {
 
         val point = LatLng(lat, long)
         val bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.ic_publish_location)
@@ -454,7 +477,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm, Sen
 
         val mMapStatus = MapStatus.Builder()
                 .target(point)
-                .zoom(13f)
+                .zoom(14f)
                 .build()  //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
         val mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus)
         mBaiduMap.setMapStatus(mMapStatusUpdate)
