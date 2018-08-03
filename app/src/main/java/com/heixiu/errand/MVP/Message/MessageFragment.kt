@@ -34,12 +34,13 @@ class MessageFragment : BaseFragment() {
     }
 
     override fun createView(inflater: LayoutInflater?, container: ViewGroup?): View {
+        initRongMessage()
         return inflater!!.inflate(R.layout.fragment_message, container, false)
 
     }
 
     override fun initListener() {
-        initRongMessage()
+
         message_hard.setOnClickListener {
             startActivity(PersonalPageActivity::class.java)
         }
@@ -106,7 +107,7 @@ class MessageFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
 
-        if (SPUtil.getString("userid").equals("") || SPUtil.getString("userid").equals("1")) {
+        if (SPUtil.getString("userid").equals("") ) {
             message_tadayRank.text = ""
             message_todayMenoy.text = ""
             message_friendRank.text = ""
