@@ -146,6 +146,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
                 orderInfo.sendMapAdress,
                 orderInfo.receiveAddress,
                 orderInfo.recieveMapAdress,
+                orderInfo.couponId.toString(),
                 orderInfo.sendTime,
                 orderInfo.name,
                 orderInfo.weight,
