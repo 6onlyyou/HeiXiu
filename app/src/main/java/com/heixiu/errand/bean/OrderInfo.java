@@ -53,6 +53,7 @@ public class OrderInfo implements Serializable {
     private int payment;
     private String paymentType;
     private int addPrice;
+    private int orderPay;
     private int supportPrice;
     private String orderStatus;
     private String paymentTime;
@@ -71,6 +72,13 @@ public class OrderInfo implements Serializable {
     private long createTime;
     private long updateTime;
 
+    public int getOrderPay() {
+        return orderPay;
+    }
+
+    public void setOrderPay(int orderPay) {
+        this.orderPay = orderPay;
+    }
 
     private int start;
     private int length;
