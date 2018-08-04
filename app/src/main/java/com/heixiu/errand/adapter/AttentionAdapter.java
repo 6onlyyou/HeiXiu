@@ -42,7 +42,7 @@ public class AttentionAdapter extends BaseQuickAdapter<MyAttentionBean> {
     @Override
     protected void convert(final BaseViewHolder helper, final MyAttentionBean item) {
 
-        helper.setText(R.id.fans_nickname, item.getUserName());
+        helper.setText(R.id.fans_nickname, item.getNickName());
         final Button fans_attention = (Button) helper.getView(R.id.fans_attention);
         fans_attention.setOnClickListener(new View.OnClickListener() {
             @Override
