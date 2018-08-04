@@ -33,7 +33,7 @@
         <item name="android:windowIsFloating">true</item>
     </style>
     <style name="BottomDialogs" parent="@android:style/Theme.Dialog">
-        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
         <!-- 背景透明 -->
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>
