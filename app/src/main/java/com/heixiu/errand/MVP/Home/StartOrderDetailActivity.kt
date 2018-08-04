@@ -43,7 +43,7 @@ class StartOrderDetailActivity : BaseActivity() {
         recipientsNum.text = "收件人电话：" + orderInfo!!.receiveNum
         courierNum.text = "快递员电话：" + orderInfo!!.courierNum
         receiveName.text = orderInfo?.receiveName
-        price.text = orderInfo?.payment.toString() + "元"
+        price.text = orderInfo?.orderPay.toString() + "元"
         message.setOnClickListener({
             //            ToastUtils.showLong(orderInfo!!.userId.toString())
 //             RongIM.getInstance().startPrivateChat(this, orderInfo!!.userId.toString(), orderInfo!!.receiveName)

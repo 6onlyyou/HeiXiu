@@ -44,7 +44,7 @@ class OrderDetailActivity : AppCompatActivity() {
         type.text = orderInfo.name
         weight.text = orderInfo.weight.toString() + "斤"
         add_money.text = orderInfo.addPrice.toString() + "元"
-        price.text = "总价" + orderInfo.payment
+        price.text = "总价" + orderInfo.orderPay +"元"
         tips.text = orderInfo.description
         recipientsame.text = orderInfo.receiveName
         recipientsNum.text = orderInfo.receiveNum

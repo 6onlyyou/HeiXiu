@@ -116,12 +116,17 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
                             orderInfo.payment = realPrice
                             payment.text = "实际付款金额" + realPrice + "元"
                         }
+
+                        orderInfo.orderPay = orderInfo.payment + ContentFragment.ticketBean!!.couponPrice
                         ticket.text = "优惠券金额：" + ContentFragment.ticketBean?.couponPrice!!.toString() + "元"
                     } else {
                         orderInfo.payment = it.price
                         payment.text = "实际付款金额" + it.price + "元"
                         ticket.text = "无优惠券"
+                        orderInfo.orderPay = orderInfo.payment
+
                     }
+
                     canSubmit = true
                 }, {
                     canSubmit = false
@@ -139,6 +144,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             return
         }
+        var orderPay: Int = 0
 
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().createOrder(
                 SPUtil.getString("userid"),
@@ -157,6 +163,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
                 "12615361526",
                 orderInfo.supportPrice,
                 orderInfo.payment,
+                orderInfo.orderPay,
                 orderInfo.originsLatitude.toString(),
                 orderInfo.originsLongitude.toString(),
                 orderInfo.destinationsLatitude.toString(),
