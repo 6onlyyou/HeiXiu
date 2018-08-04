@@ -12,9 +12,18 @@ public class MyAttentionBean implements Serializable {
     private int id;
     private String followId;
     private String userName;
+    private String nickName;
     private String userImg;
     private Long createTime;
     private Long updateTime;
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
 
     public String getUserId() {
         return userId;
