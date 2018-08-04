@@ -2,6 +2,7 @@ package com.heixiu.errand.MVP.Message
 
 
 import android.content.Intent
+import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -22,8 +23,6 @@ import io.rong.imkit.RongIM
 import io.rong.imlib.model.Conversation
 import kotlinx.android.synthetic.main.fragment_message.*
 import java.util.*
-import android.databinding.adapters.TextViewBindingAdapter.setText
-import android.os.Bundle
 
 
 class MessageFragment : BaseFragment() {
@@ -81,6 +80,7 @@ class MessageFragment : BaseFragment() {
     override fun initData() {
 
     }
+
     /**
      * 融云消息接收，及初始化
      */
@@ -97,17 +97,21 @@ class MessageFragment : BaseFragment() {
     }
 
     var mCountListener: RongIM.OnReceiveUnreadCountChangedListener = RongIM.OnReceiveUnreadCountChangedListener { count ->
+        if (message_count == null) {
+            return@OnReceiveUnreadCountChangedListener
+        }
         if (count == 0) {
-            message_count.setVisibility(View.GONE)
-        } else if (count > 0 && count < 100) {
-            message_count.setVisibility(View.VISIBLE)
-            message_count.setText(count.toString() + "")
+            message_count.visibility = View.GONE
+        } else if (count in 1..99) {
+            message_count.visibility = View.VISIBLE
+            message_count.text = count.toString() + ""
         }
     }
+
     override fun onResume() {
         super.onResume()
 
-        if (SPUtil.getString("userid").equals("") ) {
+        if (SPUtil.getString("userid").equals("")) {
             message_tadayRank.text = ""
             message_todayMenoy.text = ""
             message_friendRank.text = ""
@@ -115,24 +119,24 @@ class MessageFragment : BaseFragment() {
                     .load(R.mipmap.defaulthead)
                     .crossFade()
                     .placeholder(R.mipmap.defaulthead)
-                    .into(message_hard);
+                    .into(message_hard)
         } else {
             Glide.with(this)
                     .load(SPUtil.getString("headurl"))
                     .crossFade()
                     .placeholder(R.mipmap.defaulthead)
-                    .into(message_hard);
+                    .into(message_hard)
             RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryPersonal(SPUtil.getString("userid"), SPUtil.getString("city"))).subscribe({
                 queryPersonalBean = it
                 message_tadayRank.text = it.platRank.toString()
                 message_todayMenoy.text = it.dayAmount.toString()
                 message_friendRank.text = it.friendRank.toString()
-                if(!SPUtil.getString("headurl").equals("")) {
+                if (!SPUtil.getString("headurl").equals("")) {
                     Glide.with(this)
                             .load(it.userImg)
                             .crossFade()
                             .placeholder(R.mipmap.defaulthead)
-                            .into(message_hard);
+                            .into(message_hard)
                 }
             }, {
                 ToastUtils.showLong(it.message)
