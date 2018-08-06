@@ -242,8 +242,8 @@ public interface ApiService {
      *
      * @return
      */
-    @POST("coupon/list")
-    Observable<ResponseBean<List<CouponTicketBean>>> couponList();
+    @POST("queryMyCoupon")
+    Observable<ResponseBean<List<CouponTicketBean>>> couponList(@Query("userId") String userId);
 
     /**
      * 我发布的

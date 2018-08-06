@@ -428,7 +428,7 @@ class ContentFragment : BaseFragment(), InputAddressDialog.OnAddressConfirm, Sen
                     orderInfo.originsLongitude = ContentFragment.receiveLon
                     orderInfo.recieveMapAdress = ContentFragment.receiveAddressDetail
                     orderInfo.sendMapAdress = ContentFragment.sendAddressDetail
-                    orderInfo.couponId =ContentFragment.ticketBean?.id
+                    orderInfo.couponId =ContentFragment.ticketBean?.currentId
 
                     var distance = DistanceUtil.getDistance(
                             LatLng(orderInfo.destinationsLatitude, orderInfo.destinationsLongitude),

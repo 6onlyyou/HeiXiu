@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.Event.PublishParamsChangeEvent
 import com.heixiu.errand.R
 import com.heixiu.errand.adapter.TicketAdapter
@@ -12,6 +13,7 @@ import com.heixiu.errand.bean.CouponTicketBean
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.RxBus
+import com.heixiu.errand.utils.SPUtil
 import kotlinx.android.synthetic.main.activity_ticket.*
 
 class TicketActivity : AppCompatActivity() {
@@ -41,10 +43,10 @@ class TicketActivity : AppCompatActivity() {
     }
 
     fun requestTicket() {
-        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().couponList()).subscribe({
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().couponList(SPUtil.getString("userid"))).subscribe({
             adapter.setNewData(it)
         }, {
-
+            ToastUtils.showLong(it.message)
         })
     }
 

@@ -21,17 +21,17 @@ class WithdrawActivity : BaseActivity() {
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
         queryMyIncomeBean = intent.getSerializableExtra("data") as QueryMyIncomeBean
         withdraw_tailnumber.text = queryMyIncomeBean!!.zfbId
-        if(queryMyIncomeBean!!.amountAll==null){
+        if(queryMyIncomeBean!!.amountAvailable==null){
             withdraw_allmoney.text = "0"
         }else{
-            withdraw_allmoney.text = queryMyIncomeBean!!.amountAll.toString()
+            withdraw_allmoney.text = queryMyIncomeBean!!.amountAvailable.toString()
         }
 
         withdraw_allget.setOnClickListener {
-            if(queryMyIncomeBean!!.amountAll==null){
+            if(queryMyIncomeBean!!.amountAvailable==null){
                 withdrwa_intomoeny.setText("0")
             }else{
-                withdrwa_intomoeny.setText(queryMyIncomeBean!!.amountAll.toString())
+                withdrwa_intomoeny.setText(queryMyIncomeBean!!.amountAvailable.toString())
             }
         }
     }
@@ -45,7 +45,7 @@ class WithdrawActivity : BaseActivity() {
                 return@setOnClickListener
             }
             var pieceall:Double = withdrwa_intomoeny.text.toString().toDouble()
-            if(pieceall >queryMyIncomeBean!!.amountAll){
+            if(pieceall >queryMyIncomeBean!!.amountAvailable.toInt()){
                 ToastUtils.showLong("提取金额大于拥有金额！")
                 return@setOnClickListener
             }else {

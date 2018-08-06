@@ -34,7 +34,7 @@ public class WithdrawalRecordAdapter extends BaseQuickAdapter<MyReciecedOrderBea
     @Override
     protected void convert(BaseViewHolder helper, MyReciecedOrderBean item) {
 
-        helper.setText(R.id.withdraw_numbers,"我发布的单号："+item.getOrderNum()).setText(R.id.withdraw_time, TimeUtils.getFriendlyTimeArticleByNow(item.getCreateTime(),null)).setText(R.id.withdraw_pay,item.getPayment()+"元");
+        helper.setText(R.id.withdraw_numbers,"我的单号："+item.getOrderNum()).setText(R.id.withdraw_time, TimeUtils.getFriendlyTimeArticleByNow(item.getCreateTime(),null)).setText(R.id.withdraw_pay,item.getPayment()+"元");
 //        //Glide加载图片  并且支持gif动图
 //        Glide.with(mContext)
 //                .load(item.getHeadurl())

@@ -3,9 +3,12 @@ package com.heixiu.errand
 import android.Manifest
 import android.app.AlertDialog
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
+import android.os.Handler
 import android.text.TextUtils
 import android.util.Log
+import android.view.View
 import com.baidu.location.LocationClient
 import com.baidu.location.LocationClientOption
 import com.fushuaige.common.utils.ToastUtils
@@ -29,7 +32,10 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.functions.Consumer
 import io.rong.imkit.RongIM
 import io.rong.imlib.RongIMClient
+import io.rong.imlib.model.Conversation
+import io.rong.imlib.model.UserInfo
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_message.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -114,6 +120,7 @@ class MainActivity : BaseActivity() {
                     } else {
                         SPUtil.saveString("bindzfb", it.dbSubAccount?.zfbId + "")
                     }
+                    RongIM.getInstance().setCurrentUserInfo(UserInfo(SPUtil.getString("userid"), SPUtil.getString("nickname"), Uri.parse(SPUtil.getString("headurl").toString())))
                 }
             }, {
                 ToastUtils.showLong(it.message)
@@ -123,7 +130,7 @@ class MainActivity : BaseActivity() {
 
     override fun loadViewLayout() {
         setContentView(R.layout.activity_main)
-
+        initRongMessage()
         mLocationClient = LocationClient(applicationContext)
         //声明LocationClient类
         mLocationClient?.registerLocationListener(myListener)
@@ -224,7 +231,30 @@ class MainActivity : BaseActivity() {
         fragments!!.add(CommunityFragment())
         fragments!!.add(MessageFragment())
     }
+    /**
+     * 融云消息接收，及初始化
+     */
+    private fun initRongMessage() {
+        val conversationTypes = arrayOf(Conversation.ConversationType.PRIVATE, Conversation.ConversationType.DISCUSSION, Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM, Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE)
 
+        val handler = Handler()
+        handler.postDelayed({
+            RongIM.getInstance().setOnReceiveUnreadCountChangedListener(mCountListener, *conversationTypes)
+            //				RongIM.getInstance().setOnReceiveUnreadCountChangedListener(mCountListener1, Conversation.ConversationType.APP_PUBLIC_SERVICE);
+        }, 500)
+
+
+    }
+
+    var mCountListener: RongIM.OnReceiveUnreadCountChangedListener = RongIM.OnReceiveUnreadCountChangedListener { count ->
+
+        if (count == 0) {
+            main_count.visibility = View.GONE
+        } else if (count in 1..99) {
+            main_count.visibility = View.VISIBLE
+            main_count.text = count.toString() + ""
+        }
+    }
     override fun onResume() {
         super.onResume()
         getUserMessage()

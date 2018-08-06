@@ -161,18 +161,18 @@
                             <TextView
                                 android:id="@+id/info_praise"
                                 android:layout_width="wrap_content"
-                                android:layout_height="14dp"
+                                android:layout_height="17dp"
                                 android:layout_marginRight="10dp"
                                 android:drawableLeft="@mipmap/praise"
                                 android:gravity="center"
-                                android:textSize="13sp"
+                                android:textSize="15sp"
                                 android:text="234" />
 
                             <TextView
                                 android:id="@+id/info_comment"
                                 android:layout_width="wrap_content"
-                                android:layout_height="14dp"
-                                android:textSize="13sp"
+                                android:layout_height="17dp"
+                                android:textSize="15sp"
                                 android:drawableLeft="@mipmap/comment"
                                 android:gravity="center_vertical"
                                 android:text="234" />

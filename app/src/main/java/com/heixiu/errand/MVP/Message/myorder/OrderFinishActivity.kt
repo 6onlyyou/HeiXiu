@@ -129,7 +129,7 @@ class OrderFinishActivity : BaseActivity() {
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryOneOrderInfo(orderInfo.orderNum))
                 .subscribe({
                     if (it.recieveUserInfo != null) {
-                        receiverInfo.visibility = View.INVISIBLE
+                        receiverInfo.visibility = View.VISIBLE
                         courierNum.text = "快递员电话：" + it.recieveUserInfo.userId
                         GlideUtil.load(this@OrderFinishActivity, it.recieveUserInfo.userImg + "", sendAva)
                         receiveName.text = it.recieveUserInfo.nickName

@@ -172,8 +172,8 @@
 
             <ImageView
                 android:id="@+id/item_praise"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:src="@mipmap/nopraise" />
             <TextView
                 android:layout_marginLeft="7dp"
@@ -185,8 +185,8 @@
                 android:text="393"/>
             <ImageView
                 android:id="@+id/item_msg"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:layout_marginLeft="20dp"
                 android:src="@mipmap/comment" />
             <TextView
@@ -218,8 +218,8 @@
         <ImageView
             android:id="@+id/comment_send"
             android:clickable="true"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:src="@mipmap/communitysend"/>
     </LinearLayout>
         </LinearLayout>
