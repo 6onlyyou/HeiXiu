@@ -46,7 +46,14 @@ class HomeFragment : BaseFragment() {
 
     private fun requestData() {
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryCreatedOrderInfo()).subscribe({
-            homeAdapter.setData(it)
+            if (it.size > 0) {
+                homeAdapter.setData(it)
+                emptyHomeView.visibility = View.GONE
+                homeRv.visibility = View.VISIBLE
+            } else {
+                emptyHomeView.visibility = View.VISIBLE
+                homeRv.visibility = View.GONE
+            }
         }, {
             ToastUtils.showLong(it.message)
         })

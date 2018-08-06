@@ -50,6 +50,7 @@ class OrderFinishActivity : BaseActivity() {
         price.text = orderInfo.payment.toString() + "元"
 //        receiveName.text = orderInfo.receiveName
 
+
         when (orderInfo.orderStatus) {
             "0" -> {
                 orderState.text = "刚创建"
@@ -128,6 +129,7 @@ class OrderFinishActivity : BaseActivity() {
         super.onResume()
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryOneOrderInfo(orderInfo.orderNum))
                 .subscribe({
+                    orderInfo = it
                     if (it.recieveUserInfo != null) {
                         receiverInfo.visibility = View.VISIBLE
                         courierNum.text = "快递员电话：" + it.recieveUserInfo.userId
@@ -135,6 +137,10 @@ class OrderFinishActivity : BaseActivity() {
                         receiveName.text = it.recieveUserInfo.nickName
                     } else {
                         receiverInfo.visibility = View.GONE
+                    }
+
+                    if (it.userId != SPUtil.getString("userid")) {
+                        cancelOrder.visibility = View.GONE
                     }
                 }, {
 

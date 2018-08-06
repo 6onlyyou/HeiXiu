@@ -2,10 +2,9 @@ package com.heixiu.errand.adapter;
 
 import android.view.View;
 
-import com.heixiu.errand.MVP.Community.entity.DynamicEntity;
+import com.heixiu.errand.MVP.Message.myorder.OrderFinishActivity;
 import com.heixiu.errand.R;
-import com.heixiu.errand.bean.MyPublishOrderBean;
-import com.heixiu.errand.bean.MyReciecedOrderBean;
+import com.heixiu.errand.bean.OrderInfo;
 import com.heixiu.errand.utils.TimeUtils;
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter;
 import com.xiaochao.lcrapiddeveloplibrary.BaseViewHolder;
@@ -17,23 +16,28 @@ import java.util.List;
  * Data：2018/4/12-10:44
  * Author: fushuaige
  */
-public class WithdrawalRecordAdapter extends BaseQuickAdapter<MyReciecedOrderBean> {
+public class WithdrawalRecordAdapter extends BaseQuickAdapter<OrderInfo> {
 
-    public WithdrawalRecordAdapter(int layoutResId, List<MyReciecedOrderBean> data) {
+    public WithdrawalRecordAdapter(int layoutResId, List<OrderInfo> data) {
         super(layoutResId, data);
     }
 
-    public WithdrawalRecordAdapter(List<MyReciecedOrderBean> data) {
-        super(R.layout.item_withdrawalrecord,data);
+    public WithdrawalRecordAdapter(List<OrderInfo> data) {
+        super(R.layout.item_withdrawalrecord, data);
     }
 
-    public WithdrawalRecordAdapter(View contentView, List<MyReciecedOrderBean> data) {
+    public WithdrawalRecordAdapter(View contentView, List<OrderInfo> data) {
         super(contentView, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, MyReciecedOrderBean item) {
-
+    protected void convert(BaseViewHolder helper, final OrderInfo item) {
+        helper.getView(R.id.recordRoot).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OrderFinishActivity.Companion.startSelf(mContext, item);
+            }
+        });
         helper.setText(R.id.withdraw_numbers,"我的单号："+item.getOrderNum()).setText(R.id.withdraw_time, TimeUtils.getFriendlyTimeArticleByNow(item.getCreateTime(),null)).setText(R.id.withdraw_pay,item.getPayment()+"元");
 //        //Glide加载图片  并且支持gif动图
 //        Glide.with(mContext)

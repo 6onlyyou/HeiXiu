@@ -5,7 +5,6 @@ import android.widget.Button;
 
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.DistanceUtil;
-import com.heixiu.errand.MVP.Home.OrderDetailActivity;
 import com.heixiu.errand.MVP.Home.StartOrderDetailActivity;
 import com.heixiu.errand.MyApplication.MyApplication;
 import com.heixiu.errand.R;
@@ -40,29 +39,29 @@ public class MyTaskAdapter extends BaseQuickAdapter<OrderInfo> {
         String stuts = null;
         helper.setText(R.id.Tv_startingPart, item.getSendAddress()).setText(R.id.Tv_endingPart, item.getReceiveAddress());
         //Glide加载图片  并且支持gif动图
-        helper.setText(R.id.Tv_Time, "送达时间"+item.getSendTime());
-        switch (item.getOrderStatus()){
+        helper.setText(R.id.Tv_Time, "送达时间" + item.getSendTime());
+        switch (item.getOrderStatus()) {
             case "0":
-                stuts ="刚创建";
+                stuts = "刚创建";
                 break;
             case "1":
-                stuts ="已接单";
+                stuts = "已接单";
                 break;
             case "2":
-                stuts ="已取货";
+                stuts = "已取货";
                 break;
             case "3":
-                stuts ="已送达";
+                stuts = "已送达";
                 break;
             case "4":
-                stuts ="完成";
+                stuts = "完成";
                 break;
-                default:
-                    stuts ="问题订单";
+            default:
+                stuts = "问题订单";
         }
         Button btnDetails;
         helper.setText(R.id.Tv_proceed, stuts);
-        if(stuts.equals("完成")){
+        if (stuts.equals("完成")) {
             helper.setText(R.id.Tv_unOrder, "订单已完成");
         }
 
@@ -73,7 +72,7 @@ public class MyTaskAdapter extends BaseQuickAdapter<OrderInfo> {
 //                Intent intent = new Intent(mContext, OrderDetailActivity.class);
 //                intent.setClass(mContext, OrderDetailActivity.class);
 //                mContext.startActivity(StartOrderDetailActivity.class,item);
-               StartOrderDetailActivity.Companion.startSelf(mContext, item);
+                StartOrderDetailActivity.Companion.startSelf(mContext, item);
 //                OrderDetailActivity.Companion.startSelf(mContext, item);
             }
         });

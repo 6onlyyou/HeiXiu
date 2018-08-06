@@ -8,23 +8,23 @@ import java.util.List;
  * Author: fushuaige
  */
 public class MyPublishOrderBean {
-    private List<MyReciecedOrderBean> myReciecedOrderInfos;
+    private List<OrderInfo> myReciecedOrderInfos;
 
-    public List<MyReciecedOrderBean> getMyReciecedOrderInfos() {
+    public List<OrderInfo> getMyReciecedOrderInfos() {
         return myReciecedOrderInfos;
     }
 
-    public void setMyReciecedOrderInfos(List<MyReciecedOrderBean> myReciecedOrderInfos) {
+    public void setMyReciecedOrderInfos(List<OrderInfo> myReciecedOrderInfos) {
         this.myReciecedOrderInfos = myReciecedOrderInfos;
     }
 
-    public List<MyReciecedOrderBean> getMyPublishOrderInfos() {
+    public List<OrderInfo> getMyPublishOrderInfos() {
         return myPublishOrderInfos;
     }
 
-    public void setMyPublishOrderInfos(List<MyReciecedOrderBean> myPublishOrderInfos) {
+    public void setMyPublishOrderInfos(List<OrderInfo> myPublishOrderInfos) {
         this.myPublishOrderInfos = myPublishOrderInfos;
     }
 
-    private List<MyReciecedOrderBean> myPublishOrderInfos;
+    private List<OrderInfo> myPublishOrderInfos;
 }
