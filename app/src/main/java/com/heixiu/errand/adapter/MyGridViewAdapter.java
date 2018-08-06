@@ -28,7 +28,6 @@ import java.util.List;
 
 public class MyGridViewAdapter extends BaseAdapter {
     Context context;
-//    public DynamicBean dynamicBean;
     int num;
     int col;
     List<String> list;
@@ -70,20 +69,18 @@ public class MyGridViewAdapter extends BaseAdapter {
         width = width / col;// 对当前的列数进行设置imgView的宽度
         height = width;
         img.setLayoutParams(new AbsListView.LayoutParams(width, height));
-        for(int i=0;i<list.size();i++){
-            Glide.with(img.getContext())
-                    .load(list.get(i))
-                    .crossFade()
-                    .placeholder(R.mipmap.defaulthead)
-                    .into(img);
+                Glide.with(img.getContext())
+                        .load(list.get(position))
+                        .crossFade()
+                        .placeholder(R.mipmap.defaulthead)
+                        .into(img);
+
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     DlgForBigPhto(list.get(position));
                 }
             });
-        }
-
         return img;
     }
     private void DlgForBigPhto(final String url) {
@@ -102,12 +99,6 @@ public class MyGridViewAdapter extends BaseAdapter {
                         .load(url)
                         .crossFade()
                         .into(dialog6IvPic);
-//				WindowManager wm = getWindowManager();
-//				int nScreenWidth = wm.getDefaultDisplay().getWidth();
-//				int nWidth = nScreenWidth;
-//				int nHeight = nWidth;
-//				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(nWidth, nHeight);
-//				pDialogView.dialog6IvPic.setLayoutParams(params);
             }
             @Override
             public void SetOnClickListener(View v, DialogShowPic pDialogMy) {
