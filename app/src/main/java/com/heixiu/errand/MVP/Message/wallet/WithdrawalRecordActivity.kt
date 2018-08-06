@@ -1,7 +1,5 @@
 package com.heixiu.errand.MVP.Message.wallet
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -9,15 +7,15 @@ import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.R
 import com.heixiu.errand.adapter.WithdrawalRecordAdapter
 import com.heixiu.errand.base.BaseActivity
-import com.heixiu.errand.bean.MyReciecedOrderBean
+import com.heixiu.errand.bean.OrderInfo
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.SPUtil
 import kotlinx.android.synthetic.main.activity_withdrawal_record.*
 
 class WithdrawalRecordActivity : BaseActivity() {
-    var myReciecedOrderBean: List<MyReciecedOrderBean> = ArrayList()
-    var myReciecedOrderBean2: List<MyReciecedOrderBean> = ArrayList()
+    var myReciecedOrderBean2: List<OrderInfo> = ArrayList()
+    var myReciecedOrderBean: List<OrderInfo> = ArrayList()
     var withdrawalRecordAdapter: WithdrawalRecordAdapter? = null
     override fun loadViewLayout() {
         setContentView(R.layout.activity_withdrawal_record)
@@ -27,10 +25,9 @@ class WithdrawalRecordActivity : BaseActivity() {
 
         my_doll_rv.layoutManager = LinearLayoutManager(mContext)
 
-        val list = ArrayList<MyReciecedOrderBean>()
+        val list = ArrayList<OrderInfo>()
         withdrawalRecordAdapter = WithdrawalRecordAdapter(list)
         my_doll_rv.adapter = withdrawalRecordAdapter
-
 
         dollStateTb.addTab(dollStateTb.newTab().setText("任务交易").setTag("1"))
         dollStateTb.addTab(dollStateTb.newTab().setText("接单交易").setTag("2"))
@@ -69,6 +66,30 @@ class WithdrawalRecordActivity : BaseActivity() {
     }
 
     override fun findViewById() {
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryMyTransactionRecords(SPUtil.getString("userid"))).subscribe({
+
+            val orderInfoIterator = it.myPublishOrderInfos.iterator()
+            while (orderInfoIterator.hasNext()) {
+                val orderInfo = orderInfoIterator.next()
+                if (orderInfo.orderStatus == "-1") {
+                    orderInfoIterator.remove()
+                }
+            }
+
+            val myReciecedOrderInfos = it.myReciecedOrderInfos.iterator()
+            while (myReciecedOrderInfos.hasNext()) {
+                val orderInfo = myReciecedOrderInfos.next()
+                if (orderInfo.orderStatus == "-1") {
+                    myReciecedOrderInfos.remove()
+                }
+            }
+
+            myReciecedOrderBean = it.myPublishOrderInfos
+            myReciecedOrderBean2 = it.myReciecedOrderInfos
+            withdrawalRecordAdapter?.setNewData(myReciecedOrderBean)
+        }, {
+            ToastUtils.showLong(it.message)
+        })
     }
 
     override fun setListener() {
@@ -77,15 +98,4 @@ class WithdrawalRecordActivity : BaseActivity() {
     override fun processLogic() {
     }
 
-
-    override fun onResume() {
-        super.onResume()
-        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryMyTransactionRecords(SPUtil.getString("userid"))).subscribe({
-            myReciecedOrderBean = it.myPublishOrderInfos
-            myReciecedOrderBean2 = it.myReciecedOrderInfos
-            withdrawalRecordAdapter?.setNewData(myReciecedOrderBean)
-        }, {
-            ToastUtils.showLong(it.message)
-        })
-    }
 }

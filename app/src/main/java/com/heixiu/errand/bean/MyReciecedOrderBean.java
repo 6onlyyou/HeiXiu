@@ -6,7 +6,7 @@ package com.heixiu.errand.bean;
  * Author: fushuaige
  */
 public class MyReciecedOrderBean {
-private String id;
+    private String id;
     private String orderNum;
     private String userId;
     private String receiveId;
