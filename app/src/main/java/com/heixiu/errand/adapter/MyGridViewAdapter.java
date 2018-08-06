@@ -63,13 +63,14 @@ public class MyGridViewAdapter extends BaseAdapter {
         ImageView img = new ImageView(context);
         img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         img.setPadding(16,0,16,0);
+
         int width = WindowSize.getWidth(context)-50;// 获取屏幕宽度
         Log.i("tag", "width" + width);
         int height = 0;
         width = width / col;// 对当前的列数进行设置imgView的宽度
         height = width;
+        img.setLayoutParams(new AbsListView.LayoutParams(width, height));
         for(int i=0;i<list.size();i++){
-            img.setLayoutParams(new AbsListView.LayoutParams(width, height));
             Glide.with(img.getContext())
                     .load(list.get(i))
                     .crossFade()

@@ -3,17 +3,18 @@ package com.heixiu.errand.MVP.Message
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Environment
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.text.TextUtils
-import android.view.View
-import android.widget.EditText
-import android.widget.Toast
+import android.view.*
+import android.widget.*
 import com.bumptech.glide.Glide
 import com.fushuaige.common.utils.GlideUtil
 import com.fushuaige.common.utils.ToastUtils
@@ -22,6 +23,8 @@ import com.heixiu.errand.MVP.Seting.AuthenticationActivity
 import com.heixiu.errand.MyApplication.MyApplication
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseActivity
+import com.heixiu.errand.dialog.DialogShowPic
+import com.heixiu.errand.dialog.DialogShowPicP
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.GlideLoader
@@ -42,7 +45,53 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class EditProfileActivity : BaseActivity() {
+class EditProfileActivity : BaseActivity() , View.OnClickListener{
+    private fun DlgForBigPhto(url: String) {
+        val pDialogMy = DialogShowPic(this)
+        pDialogMy.SetStyle(R.style.myDialogTheme1)
+        pDialogMy.InitDialog(object : DialogShowPicP {
+            lateinit var dialog6LlBckgrnd: LinearLayout
+            lateinit var dialog6IvPic: ImageView
+            override fun SetDialogView(pDialog: Dialog, pDialogMy: DialogShowPic) {
+                pDialog.setContentView(R.layout.show_pic)
+                dialog6LlBckgrnd = pDialog.findViewById<View>(R.id.dialog6LlBckgrnd) as LinearLayout
+                dialog6LlBckgrnd.setOnClickListener(pDialogMy)
+                dialog6IvPic = pDialog.findViewById<View>(R.id.dialog6IvPic) as ImageView
+                Glide.with(dialog6IvPic.context)
+                        .load(url)
+                        .crossFade()
+                        .into(dialog6IvPic)
+                //				WindowManager wm = getWindowManager();
+                //				int nScreenWidth = wm.getDefaultDisplay().getWidth();
+                //				int nWidth = nScreenWidth;
+                //				int nHeight = nWidth;
+                //				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(nWidth, nHeight);
+                //				pDialogView.dialog6IvPic.setLayoutParams(params);
+            }
+
+            override fun SetOnClickListener(v: View, pDialogMy: DialogShowPic) {
+                if (v === dialog6LlBckgrnd) {
+                    pDialogMy.Destroy()
+                }
+            }
+
+            override fun SetOnKeyListener(keyCode: Int, event: KeyEvent) {}
+        })
+        pDialogMy.Show()
+    }
+    override fun onClick(view: View?) {
+        when(view!!.id){
+            R.id.chaeak_haead->DlgForBigPhto(SPUtil.getString("headurl"))
+            R.id.choose_Photo-> startAlbum()
+        }
+        dialog!!.dismiss();
+    }
+
+
+    private var inflate: View? = null
+    private var choosePhoto: TextView? = null
+    private var takePhoto: TextView? = null
+    private var dialog: Dialog? = null
     val REQUEST_CODE = 123
     private val path = ArrayList<String>()
     private val fileList = ArrayList<File>()
@@ -149,9 +198,40 @@ class EditProfileActivity : BaseActivity() {
             ToastUtils.showLong(it.message)
         })
         profile_hard.setOnClickListener {
-            startAlbum()
+             dialog =  Dialog(this,R.style.ActionSheetDialogStyle);
+        //填充对话框的布局
+        inflate = LayoutInflater.from(this).inflate(R.layout.dialog_head, null);
+        //初始化控件
+        choosePhoto =  inflate!!.findViewById(R.id.choose_Photo);
+        takePhoto = inflate!!.findViewById(R.id.chaeak_haead);
+        choosePhoto!!.setOnClickListener(this);
+        takePhoto!!.setOnClickListener(this);
+        //将布局设置给Dialog
+        dialog!!.setContentView(inflate);
+        //获取当前Activity所在的窗体
+        var dialogWindow:Window = dialog!!.getWindow();
+        //设置Dialog从窗体底部弹出
+        dialogWindow.setGravity( Gravity.BOTTOM);
+        //获得窗体的属性
+         var lp:WindowManager.LayoutParams = dialogWindow.getAttributes();
+        lp.y = 20;//设置Dialog距离底部的距离
+//       将属性设置给窗体
+        dialogWindow.setAttributes(lp);
+        dialog!!.show();//显示对话框
+
 
         }
+    }
+
+    /**
+     * 设置添加屏幕的背景透明度
+     *
+     * @param bgAlpha
+     */
+    fun backgroundAlpha(bgAlpha: Float) {
+        val lp = window.attributes
+        lp.alpha = bgAlpha //0.0-1.0
+        window.attributes = lp
     }
     override fun setListener() {
 
