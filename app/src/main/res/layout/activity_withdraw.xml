@@ -74,6 +74,7 @@ android:background="@color/white"
             android:background="@color/transparent"
             android:layout_width="match_parent"
             android:textColor="@color/colorAccent"
+            android:paddingBottom="15dp"
             android:textSize="18sp"
             android:layout_height="match_parent" />
     </LinearLayout>

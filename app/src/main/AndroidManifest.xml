@@ -236,6 +236,7 @@
         <activity android:name=".MVP.Message.PersonalAddressActivity" />
         <activity android:name=".MVP.Message.RankListActivity" />
         <activity android:name=".MVP.Message.wallet.WithdrawActivity" />
+        <activity android:name=".MVP.Message.wallet.WxWithdrawActivity" />
         <activity android:name=".MVP.Message.wallet.WithdrawalSuccessActivity" />
         <activity android:name=".MVP.Message.wallet.WithdrawalRecordActivity" />
         <activity android:name=".MVP.Seting.ChangeConfirmPhoneActivity"

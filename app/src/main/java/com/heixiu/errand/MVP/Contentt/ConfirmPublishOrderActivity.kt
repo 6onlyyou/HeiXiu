@@ -152,7 +152,12 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
                 orderInfo.sendMapAdress,
                 orderInfo.receiveAddress,
                 orderInfo.recieveMapAdress,
-                orderInfo.couponId.toString(),
+                if (orderInfo.couponId == null) {
+                    ""
+                } else {
+                    orderInfo.couponId.toString()
+                }
+                ,
                 orderInfo.sendTime,
                 orderInfo.name,
                 orderInfo.weight,

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.heixiu.errand.MVP.Message.wallet.WithdrawActivity">
+
+    <include layout="@layout/comm_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="19dp"
+            android:text="现的微信号"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/withdraw_tailnumber"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_marginLeft="19dp"
+                android:hint="请填写要提现的微信号"
+                android:layout_marginTop="19dp"
+                android:background="@drawable/login_bg"
+                android:text="00000000"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="19dp"
+                android:layout_marginTop="@dimen/ui_10_dip"
+                android:text="明天24点前到账"
+                android:layout_marginRight="55dp"
+                android:textColor="@color/colorAccent"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/hint_text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="19dp"
+        android:layout_marginTop="17dp"
+        android:text="提现金额"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="17dp"
+
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="19dp"
+            android:src="@mipmap/withdraw_money" />
+
+        <EditText
+            android:id="@+id/withdrwa_intomoeny"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:textColor="@color/colorAccent"
+            android:paddingBottom="15dp"
+            android:text="0"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/hint_text" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/withdraw_allmoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="零钱余额：0"
+            android:textColor="@color/hint_text"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/withdraw_allget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="17dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="全部提现"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/withdraw_doit"
+        android:layout_width="71dp"
+        android:layout_height="26dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="44dp"
+        android:background="@color/colorAccent"
+        android:text="提现"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+</LinearLayout>

@@ -1,7 +1,5 @@
 package com.heixiu.errand.MVP.Message.wallet
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.R
@@ -10,17 +8,16 @@ import com.heixiu.errand.bean.QueryMyIncomeBean
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.SPUtil
-import kotlinx.android.synthetic.main.activity_withdraw.*
-import java.math.BigDecimal
+import kotlinx.android.synthetic.main.activity_wxwithdraw.*
 
-class WithdrawActivity : BaseActivity() {
+class WxWithdrawActivity : BaseActivity() {
     var queryMyIncomeBean: QueryMyIncomeBean? = null
     override fun loadViewLayout() {
-        setContentView(R.layout.activity_withdraw)
+        setContentView(R.layout.activity_wxwithdraw)
         initTitle("提现", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
         queryMyIncomeBean = intent.getSerializableExtra("data") as QueryMyIncomeBean
-        withdraw_tailnumber.text = queryMyIncomeBean!!.zfbId
+//        withdraw_tailnumber.text = queryMyIncomeBean!!.zfbId
         if(queryMyIncomeBean!!.amountAvailable==null){
             withdraw_allmoney.text = "0"
         }else{
@@ -40,6 +37,10 @@ class WithdrawActivity : BaseActivity() {
 
 
         withdraw_doit.setOnClickListener {
+            if( withdraw_tailnumber.text.toString().equals("")){
+                ToastUtils.showLong("微信号不能为空！")
+                return@setOnClickListener
+            }
             if(withdrwa_intomoeny.text.toString().equals("")){
                 ToastUtils.showLong("请输入提现金额！")
                 return@setOnClickListener
@@ -50,7 +51,7 @@ class WithdrawActivity : BaseActivity() {
                 return@setOnClickListener
             }else {
                 withdraw_doit.isEnabled = false
-                RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().withdrawCash(SPUtil.getString("userid"),queryMyIncomeBean!!.zfbId,pieceall,"0")).subscribe({
+                RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().withdrawCash(SPUtil.getString("userid"), withdraw_tailnumber.text.toString(), pieceall, "1")).subscribe({
                     ToastUtils.showLong(it)
                     startActivity(WithdrawalActivity::class.java)
 //                    startActivity(WithdrawalSuccessActivity::class.java)
