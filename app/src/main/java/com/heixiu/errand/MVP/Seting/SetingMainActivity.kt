@@ -3,6 +3,7 @@ package com.heixiu.errand.MVP.Seting
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.heixiu.errand.MVP.Login.LoginActivity
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseActivity
 import com.heixiu.errand.utils.SPUtil
@@ -30,6 +31,7 @@ class SetingMainActivity : BaseActivity() {
             SPUtil.saveString("userid","")
             SPUtil.saveString("rongyun_token","")
             SPUtil.saveString("city", "")
+            startActivity(LoginActivity::class.java)
             finishWithAlpha()
         }
 //        setting_common.setOnClickListener {
