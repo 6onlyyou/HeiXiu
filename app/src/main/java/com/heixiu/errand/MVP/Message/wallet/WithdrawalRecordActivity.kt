@@ -22,9 +22,7 @@ class WithdrawalRecordActivity : BaseActivity() {
         initTitle("交易记录", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
         dollStateTb.visibility = View.VISIBLE
-
         my_doll_rv.layoutManager = LinearLayoutManager(mContext)
-
         val list = ArrayList<OrderInfo>()
         withdrawalRecordAdapter = WithdrawalRecordAdapter(list)
         my_doll_rv.adapter = withdrawalRecordAdapter
