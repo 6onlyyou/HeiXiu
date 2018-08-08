@@ -8,10 +8,13 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.baidu.mapapi.model.LatLng
+import com.baidu.mapapi.utils.DistanceUtil
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.Event.MyLocationEvent
 import com.heixiu.errand.MVP.Login.LoginActivity
 import com.heixiu.errand.MVP.Seting.WebActivity
+import com.heixiu.errand.MyApplication.MyApplication
 import com.heixiu.errand.R
 import com.heixiu.errand.adapter.HomeAdapter
 import com.heixiu.errand.base.BaseFragment
@@ -104,6 +107,18 @@ class HomeFragment : BaseFragment() {
     }
 
     fun takeOrder(orderInfo: OrderInfo) {
+
+        if (MyApplication.getInstance().localLat == 0.0) {
+            ToastUtils.showShort("暂时未获取到您的定位")
+            return
+        }
+        val distance = DistanceUtil.getDistance(
+                LatLng(MyApplication.getInstance().localLat, MyApplication.getInstance().localLong), LatLng(orderInfo.originsLatitude, orderInfo.originsLongitude))
+
+        if (distance > 8000) {
+            ToastUtils.showShort("该订单距离您超过八公里，不能接单")
+            return
+        }
 
         if (SPUtil.getString("userid").equals(orderInfo.userId)) {
             ToastUtils.showShort("不能接自己发的订单呦~")
