@@ -49,7 +49,22 @@ class HomeFragment : BaseFragment() {
 
     private fun requestData() {
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryCreatedOrderInfo()).subscribe({
+
+            val orderInfos = it.iterator()
+            while (orderInfos.hasNext()) {
+                val orderInfo = orderInfos.next()
+                if (MyApplication.getInstance().localLat != 0.0) {
+                    val distance = DistanceUtil.getDistance(
+                            LatLng(MyApplication.getInstance().localLat, MyApplication.getInstance().localLong), LatLng(orderInfo.originsLatitude, orderInfo.originsLongitude))
+
+                    if (distance > 8000 && orderInfo.userId != SPUtil.getString("userid")) {
+                        orderInfos.remove()
+                    }
+                }
+            }
+
             if (it.size > 0) {
+
                 homeAdapter.setData(it)
                 emptyHomeView.visibility = View.GONE
                 homeRv.visibility = View.VISIBLE
@@ -78,7 +93,8 @@ class HomeFragment : BaseFragment() {
     var subscribe: Disposable? = null
     override fun initView() {
         subscribe = RxBus.getDefault().toObservable(MyLocationEvent::class.java).subscribe({
-            homeAdapter.notifyDataSetChanged()
+            homeAdapter.setData(ArrayList())
+            requestData()
         }, {
             homeAdapter.notifyDataSetChanged()
         })
