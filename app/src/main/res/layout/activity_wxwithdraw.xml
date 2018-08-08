@@ -36,7 +36,7 @@
                 android:hint="请填写要提现的微信号"
                 android:layout_marginTop="19dp"
                 android:background="@drawable/login_bg"
-                android:text="00000000"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
@@ -46,7 +46,7 @@
                 android:layout_marginLeft="19dp"
                 android:layout_marginTop="@dimen/ui_10_dip"
                 android:text="明天24点前到账"
-                android:layout_marginRight="55dp"
+                android:layout_marginRight="65dp"
                 android:textColor="@color/colorAccent"
                 android:textSize="14sp" />
         </LinearLayout>

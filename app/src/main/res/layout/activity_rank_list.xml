@@ -10,12 +10,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="230dp"
-        android:layout_marginTop="-15dp"
-        android:background="@mipmap/message_bg">
+
+      >
 
         <LinearLayout
+            android:layout_marginTop="-10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@mipmap/message_bg"
             android:gravity="center"
             android:orientation="horizontal">
             <LinearLayout

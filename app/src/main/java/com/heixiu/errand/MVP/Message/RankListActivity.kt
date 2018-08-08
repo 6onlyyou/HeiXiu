@@ -38,57 +38,61 @@ class RankListActivity : BaseActivity() {
         rand_tadayRank.text = queryPersonalBean!!.platRank.toString()
         rand_todayMenoy.text = queryPersonalBean!!.dayAmount.toString()
         rand_friendRank.text = queryPersonalBean!!.friendRank.toString()
+        dollStateTb.visibility = View.VISIBLE
+        my_doll_rv.layoutManager = LinearLayoutManager(mContext)
+        val list = ArrayList<RankBean>()
+        rankListAdapter = RankListAdapter(list)
+        my_doll_rv.adapter = rankListAdapter
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
         dollStateTb.addTab(dollStateTb.newTab().setText("平台排行").setTag("1"))
         dollStateTb.addTab(dollStateTb.newTab().setText("好友排行").setTag("2"))
-        val list = ArrayList<RankBean>()
-        rankListAdapter = RankListAdapter(list)
-        my_doll_rv.setAdapter(rankListAdapter)
-        dollStateTb.isSelected = true
+        dollStateTb.getTabAt(0)?.select()
+//        val list = ArrayList<RankBean>()
+//        rankListAdapter = RankListAdapter(list)
+//        my_doll_rv.setAdapter(rankListAdapter)
+////        dollStateTb.isSelected = true
+//        my_doll_rv.setLayoutManager(LinearLayoutManager(this@RankListActivity))
+//        my_doll_rv.setHasFixedSize(true)
+//        rankListAdapter!!.openLoadAnimation(BaseQuickAdapter.SCALEIN)
         dollStateTb.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 if (tab.tag == "1") {
                     RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().platRank(SPUtil.getString("userid"),SPUtil.getString("city"))).subscribe({
-                        rankListAdapter!!.setNewData(ArrayList())
-                        rankListAdapter?.notifyDataSetChanged()
-                        if(it.size>0){
-                            //设置自动加载监听
-                            my_doll_rv.setLayoutManager(LinearLayoutManager(this@RankListActivity))
-//        如果Item高度固定  增加该属性能够提高效率
-                            my_doll_rv.setHasFixedSize(true)
-//        设置适配器
-                            rankListAdapter = RankListAdapter(it)
-                            //设置加载动画
-                            rankListAdapter!!.openLoadAnimation(BaseQuickAdapter.SCALEIN)
-                            //设置是否自动加载以及加载个数
-                            //将适配器添加到RecyclerView
-                            my_doll_rv.setAdapter(rankListAdapter)
-                            rankListAdapter!!.setNewData(it)
+                        if (it.isEmpty()) {
+                            rankListAdapter!!.setNewData(ArrayList())
+
+                            rankListAdapter?.notifyDataSetChanged()
+                            return@subscribe
                         }
+                        rankListAdapter!!.setNewData(it)
+//                        rankListAdapter!!.setNewData(ArrayList())
+//                        rankListAdapter?.notifyDataSetChanged()
+//                        if(it.size>0){
+//                            rankListAdapter = RankListAdapter(it)
+//                            my_doll_rv.setAdapter(rankListAdapter)
+//                            rankListAdapter!!.setNewData(it)
+//                            rankListAdapter?.notifyDataSetChanged()
+//                        }
                     },{
+                        rankListAdapter!!.setNewData(ArrayList())
+
+                        rankListAdapter?.notifyDataSetChanged()
                         ToastUtils.showLong("没有排行")
                     })
-
                 }
                 if (tab.tag == "2") {
                     RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().friendRank(SPUtil.getString("userid"))).subscribe({
-                        rankListAdapter!!.setNewData(ArrayList())
-                        rankListAdapter?.notifyDataSetChanged()
-                        if(it.size>0){
-                            //设置自动加载监听
-                            my_doll_rv.setLayoutManager(LinearLayoutManager(this@RankListActivity))
-//        如果Item高度固定  增加该属性能够提高效率
-                            my_doll_rv.setHasFixedSize(true)
-//        设置适配器
-                            rankListAdapter = RankListAdapter(it)
-                            //设置加载动画
-                            rankListAdapter!!.openLoadAnimation(BaseQuickAdapter.SCALEIN)
-                            //设置是否自动加载以及加载个数
-                            //将适配器添加到RecyclerView
-                            my_doll_rv.setAdapter(rankListAdapter)
-                            rankListAdapter!!.setNewData(it)
+                        if (it.isEmpty()) {
+                            rankListAdapter!!.setNewData(ArrayList())
+
+                            rankListAdapter?.notifyDataSetChanged()
+                            return@subscribe
                         }
+                        rankListAdapter!!.setNewData(it)
                     },{
+                        rankListAdapter!!.setNewData(ArrayList())
+
+                        rankListAdapter?.notifyDataSetChanged()
                         ToastUtils.showLong("没有排行")
                     })
                 }
