@@ -64,7 +64,6 @@ class HomeFragment : BaseFragment() {
             }
 
             if (it.size > 0) {
-
                 homeAdapter.setData(it)
                 emptyHomeView.visibility = View.GONE
                 homeRv.visibility = View.VISIBLE
