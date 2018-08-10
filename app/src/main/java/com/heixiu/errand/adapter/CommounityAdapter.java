@@ -230,7 +230,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
                     RxUtils.wrapRestCall(RetrofitFactory.INSTANCE.getRetrofit().createComment(SPUtil.getString("userid"), item.getUserId(), Et_comment.getText().toString(), item.getPublishId() + "")).subscribe(new Consumer<String>() {
                         @Override
                         public void accept(String s) throws Exception {
-                            ToastUtils.showLong(s);
+                            ToastUtils.showLong("评论成功");
                             Et_comment.setText("");
                         }
                     }, new Consumer<Throwable>() {
@@ -276,7 +276,9 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
                     RxUtils.wrapRestCall(RetrofitFactory.INSTANCE.getRetrofit().userAdmire(item.getUserId(), item.getPublishId() + "", SPUtil.getString("userid"))).subscribe(new Consumer<String>() {
                         @Override
                         public void accept(String s) throws Exception {
+                            ToastUtils.showLong(s);
                             if (s.equals("点赞成功")) {
+
                                 itemPraise.setImageResource(R.mipmap.praise);
                                 Tv_communityPraise.setText(Integer.parseInt(Tv_communityPraise.getText().toString()) + 1 + "");
                             } else {

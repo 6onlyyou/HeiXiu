@@ -110,6 +110,11 @@ class PostVideoActivity : BaseActivity() {
     }
 
     fun publish() {
+        if( text_content.text.toString().equals("")){
+            ToastUtils.showLong("请输入动态文字内容")
+            return
+        }
+
         ToastUtils.showLong("正在发布中,请稍等")
         val paramsMap: Map<String, RequestBody> = MyApplication.getp(fileList)
         ////addFormDataPart()第一个参数为表单名字，这是和后台约定好的

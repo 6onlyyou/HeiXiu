@@ -45,12 +45,13 @@ class PostTextActivity : BaseActivity() {
         initTitle("图片动态", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
         mTitle.setTv_Right("发表", R.color.white, View.OnClickListener {
-            if(isFastDoubleClick()){
+            if (isFastDoubleClick()) {
                 publish()
             }
 
         })
     }
+
     private var lastClickTime: Long = 0
     fun isFastDoubleClick(): Boolean {
         val time = System.currentTimeMillis()
@@ -130,8 +131,11 @@ class PostTextActivity : BaseActivity() {
 
     fun publish() {
         val paramsMap: Map<String, RequestBody> = MyApplication.getp(fileList)
-
-
+        if (text_content.text.toString().equals("")) {
+            ToastUtils.showLong("请输入动态文字内容")
+            return
+        }
+        ToastUtils.showLong("正在发布中,请稍等")
         val builder: MultipartBody.Builder = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
         //注意，file是后台约定的参数，如果是多图，file[]，如果是单张图片，file就行
