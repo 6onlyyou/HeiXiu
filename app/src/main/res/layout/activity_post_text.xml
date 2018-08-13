@@ -31,14 +31,13 @@
         android:id="@+id/mainIvVido"
         android:layout_width="200dp"
         android:layout_height="200dp" />
-    <LinearLayout
-        android:id="@+id/llContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:orientation="vertical">
 
-    </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/llContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:orientation="vertical"/>
 </LinearLayout>

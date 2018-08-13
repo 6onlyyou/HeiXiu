@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.View
 import com.baidu.location.LocationClient
 import com.baidu.location.LocationClientOption
+import com.facebook.drawee.backends.pipeline.Fresco
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.MVP.Community.CommunityFragment
 import com.heixiu.errand.MVP.Contentt.ContentFragment
@@ -55,6 +56,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun findViewById() {
+
         EventBus.getDefault().register(this);
 //        SPUtil.saveString("userid","15632617141")
 //        SPUtil.saveString("city","杭州市")

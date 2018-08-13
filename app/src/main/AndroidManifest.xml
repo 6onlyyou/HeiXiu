@@ -259,11 +259,19 @@
         <activity android:name=".MVP.Message.myorder.OrderFinishActivity" />
         <activity android:name=".MVP.Express.ExpressHistoryActivity" />
         <activity android:name=".MVP.Message.wallet.WithdrawalActivity" />
+        <activity
+            android:name="cn.finalteam.rxgalleryfinal.ui.activity.MediaActivity"
+            android:exported="true"
+      />
 
-        <service
-            android:name=".service.UpdateLocaltionService"
-            android:enabled="true"
-            android:exported="true"></service>
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait" />
+        <!--<activity android:name=".imageloader.ImageLoaderActivity" />-->
+        <!--<service-->
+            <!--android:name=".service.UpdateLocaltionService"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="true"></service>-->
     </application>
 
 </manifest>

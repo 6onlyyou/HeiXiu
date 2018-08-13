@@ -29,9 +29,6 @@ import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.GlideLoader
 import com.heixiu.errand.utils.SPUtil
-import com.jaiky.imagespickers.ImageConfig
-import com.jaiky.imagespickers.ImageSelector
-import com.jaiky.imagespickers.ImageSelectorActivity
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -95,7 +92,6 @@ class EditProfileActivity : BaseActivity() , View.OnClickListener{
     val REQUEST_CODE = 123
     private val path = ArrayList<String>()
     private val fileList = ArrayList<File>()
-    private var imageConfig: ImageConfig? = null
     override fun loadViewLayout() {
         setContentView(R.layout.activity_edit_profile)
     }
@@ -261,42 +257,42 @@ class EditProfileActivity : BaseActivity() , View.OnClickListener{
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
-            val pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT)
-            Glide.with(this)
-                    .load(pathList.get(0))
-                    .crossFade()
-                    .placeholder(R.mipmap.defaulthead)
-                    .into(profile_hard);
-            path.clear()
-            path.addAll(pathList)
-            fileList.clear()
-            Luban.with(this)
-                    .load(pathList)
-                    .ignoreBy(100)
-                    .setTargetDir(getPath())
-                    .filter(object : CompressionPredicate {
-                        override fun apply(path: String?): Boolean {
-
-                            return !(TextUtils.isEmpty(path) || path!!.toLowerCase().endsWith(".gif"));
-                        }
-
-
-                    })
-                    .setCompressListener(object : OnCompressListener {
-                        override fun onError(e: Throwable?) {
-                            ToastUtils.showLong(e.toString())
-                        }
-                        override fun onStart() {
-
-                        }
-
-                        override fun onSuccess(file: File) {
-                            fileList.add(file)
-                        }
-
-                    }).launch();
-        }
+//        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
+//            val pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT)
+//            Glide.with(this)
+//                    .load(pathList.get(0))
+//                    .crossFade()
+//                    .placeholder(R.mipmap.defaulthead)
+//                    .into(profile_hard);
+//            path.clear()
+//            path.addAll(pathList)
+//            fileList.clear()
+//            Luban.with(this)
+//                    .load(pathList)
+//                    .ignoreBy(100)
+//                    .setTargetDir(getPath())
+//                    .filter(object : CompressionPredicate {
+//                        override fun apply(path: String?): Boolean {
+//
+//                            return !(TextUtils.isEmpty(path) || path!!.toLowerCase().endsWith(".gif"));
+//                        }
+//
+//
+//                    })
+//                    .setCompressListener(object : OnCompressListener {
+//                        override fun onError(e: Throwable?) {
+//                            ToastUtils.showLong(e.toString())
+//                        }
+//                        override fun onStart() {
+//
+//                        }
+//
+//                        override fun onSuccess(file: File) {
+//                            fileList.add(file)
+//                        }
+//
+//                    }).launch();
+//        }
     }
     private fun startAlbum() {
         val PERMISSIONS_STORAGE = arrayOf("android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE")
@@ -325,26 +321,26 @@ class EditProfileActivity : BaseActivity() , View.OnClickListener{
                     ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, REQUEST_CODE)
                 }
             } else {
-                imageConfig = ImageConfig.Builder(GlideLoader())
-                        .steepToolBarColor(resources.getColor(R.color.titleBlue))
-                        .titleBgColor(resources.getColor(R.color.titleBlue))
-                        .titleSubmitTextColor(resources.getColor(R.color.white))
-                        .titleTextColor(resources.getColor(R.color.white))
-                        // 开启多选   （默认为多选）
-                        .singleSelect()
-                        // 多选时的最大数量   （默认 9 张）
-                        .mutiSelectMaxSize(1)
-                        //设置图片显示容器，参数：、（容器，每行显示数量，是否可删除）
-//                        .setContainer(profile_hard, 4, false)
-                        // 已选择的图片路径
-                        .pathList(path)
-                        // 拍照后存放的图片路径（默认 /temp/picture）
-                        .filePath("/temp")
-                        // 开启拍照功能 （默认关闭）
-                        .showCamera()
-                        .requestCode(REQUEST_CODE)
-                        .build()
-                ImageSelector.open(this, imageConfig)
+//                imageConfig = ImageConfig.Builder(GlideLoader())
+//                        .steepToolBarColor(resources.getColor(R.color.titleBlue))
+//                        .titleBgColor(resources.getColor(R.color.titleBlue))
+//                        .titleSubmitTextColor(resources.getColor(R.color.white))
+//                        .titleTextColor(resources.getColor(R.color.white))
+//                        // 开启多选   （默认为多选）
+//                        .singleSelect()
+//                        // 多选时的最大数量   （默认 9 张）
+//                        .mutiSelectMaxSize(1)
+//                        //设置图片显示容器，参数：、（容器，每行显示数量，是否可删除）
+////                        .setContainer(profile_hard, 4, false)
+//                        // 已选择的图片路径
+//                        .pathList(path)
+//                        // 拍照后存放的图片路径（默认 /temp/picture）
+//                        .filePath("/temp")
+//                        // 开启拍照功能 （默认关闭）
+//                        .showCamera()
+//                        .requestCode(REQUEST_CODE)
+//                        .build()
+//                ImageSelector.open(this, imageConfig)
             }
         }
     }

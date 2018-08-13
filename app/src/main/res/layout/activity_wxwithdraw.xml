@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="19dp"
-                android:layout_marginTop="@dimen/ui_10_dip"
+                android:layout_marginTop="10dip"
                 android:text="明天24点前到账"
                 android:layout_marginRight="65dp"
                 android:textColor="@color/colorAccent"
