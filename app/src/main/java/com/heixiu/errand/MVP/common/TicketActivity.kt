@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.Event.PublishParamsChangeEvent
 import com.heixiu.errand.R
@@ -44,7 +45,14 @@ class TicketActivity : AppCompatActivity() {
 
     fun requestTicket() {
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().couponList(SPUtil.getString("userid"))).subscribe({
-            adapter.setNewData(it)
+            if (it.size > 0) {
+                adapter.setNewData(it)
+                emptyHomeView.visibility = View.GONE
+                ticketRv.visibility = View.VISIBLE
+            } else {
+                emptyHomeView.visibility = View.VISIBLE
+                ticketRv.visibility = View.GONE
+            }
         }, {
             ToastUtils.showLong(it.message)
         })
