@@ -14,6 +14,7 @@
         android:paddingRight="12dp">
 
         <EditText
+            android:singleLine="true"
             android:id="@+id/comment_et"
             android:layout_width="0dp"
             android:layout_height="30dp"

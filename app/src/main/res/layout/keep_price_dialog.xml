@@ -50,6 +50,7 @@
             android:background="@color/line" />
 
         <EditText
+            android:singleLine="true"
             android:id="@+id/real_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,6 +60,7 @@
             android:textSize="14sp" />
 
         <EditText
+            android:singleLine="true"
             android:id="@+id/need_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

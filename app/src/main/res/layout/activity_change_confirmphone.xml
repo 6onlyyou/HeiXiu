@@ -44,6 +44,7 @@
             android:layout_marginTop="13dp">
 
             <EditText
+                android:singleLine="true"
                 android:id="@+id/Tv_inCodes"
                 android:layout_width="match_parent"
                 android:layout_height="34dp"

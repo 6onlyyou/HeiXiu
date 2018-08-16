@@ -80,6 +80,7 @@
         </LinearLayout>
 
         <EditText
+            android:singleLine="true"
             android:id="@+id/detailAddress"
             android:layout_width="match_parent"
             android:layout_height="60dp"

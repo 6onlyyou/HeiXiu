@@ -63,6 +63,7 @@
             android:textSize="14sp" />
 
         <EditText
+
             android:id="@+id/profile_name"
             android:layout_width="0dp"
             android:layout_weight="1"

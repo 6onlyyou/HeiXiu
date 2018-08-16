@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.fushuaige.common.widget.TitleBar;
 import com.heixiu.errand.MyApplication.MyApplication;
 import com.heixiu.errand.R;
@@ -54,7 +55,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             initWindows(getResources().getColor(R.color.colorPrimary));
         }
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);// 锁定竖屏
-
+        Fresco.initialize(this);
         initView();
         initdata();
         ActivityManager.addActivity(this);

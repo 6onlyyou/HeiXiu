@@ -11,6 +11,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <EditText
+        android:singleLine="true"
         android:id="@+id/Et_userName"
         android:hint="请输入用户名"
         android:layout_marginLeft="57dp"
@@ -28,6 +29,7 @@
         android:layout_width="wrap_content"
      >
     <EditText
+        android:singleLine="true"
         android:id="@+id/Et_passWord"
         android:hint="请输入密码"
         android:inputType="textPassword"

@@ -26,6 +26,7 @@
             <!--android:background="@drawable/login_bg"-->
             <!--android:hint="请输入用户名" />-->
         <EditText
+            android:singleLine="true"
             android:id="@+id/Et_inPhone"
             android:layout_width="match_parent"
             android:layout_height="35dp"
@@ -36,6 +37,7 @@
             android:background="@drawable/login_bg"
             android:hint="请输入手机号码" />
         <EditText
+            android:singleLine="true"
             android:id="@+id/Et_inPass"
             android:maxLength="20"
             android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -56,6 +58,7 @@
             android:layout_marginTop="20dp">
 
             <EditText
+                android:singleLine="true"
                 android:id="@+id/Tv_inCode"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"

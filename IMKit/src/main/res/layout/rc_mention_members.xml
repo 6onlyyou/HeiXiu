@@ -38,6 +38,7 @@
         android:layout_width="0px" android:layout_height="0px"/>
 
     <EditText
+
         android:id="@id/rc_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

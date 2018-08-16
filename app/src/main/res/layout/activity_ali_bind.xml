@@ -24,6 +24,7 @@
         android:textColor="@color/black"
         android:textSize="13sp"/>
     <EditText
+        android:singleLine="true"
         android:id="@+id/autonym_inname"
         android:background="@drawable/login_bg"
         android:layout_width="match_parent"
@@ -42,6 +43,7 @@
         android:textColor="@color/black"
         android:textSize="13sp"/>
     <EditText
+        android:singleLine="true"
         android:id="@+id/bind_name"
         android:background="@drawable/login_bg"
         android:layout_width="match_parent"

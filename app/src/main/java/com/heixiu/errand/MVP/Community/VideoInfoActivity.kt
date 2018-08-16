@@ -30,6 +30,7 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
                 .createComment(SPUtil.getString("userid"), publishInfoDetail!!.userId, content, publishInfoDetail!!.publishId.toString() + ""))
                 .subscribe { s ->
                     ToastUtils.showLong(s)
+                    ToastUtils.showLong("评论成功")
                     commentAdapter!!.addData(publishInfoDetail!!.listCommentInfo.size, content)
                 }
     }
@@ -144,11 +145,13 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
                 RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().userAdmire(publishInfoDetail!!.userId, publishInfoDetail!!.getPublishId() + "",SPUtil.getString("userid"))).subscribe({ s ->
 
                     if (s == "点赞成功") {
+                        ToastUtils.showLong("点赞成功")
                         val drawableLeft = resources.getDrawable(
                                 R.mipmap.praise)
                         info_praise.setCompoundDrawablesWithIntrinsicBounds(drawableLeft, null, null, null)
                         info_praise.setText((Integer.parseInt(info_praise.getText().toString()) + 1).toString() + "")
                     } else {
+                        ToastUtils.showLong("已取消")
                         val drawableLeft = resources.getDrawable(
                                 R.mipmap.nopraise)
                         info_praise.setCompoundDrawablesWithIntrinsicBounds(drawableLeft, null, null, null)

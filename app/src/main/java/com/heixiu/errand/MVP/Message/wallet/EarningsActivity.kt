@@ -19,16 +19,11 @@ class EarningsActivity : BaseActivity()  , View.OnClickListener{
     override fun onClick(view: View?) {
         when(view!!.id){
             R.id.chaeak_wx->
-                if(bindStute==1) {
                     if(queryMyIncomeBean!!.amountAll==null){
                         ToastUtils.showLong("还没有可以提现的金额")
                     }else {
                         startActivity(WxWithdrawActivity::class.java, queryMyIncomeBean)
                     }
-                }else{
-                    startActivity(AliBindActivity::class.java)
-
-                }
             R.id.choose_ali->
                 if(bindStute==1) {
                 if(queryMyIncomeBean!!.amountAll==null){

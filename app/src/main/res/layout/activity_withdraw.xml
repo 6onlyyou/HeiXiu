@@ -70,6 +70,7 @@ android:background="@color/white"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="19dp"/>
         <EditText
+            android:singleLine="true"
             android:id="@+id/withdrwa_intomoeny"
             android:background="@color/transparent"
             android:layout_width="match_parent"

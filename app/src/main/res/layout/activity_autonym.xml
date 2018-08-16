@@ -64,6 +64,7 @@
             android:textSize="13sp"/>
         <EditText
             android:id="@+id/autonym_inname"
+            android:singleLine="true"
             android:background="@drawable/login_bg"
             android:layout_width="match_parent"
             android:layout_height="35dp"
@@ -82,6 +83,7 @@
             android:textSize="13sp"/>
         <EditText
             android:id="@+id/autonym_sfz"
+            android:singleLine="true"
             android:background="@drawable/login_bg"
             android:layout_width="match_parent"
             android:layout_height="35dp"
@@ -98,15 +100,7 @@
             android:layout_marginTop="15dp"
             android:textColor="@color/black"
             android:textSize="13sp"/>
-        <LinearLayout
-            android:id="@+id/llContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="vertical">
-        </LinearLayout>
+
         <ImageView
             android:id="@+id/autonym_uploading"
             android:layout_width="48dp"
@@ -114,7 +108,14 @@
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="16dp"
             android:src="@mipmap/autonym_add"/>
-
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/llContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:orientation="vertical"/>
     </LinearLayout>
     <ImageView
         android:id="@+id/autonym_submit"

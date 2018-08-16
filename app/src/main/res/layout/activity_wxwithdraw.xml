@@ -29,6 +29,7 @@
             android:orientation="vertical">
 
             <EditText
+                android:singleLine="true"
                 android:id="@+id/withdraw_tailnumber"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
@@ -82,6 +83,7 @@
             android:src="@mipmap/withdraw_money" />
 
         <EditText
+            android:singleLine="true"
             android:id="@+id/withdrwa_intomoeny"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

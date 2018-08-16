@@ -12,6 +12,7 @@
     android:orientation="vertical">
     <EditText
         android:id="@+id/Et_phone"
+        android:singleLine="true"
         android:layout_marginLeft="57dp"
         android:layout_marginRight="57dp"
         android:layout_width="match_parent"
@@ -27,6 +28,7 @@
         android:layout_height="34dp">
     <EditText
         android:id="@+id/Et_code"
+        android:singleLine="true"
         android:layout_width="match_parent"
         android:layout_height="34dp"
         android:hint="请输入验证码"

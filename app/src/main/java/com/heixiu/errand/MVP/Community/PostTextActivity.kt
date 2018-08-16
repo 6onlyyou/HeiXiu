@@ -89,7 +89,6 @@ class PostTextActivity : BaseActivity() {
     }
 
     private var list: List<MediaBean>? = null
-    //    private val imglist: MutableList<MediaBean>? = null
     var dynamicAdapter: DynamicAdapter? = null
 
     private fun startAlbum() {
@@ -134,40 +133,11 @@ class PostTextActivity : BaseActivity() {
                             @Throws(Exception::class)
                             override fun onEvent(imageMultipleResultEvent: ImageMultipleResultEvent) {
                                 list = imageMultipleResultEvent.getResult()
-                                if(fileList.size>9){
-                                    ToastUtils.showLong("已超出最大上传图片数量")
-                                    return
-                                }
-//                                fileList.clear()
+                                fileList.clear()
                                 for (i in 0..list!!.size-1) {
                                     var file: File = File(list!![i].originalPath);
                                     fileList.add(file)
-//                                    Luban.with(this@PostTextActivity)
-//                                            .load(list!![i].originalPath)
-//                                            .ignoreBy(100)
-//                                            .setTargetDir(getPath())
-//                                            .filter(object : CompressionPredicate {
-//                                                override fun apply(path: String?): Boolean {
-//                                                    return !(TextUtils.isEmpty(path) || path!!.toLowerCase().endsWith(".gif"));
-//                                                }
-//                                            })
-//                                            .setCompressListener(object : OnCompressListener {
-//                                                override fun onError(e: Throwable?) {
-//                                                    ToastUtils.showLong(e.toString())
-//                                                }
-//
-//                                                override fun onStart() {
-//                                                }
-//                                                override fun onSuccess(file: File) {
-//                                                    fileList.add(file)
-//                                                }
-//                                            }).launch();
                                 }
-
-//                                for (i in 0..list!!.size-1){
-////                                    var path = list!![i].originalPath
-//                                    imglist!!.add(path)
-//                                }
                                 llContainer.setLayoutManager(GridLayoutManager(this@PostTextActivity, 4));
 
                                 dynamicAdapter = DynamicAdapter(this@PostTextActivity, list)
@@ -178,9 +148,9 @@ class PostTextActivity : BaseActivity() {
                                     }
 
                                     override fun onItemLongOnClick(view: View?, pos: Int) {
-                                        dynamicAdapter!!.removeItem(pos)
-                                        fileList.removeAt(pos)
-                                        Toast.makeText(this@PostTextActivity, "已删除", Toast.LENGTH_SHORT).show() //To change body of created functions use File | Settings | File Templates.
+//                                        dynamicAdapter!!.removeItem(pos)
+//                                        fileList.removeAt(pos)
+//                                        Toast.makeText(this@PostTextActivity, "已删除", Toast.LENGTH_SHORT).show() //To change body of created functions use File | Settings | File Templates.
                                     }
 
                                 })
@@ -194,50 +164,10 @@ class PostTextActivity : BaseActivity() {
                             }
                         })
                         .openGallery()
-//                imageConfig = ImageConfig.Builder(GlideLoader())
-//                        .steepToolBarColor(resources.getColor(R.color.titleBlue))
-//                        .titleBgColor(resources.getColor(R.color.titleBlue))
-//                        .titleSubmitTextColor(resources.getColor(R.color.white))
-//                        .titleTextColor(resources.getColor(R.color.white))
-//                        // 开启多选   （默认为多选）
-//                        .mutiSelect()
-//                        // 多选时的最大数量   （默认 9 张）
-//                        .mutiSelectMaxSize(9)
-//                        //设置图片显示容器，参数：、（容器，每行显示数量，是否可删除）
-//                        .setContainer(llContainer, 4, false)
-//                        // 已选择的图片路径
-//                        .pathList(path)
-//                        // 拍照后存放的图片路径（默认 /temp/picture）
-//                        .filePath("/temp")
-//                        // 开启拍照功能 （默认关闭）
-//                        .showCamera()
-//                        .requestCode(REQUEST_CODE)
-//                        .build()
-//                ImageSelector.open(this, imageConfig)
             }
         }
     }
 
-    //    var popupMenu:PopupMenu ? =null
-//    fun showPopMenu( view:View,  pos:Int){
-//           popupMenu =  PopupMenu(this,view);
-//        popupMenu!!.getMenuInflater().inflate(R.menu.item_menu,popupMenu!!.getMenu());
-//        popupMenu!!.setOnMenuItemClickListener( PopupMenu.OnMenuItemClickListener() {
-////            fun  onMenuItemClick(MenuItem item):Boolean {
-////
-////                myAdapter.removeItem(pos);
-////                return false;
-////            }
-//        });
-////        popupMenu.setOnDismissListener( PopupMenu.OnDismissListener() {
-////            @Override
-////            public void onDismiss(PopupMenu menu) {
-////                Toast.makeText(getApplicationContext(), "关闭PopupMenu", Toast.LENGTH_SHORT).show();
-////            }
-////        });
-//        popupMenu!!.show();
-//    }
-//}
     fun publish() {
         val paramsMap: Map<String, RequestBody> = MyApplication.getp(fileList)
         if (text_content.text.toString().equals("")) {
@@ -249,8 +179,6 @@ class PostTextActivity : BaseActivity() {
                 .setType(MultipartBody.FORM)
         //注意，file是后台约定的参数，如果是多图，file[]，如果是单张图片，file就行
 //        fileList.clear()
-
-
         if (fileList.size < 1) {
             builder.addFormDataPart("file", null, RequestBody.create(MediaType.parse("image/*"), ""));
         }
@@ -266,100 +194,8 @@ class PostTextActivity : BaseActivity() {
         }, {
             ToastUtils.showLong(it.message)
         })
-//        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit()
-//                .publish(paramsMap, SPUtil.getString("userid"),0,text_content.text,""))
-//                .subscribe(object : Consumer<String>() {
-//                    @Throws(Exception::class)
-//                    fun accept(s: String) {
-//                        picAddress.add(s)
-//                        if (picAddress.size() === getView()!!.getFiles().size()) {
-//                            if (TextUtils.isEmpty(getView()!!.getVideoPath())) {
-//                                addRecord(picAddress)
-//                            } else {
-//                                requestVideo(File(getView()!!.getVideoPath()))
-//                            }
-//                        }
-//                    }
-//                }, object : Consumer<Throwable>() {
-//                    @Throws(Exception::class)
-//                    fun accept(throwable: Throwable) {
-//                        Toast.makeText(getView(), throwable.message, Toast.LENGTH_LONG).show()
-//                        Log.e(FragmentActivity.TAG, "accept: " + throwable.message)
-//                    }
-//                })
 
     }
-//    fun   upload(){
-//        //构建body
-
-    //
-//        return getRetrofitInterface(URLConstant.URL_BASE).upload(requestBody);
-//    }
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
-//            if (data != null && requestCode == IMAGE_PICKER) {
-//                val images = data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS) as ArrayList<ImageItem>
-//                path.clear()
-//                for (i in 0..images.size-1) {
-//                    path.add(images[i].path)
-//                }
-//                fileList.clear()
-//                Luban.with(this)
-//                        .load(path)
-//                        .ignoreBy(100)
-//                        .setTargetDir(getPath())
-//                        .filter(object : CompressionPredicate {
-//                            override fun apply(path: String?): Boolean {
-//                                return !(TextUtils.isEmpty(path) || path!!.toLowerCase().endsWith(".gif"));
-//                            }
-//
-//
-//                        })
-//                        .setCompressListener(object : OnCompressListener {
-//                            override fun onError(e: Throwable?) {
-//                                ToastUtils.showLong(e.toString())
-//                            }
-//
-//                            override fun onStart() {
-//                            }
-//                            override fun onSuccess(file: File) {
-//                                fileList.add(file)
-//                            }
-//                        }).launch();
-////                GlideUtil.load(mContext, images[0].path, mAvatarIv)
-////                mPresenter.updateAvatar(File(images[0].path))
-//            }
-//        }
-////        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
-////            val pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT)
-////            path.clear()
-////            path.addAll(pathList)
-////            fileList.clear()
-////            Luban.with(this)
-////                    .load(pathList)
-////                    .ignoreBy(100)
-////                    .setTargetDir(getPath())
-////                    .filter(object : CompressionPredicate {
-////                        override fun apply(path: String?): Boolean {
-////                            return !(TextUtils.isEmpty(path) || path!!.toLowerCase().endsWith(".gif"));
-////                        }
-////
-////
-////                    })
-////                    .setCompressListener(object : OnCompressListener {
-////                        override fun onError(e: Throwable?) {
-////                            ToastUtils.showLong(e.toString())
-////                        }
-////
-////                        override fun onStart() {
-////                        }
-////                        override fun onSuccess(file: File) {
-////                            fileList.add(file)
-////                        }
-////                    }).launch();
-////        }
-//    }
 
     fun getPath(): String {
         val path = Environment.getExternalStorageDirectory().toString() + "/Heixiu/image/";
@@ -385,12 +221,6 @@ class PostTextActivity : BaseActivity() {
                         .load(url)
                         .crossFade()
                         .into(dialog6IvPic)
-                //				WindowManager wm = getWindowManager();
-                //				int nScreenWidth = wm.getDefaultDisplay().getWidth();
-                //				int nWidth = nScreenWidth;
-                //				int nHeight = nWidth;
-                //				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(nWidth, nHeight);
-                //				pDialogView.dialog6IvPic.setLayoutParams(params);
             }
 
             override fun SetOnClickListener(v: View, pDialogMy: DialogShowPic) {

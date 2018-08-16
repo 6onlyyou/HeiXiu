@@ -206,6 +206,7 @@
         android:layout_marginTop="8dp"
         android:gravity="center_vertical">
         <EditText
+            android:singleLine="true"
             android:id="@+id/Et_comment"
             android:layout_width="0dp"
             android:layout_weight="1"

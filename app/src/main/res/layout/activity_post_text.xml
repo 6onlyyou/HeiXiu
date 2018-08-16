@@ -8,6 +8,7 @@
     tools:context="com.heixiu.errand.MVP.Community.PostTextActivity">
     <include layout="@layout/comm_title" />
     <EditText
+        android:singleLine="true"
         android:id="@+id/text_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
