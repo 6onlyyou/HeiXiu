@@ -57,9 +57,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="60dp"
+                android:background="@color/activity_bg"
+                android:gravity="center"
+                android:drawablePadding="4dp"
+                android:drawableTop="@mipmap/empty_bg"
                 android:text="暂无订单"
-                android:textSize="20dp"
-                android:visibility="gone" />
+                android:textSize="16dp"
+                android:visibility="gone"
+                />
         </FrameLayout>
 
     </android.support.v4.widget.NestedScrollView>
