@@ -25,6 +25,7 @@ import com.fushuaige.common.widget.TitleBar;
 import com.heixiu.errand.MyApplication.MyApplication;
 import com.heixiu.errand.R;
 import com.heixiu.errand.utils.ActivityManager;
+import com.umeng.analytics.MobclickAgent;
 
 import java.io.Serializable;
 import java.util.regex.Matcher;
@@ -153,14 +154,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         // TODO Auto-generated method stub
         super.onResume();
-//		StatService.onPause(mContext);
+        MobclickAgent.onPageStart(getLocalClassName()); //手动统计页面("SplashScreen"为页面名称，可自定义)
+        MobclickAgent.onResume(this); //统计时长
     }
 
     @Override
     protected void onPause() {
         // TODO Auto-generated method stub
         super.onPause();
-//		StatService.onResume(mContext);
+        MobclickAgent.onPageEnd(getLocalClassName()); //手动统计页面("SplashScreen"为页面名称，可自定义)，必须保证 onPageEnd 在 onPause 之前调用，因为SDK会在 onPause 中保存onPageEnd统计到的页面数据。
+        MobclickAgent.onPause(this);
     }
 
     public void checkNetWork() {

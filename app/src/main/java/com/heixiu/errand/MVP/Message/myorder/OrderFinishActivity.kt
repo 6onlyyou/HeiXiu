@@ -17,6 +17,7 @@ import com.heixiu.errand.bean.OrderInfo
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.SPUtil
+import com.umeng.analytics.MobclickAgent
 import io.rong.imkit.RongIM
 import io.rong.imlib.model.UserInfo
 import kotlinx.android.synthetic.main.activity_order_finish.*
@@ -95,7 +96,9 @@ class OrderFinishActivity : BaseActivity() {
     fun cancelOrder() {
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().cancleOrder(orderInfo.orderNum))
                 .subscribe({
+                    MobclickAgent.onEvent(this@OrderFinishActivity, "OrderCancel")
                     ToastUtils.showLong("取消订单成功")
+
                     finish()
                 }, {
                     ToastUtils.showLong("取消订单失败" + it.message)

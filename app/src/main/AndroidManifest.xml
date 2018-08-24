@@ -27,6 +27,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -102,15 +103,23 @@
     <application
         android:name=".MyApplication.MyApplication"
         android:allowBackup="true"
+        android:configChanges="orientation|keyboardHidden|screenSize"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
 
         android:screenOrientation="portrait"
-        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:replace="android:icon, android:theme">
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5b2c692df29d981f4900003a" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
+
         <activity
             android:name=".widget.SplashActivity"
             android:launchMode="singleTask"
@@ -128,8 +137,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.heixiu.errand.MainActivity" />
         </activity>
-        <activity android:name=".MainActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".MVP.Home.ConfirmOrderActivity" />
         <activity android:name=".MVP.Login.RegisterActivity" />
         <activity android:name=".MVP.Community.VideoInfoActivity" />
@@ -184,6 +194,7 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.heixiu.errand.fileprovider"
@@ -194,13 +205,13 @@
                 android:resource="@xml/filepaths" />
         </provider>
         <!--<provider-->
-            <!--android:name="android.support.v4.content.FileProvider"-->
-            <!--android:authorities="ccom.huadong.heixiu.FileProvider"-->
-            <!--android:exported="false"-->
-            <!--android:grantUriPermissions="true">-->
-            <!--<meta-data-->
-                <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
-                <!--android:resource="@xml/rc_file_path" />-->
+        <!--android:name="android.support.v4.content.FileProvider"-->
+        <!--android:authorities="ccom.huadong.heixiu.FileProvider"-->
+        <!--android:exported="false"-->
+        <!--android:grantUriPermissions="true">-->
+        <!--<meta-data-->
+        <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
+        <!--android:resource="@xml/rc_file_path" />-->
         <!--</provider>-->
 
         <service
@@ -233,8 +244,9 @@
         <activity android:name=".MVP.Message.MyFansActivity" />
         <activity android:name=".MVP.Seting.SetingMainActivity" />
         <activity android:name=".MVP.Seting.AccountActivity" />
-        <activity android:name=".MVP.Seting.ChangePasswordActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".MVP.Seting.ChangePasswordActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".MVP.Seting.AuthenticationActivity" />
         <activity android:name=".MVP.Seting.AliPayBindActivity" />
         <activity android:name=".MVP.Seting.SoundActivity" />
@@ -247,8 +259,9 @@
         <activity android:name=".MVP.Message.wallet.WxWithdrawActivity" />
         <activity android:name=".MVP.Message.wallet.WithdrawalSuccessActivity" />
         <activity android:name=".MVP.Message.wallet.WithdrawalRecordActivity" />
-        <activity android:name=".MVP.Seting.ChangeConfirmPhoneActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".MVP.Seting.ChangeConfirmPhoneActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".MVP.Seting.ChangePhoneActivity" />
         <activity android:name=".MVP.Express.ExpressMessageActivity" />
         <activity android:name=".MVP.Community.PostVideoActivity" />
@@ -261,17 +274,16 @@
         <activity android:name=".MVP.Message.wallet.WithdrawalActivity" />
         <activity
             android:name="cn.finalteam.rxgalleryfinal.ui.activity.MediaActivity"
-            android:exported="true"
-      />
+            android:exported="true" />
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait" />
         <!--<activity android:name=".imageloader.ImageLoaderActivity" />-->
         <!--<service-->
-            <!--android:name=".service.UpdateLocaltionService"-->
-            <!--android:enabled="true"-->
-            <!--android:exported="true"></service>-->
+        <!--android:name=".service.UpdateLocaltionService"-->
+        <!--android:enabled="true"-->
+        <!--android:exported="true"></service>-->
     </application>
 
 </manifest>

@@ -23,6 +23,7 @@ import com.heixiu.errand.utils.SPUtil
 import com.jakewharton.rxbinding2.view.RxView
 import com.tencent.mm.opensdk.modelpay.PayReq
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
+import com.umeng.analytics.MobclickAgent
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_confirm_publish_order.*
 import java.util.*
@@ -204,6 +205,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
                 override fun run() {
                     RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().getPayResult("1", orderInfo.orderNum))
                             .subscribe({
+                                MobclickAgent.onEvent(this@ConfirmPublishOrderActivity, "OrderPublish")
                                 ToastUtils.showLong("支付成功,等待接单")
                                 finish()
                             }, {

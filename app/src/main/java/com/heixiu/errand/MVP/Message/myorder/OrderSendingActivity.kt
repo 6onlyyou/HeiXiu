@@ -25,6 +25,7 @@ import com.heixiu.errand.bean.OrderInfo
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.SPUtil
+import com.umeng.analytics.MobclickAgent
 import io.rong.imkit.RongIM
 import io.rong.imlib.model.UserInfo
 import kotlinx.android.synthetic.main.activity_order_sending.*
@@ -68,12 +69,13 @@ class OrderSendingActivity : BaseActivity() {
         message.setOnClickListener {
             RongIM.getInstance().setMessageAttachedUserInfo(true)
             RongIM.getInstance().setCurrentUserInfo(UserInfo(SPUtil.getString("userid"), SPUtil.getString("nickname"), Uri.parse(SPUtil.getString("headurl").toString())))
-            RongIM.getInstance().startPrivateChat(this,  orderInfo.recieveUserInfo.userId, orderInfo.recieveUserInfo.nickName)
+            RongIM.getInstance().startPrivateChat(this, orderInfo.recieveUserInfo.userId, orderInfo.recieveUserInfo.nickName)
         }
 
         order_finish.setOnClickListener({
             RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().changeOrderStatus(orderInfo.orderNum, "", "4"))
                     .subscribe({
+                        MobclickAgent.onEvent(this@OrderSendingActivity, "OrderFinish")
                         ToastUtils.showLong("该订单已确认完成")
                         finish()
                     }, {
