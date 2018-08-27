@@ -26,6 +26,7 @@ import com.heixiu.errand.bean.CouponTicketBean
 import com.heixiu.errand.listener.MyLocationListener
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
+import com.heixiu.errand.utils.MsgUtil
 import com.heixiu.errand.utils.RxBus
 import com.heixiu.errand.utils.SPUtil
 import com.tbruyelle.rxpermissions2.Permission
@@ -57,10 +58,11 @@ class MainActivity : BaseActivity() {
     }
 
     override fun findViewById() {
+     val ste =   MsgUtil.getDeviceInfo(this)
 
-        EventBus.getDefault().register(this);
 //        SPUtil.saveString("userid","15632617141")
 //        SPUtil.saveString("city","杭州市")
+        MobclickAgent.onEvent(this@MainActivity, "OrderPublish")
         Rl_homepass.setOnClickListener({
             Iv_homepass.setImageResource(R.mipmap.homepass)
             Iv_expressnopass.setImageResource(R.mipmap.expressnopass)
@@ -260,6 +262,7 @@ class MainActivity : BaseActivity() {
     }
     override fun onResume() {
         super.onResume()
+        EventBus.getDefault().register(this);
         getUserMessage()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val permissions = java.util.ArrayList<String>()
