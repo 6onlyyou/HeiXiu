@@ -104,7 +104,6 @@ dependencies {
     //    implementation files('libs/core-3.3.2.jar')
     implementation files('libs/SocialSDK_QQ_Simplify.jar')
     implementation files('libs/SocialSDK_Sina_Simplify.jar')
-    implementation files('libs/umeng-common-1.4.4.jar')
     implementation files('libs/umeng_shareboard_widget.jar')
     implementation files('libs/umeng_social_api.jar')
     implementation files('libs/umeng_social_net.jar')
@@ -112,6 +111,8 @@ dependencies {
     implementation files('libs/umeng_social_shareview.jar')
     implementation files('libs/umeng_social_tool.jar')
     compile 'com.umeng.sdk:analytics:latest.integration'
+    compile 'com.umeng.sdk:common:1.5.0'
+    compile 'com.umeng.sdk:utdid:1.1.5.3'
 
     compile 'com.youth.banner:banner:1.4.10'
     compile 'cn.jiguang.sdk:jpush:3.1.1'

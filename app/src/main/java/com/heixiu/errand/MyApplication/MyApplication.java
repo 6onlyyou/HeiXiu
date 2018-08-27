@@ -12,6 +12,7 @@ import com.heixiu.errand.net.AndroidBase;
 import com.heixiu.errand.utils.SPUtil;
 import com.mob.MobSDK;
 import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.Config;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import java.io.File;
@@ -84,7 +85,8 @@ public class MyApplication extends MultiDexApplication {
         if (!TextUtils.isEmpty(SPUtil.getString("userid"))) {
             JPushInterface.setAlias(this, 1, SPUtil.getString("userid"));
         }
-        UMConfigure.init(this, "5b2c692df29d981f4900003a", null, UMConfigure.DEVICE_TYPE_PHONE, "");
+        UMConfigure.setLogEnabled(true);
+        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "");
     }
 
     /**

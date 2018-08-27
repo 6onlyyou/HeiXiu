@@ -30,6 +30,7 @@ import com.heixiu.errand.utils.RxBus
 import com.heixiu.errand.utils.SPUtil
 import com.tbruyelle.rxpermissions2.Permission
 import com.tbruyelle.rxpermissions2.RxPermissions
+import com.umeng.analytics.MobclickAgent
 import io.reactivex.functions.Consumer
 import io.rong.imkit.RongIM
 import io.rong.imlib.RongIMClient
@@ -284,7 +285,6 @@ class MainActivity : BaseActivity() {
         if (!SPUtil.getString("rongyun_token").equals("")) {
             connect(SPUtil.getString("rongyun_token"))
         }
-
     }
 
     var timer: Timer = Timer()
