@@ -33,6 +33,7 @@ import com.heixiu.errand.dialog.DialogShowPicP
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.SPUtil
+import com.umeng.analytics.MobclickAgent
 import kotlinx.android.synthetic.main.activity_post_text.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -148,9 +149,6 @@ class PostTextActivity : BaseActivity() {
                                     }
 
                                     override fun onItemLongOnClick(view: View?, pos: Int) {
-//                                        dynamicAdapter!!.removeItem(pos)
-//                                        fileList.removeAt(pos)
-//                                        Toast.makeText(this@PostTextActivity, "已删除", Toast.LENGTH_SHORT).show() //To change body of created functions use File | Settings | File Templates.
                                     }
 
                                 })
@@ -190,6 +188,7 @@ class PostTextActivity : BaseActivity() {
 
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().publish(requestBody, SPUtil.getString("userid"), 0, text_content.text.toString(), "")).subscribe({
             ToastUtils.showLong("发布成功")
+            MobclickAgent.onEvent(this@PostTextActivity, "DynamicPush")
             finishWithAnim()
         }, {
             ToastUtils.showLong(it.message)

@@ -7,6 +7,7 @@ import android.widget.Toast
 import cn.smssdk.EventHandler
 import cn.smssdk.SMSSDK
 import com.fushuaige.common.utils.ToastUtils
+import com.heixiu.errand.MVP.Seting.WebActivity
 import com.heixiu.errand.MainActivity
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseActivity
@@ -666,17 +667,10 @@ class RegisterActivity : BaseActivity() {
                 sendCode("86", Et_inPhone.text.toString())
             }
         }
+        Tv_agreement.setOnClickListener {
+            WebActivity.startSelf(this, "用户协议", "http://app.heixiuapp.cn:8080/data/register.htm")
+        }
         Bt_signIn.setOnClickListener {
-//            RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().register(Et_inPhone.text.toString(),Et_inUsername.text.toString(),Et_inPass.text.toString())).subscribe({
-//                var message:Message = Message()
-//                message.obj ="注册成功"
-//                handler.sendMessage(message);
-//                startActivity(LoginActivity::class.java)
-//            },{
-//                var message:Message = Message()
-//                message.obj = it.message
-//                handler.sendMessage(message);
-//            })
             if(Et_inPass.length()<6){
                 ToastUtils.showLong("密码太短");
                 return@setOnClickListener

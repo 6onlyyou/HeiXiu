@@ -24,6 +24,7 @@ import com.heixiu.errand.net.RetrofitFactory;
 import com.heixiu.errand.net.RxUtils;
 import com.heixiu.errand.utils.SPUtil;
 import com.heixiu.errand.utils.TimeUtils;
+import com.umeng.analytics.MobclickAgent;
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter;
 import com.xiaochao.lcrapiddeveloplibrary.BaseViewHolder;
 import com.xiaochao.lcrapiddeveloplibrary.Video.JCVideoPlayerStandard;
@@ -55,12 +56,14 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
     public CommounityAdapter(List<PubLishInfo> data) {
         super(R.layout.community_item, data);
     }
+
     public CommounityAdapter(List<PubLishInfo> data, String imgsrc, String nickname) {
         super(R.layout.community_item, data);
         this.imgsrc = imgsrc;
         this.nickname = nickname;
     }
-    public CommounityAdapter(List<PubLishInfo> data, String imgsrc, String nickname,int stuts) {
+
+    public CommounityAdapter(List<PubLishInfo> data, String imgsrc, String nickname, int stuts) {
         super(R.layout.community_item, data);
         this.imgsrc = imgsrc;
         this.nickname = nickname;
@@ -73,15 +76,12 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
     }
 
 
-
     @SuppressLint("ResourceType")
     @Override
     protected void convert(final BaseViewHolder helper, final PubLishInfo item) {
         publishInfoDetail = item;
         gridview = (PictureGridView) helper.getView(R.id.gridView);
         if (item.getType().equals("0")) {
-
-
             helper.getView(R.id.video_list_item_playr).setVisibility(View.GONE);
             gridview.setVisibility(View.VISIBLE);
             int num = item.getContentImgList().size();//获取当前的图片数目
@@ -99,16 +99,6 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
             }
             gridview.setNumColumns(3);
             gridview.setAdapter(new MyGridViewAdapter(mContext, num, col, item.getContentImgList()));
-
-//            gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> arg0, View arg1,
-//                                        int position, long arg3) {
-//
-////                DlgForBigPhto(data.get(position).toString());
-////                Toast.makeText(context, "dongtai" + position, Toast.LENGTH_SHORT).show();
-//                }
-//            });
         } else {
             gridview.setVisibility(View.GONE);
             //对视频的赋值 添加视频播放地址(使用原地址  .mp4之类的  这个要注意)和标题
@@ -117,7 +107,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
                 helper.getView(R.id.video_list_item_playr).setVisibility(View.GONE);
             } else {
 
-                ((JCVideoPlayerStandard) helper.getView(R.id.video_list_item_playr)).setUp(item.getContentVideo(),  item.getContent());
+                ((JCVideoPlayerStandard) helper.getView(R.id.video_list_item_playr)).setUp(item.getContentVideo(), item.getContent());
                 helper.getView(R.id.video_list_item_playr).setVisibility(View.VISIBLE);
             }
         }
@@ -155,7 +145,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
                 });
             }
         });
-        if(SPUtil.getString("userid").equals(item.getUserId())){
+        if (SPUtil.getString("userid").equals(item.getUserId())) {
             community_dell.setVisibility(View.VISIBLE);
         }
         community_attention.setOnClickListener(new View.OnClickListener() {
@@ -199,27 +189,27 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
         } else {
             itemPraise.setImageResource(R.mipmap.praise);
         }
-        if(stuts == -1){
+        if (stuts == -1) {
 //            community_dell.setVisibility(View.VISIBLE);
             if (item.getFollowStatus() == 0) {
                 community_attention.setText("关注");
             } else {
                 community_attention.setText("已关注");
             }
-        }else{
-        if (stuts == 0) {
-
-            community_attention.setText("关注");
         } else {
-            community_attention.setText("已关注");
-        }
+            if (stuts == 0) {
+
+                community_attention.setText("关注");
+            } else {
+                community_attention.setText("已关注");
+            }
         }
         final EditText Et_comment = helper.getView(R.id.Et_comment);
         ImageView Iv_comment = helper.getView(R.id.comment_send);
         Iv_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Et_comment.getText().toString().equals("")){
+                if (Et_comment.getText().toString().equals("")) {
                     ToastUtils.showLong("亲~评论为空");
                     return;
                 }
@@ -231,6 +221,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
                         @Override
                         public void accept(String s) throws Exception {
                             ToastUtils.showLong("评论成功");
+                            MobclickAgent.onEvent(mContext, "CommentGet");
                             Et_comment.setText("");
                         }
                     }, new Consumer<Throwable>() {
@@ -242,12 +233,6 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
                 }
             }
         });
-//        Et_comment.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                CommentFragment.getInstance().show(fragmentManager, "danmakuFragment");
-//            }
-//        });
         LinearLayout personal_inonclick = (LinearLayout) helper.getView(R.id.personal_inonclick);
         personal_inonclick.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -278,7 +263,7 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
                         public void accept(String s) throws Exception {
                             ToastUtils.showLong(s);
                             if (s.equals("点赞成功")) {
-
+                                MobclickAgent.onEvent(mContext, "PraiseGet");
                                 itemPraise.setImageResource(R.mipmap.praise);
                                 Tv_communityPraise.setText(Integer.parseInt(Tv_communityPraise.getText().toString()) + 1 + "");
                             } else {

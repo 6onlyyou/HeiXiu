@@ -18,6 +18,7 @@ import com.heixiu.errand.bean.PublishInfoDetail
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.SPUtil
+import com.umeng.analytics.MobclickAgent
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter
 import kotlinx.android.synthetic.main.activity_video_info.*
 
@@ -31,6 +32,7 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
                 .subscribe { s ->
                     ToastUtils.showLong(s)
                     ToastUtils.showLong("评论成功")
+                    MobclickAgent.onEvent(this@VideoInfoActivity, "CommentGet")
                     commentAdapter!!.addData(publishInfoDetail!!.listCommentInfo.size, content)
                 }
     }
@@ -38,6 +40,7 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
         setContentView(R.layout.activity_video_info);
         initTitle("动态详情", R.color.colorPrimary, R.color.white)
         mTitle.setIv_left(R.mipmap.back_btn, View.OnClickListener { finishWithAnim() })
+        info_content.setTextIsSelectable(true);
         publishId = intent.getStringExtra("publishId").toString()
         share_go.setOnClickListener {
             val intent = Intent(Intent.ACTION_SEND)
@@ -145,6 +148,7 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
                 RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().userAdmire(publishInfoDetail!!.userId, publishInfoDetail!!.getPublishId() + "",SPUtil.getString("userid"))).subscribe({ s ->
 
                     if (s == "点赞成功") {
+                        MobclickAgent.onEvent(this@VideoInfoActivity, "PraiseGet")
                         ToastUtils.showLong("点赞成功")
                         val drawableLeft = resources.getDrawable(
                                 R.mipmap.praise)

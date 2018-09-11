@@ -80,8 +80,7 @@
                         android:layout_marginTop="5dp"
                         android:textColor="@color/black"
                         android:textSize="14sp"
-
-                        android:text="内容实打实大苏打大苏打撒大苏打大撒大大大撒旦萨达萨达撒旦的撒大" />
+                        android:text="" />
 
                     <com.xiaochao.lcrapiddeveloplibrary.Video.JCVideoPlayerStandard
                         android:id="@+id/video_list_item_playr"

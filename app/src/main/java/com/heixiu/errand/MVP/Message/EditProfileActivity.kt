@@ -1,25 +1,25 @@
 package com.heixiu.errand.MVP.Message
 
 import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
-import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
+import android.net.wifi.WifiConfiguration.AuthAlgorithm.strings
 import android.os.Build
 import android.os.Environment
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import android.util.Log
 import android.view.*
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import cn.finalteam.rxgalleryfinal.RxGalleryFinal
+import android.widget.*
+import cn.finalteam.rxgalleryfinal.RxGalleryFinalApi
 import cn.finalteam.rxgalleryfinal.bean.MediaBean
-import cn.finalteam.rxgalleryfinal.imageloader.ImageLoaderType
 import cn.finalteam.rxgalleryfinal.rxbus.RxBusResultDisposable
 import cn.finalteam.rxgalleryfinal.rxbus.event.ImageRadioResultEvent
+import cn.finalteam.rxgalleryfinal.ui.base.IRadioImageCheckedListener
 import com.bumptech.glide.Glide
 import com.fushuaige.common.utils.GlideUtil
 import com.fushuaige.common.utils.ToastUtils
@@ -33,7 +33,7 @@ import com.heixiu.errand.dialog.DialogShowPicP
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.SPUtil
-import com.yalantis.ucrop.model.AspectRatio
+import com.heixiu.errand.utils.SimpleRxGalleryFinal
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -260,7 +260,7 @@ class EditProfileActivity : BaseActivity(), View.OnClickListener {
         })
         builder.show()
     }
-
+   var mImageRadioResultEvent: ImageRadioResultEvent? = null
     private var list: List<MediaBean>? = null
     var dynamicAdapter: DynamicAdapter? = null
     private fun startAlbum() {
@@ -277,7 +277,7 @@ class EditProfileActivity : BaseActivity(), View.OnClickListener {
                             .setMessage("应用需要存储权限来让您选择手机中的相片！")
                             .setNegativeButton("取消", object : DialogInterface.OnClickListener {
                                 override fun onClick(dialog: DialogInterface, which: Int) {
-//                                    Toast.makeText(this, "点击了取消按钮", Toast.LENGTH_LONG).show()
+//                              Toast.makeText(this, "点击了取消按钮", Toast.LENGTH_LONG).show()
                                 }
                             })
                             .setPositiveButton("确定", object : DialogInterface.OnClickListener {
@@ -290,27 +290,91 @@ class EditProfileActivity : BaseActivity(), View.OnClickListener {
                     ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, REQUEST_CODE)
                 }
             } else {
-                RxGalleryFinal
-                        .with(this@EditProfileActivity)
-                        .image()
-                        .radio()
-                        .cropAspectRatioOptions(0, AspectRatio("3:3", 30f, 10f))
-                        .crop()
-                        .imageLoader(ImageLoaderType.FRESCO)
-                        .subscribe(object : RxBusResultDisposable<ImageRadioResultEvent>() {
-                            @Throws(Exception::class)
-                            override fun onEvent(imageRadioResultEvent: ImageRadioResultEvent) {
-                                Glide.with(this@EditProfileActivity)
-                                        .load(imageRadioResultEvent.result.originalPath)
-                                        .crossFade()
-                                        .placeholder(R.mipmap.defaulthead)
-                                        .into(profile_hard);
-                                fileList.clear()
-                                var file: File = File(imageRadioResultEvent.result.originalPath);
-                                fileList.add(file)
-                            }
-                        })
-                        .openGallery()
+//                RxGalleryFinalApi.openZKCamera(this@EditProfileActivity)
+//                SimpleRxGalleryFinal.get().init(
+//                         object  : SimpleRxGalleryFinal.RxGalleryFinalCropListener {
+//                             override fun getSimpleActivity(): Activity {
+//                                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//                             }
+//
+//
+//                             override fun onCropCancel() {
+//                                Toast.makeText(simpleActivity, "裁剪被取消", Toast.LENGTH_SHORT).show()
+//                            }
+//
+//                             override  fun onCropSuccess(uri: Uri?) {
+//                                 Toast.makeText(simpleActivity, uri.toString(), Toast.LENGTH_SHORT).show()
+//                                Glide.with(this@EditProfileActivity)
+//                                                .load(uri.toString())
+//                                                .crossFade()
+//                                                .placeholder(R.mipmap.defaulthead)
+//                                                .into(profile_hard);
+//                                        fileList.clear()
+//                                        var file: File = File(uri.toString());
+//                                        fileList.add(file)
+//                                Toast.makeText(simpleActivity, "裁剪成功：" + uri!!, Toast.LENGTH_SHORT).show()
+//                            }
+//                             override   fun onCropError(errorMessage: String) {
+//                                Toast.makeText(simpleActivity, errorMessage, Toast.LENGTH_SHORT).show()
+//                            }
+//                        }
+//                ).openCamera()
+                val instance = RxGalleryFinalApi.getInstance(this@EditProfileActivity)
+                instance
+                        .openGalleryRadioImgDefault(
+                                object : RxBusResultDisposable<ImageRadioResultEvent>() {
+                                    @Throws(Exception::class)
+                                    override fun onEvent(imageRadioResultEvent: ImageRadioResultEvent) {
+                                        Log.e("editprofile", "只要选择图片就会触发")
+                                        mImageRadioResultEvent = imageRadioResultEvent
+                                    }
+                                })!!
+                        .onCropImageResult(
+                                object : IRadioImageCheckedListener {
+                                    override fun cropAfter(t: Any) {
+                                        Log.e("editprofile", "裁剪完成")
+                                        RxGalleryFinalApi.cropScannerForResult(this@EditProfileActivity, RxGalleryFinalApi.getModelPath(), strings[0]);
+                                         Glide.with(this@EditProfileActivity)
+                                                .load(t.toString())
+                                                .crossFade()
+                                                .placeholder(R.mipmap.defaulthead)
+                                                .into(profile_hard);
+                                        fileList.clear()
+                                        var file: File = File(t.toString());
+                                        fileList.add(file)
+                                    }
+
+                                    override fun isActivityFinish(): Boolean {
+                                        Log.e("editprofile", "返回false不关闭，返回true则为关闭")
+                                        return true
+                                    }
+                                })
+//                RxGalleryFinal
+//                        .with(this@EditProfileActivity)
+//                        .image()
+//                        .radio()
+//                        .crop()
+//                        .imageLoader(ImageLoaderType.FRESCO)
+//                        .subscribe(object : RxBusResultDisposable<ImageRadioResultEvent>() {
+//                            @Throws(Exception::class)
+//                            override fun onEvent(imageRadioResultEvent: ImageRadioResultEvent) {
+//                                Log.e("editprofile", "onevent")
+//                            }
+//
+//                            override fun onNext(imageRadioResultEvent: ImageRadioResultEvent) {
+//                                super.onNext(imageRadioResultEvent)
+//                                Log.e("editprofile", "onNext")
+//                                Glide.with(this@EditProfileActivity)
+//                                        .load(imageRadioResultEvent.result.originalPath)
+//                                        .crossFade()
+//                                        .placeholder(R.mipmap.defaulthead)
+//                                        .into(profile_hard);
+//                                fileList.clear()
+//                                var file: File = File(imageRadioResultEvent.result.originalPath);
+//                                fileList.add(file)
+//                            }
+//                        })
+//                        .openGallery()
             }
         }
     }
