@@ -8,11 +8,14 @@ import android.support.v7.widget.GridLayoutManager
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.Event.PublishParamsChangeEvent
 import com.heixiu.errand.R
 import com.heixiu.errand.adapter.PackageTypeAdapter
 import com.heixiu.errand.utils.RxBus
 import kotlinx.android.synthetic.main.activity_package_type.*
+import java.util.regex.Pattern
+import java.util.regex.PatternSyntaxException
 
 class PackageTypeActivity : AppCompatActivity() {
 
@@ -98,20 +101,30 @@ class PackageTypeActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 deliverNums = deliverNum.text.toString()
             }
-
         })
 
         package_type_Rv!!.adapter = adapter
 
-
         confirm.setOnClickListener({
-            ContentFragment.packageType = name
-            ContentFragment.descriptions = descriptions
-            ContentFragment.receiverName = receiverName
-            ContentFragment.receiverNum = receiverNum
-            ContentFragment.courierNum = "1221"
-            finish()
+            if (!isChinaPhoneLegal(receiverNum)) {
+                ToastUtils.showShort("检查电话号码，重新输入")
+            } else {
+                ContentFragment.packageType = name
+                ContentFragment.descriptions = descriptions
+                ContentFragment.receiverName = receiverName
+                ContentFragment.receiverNum = receiverNum
+                ContentFragment.courierNum = "1221"
+                finish()
+            }
         })
+    }
+
+    @Throws(PatternSyntaxException::class)
+    fun isChinaPhoneLegal(str: String): Boolean {
+        val regExp = "^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\\d{8}$"
+        val p = Pattern.compile(regExp)
+        val m = p.matcher(str)
+        return m.matches()
     }
 
     private fun checkHasNullMessage(): Boolean {
