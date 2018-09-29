@@ -198,6 +198,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        MobclickAgent.onResume(this)
         if (!TextUtils.isEmpty(orderInfo.orderNum)) {
             var timer: Timer = Timer()
 

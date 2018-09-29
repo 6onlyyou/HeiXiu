@@ -1,43 +1,41 @@
 package com.heixiu.errand.MVP.Community
 
 
+import android.app.Dialog
+import android.graphics.Color
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.heixiu.errand.MVP.Community.entity.DynamicEntity
-import com.heixiu.errand.R
-import com.heixiu.errand.adapter.CommounityAdapter
-import com.heixiu.errand.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_community.*
-import java.util.ArrayList
-import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter
-import android.app.Dialog
-import android.graphics.Color
-import android.view.Gravity
 import android.widget.LinearLayout
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.MVP.Login.LoginActivity
+import com.heixiu.errand.R
+import com.heixiu.errand.adapter.CommounityAdapter
+import com.heixiu.errand.base.BaseFragment
 import com.heixiu.errand.bean.PubLishInfo
-import com.heixiu.errand.bean.PublishInfoDetail
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.SPUtil
+import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter
+import kotlinx.android.synthetic.main.fragment_community.*
 import kotlinx.android.synthetic.main.issue_dialog.view.*
+import java.util.*
 
 
 /**
  * A simple [Fragment] subclass.
  */
-class CommunityFragment : BaseFragment(),SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener,View.OnClickListener  {
+class CommunityFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener, View.OnClickListener {
     override fun onRefresh() {
         swipeLayout.setRefreshing(true)
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().showAllPublishInfo(SPUtil.getString("userid"))).subscribe({
             swipeLayout.setRefreshing(false)
-            if(it.size>0){
+            if (it.size > 0) {
                 rv_list.setLayoutManager(LinearLayoutManager(context))
 //        如果Item高度固定  增加该属性能够提高效率
                 rv_list.setHasFixedSize(true)
@@ -50,7 +48,7 @@ class CommunityFragment : BaseFragment(),SwipeRefreshLayout.OnRefreshListener, B
                 rv_list.setAdapter(commounityAdapter)
                 //设置自动加载监听
             }
-        },{
+        }, {
             swipeLayout.setRefreshing(false)
             ToastUtils.showLong(it.message)
         })
@@ -63,6 +61,7 @@ class CommunityFragment : BaseFragment(),SwipeRefreshLayout.OnRefreshListener, B
     override fun createView(inflater: LayoutInflater?, container: ViewGroup?): View {
         return inflater!!.inflate(R.layout.fragment_community, container, false)
     }
+
     override fun initView() {
         rv_list.setLayoutManager(LinearLayoutManager(activity))
         //如果Item高度固定  增加该属性能够提高效率
@@ -72,22 +71,23 @@ class CommunityFragment : BaseFragment(),SwipeRefreshLayout.OnRefreshListener, B
         commounityAdapter = CommounityAdapter(list)
         commounityAdapter!!.setOnRecyclerViewItemClickListener { view, position ->
             ToastUtils.showLong(position.toString())
-            startActivity(VideoInfoActivity::class.java,dynamicEntityList.get(position))
+            startActivity(VideoInfoActivity::class.java, dynamicEntityList.get(position))
         }
         swipeLayout.setOnRefreshListener(this)
         swipeLayout.setColorSchemeColors(Color.parseColor("#FF4081"), Color.parseColor("#643ac1"))
     }
+
     override fun initListener() {
 
-        Bt_hot.setOnClickListener{
-            if(mCameraDialog!=null) {
+        Bt_hot.setOnClickListener {
+            if (mCameraDialog != null) {
                 mCameraDialog!!.dismiss()
             }
             Bt_hot.setTextColor(ContextCompat.getColor(context!!, R.color.white))
             Bt_issue.setTextColor(ContextCompat.getColor(context!!, R.color.gray_text))
         }
-        Bt_issue.setOnClickListener{
-            if(SPUtil.getString("userid").equals("")||SPUtil.getString("userid").equals("1")){
+        Bt_issue.setOnClickListener {
+            if (SPUtil.getString("userid").equals("") || SPUtil.getString("userid").equals("1")) {
                 startActivity(LoginActivity::class.java)
                 return@setOnClickListener
             }
@@ -99,7 +99,7 @@ class CommunityFragment : BaseFragment(),SwipeRefreshLayout.OnRefreshListener, B
 
     override fun initData() {
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().showAllPublishInfo(SPUtil.getString("userid"))).subscribe({
-            if(it.size>0){
+            if (it.size > 0) {
                 rv_list.setLayoutManager(LinearLayoutManager(context))
 //        如果Item高度固定  增加该属性能够提高效率
                 rv_list.setHasFixedSize(true)
@@ -112,17 +112,18 @@ class CommunityFragment : BaseFragment(),SwipeRefreshLayout.OnRefreshListener, B
                 rv_list.setAdapter(commounityAdapter)
                 //设置自动加载监听
             }
-        },{
+        }, {
             ToastUtils.showLong(it.message)
         })
     }
+
     override fun onLoadMoreRequested() {
 
 
     }
 
     private fun setDialog() {
-         mCameraDialog = Dialog(context, R.style.BottomDialogs)
+        mCameraDialog = Dialog(context, R.style.BottomDialogs)
         val root = LayoutInflater.from(context).inflate(
                 R.layout.issue_dialog, null) as LinearLayout
         //初始化视图
@@ -145,6 +146,7 @@ class CommunityFragment : BaseFragment(),SwipeRefreshLayout.OnRefreshListener, B
         dialogWindow.setAttributes(lp)
         mCameraDialog!!.show()
     }
+
     override fun onClick(view: View?) {
         when (view!!.getId()) {
             R.id.Tv_text ->
@@ -159,7 +161,7 @@ class CommunityFragment : BaseFragment(),SwipeRefreshLayout.OnRefreshListener, B
                 ToastUtils.showLong("相册")
             R.id.Iv_cancel ->
                 //取消按钮
-                if(mCameraDialog!=null) {
+                if (mCameraDialog != null) {
                     mCameraDialog!!.dismiss()
                     Bt_hot.setTextColor(ContextCompat.getColor(context!!, R.color.white))
                     Bt_issue.setTextColor(ContextCompat.getColor(context!!, R.color.gray_text))

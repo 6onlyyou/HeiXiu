@@ -59,6 +59,7 @@ public class WebActivity extends AppCompatActivity {
         webSettings.setLoadWithOverviewMode(true);
         //对网页某些标签不支持,显示空白页的解决方案
         webSettings.setDomStorageEnabled(true);
+        webSettings.setSupportZoom(true);
         //支持js
         webSettings.setJavaScriptEnabled(true);
 
