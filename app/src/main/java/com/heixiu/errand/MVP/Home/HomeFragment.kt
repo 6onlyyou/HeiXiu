@@ -3,6 +3,7 @@ package com.heixiu.errand.MVP.Home
 
 import android.content.Intent
 import android.support.v4.app.Fragment
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -48,7 +49,10 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun requestData() {
+        refresh.isRefreshing = true
+
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryCreatedOrderInfo()).subscribe({
+            refresh.isRefreshing = false
 
             val orderInfos = it.iterator()
             while (orderInfos.hasNext()) {
@@ -72,6 +76,7 @@ class HomeFragment : BaseFragment() {
                 homeRv.visibility = View.GONE
             }
         }, {
+            refresh.isRefreshing = false
             ToastUtils.showLong(it.message)
         })
 
@@ -119,6 +124,11 @@ class HomeFragment : BaseFragment() {
         banner.setBannerAnimation(Transformer.ScaleInOut)
         banner.setDelayTime(5000)
 
+        refresh.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener {
+            override fun onRefresh() {
+                requestData()
+            }
+        })
     }
 
     fun takeOrder(orderInfo: OrderInfo) {
