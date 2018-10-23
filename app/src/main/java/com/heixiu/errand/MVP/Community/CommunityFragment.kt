@@ -2,7 +2,9 @@ package com.heixiu.errand.MVP.Community
 
 
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
+import android.net.ConnectivityManager
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
@@ -22,9 +24,17 @@ import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.SPUtil
 import com.xiaochao.lcrapiddeveloplibrary.BaseQuickAdapter
+import com.xiaochao.lcrapiddeveloplibrary.Video.JCVideoPlayer
 import kotlinx.android.synthetic.main.fragment_community.*
 import kotlinx.android.synthetic.main.issue_dialog.view.*
 import java.util.*
+import android.net.wifi.p2p.WifiP2pDevice.CONNECTED
+import android.net.ConnectivityManager.TYPE_WIFI
+import android.net.NetworkInfo
+import android.widget.Toast
+import com.baidu.mapsdkvi.VDeviceAPI.getNetworkInfo
+
+
 
 
 /**
@@ -61,7 +71,29 @@ class CommunityFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, 
     override fun createView(inflater: LayoutInflater?, container: ViewGroup?): View {
         return inflater!!.inflate(R.layout.fragment_community, container, false)
     }
+    /**
+     * 网络已经连接，然后去判断是wifi连接还是GPRS连接
+     * 设置一些自己的逻辑调用
+     */
+    private var manager: ConnectivityManager? = null
+    private fun isNetworkAvailable() {
+//        manager = (manager)getSystemService(Context.CONNECTIVITY_SERVICE)
+        val gprs = manager!!.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState()
+        val wifi = manager!!.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState()
+        if (gprs === NetworkInfo.State.CONNECTED || gprs === NetworkInfo.State.CONNECTING) {
+            Toast.makeText(activity, "您是数据网络连接请注意视频流量", Toast.LENGTH_SHORT).show()
+        }
+//        //判断为wifi状态下才加载广告，如果是GPRS手机网络则不加载！
+//        if (wifi === NetworkInfo.State.CONNECTED || wifi === NetworkInfo.State.CONNECTING) {
+//            Toast.makeText(this, "你是wife连接", Toast.LENGTH_SHORT).show()
+//        }
 
+    }
+
+    override fun onPause() {
+        super.onPause()
+        JCVideoPlayer.releaseAllVideos()
+    }
     override fun initView() {
         rv_list.setLayoutManager(LinearLayoutManager(activity))
         //如果Item高度固定  增加该属性能够提高效率

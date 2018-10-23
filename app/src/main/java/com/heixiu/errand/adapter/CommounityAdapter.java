@@ -106,7 +106,6 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
 
                 helper.getView(R.id.video_list_item_playr).setVisibility(View.GONE);
             } else {
-
                 ((JCVideoPlayerStandard) helper.getView(R.id.video_list_item_playr)).setUp(item.getContentVideo(), item.getContent());
                 helper.getView(R.id.video_list_item_playr).setVisibility(View.VISIBLE);
             }
@@ -147,6 +146,8 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
         });
         if (SPUtil.getString("userid").equals(item.getUserId())) {
             community_dell.setVisibility(View.VISIBLE);
+        }else{
+            community_dell.setVisibility(View.GONE);
         }
         community_attention.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -295,4 +296,5 @@ public class CommounityAdapter extends BaseQuickAdapter<PubLishInfo> {
         });
 
     }
+
 }
