@@ -71,6 +71,6 @@ class AccountActivity : BaseActivity() {
         if(stute.equals("2")){
             return "审核中"
         }
-        return "亲重新刷新"
+        return "认证失败请重新认证"
     }
 }

@@ -40,6 +40,16 @@
         />
 
     </RelativeLayout>
+    <TextView
+        android:id="@+id/change_password"
+        android:layout_width="match_parent"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        android:layout_marginRight="57dp"
+        android:gravity="right"
+        android:layout_marginTop="15dp"
+        android:text="忘记密码？"
+        android:layout_height="wrap_content" />
     <Button
         android:id="@+id/Bt_zlogin"
         android:layout_marginTop="36dp"

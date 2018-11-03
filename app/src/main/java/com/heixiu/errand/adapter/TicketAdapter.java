@@ -2,7 +2,9 @@ package com.heixiu.errand.adapter;
 
 import android.app.Activity;
 import android.view.View;
+import android.widget.Toast;
 
+import com.fushuaige.common.utils.ToastUtils;
 import com.heixiu.errand.Event.PublishParamsChangeEvent;
 import com.heixiu.errand.MVP.Contentt.ContentFragment;
 import com.heixiu.errand.R;
@@ -30,7 +32,7 @@ public class TicketAdapter extends BaseQuickAdapter<CouponTicketBean> {
     protected void convert(BaseViewHolder helper, final CouponTicketBean item) {
 
         helper.setText(R.id.price, item.getCouponPrice() + "")
-                .setText(R.id.description, item.getDescription());
+                .setText(R.id.description, "下单立减"+item.getCouponPrice()+"元");
 
         helper.setText(R.id.time, TimeUtils.millis2String(item.getStartTime(), TimeUtils.ARTICLE_FORMAT) + "--"
                 + TimeUtils.millis2String(item.getEndTime(), TimeUtils.ARTICLE_FORMAT)
