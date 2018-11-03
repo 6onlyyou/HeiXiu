@@ -134,12 +134,6 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
         EventBus.getDefault().register(this);
         initRongMessage()
-        mLocationClient = LocationClient(applicationContext)
-        //声明LocationClient类
-        mLocationClient?.registerLocationListener(myListener)
-        //注册监听函数
-        initLocationConfig()
-        mLocationClient?.start()
         fragments = ArrayList()
         addFragment()
 

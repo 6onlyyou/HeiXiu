@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,10 +46,10 @@ class HomeFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        requestData()
     }
 
     private fun requestData() {
+        Log.i("homeFFFF","requestData")
         refresh.isRefreshing = true
 
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryCreatedOrderInfo()).subscribe({
