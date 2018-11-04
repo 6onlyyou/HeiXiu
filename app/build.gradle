@@ -38,17 +38,16 @@ android {
     productFlavors {
         meizu {}
         ali {}
+        qita {}
         yingyongbao {}
         qh360 {}
         xiaomi {}
         huawei {}
         baidu {}
         oppo {}
-        wandoujia {}
         zhilian {}
         lianxiang {}
         vivo {}
-        pugongying {}
         productFlavors.all { flavor ->
             flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
         }

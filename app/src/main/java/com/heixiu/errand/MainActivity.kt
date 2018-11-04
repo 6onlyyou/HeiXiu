@@ -108,8 +108,16 @@ class MainActivity : BaseActivity() {
         if (SPUtil.getString("userid").equals("") || SPUtil.getString("userid").equals("1")) {
         } else {
             RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().selectDataById(SPUtil.getString("userid"))).subscribe({
-                if (it.userInfo != null) {
 
+                if (it.userInfo != null) {
+                    if(it.userInfo.disable.equals("1")){
+                        ToastUtils.showLong("你的账号已被封，请联系管理员")
+                        SPUtil.saveString("disable","1");
+                        startActivity(LoginActivity::class.java)
+                        finishWithAlpha()
+                        return@subscribe
+                    }
+                    SPUtil.saveString("disable","0");
                     if (it.userInfo.userImg == null) {
                         SPUtil.saveString("headurl", "")
                     } else {

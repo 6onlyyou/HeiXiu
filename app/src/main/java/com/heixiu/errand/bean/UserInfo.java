@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class UserInfo implements Serializable {
     private int id;
     private String userId;
-
+    private String disable;
     public int getId() {
         return id;
     }
@@ -25,6 +25,14 @@ public class UserInfo implements Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getDisable() {
+        return disable;
+    }
+
+    public void setDisable(String disable) {
+        this.disable = disable;
     }
 
     public String getUserName() {

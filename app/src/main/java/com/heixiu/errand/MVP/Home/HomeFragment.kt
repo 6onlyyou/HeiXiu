@@ -50,9 +50,13 @@ class HomeFragment : BaseFragment() {
 
     private fun requestData() {
         Log.i("homeFFFF","requestData")
+
         refresh.isRefreshing = true
 
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().queryCreatedOrderInfo()).subscribe({
+            if(refresh==null){
+                return@subscribe
+            }
             refresh.isRefreshing = false
 
             val orderInfos = it.iterator()
@@ -82,6 +86,9 @@ class HomeFragment : BaseFragment() {
         })
 
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().banner).subscribe({
+            if(banner==null){
+                return@subscribe
+            }
             banner.setOnBannerListener { position ->
                 WebActivity.startSelf(context, "详情", it[position].link)
             }
@@ -107,14 +114,25 @@ class HomeFragment : BaseFragment() {
         homeRv.layoutManager = LinearLayoutManager(context)
         homeAdapter.onItemClick = object : HomeAdapter.OnItemClick {
             override fun onDetailClick(position: Int) {
-                OrderDetailActivity.startSelf(context!!, homeAdapter.data[position])
+                if(SPUtil.getString("disable").equals("1")){
+                    startActivity(LoginActivity::class.java)
+                    activity!!.finish();
+                }else{
+                    OrderDetailActivity.startSelf(context!!, homeAdapter.data[position])
+                }
+
             }
 
             override fun onConfirmOrderClick(position: Int) {
-                if (TextUtils.isEmpty(SPUtil.getString("userid"))) {
-                    startActivity(Intent(context, LoginActivity::class.java))
-                } else {
-                    takeOrder(homeAdapter.data[position])
+                if(SPUtil.getString("disable").equals("1")){
+                    startActivity(LoginActivity::class.java)
+                    activity!!.finish();
+                }else {
+                    if (TextUtils.isEmpty(SPUtil.getString("userid"))) {
+                        startActivity(Intent(context, LoginActivity::class.java))
+                    } else {
+                        takeOrder(homeAdapter.data[position])
+                    }
                 }
             }
         }

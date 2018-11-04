@@ -30,7 +30,6 @@ class SetingMainActivity : BaseActivity() {
             SPUtil.saveString("token","")
             SPUtil.saveString("userid","")
             SPUtil.saveString("rongyun_token","")
-            SPUtil.saveString("city", "")
             startActivity(LoginActivity::class.java)
             finishWithAlpha()
         }
