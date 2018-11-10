@@ -25,7 +25,7 @@ class AddPriceDialog(context: Context) : BottomDialog(context) {
         setContentView(binding.root)
 
 //        binding.moreWeightLayout.visibility = View.GONE
-        binding.title.text = "加价金额"
+        binding.title.text = "加价金额（元）"
 
         binding.cancel.setOnClickListener({
             dismiss()

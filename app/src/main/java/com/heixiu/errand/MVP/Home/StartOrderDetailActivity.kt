@@ -41,7 +41,7 @@ class StartOrderDetailActivity : BaseActivity() {
         tips.text = orderInfo!!.description
         recipientsame.text = "收件人姓名：" + orderInfo!!.receiveName
         recipientsNum.text = "收件人电话：" + orderInfo!!.receiveNum
-        courierNum.text = "快递员电话：" + orderInfo!!.courierNum
+//        courierNum.text = "快递员电话：" + orderInfo!!.courierNum
         receiveName.text = orderInfo?.receiveName
         price.text = orderInfo?.orderPay.toString() + "元"
         message.setOnClickListener({

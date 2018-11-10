@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.fushuaige.common.utils.ToastUtils
+import com.heixiu.errand.MVP.Login.ChangPassActivity
 import com.heixiu.errand.MVP.Login.RegisterActivity
 import com.heixiu.errand.MainActivity
 import com.heixiu.errand.R
@@ -50,6 +51,8 @@ class AccountLoginFragment : BaseFragment() {
         Bt_zlogin.setOnClickListener{
             if(Et_userName.text.toString().equals("")||Et_passWord.text.toString().equals("")){
                 ToastUtils.showLong("账号密码不能为空")
+            }else if(SPUtil.getString("city").toString().equals("")) {
+                ToastUtils.showLong("请打开定位权限")
             }else{
                 RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().loginByAccount(Et_userName.text.toString(), Et_passWord.text.toString(),SPUtil.getString("city").toString())).subscribe({
                     SPUtil.saveString("token",it.token)
@@ -67,6 +70,10 @@ class AccountLoginFragment : BaseFragment() {
         Tv_signAccount.setOnClickListener {
             startActivity(RegisterActivity::class.java)
         }
+
+        change_passwords.setOnClickListener {
+            startActivity(ChangPassActivity::class.java)
+        }
     }
 
     private fun connect(token: String) {
@@ -78,7 +85,7 @@ class AccountLoginFragment : BaseFragment() {
             override fun onSuccess(userid: String) {
                 Log.e("LoginActivity", "--onSuccess--" + userid)
                 //服务器连接成功，跳转消息列表
-                //
+
             }
 
             override fun onError(errorCode: RongIMClient.ErrorCode) {

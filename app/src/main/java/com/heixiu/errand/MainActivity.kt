@@ -130,6 +130,7 @@ class MainActivity : BaseActivity() {
                     } else {
                         SPUtil.saveString("bindzfb", it.dbSubAccount?.zfbId + "")
                     }
+                    RongIM.getInstance().refreshUserInfoCache(UserInfo(SPUtil.getString("userid"), SPUtil.getString("nickname"), Uri.parse(SPUtil.getString("headurl").toString())))
                     RongIM.getInstance().setCurrentUserInfo(UserInfo(SPUtil.getString("userid"), SPUtil.getString("nickname"), Uri.parse(SPUtil.getString("headurl").toString())))
                 }
             }, {

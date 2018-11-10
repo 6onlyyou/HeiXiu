@@ -29,7 +29,6 @@ public class ConversationActivity extends AppCompatActivity implements RongIM.Co
         super.onCreate(savedInstanceState);
         setContentView(R.layout.conversation);
         String sName = getIntent().getData().getQueryParameter("title");//获取昵称
-        ToastUtils.showLong("2");
         ImageView message_back = (ImageView)findViewById(R.id.message_back);
         TextView message_name = (TextView)findViewById(R.id.message_name);
         message_name.setText(sName);
@@ -45,7 +44,6 @@ public class ConversationActivity extends AppCompatActivity implements RongIM.Co
 
     @Override
     public boolean onUserPortraitClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo, String s) {
-        ToastUtils.showLong("3");
         if(!userInfo.getUserId().equals(SPUtil.getString("userid"))) {
             Intent intent = new Intent(ConversationActivity.this, OtherPersonalPageActivity.class);
             intent.putExtra("friendid", userInfo.getUserId());
@@ -59,25 +57,21 @@ public class ConversationActivity extends AppCompatActivity implements RongIM.Co
 
     @Override
     public boolean onUserPortraitLongClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo, String s) {
-        ToastUtils.showLong("4");
         return false;
     }
 
     @Override
     public boolean onMessageClick(Context context, View view, Message message) {
-        ToastUtils.showLong("5");
         return false;
     }
 
     @Override
     public boolean onMessageLinkClick(Context context, String s, Message message) {
-        ToastUtils.showLong("6");
         return false;
     }
 
     @Override
     public boolean onMessageLongClick(Context context, View view, Message message) {
-        ToastUtils.showLong("7");
         return false;
     }
 }

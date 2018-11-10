@@ -47,7 +47,6 @@ android {
         oppo {}
         zhilian {}
         lianxiang {}
-        vivo {}
         productFlavors.all { flavor ->
             flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
         }

@@ -22,7 +22,7 @@ import java.lang.reflect.AccessibleObject.setAccessible
 class ChooseWeightDialog(context: Context) : BottomDialog(context) {
 
     lateinit var binding: ChooseWeightDialogBinding
-    val numbers = arrayOf("<5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26"
+    val numbers = arrayOf("<2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14","15","16","17", "18", "19", "20", "21", "22", "23", "24", "25", "26"
             , "27", "28", "29", "30"
     )
 
@@ -35,7 +35,7 @@ class ChooseWeightDialog(context: Context) : BottomDialog(context) {
         binding.cancel.setOnClickListener({
             dismiss()
         })
-        binding.title.text="选择重量"
+        binding.title.text="选择重量（kg）"
 
         binding.confirm.setOnClickListener({
             Log.i("weight","weight = "+binding.weightNp.value)

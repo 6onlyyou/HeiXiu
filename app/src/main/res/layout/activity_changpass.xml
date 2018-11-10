@@ -40,7 +40,6 @@
             android:singleLine="true"
             android:id="@+id/Et_inPass"
             android:maxLength="20"
-            android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
             android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="35dp"

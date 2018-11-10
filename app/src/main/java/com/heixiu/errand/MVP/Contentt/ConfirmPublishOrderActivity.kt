@@ -1,5 +1,6 @@
 package com.heixiu.errand.MVP.Contentt
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -16,6 +17,7 @@ import com.heixiu.errand.bean.OrderInfo
 import com.heixiu.errand.bean.PayBean
 import com.heixiu.errand.bean.PayFailEventEntity
 import com.heixiu.errand.bean.PaySuccessEventEntity
+import com.heixiu.errand.dialog.PayDialog
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.RxBus
@@ -70,9 +72,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
 //        submitOrder.setOnClickListener({
 //            submitOrder()
 //        })
-
         getPrice()
-
         RxBus.getDefault().toObservable(PaySuccessEventEntity::class.java).subscribe({
             runOnUiThread {
                 run {
@@ -139,6 +139,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
 
         if (!canSubmit) {
             ToastUtils.showShort("订单价格计算失败，请重新选择地点")
+            return;
         }
 
         if (TextUtils.isEmpty(SPUtil.getString("userid"))) {
@@ -146,7 +147,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
             return
         }
         var orderPay: Int = 0
-
+        ToastUtils.showShort("温馨提示：贵重物品请自行提取")
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().createOrder(
                 SPUtil.getString("userid"),
                 orderInfo.sendAddress,
@@ -175,11 +176,23 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
                 orderInfo.destinationsLatitude.toString(),
                 orderInfo.destinationsLongitude.toString()
         )).subscribe({
-            ToastUtils.showShort("创建订单成功,获取支付信息")
-            wxPay(it)
-            orderInfo.orderNum = it.orderNum
-            initPublishParams()
-            RxBus.getDefault().post("PublishSuccess")
+
+
+            PayDialog(this, R.style.dialog,  orderInfo.payment.toString()+"元", object : PayDialog.OnCloseListener {
+                override fun onClick(dialog: Dialog, confirm: Boolean) {
+                    if (confirm) {
+                        ToastUtils.showShort("创建订单成功,获取支付信息")
+                        wxPay(it)
+                        orderInfo.orderNum = it.orderNum
+                        initPublishParams()
+                        RxBus.getDefault().post("PublishSuccess")
+                        dialog.dismiss()
+                    }else{
+                        dialog.dismiss()
+                    }
+                }
+            })
+                    .setTitle("").show()
 //            finish()
         }, {
             ToastUtils.showShort(it.message)

@@ -164,7 +164,8 @@
             android:layout_marginTop="12dp"
             android:background="@drawable/bg_edittext_normal"
             android:gravity="top|left"
-            android:hint="如有特殊需求请输入备注信息"
+            android:hint="如有特殊需求请输入备注信息（该内容所有人可见
+）"
             android:padding="12dp"
             android:textSize="14sp" />
 

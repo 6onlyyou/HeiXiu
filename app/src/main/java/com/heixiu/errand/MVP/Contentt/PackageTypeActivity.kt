@@ -117,6 +117,9 @@ class PackageTypeActivity : AppCompatActivity() {
                 finish()
             }
         })
+        back.setOnClickListener({
+            finish()
+        })
     }
 
     @Throws(PatternSyntaxException::class)

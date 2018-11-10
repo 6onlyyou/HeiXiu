@@ -711,7 +711,7 @@ class RegisterActivity : BaseActivity() {
         SMSSDK.registerEventHandler(object : EventHandler() {
             override fun afterEvent(event: Int, result: Int, data: Any?) {
                 if (result == SMSSDK.RESULT_COMPLETE) {
-                    RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().register(phone,phone,Et_inPass.text.toString()))
+                    RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().register(phone,((Math.random()*9+1)*10000).toString(),Et_inPass.text.toString()))
                             .subscribe({
                         var message:Message = Message()
                         message.obj = "注册成功"

@@ -63,10 +63,10 @@ class PhoneLoginFragment : BaseFragment() {
             startActivity(ChangPassActivity::class.java)
         }
         Bt_login.setOnClickListener {
-
-
             if(Et_phone.text.toString().equals("")||Et_code.text.toString().equals("")){
                 ToastUtils.showLong("账号密码不能为空")
+            }else if(SPUtil.getString("city").toString().equals("")) {
+                ToastUtils.showLong("请打开定位权限")
             }else {
                 submitCode("86", Et_phone.text.toString(), Et_code.text.toString())
             }

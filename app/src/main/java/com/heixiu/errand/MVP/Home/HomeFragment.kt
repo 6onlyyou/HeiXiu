@@ -66,7 +66,7 @@ class HomeFragment : BaseFragment() {
                     val distance = DistanceUtil.getDistance(
                             LatLng(MyApplication.getInstance().localLat, MyApplication.getInstance().localLong), LatLng(orderInfo.originsLatitude, orderInfo.originsLongitude))
 
-                    if (distance > 8000 && orderInfo.userId != SPUtil.getString("userid")) {
+                    if (distance > 5000 && orderInfo.userId != SPUtil.getString("userid")) {
                         orderInfos.remove()
                     }
                 }
@@ -159,7 +159,7 @@ class HomeFragment : BaseFragment() {
         val distance = DistanceUtil.getDistance(
                 LatLng(MyApplication.getInstance().localLat, MyApplication.getInstance().localLong), LatLng(orderInfo.originsLatitude, orderInfo.originsLongitude))
 
-        if (distance > 8000) {
+        if (distance > 5000) {
             ToastUtils.showShort("该订单距离您超过八公里，不能接单")
             return
         }

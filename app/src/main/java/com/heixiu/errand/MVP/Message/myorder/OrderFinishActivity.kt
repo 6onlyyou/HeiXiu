@@ -135,7 +135,7 @@ class OrderFinishActivity : BaseActivity() {
                     orderInfo = it
                     if (it.recieveUserInfo != null) {
                         receiverInfo.visibility = View.VISIBLE
-                        courierNum.text = "快递员电话：" + it.recieveUserInfo.userId
+//                        courierNum.text = "快递员电话：" + it.recieveUserInfo.userId
                         GlideUtil.load(this@OrderFinishActivity, it.recieveUserInfo.userImg + "", sendAva)
                         receiveName.text = it.recieveUserInfo.nickName
                     } else {

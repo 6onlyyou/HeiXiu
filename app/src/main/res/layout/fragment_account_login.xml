@@ -41,7 +41,7 @@
 
     </RelativeLayout>
     <TextView
-        android:id="@+id/change_password"
+        android:id="@+id/change_passwords"
         android:layout_width="match_parent"
         android:textColor="@color/colorPrimary"
         android:textSize="14sp"
