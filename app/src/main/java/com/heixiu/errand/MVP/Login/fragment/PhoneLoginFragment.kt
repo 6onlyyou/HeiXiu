@@ -18,6 +18,7 @@ import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.MVP.Login.ChangPassActivity
 import com.heixiu.errand.MVP.Login.RegisterActivity
 import com.heixiu.errand.MainActivity
+import com.heixiu.errand.MyApplication.MyApplication
 import com.heixiu.errand.net.RetrofitFactory
 import com.heixiu.errand.net.RxUtils
 import com.heixiu.errand.utils.SPUtil
@@ -108,6 +109,7 @@ class PhoneLoginFragment : BaseFragment() {
                             SPUtil.saveString("token", it.token)
                             SPUtil.saveString("userid", Et_phone.text.toString())
                             SPUtil.saveString("rongyun_token", it.rongyun_token)
+                            MyApplication.getInstance().setGetAlisa()
                             startActivity(MainActivity::class.java)
                             activity?.finish()
                         }, {

@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.fragment_account_login.*
 import kotlinx.android.synthetic.main.fragment_phone_login.*
 import io.rong.imlib.RongIMClient
 import com.heixiu.errand.MVP.Login.LoginActivity
+import com.heixiu.errand.MyApplication.MyApplication
 import io.rong.imkit.RongIM
 import io.rong.imkit.utils.SystemUtils.getCurProcessName
 
@@ -58,6 +59,7 @@ class AccountLoginFragment : BaseFragment() {
                     SPUtil.saveString("token",it.token)
                     SPUtil.saveString("userid",Et_userName.text.toString())
                     SPUtil.saveString("rongyun_token",it.rongyun_token)
+                    MyApplication.getInstance().setGetAlisa()
                     startActivity(MainActivity::class.java)
                     activity?.finish()
                 },{

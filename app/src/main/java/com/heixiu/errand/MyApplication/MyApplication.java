@@ -2,9 +2,11 @@ package com.heixiu.errand.MyApplication;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.fushuaige.common.utils.Utils;
@@ -18,10 +20,13 @@ import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import io.rong.imkit.RongIM;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -68,7 +73,8 @@ public class MyApplication extends MultiDexApplication {
         }
         return paramsMap;
     }
-
+    private static final int MSG_SET_ALIAS = 1001;
+    private static final int MSG_SET_ALIASW = 1002;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -83,12 +89,77 @@ public class MyApplication extends MultiDexApplication {
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         if (!TextUtils.isEmpty(SPUtil.getString("userid"))) {
-            JPushInterface.setAlias(this, 1, SPUtil.getString("userid"));
+            mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS));
+
+            /**
+             *这里设置了别名，在这里获取的用户登录的信息
+             *并且此时已经获取了用户的userId,然后就可以用用户的userId来设置别名了
+             **/
+            //false状态为未设置标签与别名成功
+            //if (UserUtils.getTagAlias(getHoldingActivity()) == false) {
+
+            // }
+        }else{
+            mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIASW));
+
         }
         UMConfigure.setLogEnabled(true);
         UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "");
     }
 
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(android.os.Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case MSG_SET_ALIAS:
+                    Log.d("TAG", "Set alias in handler.");
+                    Set<String> tags = new HashSet<String>();
+                    //这里可以设置你要推送的人，一般是用户uid 不为空在设置进去 可同时添加多个
+                    tags.add(SPUtil.getString("userid"));//设置tag
+                    //上下文、别名【Sting行】、标签【Set型】、回调
+                    JPushInterface.setAliasAndTags(getApplicationContext(), SPUtil.getString("userid"), tags,
+                            mAliasCallback);
+                    break;
+                case MSG_SET_ALIASW:
+                    Log.d("TAG", "Set alias in handler.");
+                    Set<String> tags1 = new HashSet<String>();
+                    JPushInterface.setAliasAndTags(getApplicationContext(), "", tags1, mAliasCallback);
+                    break;
+                default:
+                    Log.i("TAG", "Unhandled msg - " + msg.what);
+            }
+        }
+    };
+    public void setAlisa() {
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIASW));
+    }
+    public void setGetAlisa() {
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS));
+    }
+    private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
+        @Override
+        public void gotResult(int code, String alias, Set<String> tags) {
+            String logs;
+            switch (code) {
+                case 0:
+                    //这里可以往 SharePreference 里写一个成功设置的状态。成功设置一次后，以后不必再次设置了。
+                    //UserUtils.saveTagAlias(getHoldingActivity(), true);
+                    logs = "Set tag and alias success极光推送别名设置成功";
+                    Log.e("TAG", logs);
+                    break;
+                case 6002:
+                    //极低的可能设置失败 我设置过几百回 出现3次失败 不放心的话可以失败后继续调用上面那个方面 重连3次即可 记得return 不要进入死循环了...
+                    logs = "Failed to set alias and tags due to timeout. Try again after 60s.极光推送别名设置失败，60秒后重试";
+                    Log.e("TAG", logs);
+                    break;
+                default:
+                    logs = "极光推送设置失败，Failed with errorCode = " + code;
+                    Log.e("TAG", logs);
+                    break;
+            }
+        }
+    };
     /**
      * 结束指定的Activity
      *

@@ -7,6 +7,7 @@ import cn.smssdk.EventHandler
 import cn.smssdk.SMSSDK
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.MainActivity
+import com.heixiu.errand.MyApplication.MyApplication
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseActivity
 import com.heixiu.errand.net.RetrofitFactory
@@ -30,6 +31,7 @@ class ChangPassActivity : BaseActivity() {
                    SPUtil.saveString("token", it.token)
                    SPUtil.saveString("userid", Et_inPhone.text.toString())
                    SPUtil.saveString("rongyun_token", it.rongyun_token)
+                   MyApplication.getInstance().setGetAlisa()
                    startActivity(MainActivity::class.java)
                    finishWithAlpha()
                }, {

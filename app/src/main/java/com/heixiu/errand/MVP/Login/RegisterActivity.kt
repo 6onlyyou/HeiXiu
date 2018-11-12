@@ -9,6 +9,7 @@ import cn.smssdk.SMSSDK
 import com.fushuaige.common.utils.ToastUtils
 import com.heixiu.errand.MVP.Seting.WebActivity
 import com.heixiu.errand.MainActivity
+import com.heixiu.errand.MyApplication.MyApplication
 import com.heixiu.errand.R
 import com.heixiu.errand.base.BaseActivity
 import com.heixiu.errand.net.ApiService
@@ -615,6 +616,7 @@ class RegisterActivity : BaseActivity() {
                    SPUtil.saveString("token", it.token)
                    SPUtil.saveString("userid",Et_inPhone.text.toString())
                    SPUtil.saveString("rongyun_token",it.rongyun_token)
+                   MyApplication.getInstance().setGetAlisa()
                    RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().editDataNoHead(SPUtil.getString("userid"),name,"女","","")).subscribe({
 //                       ToastUtils.showLong("保存成功")
                        startActivity(MainActivity::class.java)

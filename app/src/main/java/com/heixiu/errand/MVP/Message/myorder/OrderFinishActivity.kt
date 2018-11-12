@@ -91,7 +91,7 @@ class OrderFinishActivity : BaseActivity() {
         })
     }
 
-    private var receverInfo: OrderInfo.RecieveUserInfoBean? = null
+//    private var receverInfo: OrderInfo.RecieveUserInfoBean? = null
 
     fun cancelOrder() {
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().cancleOrder(orderInfo.orderNum))
@@ -122,7 +122,7 @@ class OrderFinishActivity : BaseActivity() {
             }
         } else {
             // 已经获得授权，可以打电话
-            val uri = Uri.parse("tel:" + receverInfo?.userId)
+            val uri = Uri.parse("tel:" + orderInfo.recieveUserInfo?.userId)
             val intent2 = Intent(Intent.ACTION_CALL, uri)
             startActivity(intent2)
         }

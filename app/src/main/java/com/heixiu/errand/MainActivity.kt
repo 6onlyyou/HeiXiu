@@ -287,6 +287,8 @@ class MainActivity : BaseActivity() {
         }
         if (!SPUtil.getString("rongyun_token").equals("")) {
             connect(SPUtil.getString("rongyun_token"))
+        }else{
+            ToastUtils.showLong("请先登入")
         }
     }
 

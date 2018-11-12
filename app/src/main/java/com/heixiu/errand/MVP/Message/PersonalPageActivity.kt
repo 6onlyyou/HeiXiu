@@ -65,6 +65,7 @@ class PersonalPageActivity : BaseActivity() {
             page_attention.text = it.userFollowsCount.toString()
             page_orderInfoPublishCount.text = "发单任务数："+it.orderInfoPublishCount.toString()
             page_orderInfoReceiveCount.text = "接单数："+it.orderInfoReceiveCount.toString()
+
             GlideUtil.load(this@PersonalPageActivity, it.userInfo.userImg.toString(),page_headimg)
             if (it.userInfo.sex.equals("男")){
                 Glide.with(this)

@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -65,6 +66,7 @@ public class GlideUtil {
 
     //加载头像设置占位图
     public static void load(Context mContext, String path, ImageView mImageView) {
+        if (mContext != null) {
         if (TextUtils.isEmpty(path)) {
             loadIcDefault(mContext, path, mImageView);
             return;
@@ -74,6 +76,9 @@ public class GlideUtil {
                 .placeholder(R.mipmap.defaulthead)
                 .error(R.mipmap.round_gray_ic)
                 .into(mImageView);
+        } else {
+            Log.i("failed", "Picture loading failed,context is null");
+        }
     }
 
     //加载头像不设置占位图, 自定义圆图设置占位图被有问题,所以不设置

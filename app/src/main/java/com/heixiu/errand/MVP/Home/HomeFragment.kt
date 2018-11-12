@@ -46,6 +46,10 @@ class HomeFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
+        if(number>0){
+            requestData()
+        }
+
     }
 
     private fun requestData() {
@@ -65,10 +69,12 @@ class HomeFragment : BaseFragment() {
                 if (MyApplication.getInstance().localLat != 0.0) {
                     val distance = DistanceUtil.getDistance(
                             LatLng(MyApplication.getInstance().localLat, MyApplication.getInstance().localLong), LatLng(orderInfo.originsLatitude, orderInfo.originsLongitude))
-
                     if (distance > 5000 && orderInfo.userId != SPUtil.getString("userid")) {
                         orderInfos.remove()
                     }
+//                    if (distance > 5000 && orderInfo.userId != SPUtil.getString("userid")) {
+//                        orderInfos.remove()
+//                    }
                 }
             }
 
@@ -103,10 +109,16 @@ class HomeFragment : BaseFragment() {
 
 
     var subscribe: Disposable? = null
+    var number = 0
     override fun initView() {
         subscribe = RxBus.getDefault().toObservable(MyLocationEvent::class.java).subscribe({
-            homeAdapter.setData(ArrayList())
-            requestData()
+
+            if(number == 0){
+                homeAdapter.setData(ArrayList())
+                requestData()
+                number++
+            }
+
         }, {
             homeAdapter.notifyDataSetChanged()
         })
@@ -158,7 +170,6 @@ class HomeFragment : BaseFragment() {
         }
         val distance = DistanceUtil.getDistance(
                 LatLng(MyApplication.getInstance().localLat, MyApplication.getInstance().localLong), LatLng(orderInfo.originsLatitude, orderInfo.originsLongitude))
-
         if (distance > 5000) {
             ToastUtils.showShort("该订单距离您超过八公里，不能接单")
             return

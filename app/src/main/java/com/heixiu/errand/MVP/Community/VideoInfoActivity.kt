@@ -30,7 +30,6 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit()
                 .createComment(SPUtil.getString("userid"), publishInfoDetail!!.userId, content, publishInfoDetail!!.publishId.toString() + ""))
                 .subscribe { s ->
-                    ToastUtils.showLong(s)
                     ToastUtils.showLong("评论成功")
                     MobclickAgent.onEvent(this@VideoInfoActivity, "CommentGet")
                     commentAdapter!!.addData(publishInfoDetail!!.listCommentInfo.size, content)
@@ -46,7 +45,7 @@ class VideoInfoActivity : BaseActivity(), DialogFragmentDataCallback {
             val intent = Intent(Intent.ACTION_SEND)
             intent.type = "text/plain"
             intent.putExtra(Intent.EXTRA_SUBJECT, "快来吧")
-            intent.putExtra(Intent.EXTRA_TEXT, "黑休代取来下载赚钱吧:" + "www.baidu.com")
+            intent.putExtra(Intent.EXTRA_TEXT, "黑休代取来下载赚钱吧:" + "https://www.pgyer.com/6slm")
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(Intent.createChooser(intent, "分享到"))
         }

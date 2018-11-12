@@ -47,7 +47,7 @@ class OrderDetailActivity : AppCompatActivity() {
         type.text = orderInfo.name
         weight.text = orderInfo.weight.toString() + "斤"
         add_money.text = orderInfo.addPrice.toString() + "元"
-        price.text = "总价" + orderInfo.orderPay +"元"
+        price.text = "总价" + orderInfo.orderPay + "元"
         tips.text = orderInfo.description
         recipientsame.text = orderInfo.receiveName
         recipientsNum.text = orderInfo.receiveNum
@@ -80,11 +80,10 @@ class OrderDetailActivity : AppCompatActivity() {
         val distance = DistanceUtil.getDistance(
                 LatLng(MyApplication.getInstance().localLat, MyApplication.getInstance().localLong), LatLng(orderInfo.originsLatitude, orderInfo.originsLongitude))
 
-        if (distance > 8000) {
+        if (distance > 5000) {
             ToastUtils.showShort("该订单距离您超过八公里，不能接单")
             return
         }
-
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().changeOrderStatus(orderInfo.orderNum, SPUtil.getString("userid"), "1"))
                 .subscribe({
                     StartOrderDetailActivity.startSelf(this@OrderDetailActivity, orderInfo)

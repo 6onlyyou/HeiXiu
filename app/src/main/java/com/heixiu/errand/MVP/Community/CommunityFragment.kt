@@ -102,7 +102,6 @@ class CommunityFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, 
         val list = ArrayList<PubLishInfo>()
         commounityAdapter = CommounityAdapter(list)
         commounityAdapter!!.setOnRecyclerViewItemClickListener { view, position ->
-            ToastUtils.showLong(position.toString())
             startActivity(VideoInfoActivity::class.java, dynamicEntityList.get(position))
         }
         swipeLayout.setOnRefreshListener(this)

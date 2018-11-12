@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
+import android.widget.Toast
 import com.baidu.mapapi.model.LatLng
 import com.baidu.mapapi.utils.DistanceUtil
 import com.fushuaige.common.utils.ToastUtils
@@ -147,7 +148,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
             return
         }
         var orderPay: Int = 0
-        ToastUtils.showShort("温馨提示：贵重物品请自行提取")
+        Toast.makeText(this,"贵重物品请自行提取",Toast.LENGTH_LONG).show()
         RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().createOrder(
                 SPUtil.getString("userid"),
                 orderInfo.sendAddress,
@@ -176,8 +177,6 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
                 orderInfo.destinationsLatitude.toString(),
                 orderInfo.destinationsLongitude.toString()
         )).subscribe({
-
-
             PayDialog(this, R.style.dialog,  orderInfo.payment.toString()+"元", object : PayDialog.OnCloseListener {
                 override fun onClick(dialog: Dialog, confirm: Boolean) {
                     if (confirm) {
@@ -200,7 +199,7 @@ class ConfirmPublishOrderActivity : AppCompatActivity() {
     }
 
     fun wxPay(orderInfo: OrderInfo) {
-        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().createPayOrder("1", orderInfo.orderNum, "1", "192.168.1.1"))
+        RxUtils.wrapRestCall(RetrofitFactory.getRetrofit().createPayOrder("1", orderInfo.orderNum, (orderInfo.payment*100).toString(), "192.168.1.1"))
                 .subscribe({
                     weChatPay(entity = it)
                 }, {

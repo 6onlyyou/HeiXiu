@@ -22,7 +22,6 @@ class ConfirmOrderActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_confirm_order)
         var orderInfo = intent.getSerializableExtra("data") as OrderInfo
-
         orderNo.text = "订单编号： " + orderInfo.orderNum
         start.text = orderInfo.sendAddress+orderInfo.sendMapAdress
         end.text = orderInfo.receiveAddress+orderInfo.recieveMapAdress
